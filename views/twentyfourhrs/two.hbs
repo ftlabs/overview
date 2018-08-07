@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-	{{#> head title='24hrs v2 - ' subtitle='' }}
+	{{#> head title='24hrs v2 - Image Display' subtitle='' }}
 
 	{{/head}}
 	<body>
-		{{> header title='24hrs v2 - ' subtitle=''}}
+		{{> header title='24hrs v2 - Image Display' subtitle=''}}
 		
 		<main>
 			<!-- results to go here -->
@@ -23,7 +23,14 @@
 			});
 
 			function displayInDOM(json){
-				console.log(json);
+				var output = '';
+				var data = json.sapiObj.results[0].results;
+
+				data.forEach(function(element) {
+					output += imageWrapper(element);
+				});
+
+				main.innerHTML = output;
 			}
 		</script>
 	</body>

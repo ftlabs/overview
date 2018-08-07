@@ -4,6 +4,10 @@ const CAPI_CONCURRENCE = process.env.hasOwnProperty('CAPI_CONCURRENCE')
 	? process.env.CAPI_CONCURRENCE
 	: 4;
 
+function searchByParams(params){
+	return fetchContent.search(params);
+}
+
 function searchByTerm(searchTerm) {
 	const params = {};
 	params.queryString = searchTerm;
@@ -15,6 +19,7 @@ function getByUuid(uuid) {
 }
 
 module.exports = {
+	searchByParams,
 	searchByTerm,
 	getByUuid
 };

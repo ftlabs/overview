@@ -16,7 +16,18 @@ function infoWrapper(element){
 	var output = '';
 	var filterdData = getRequiredInfo(element);
 
-	output += '<div class="item">' + domWrap('p', filterdData.title) + '</div>'
+	output = '<div class="item">' + domWrap('p', filterdData.title) + '</div>'
+
+	return output;
+}
+
+function imageWrapper(element){
+	var output = '';
+	var filterdData = getRequiredInfo(element);
+
+	if(filterdData.image !== null){
+		output = '<img src="' + filterdData.image + '" alt="' + filterdData.title + '"></img>';
+	}
 
 	return output;
 }
@@ -28,6 +39,8 @@ function domWrap(tag, content){
 function getRequiredInfo(element){
 	return {
 		'title' : getTitle(element),
+		'image' : getImage(element),
+		'link' 	: getLink(element),
 	}
 }
 
@@ -37,6 +50,20 @@ function getTitle(obj){
 
 function getSubheading(obj){
 	return sliceQuotes(JSON.stringify(obj.editorial.subheading, null, 2));
+}
+
+function getLink(obj){
+	if(obj.hasOwnProperty('location') && obj.location.uri !== undefined){
+		return sliceQuotes(JSON.stringify(obj.location.uri, null, 2));
+	}
+	return null;
+}
+
+function getImage(obj){
+	if(obj.hasOwnProperty('images') && obj.images[0] !== undefined){
+		return sliceQuotes(JSON.stringify(obj.images[0].url, null, 2));
+	}
+	return null;
 }
 
 function sliceQuotes(str){
