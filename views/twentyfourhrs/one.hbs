@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-	{{#> head title='Type 1 - Basic Display' subtitle='Just displaying the titles as a series of boxed articles' }}
+	{{#> head title='24hrs v1 - Basic Display' subtitle='Just displaying the titles as a series of boxed articles' }}
 		<style type="text/css">
 			.item {
 				border: 2px solid grey;
@@ -14,7 +14,7 @@
 		</style>
 	{{/head}}
 	<body>
-		{{> header title='Type 1 - Basic Display' subtitle='Just displaying the titles as a series of boxed articles'}}
+		{{> header title='24hrs v1 - Basic Display' subtitle='Just displaying the titles as a series of boxed articles'}}
 		
 		<main>
 			<!-- results to go here -->
@@ -22,7 +22,7 @@
 
 		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script>
-			fetch('/types/dataReq')
+			fetch('/24hrs/dataReq')
 				.then(status)
 				.then(json)
 				.then(function(data) {

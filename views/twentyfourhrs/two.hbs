@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-	{{#> head title='Type 2 - ' subtitle='' }}
+	{{#> head title='24hrs v2 - ' subtitle='' }}
 
 	{{/head}}
 	<body>
-		{{> header title='Type 2 - ' subtitle=''}}
+		{{> header title='24hrs v2 - ' subtitle=''}}
 		
 		<main>
 			<!-- results to go here -->
@@ -12,7 +12,7 @@
 
 		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script>
-			fetch('/types/dataReq')
+			fetch('/24hrs/dataReq')
 				.then(status)
 				.then(json)
 				.then(function(data) {

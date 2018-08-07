@@ -28,7 +28,6 @@ function domWrap(tag, content){
 function getRequiredInfo(element){
 	return {
 		'title' : getTitle(element),
-		//'subheading' : getSubheading(element),
 	}
 }
 
