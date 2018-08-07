@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{{#> head title='Type 1 - Basic Display' subtitle='Just displaying the titles as a series of boxed articles' }}
+		<style type="text/css">
+			.item {
+				border: 2px solid grey;
+				padding: 10px;
+				display: block;
+				width: 150px;
+				height: 150px;
+				margin: auto;
+				vertical-align: bottom;
+			}
+		</style>
+	{{/head}}
+	<body>
+		{{> header title='Type 1 - Basic Display' subtitle='Just displaying the titles as a series of boxed articles'}}
+		
+		<main>
+			<!-- results to go here -->
+		</main>
+
+		<script type="text/javascript" src="/static/js/main.js"></script>
+		<script>
+			fetch('/types/dataReq')
+				.then(status)
+				.then(json)
+				.then(function(data) {
+					console.log('Request succeeded with JSON response', data);
+					displayInDOM(data);
+				}).catch(function(error) {
+					console.log('Request failed', error);
+			});
+
+			function displayInDOM(json){
+				var output = '';
+				var data = json.sapiObj.results[0].results;
+
+				data.forEach(function(element) {
+					output += infoWrapper(element);
+				});
+
+				main.innerHTML = output;
+			}
+		</script>
+	</body>
+</html>

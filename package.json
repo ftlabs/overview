@@ -1,0 +1,54 @@
+{
+  "name": "base-api-project",
+  "version": "1.0.0",
+  "description": "Base project used for quick setup with FT Api's",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "export CAPI_KEY=123 && mocha ./test --recursive --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ftlabs/...git"
+  },
+  "keywords": [
+    "ftlabs"
+  ],
+  "author": "jdevt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ftlabs/.../issues"
+  },
+  "homepage": "https://github.com/ftlabs/...#readme",
+  "dependencies": {
+    "@financial-times/s3o-middleware": "^2.0.4",
+    "assert": "^1.4.1",
+    "aws-sdk": "^2.7.10",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "chart.js": "^2.7.1",
+    "debug": "^2.3.3",
+    "dotenv": "^2.0.0",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "ffmpeg-static": "^2.0.0",
+    "hbs": "^4.0.1",
+    "is-uuid": "^1.0.2",
+    "md5": "^2.2.1",
+    "mocha": "^4.0.1",
+    "node-fetch": "^1.6.3",
+    "rss": "^1.2.1",
+    "striptags": "^2.1.1",
+    "uuid": "^3.0.1",
+    "xml2js": "^0.4.17"
+  },
+  "devDependencies": {
+    "nock": "^9.2.6",
+    "nodemon": "^1.12.1",
+    "proxyquire": "^2.0.1",
+    "sinon": "^5.0.10"
+  },
+  "engines": {
+    "node": "8.9.x"
+  }
+}

@@ -1,0 +1,348 @@
+{
+  "id": "http://www.ft.com/thing/70fc3c0e-1cb5-11e8-956a-43db76e69936",
+  "bodyXML":
+    "<body><ft-content type=\"http://www.ft.com/ontology/content/ImageSet\" url=\"http://api.ft.com/content/e990b85c-0fe5-11e8-12d0-2e561eb070f2\" data-embedded=\"true\"></ft-content><p>Countries that fail to install enough electric-car charging points should not have the power to fine carmakers that miss emissions targets, the chief executive of PSA has said.</p>\n<p>Speaking as the group reported a 23 per cent rise in full-year profits to €3.99bn for the year, Carlos Tavares told the Financial Times that the onus was on governments to ensure that recharging networks were in place before people would be convinced to buy electric vehicles.</p>\n<p>“The financial penalties should be dependent on the ability of the state to deliver a minimum level of charging density, that would give potential consumers the comfort to buy electric cars knowing that he is going to be able to charge it,” he said.</p>\n<p>“Consumers will not buy cars that they are not able to charge.”</p>\n<p>Despite being incentivised in many countries across Europe, sales of electric cars remain sluggish, held back by the cost of the cars as well as a perceived lack of charging sites.</p>\n<p>Carmakers in Europe have to hit CO2 targets of 95 grams per km by 2021 or face severe penalties.</p>\n<p>For every gram over the limit, car manufacturers face fines of €95 per car, multiplied by the number of cars they sell.</p>\n<p>Analysts have estimated that <ft-content type=\"http://www.ft.com/ontology/content/Article\" url=\"http://api.ft.com/content/e9e61f9a-9e2a-11e7-8cd4-932067fbf946\">several companies </ft-content>may face billions of euros in fines.</p>\n<p>Hitting the figures is made more difficult by the collapse of diesel sales, which have fallen 8 per cent across Europe in the past year.</p>\n<p>Diesel emits a fifth less CO2 than petrol, and was a key component in many carmakers’ strategies for hitting the goals.</p>\n<p>Mr Tavares said that a European deal was needed to agree that charging points should be installed in order to encourage consumers to adopt the vehicles.</p>\n<p>PSA has <ft-content type=\"http://www.ft.com/ontology/content/Article\" url=\"http://api.ft.com/content/af64f116-fbf9-11e7-a492-2c9be7f3120a\">pledged</ft-content> to offer electric or hybrid options on every vehicle by 2025, with the first of its cars coming to market next year.</p>\n<p>On Thursday, the company reported its annual results for the first time since taking over Opel-Vauxhall, the lossmaking division previously run by General Motors.</p>\n<p>PSA’s group margin rose from 6 per cent in 2016 to 6.1 per cent, in spite of taking on the lossmaking unit during the year.</p>\n<p>Without Opel-Vauxhall, PSA’s margin would have been 7.1 per cent, he said.</p>\n<p>Group revenues rose 20 per cent to €65.2bn, with vehicle sales up 15 per cent to 3.6m units.</p>\n<p>Opel-Vauxhall lost €179m in the last five months of last year, a steeper decline compared with the $257m it lost in the whole of 2016 under General Motors’ management, but not as steep as some had been expecting.</p>\n<p>Opel posted €7.2bn of revenues, short of the €7.7bn that had been expected by Evercore analysts.</p>\n<p>The division, acquired last summer, has a task of <ft-content type=\"http://www.ft.com/ontology/content/Article\" url=\"http://api.ft.com/content/8b84ee70-c537-11e7-a1d2-6786f39ef675\">saving €1.1bn </ft-content>by 2020 by combining manufacturing, research and procurement with its new French owner.</p>\n<p>“We are quite happy and confident with first results with the plan for Opel,” Mr Tavares said.</p>\n<p>“We see that everywhere, people understand that we are here to protect the Opel employees by turning round the company. We believe that people at Opel are the solution, not the problem.”</p>\n<p>He added that Opel management “became loose” during the transition to the new ownership, leading to a decline in performance.</p>\n<p>Karl-Thomas Neumann, former Opel boss, left shortly after the takeover.</p>\n<p>“In an automotive market which is so demanding, as soon as you have a little bit less focus on the business, things can go south very quickly,” Mr Tavares said.</p>\n<p>But he added: “I am very confident with everything I have seen so far of the turnround at Opel, I believe it is going to work.”</p>\n</body>",
+  "title": "PSA chief demands fairness on emissions penalties",
+  "standfirst":
+    "Carlos Tavares says countries must install enough electric-car charging points",
+  "byline": "Peter Campbell, Motor Industry Correspondent",
+  "firstPublishedDate": "2018-03-01T06:30:24.000Z",
+  "publishedDate": "2018-03-01T06:30:24.000Z",
+  "requestUrl":
+    "http://api.ft.com/enrichedcontent/70fc3c0e-1cb5-11e8-956a-43db76e69936",
+  "brands": ["http://api.ft.com/things/dbb0bdae-1f0c-11e4-b0cb-b2227cce2b54"],
+  "mainImage": {
+    "description":
+      "Carlos Tavares, Chairman of the Managing Board of French carmaker PSA Group, attends a news conference in Paris, France, March 6, 2017. PSA Group has agreed to buy Opel from General Motors in a deal valuing the business at 2.2 billion euros ($2.3 billion) creating a new regional car giant. REUTERS/Christian Hartmann",
+    "firstPublishedDate": "2018-03-01T17:38:00.000Z",
+    "id": "http://api.ft.com/content/e990b85c-0fe5-11e8-12d0-2e561eb070f2",
+    "members": [],
+    "publishedDate": "2018-03-01T17:38:00.000Z",
+    "title": "Carlos Tavares, PSA chief executive",
+    "type": "http://www.ft.com/ontology/content/ImageSet",
+    "apiUrl": "http://api.ft.com/content/e990b85c-0fe5-11e8-12d0-2e561eb070f2",
+    "canBeSyndicated": "verify"
+  },
+  "standout": { "editorsChoice": false, "exclusive": false, "scoop": false },
+  "canBeSyndicated": "yes",
+  "apiUrl":
+    "http://api.ft.com/enrichedcontent/70fc3c0e-1cb5-11e8-956a-43db76e69936",
+  "prefLabel": "PSA chief demands fairness on emissions penalties",
+  "types": ["http://www.ft.com/ontology/content/Article"],
+  "annotations": [
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/majorMentions",
+      "id": "http://api.ft.com/things/2eb01600-aa5a-3b48-be45-6f0684fce3d6",
+      "apiUrl":
+        "http://api.ft.com/organisations/2eb01600-aa5a-3b48-be45-6f0684fce3d6",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/organisation/Organisation"
+      ],
+      "leiCode": "54930042N26VW2OAKS35",
+      "prefLabel": "Adam Opel AG",
+      "type": "ORGANISATION",
+      "directType": "http://www.ft.com/ontology/organisation/Organisation"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/classification/isClassifiedBy",
+      "id": "http://api.ft.com/things/c47f4dfc-6879-4e95-accf-ca8cbe6a1f69",
+      "apiUrl": "http://api.ft.com/things/c47f4dfc-6879-4e95-accf-ca8cbe6a1f69",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/Topic"
+      ],
+      "prefLabel": "Companies",
+      "type": "TOPIC",
+      "directType": "http://www.ft.com/ontology/Topic"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/mentions",
+      "id": "http://api.ft.com/things/c5895e44-2917-330b-afa8-9cbbef895b5b",
+      "apiUrl": "http://api.ft.com/people/c5895e44-2917-330b-afa8-9cbbef895b5b",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/person/Person"
+      ],
+      "prefLabel": "Karl-Thomas Neumann",
+      "type": "PERSON",
+      "directType": "http://www.ft.com/ontology/person/Person"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/classification/isClassifiedBy",
+      "id": "http://api.ft.com/things/8e2e0dd7-ef14-3811-a2fe-ee576ed9f422",
+      "apiUrl": "http://api.ft.com/things/8e2e0dd7-ef14-3811-a2fe-ee576ed9f422",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/classification/Classification",
+        "http://www.ft.com/ontology/Subject"
+      ],
+      "prefLabel": "General News",
+      "type": "SUBJECT",
+      "directType": "http://www.ft.com/ontology/Subject"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/classification/isClassifiedBy",
+      "id": "http://api.ft.com/things/30d245d9-fa63-319a-b661-cc16ba3f4fe7",
+      "apiUrl": "http://api.ft.com/things/30d245d9-fa63-319a-b661-cc16ba3f4fe7",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/classification/Classification",
+        "http://www.ft.com/ontology/Subject"
+      ],
+      "prefLabel": "Natural Resources",
+      "type": "SUBJECT",
+      "directType": "http://www.ft.com/ontology/Subject"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/majorMentions",
+      "id": "http://api.ft.com/things/b5f193e3-8a41-3146-8de4-ebe915bbcdfb",
+      "apiUrl": "http://api.ft.com/people/b5f193e3-8a41-3146-8de4-ebe915bbcdfb",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/person/Person"
+      ],
+      "prefLabel": "Carlos Tavares",
+      "type": "PERSON",
+      "directType": "http://www.ft.com/ontology/person/Person"
+    },
+    {
+      "predicate":
+        "http://www.ft.com/ontology/classification/isPrimarilyClassifiedBy",
+      "id": "http://api.ft.com/things/e738ab7b-682e-44a7-b82b-248def23db8d",
+      "apiUrl": "http://api.ft.com/things/e738ab7b-682e-44a7-b82b-248def23db8d",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/Topic"
+      ],
+      "prefLabel": "Automobiles",
+      "type": "TOPIC",
+      "directType": "http://www.ft.com/ontology/Topic"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/mentions",
+      "id": "http://api.ft.com/things/4c85d21b-483a-3893-9e2b-639d9809c37b",
+      "apiUrl":
+        "http://api.ft.com/organisations/4c85d21b-483a-3893-9e2b-639d9809c37b",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/organisation/Organisation"
+      ],
+      "leiCode": "549300UB17ROMXX3F476",
+      "prefLabel": "Diesel SpA",
+      "type": "ORGANISATION",
+      "directType": "http://www.ft.com/ontology/organisation/Organisation"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/mentions",
+      "id": "http://api.ft.com/things/73cc33b5-d0cb-3815-8347-bc49e1ddbd5c",
+      "apiUrl":
+        "http://api.ft.com/organisations/73cc33b5-d0cb-3815-8347-bc49e1ddbd5c",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/organisation/Organisation"
+      ],
+      "prefLabel": "Financial Times Ltd",
+      "type": "ORGANISATION",
+      "directType": "http://www.ft.com/ontology/organisation/Organisation"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/mentions",
+      "id": "http://api.ft.com/things/2e69f7ef-fdd2-31b0-8302-ebea2dcc826f",
+      "apiUrl":
+        "http://api.ft.com/organisations/2e69f7ef-fdd2-31b0-8302-ebea2dcc826f",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/organisation/Organisation",
+        "http://www.ft.com/ontology/company/Company",
+        "http://www.ft.com/ontology/company/PublicCompany"
+      ],
+      "leiCode": "54930070NSV60J38I987",
+      "FIGI": "BBG0014WFHK6",
+      "prefLabel": "General Motors Co",
+      "type": "ORGANISATION",
+      "directType": "http://www.ft.com/ontology/company/PublicCompany"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/classification/isClassifiedBy",
+      "id": "http://api.ft.com/things/9b40e89c-e87b-3d4f-b72c-2cf7511d2146",
+      "apiUrl": "http://api.ft.com/things/9b40e89c-e87b-3d4f-b72c-2cf7511d2146",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/classification/Classification",
+        "http://www.ft.com/ontology/Genre"
+      ],
+      "prefLabel": "News",
+      "type": "GENRE",
+      "directType": "http://www.ft.com/ontology/Genre"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/classification/isClassifiedBy",
+      "id": "http://api.ft.com/things/8f226dfb-63d6-393a-b8c2-567629a0fa38",
+      "apiUrl": "http://api.ft.com/things/8f226dfb-63d6-393a-b8c2-567629a0fa38",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/classification/Classification",
+        "http://www.ft.com/ontology/Subject"
+      ],
+      "prefLabel": "Year End Results",
+      "type": "SUBJECT",
+      "directType": "http://www.ft.com/ontology/Subject"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/about",
+      "id": "http://api.ft.com/things/ebc874b4-20a6-3ecf-b602-e982e890f2dd",
+      "apiUrl":
+        "http://api.ft.com/organisations/ebc874b4-20a6-3ecf-b602-e982e890f2dd",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/organisation/Organisation"
+      ],
+      "prefLabel": "PSA Group",
+      "type": "ORGANISATION",
+      "directType": "http://www.ft.com/ontology/organisation/Organisation"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/mentions",
+      "id": "http://api.ft.com/things/66317e89-1c8c-33ef-9fc5-5e503adcb1f0",
+      "apiUrl":
+        "http://api.ft.com/organisations/66317e89-1c8c-33ef-9fc5-5e503adcb1f0",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/organisation/Organisation",
+        "http://www.ft.com/ontology/company/Company",
+        "http://www.ft.com/ontology/company/PublicCompany"
+      ],
+      "FIGI": "BBG000BP32C0",
+      "prefLabel": "Evercore Partners Inc",
+      "type": "ORGANISATION",
+      "directType": "http://www.ft.com/ontology/company/PublicCompany"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/majorMentions",
+      "id": "http://api.ft.com/things/d0f6574d-2113-42e0-a2e8-982ebf01e1ce",
+      "apiUrl": "http://api.ft.com/things/d0f6574d-2113-42e0-a2e8-982ebf01e1ce",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/Topic"
+      ],
+      "prefLabel": "Electric vehicles",
+      "type": "TOPIC",
+      "directType": "http://www.ft.com/ontology/Topic"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/classification/isClassifiedBy",
+      "id": "http://api.ft.com/things/d1252624-8645-438b-b521-9244aebdc99e",
+      "apiUrl": "http://api.ft.com/things/d1252624-8645-438b-b521-9244aebdc99e",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/Topic"
+      ],
+      "prefLabel": "Industrials",
+      "type": "TOPIC",
+      "directType": "http://www.ft.com/ontology/Topic"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/mentions",
+      "id": "http://api.ft.com/things/6ac14ead-83eb-37cd-ab05-d15b68b3cd17",
+      "apiUrl":
+        "http://api.ft.com/organisations/6ac14ead-83eb-37cd-ab05-d15b68b3cd17",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/organisation/Organisation",
+        "http://www.ft.com/ontology/company/Company",
+        "http://www.ft.com/ontology/company/PublicCompany"
+      ],
+      "FIGI": "BBG000FMZFP5",
+      "prefLabel": "HannStar Board Corp.",
+      "type": "ORGANISATION",
+      "directType": "http://www.ft.com/ontology/company/PublicCompany"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/majorMentions",
+      "id": "http://api.ft.com/things/668edaf2-4cf1-4afe-9a3f-c81bf8d239a8",
+      "apiUrl": "http://api.ft.com/things/668edaf2-4cf1-4afe-9a3f-c81bf8d239a8",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/Topic"
+      ],
+      "prefLabel": "Pollution",
+      "type": "TOPIC",
+      "directType": "http://www.ft.com/ontology/Topic"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/majorMentions",
+      "id": "http://api.ft.com/things/6374b579-f67d-4970-a7cd-1ab5e41a551a",
+      "apiUrl": "http://api.ft.com/things/6374b579-f67d-4970-a7cd-1ab5e41a551a",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/Location"
+      ],
+      "prefLabel": "Europe",
+      "type": "LOCATION",
+      "directType": "http://www.ft.com/ontology/Location"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/classification/isClassifiedBy",
+      "id": "http://api.ft.com/things/cbab3e00-707c-453f-ac54-b2d0ddb7e1e9",
+      "apiUrl": "http://api.ft.com/things/cbab3e00-707c-453f-ac54-b2d0ddb7e1e9",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/Topic"
+      ],
+      "prefLabel": "Industrial Goods",
+      "type": "TOPIC",
+      "directType": "http://www.ft.com/ontology/Topic"
+    },
+    {
+      "predicate": "http://www.ft.com/ontology/annotation/hasAuthor",
+      "id": "http://api.ft.com/things/317e8c21-b042-3120-90f3-127068aa5bb4",
+      "apiUrl": "http://api.ft.com/people/317e8c21-b042-3120-90f3-127068aa5bb4",
+      "types": [
+        "http://www.ft.com/ontology/core/Thing",
+        "http://www.ft.com/ontology/concept/Concept",
+        "http://www.ft.com/ontology/person/Person"
+      ],
+      "prefLabel": "Peter Campbell",
+      "type": "PERSON",
+      "directType": "http://www.ft.com/ontology/person/Person"
+    }
+  ],
+  "curatedRelatedContent": [],
+  "embeds": [
+    {
+      "description":
+        "Carlos Tavares, Chairman of the Managing Board of French carmaker PSA Group, attends a news conference in Paris, France, March 6, 2017. PSA Group has agreed to buy Opel from General Motors in a deal valuing the business at 2.2 billion euros ($2.3 billion) creating a new regional car giant. REUTERS/Christian Hartmann",
+      "firstPublishedDate": "2018-03-01T17:38:00.000Z",
+      "id": "http://api.ft.com/content/e990b85c-0fe5-11e8-12d0-2e561eb070f2",
+      "members": [],
+      "publishedDate": "2018-03-01T17:38:00.000Z",
+      "title": "Carlos Tavares, PSA chief executive",
+      "type": "http://www.ft.com/ontology/content/ImageSet",
+      "apiUrl":
+        "http://api.ft.com/content/e990b85c-0fe5-11e8-12d0-2e561eb070f2",
+      "canBeSyndicated": "verify"
+    }
+  ],
+  "webUrl": "http://www.ft.com/cms/s/70fc3c0e-1cb5-11e8-956a-43db76e69936.html"
+}

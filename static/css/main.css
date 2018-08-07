@@ -1,0 +1,22 @@
+body {
+	background: #fff1e5;
+	font-family: 'MetricWeb', sans-serif;
+}
+
+h1,
+h2 {
+	font-family: 'FinancierDisplayWeb', serif;
+	text-transform: capitalize;
+}
+
+h2 {
+	font-family: 'MetricWeb', sans-serif;
+	font-size: 18px;
+}
+
+main {
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-content: flex-start;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{{#> head title='Type 2 - ' subtitle='' }}
+
+	{{/head}}
+	<body>
+		{{> header title='Type 2 - ' subtitle=''}}
+		
+		<main>
+			<!-- results to go here -->
+		</main>
+
+		<script type="text/javascript" src="/static/js/main.js"></script>
+		<script>
+			fetch('/types/dataReq')
+				.then(status)
+				.then(json)
+				.then(function(data) {
+					console.log('Request succeeded with JSON response', data);
+					displayInDOM(data);
+				}).catch(function(error) {
+					console.log('Request failed', error);
+			});
+
+			function displayInDOM(json){
+				console.log(json);
+			}
+		</script>
+	</body>
+</html>

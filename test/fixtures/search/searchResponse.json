@@ -1,0 +1,492 @@
+{
+	"params": { "queryString": "John Dalli" },
+	"sapiObj": {
+		"query": {
+			"queryString": "John Dalli",
+			"queryContext": { "curations": ["BLOGS", "ARTICLES"] },
+			"resultContext": {
+				"maxResults": 10,
+				"offset": 0,
+				"sortField": "lastPublishDateTime",
+				"sortOrder": "DESC",
+				"aspects": ["title", "lifecycle", "location"],
+				"facets": {
+					"names": ["people", "organisations", "topics"],
+					"maxElements": -1,
+					"minThreshold": 1
+				},
+				"contextual": true,
+				"highlight": false,
+				"suppressDefaultSort": false
+			}
+		},
+		"results": [
+			{
+				"indexCount": 89,
+				"curations": ["BLOGS", "ARTICLES"],
+				"results": [
+					{
+						"aspectSet": "blogPost",
+						"modelVersion": "1",
+						"id": "c6b0ec93-f656-3681-8d2c-94def6f1f259",
+						"apiUrl":
+							"http://api.ft.com/content/items/v1/c6b0ec93-f656-3681-8d2c-94def6f1f259",
+						"title": { "title": "Brussels briefing: wayward commissioners" },
+						"lifecycle": {
+							"initialPublishDateTime": "2016-11-01T08:35:55Z",
+							"lastPublishDateTime": "2016-11-01T08:35:55Z"
+						},
+						"location": {
+							"uri":
+								"http://blogs.ft.com/brusselsblog/2016/11/01/brussels-briefing-wayward-commissioners/"
+						}
+					},
+					{
+						"aspectSet": "article",
+						"modelVersion": "1",
+						"id": "dd2bfb4a-67cd-11e3-a905-00144feabdc0",
+						"apiUrl":
+							"http://api.ft.com/content/items/v1/dd2bfb4a-67cd-11e3-a905-00144feabdc0",
+						"title": {
+							"title": "EU reaches breakthrough deal on tighter tobacco rules"
+						},
+						"lifecycle": {
+							"initialPublishDateTime": "2013-12-18T17:32:27Z",
+							"lastPublishDateTime": "2013-12-18T17:32:27Z"
+						},
+						"location": {
+							"uri":
+								"http://www.ft.com/cms/s/0/dd2bfb4a-67cd-11e3-a905-00144feabdc0.html"
+						}
+					},
+					{
+						"aspectSet": "blogPost",
+						"modelVersion": "1",
+						"id": "342b83dc-3fd7-34db-82bc-a9bf69c21113",
+						"apiUrl":
+							"http://api.ft.com/content/items/v1/342b83dc-3fd7-34db-82bc-a9bf69c21113",
+						"title": {
+							"title": "Dalli and the bribery scandal that won't go away"
+						},
+						"lifecycle": {
+							"initialPublishDateTime": "2013-04-30T16:09:55Z",
+							"lastPublishDateTime": "2013-04-30T16:09:55Z"
+						},
+						"location": {
+							"uri":
+								"http://blogs.ft.com/brusselsblog/2013/04/dalli-and-the-bribery-scandal-that-wont-go-away/"
+						}
+					},
+					{
+						"aspectSet": "article",
+						"modelVersion": "1",
+						"id": "1724fc26-49fb-11e2-8002-00144feab49a",
+						"apiUrl":
+							"http://api.ft.com/content/items/v1/1724fc26-49fb-11e2-8002-00144feab49a",
+						"title": { "title": "EU plans to increase cigarette warnings" },
+						"lifecycle": {
+							"initialPublishDateTime": "2012-12-19T19:39:28Z",
+							"lastPublishDateTime": "2012-12-19T19:39:28Z"
+						},
+						"location": {
+							"uri":
+								"http://www.ft.com/cms/s/0/1724fc26-49fb-11e2-8002-00144feab49a.html"
+						}
+					},
+					{
+						"aspectSet": "article",
+						"modelVersion": "1",
+						"id": "14f24eb6-1df7-11e2-901e-00144feabdc0",
+						"apiUrl":
+							"http://api.ft.com/content/items/v1/14f24eb6-1df7-11e2-901e-00144feabdc0",
+						"title": { "title": "Dalli to sue over bribery scandal" },
+						"lifecycle": {
+							"initialPublishDateTime": "2012-10-24T21:34:33Z",
+							"lastPublishDateTime": "2012-10-24T21:34:33Z"
+						},
+						"location": {
+							"uri":
+								"http://www.ft.com/cms/s/0/14f24eb6-1df7-11e2-901e-00144feabdc0.html"
+						}
+					},
+					{
+						"aspectSet": "article",
+						"modelVersion": "1",
+						"id": "e17db01e-187b-11e2-8705-00144feabdc0",
+						"apiUrl":
+							"http://api.ft.com/content/items/v1/e17db01e-187b-11e2-8705-00144feabdc0",
+						"title": { "title": "Dalli denies wrongdoing over EU tobacco" },
+						"lifecycle": {
+							"initialPublishDateTime": "2012-10-17T22:39:04Z",
+							"lastPublishDateTime": "2012-10-17T22:39:04Z"
+						},
+						"location": {
+							"uri":
+								"http://www.ft.com/cms/s/0/e17db01e-187b-11e2-8705-00144feabdc0.html"
+						}
+					},
+					{
+						"aspectSet": "article",
+						"modelVersion": "1",
+						"id": "1d13bb8a-17b1-11e2-9530-00144feabdc0",
+						"apiUrl":
+							"http://api.ft.com/content/items/v1/1d13bb8a-17b1-11e2-9530-00144feabdc0",
+						"title": { "title": "EU health commissioner quits" },
+						"lifecycle": {
+							"initialPublishDateTime": "2012-10-16T17:53:10Z",
+							"lastPublishDateTime": "2012-10-16T17:53:10Z"
+						},
+						"location": {
+							"uri":
+								"http://www.ft.com/cms/s/0/1d13bb8a-17b1-11e2-9530-00144feabdc0.html"
+						}
+					},
+					{
+						"aspectSet": "article",
+						"modelVersion": "1",
+						"id": "b906cd28-07eb-11e2-a2d8-00144feabdc0",
+						"apiUrl":
+							"http://api.ft.com/content/items/v1/b906cd28-07eb-11e2-a2d8-00144feabdc0",
+						"title": { "title": "EU to step up scrutiny on medical devices" },
+						"lifecycle": {
+							"initialPublishDateTime": "2012-09-27T13:23:25Z",
+							"lastPublishDateTime": "2012-09-27T13:23:25Z"
+						},
+						"location": {
+							"uri":
+								"http://www.ft.com/cms/s/0/b906cd28-07eb-11e2-a2d8-00144feabdc0.html"
+						}
+					},
+					{
+						"aspectSet": "article",
+						"modelVersion": "1",
+						"id": "fdf792d6-efe1-11e1-b1e5-00144feabdc0",
+						"apiUrl":
+							"http://api.ft.com/content/items/v1/fdf792d6-efe1-11e1-b1e5-00144feabdc0",
+						"title": { "title": "Mark Knopfler: Privateering" },
+						"lifecycle": {
+							"initialPublishDateTime": "2012-08-31T19:19:22Z",
+							"lastPublishDateTime": "2012-08-31T19:19:22Z"
+						},
+						"location": {
+							"uri":
+								"http://www.ft.com/cms/s/0/fdf792d6-efe1-11e1-b1e5-00144feabdc0.html"
+						}
+					},
+					{
+						"aspectSet": "article",
+						"modelVersion": "1",
+						"id": "d73c95ae-b956-11e1-a470-00144feabdc0",
+						"apiUrl":
+							"http://api.ft.com/content/items/v1/d73c95ae-b956-11e1-a470-00144feabdc0",
+						"title": { "title": "Drug groups warn over new EU law" },
+						"lifecycle": {
+							"initialPublishDateTime": "2012-06-18T17:07:52Z",
+							"lastPublishDateTime": "2012-06-18T17:07:52Z"
+						},
+						"location": {
+							"uri":
+								"http://www.ft.com/cms/s/0/d73c95ae-b956-11e1-a470-00144feabdc0.html"
+						}
+					}
+				],
+				"facets": [
+					{
+						"name": "people",
+						"facetElements": [
+							{ "name": "John Dalli", "count": 77 },
+							{ "name": "Bob Dylan", "count": 11 },
+							{ "name": "June Carter", "count": 8 },
+							{ "name": "Joaquin Phoenix", "count": 6 },
+							{ "name": "Reese Witherspoon", "count": 6 },
+							{ "name": "Elvis Presley", "count": 5 },
+							{ "name": "Rick Rubin", "count": 4 },
+							{ "name": "Ang Lee", "count": 3 },
+							{ "name": "Jake Gyllenhaal", "count": 3 },
+							{ "name": "Neelie Kroes", "count": 3 },
+							{ "name": "Sam Phillips", "count": 3 },
+							{ "name": "U2", "count": 3 },
+							{ "name": "Al Green", "count": 2 },
+							{ "name": "Andrew Clark", "count": 2 },
+							{ "name": "Dolly Parton", "count": 2 },
+							{ "name": "Gene Kelly", "count": 2 },
+							{ "name": "George Clooney", "count": 2 },
+							{ "name": "Gillian Welch", "count": 2 },
+							{ "name": "Heath Ledger", "count": 2 },
+							{ "name": "Jarrod Emick", "count": 2 },
+							{ "name": "Jerry Lewis", "count": 2 },
+							{ "name": "Jimi Goodwin", "count": 2 },
+							{ "name": "Joe Cocker", "count": 2 },
+							{ "name": "Ken Livingstone", "count": 2 },
+							{ "name": "Michel Barnier", "count": 2 },
+							{ "name": "Paolo Nutini", "count": 2 },
+							{ "name": "Paul Smith", "count": 2 },
+							{ "name": "Rachel Weisz", "count": 2 },
+							{ "name": "Tom Jones", "count": 2 },
+							{ "name": "Tom Waits", "count": 2 },
+							{ "name": "Will Oldham", "count": 2 },
+							{ "name": "Al Gore", "count": 1 },
+							{ "name": "Alfonso Cuaron", "count": 1 },
+							{ "name": "Andy Williams", "count": 1 },
+							{ "name": "Angelina Jolie", "count": 1 },
+							{ "name": "Ann Demeulemeester", "count": 1 },
+							{ "name": "Anthony Hopkins", "count": 1 },
+							{ "name": "Antonio Tajani", "count": 1 },
+							{ "name": "Aretha Franklin", "count": 1 },
+							{ "name": "Bob Hope", "count": 1 },
+							{ "name": "Brian Wilson", "count": 1 },
+							{ "name": "C.S. Lewis", "count": 1 },
+							{ "name": "Cameron", "count": 1 },
+							{ "name": "Cameron Diaz", "count": 1 },
+							{ "name": "Captain Beefheart", "count": 1 },
+							{ "name": "Carl Perkins", "count": 1 },
+							{ "name": "Charles Wesley", "count": 1 },
+							{ "name": "Charlie McCreevy", "count": 1 },
+							{ "name": "Charlize Theron", "count": 1 },
+							{ "name": "Connie Hedegaard", "count": 1 },
+							{ "name": "Cormac McCarthy", "count": 1 },
+							{ "name": "D. H. Lawrence", "count": 1 },
+							{ "name": "David Lean", "count": 1 },
+							{ "name": "David Rawlings", "count": 1 },
+							{ "name": "David Strathairn", "count": 1 },
+							{ "name": "Denzel Washington", "count": 1 },
+							{ "name": "Diana Jones", "count": 1 },
+							{ "name": "Donna Summer", "count": 1 },
+							{ "name": "Dries van Noten", "count": 1 },
+							{ "name": "Edith Cresson", "count": 1 },
+							{ "name": "Edward R. Murrow", "count": 1 },
+							{ "name": "Elizabeth Taylor", "count": 1 },
+							{ "name": "Ethan Johns", "count": 1 },
+							{ "name": "Etta James", "count": 1 },
+							{ "name": "Floyd Mutrux", "count": 1 },
+							{ "name": "Forest Whitaker", "count": 1 },
+							{ "name": "Frances McDormand", "count": 1 },
+							{ "name": "Fred Perry", "count": 1 },
+							{ "name": "George Eliot", "count": 1 },
+							{ "name": "George W. Bush", "count": 1 },
+							{ "name": "Gordon Brown", "count": 1 },
+							{ "name": "Gore Vidal", "count": 1 },
+							{ "name": "Greg Farrell", "count": 1 },
+							{ "name": "Gretchen Peters", "count": 1 },
+							{ "name": "Groucho Marx", "count": 1 },
+							{ "name": "Gwen Stefani", "count": 1 },
+							{ "name": "Gwyneth Paltrow", "count": 1 },
+							{ "name": "Günther Oettinger", "count": 1 },
+							{ "name": "Hank Williams", "count": 1 },
+							{ "name": "Heather Mills", "count": 1 },
+							{ "name": "Henny Sender", "count": 1 },
+							{ "name": "Henry Hill", "count": 1 },
+							{ "name": "Hosni Mubarak", "count": 1 },
+							{ "name": "Ike Turner", "count": 1 },
+							{ "name": "Ilse Aigner", "count": 1 },
+							{ "name": "Isaac Hayes", "count": 1 },
+							{ "name": "J.K. Rowling", "count": 1 },
+							{ "name": "James Woods", "count": 1 },
+							{ "name": "Janez Potocnik", "count": 1 },
+							{ "name": "Janusz Lewandowski", "count": 1 },
+							{ "name": "Jennifer Lopez", "count": 1 },
+							{ "name": "Jeremy Irons", "count": 1 },
+							{ "name": "Jeremy Vine", "count": 1 },
+							{ "name": "Jerry Wexler", "count": 1 },
+							{ "name": "Jim Jarmusch", "count": 1 },
+							{ "name": "Joan Baez", "count": 1 },
+							{ "name": "Joaquín Almunia", "count": 1 },
+							{ "name": "Joe Wright", "count": 1 },
+							{ "name": "John Lee Hooker", "count": 1 },
+							{ "name": "John Shakespeare", "count": 1 },
+							{ "name": "John Taylor", "count": 1 },
+							{ "name": "Jonathan Demme", "count": 1 },
+							{ "name": "Joseph Campbell", "count": 1 },
+							{ "name": "Kate Beckinsale", "count": 1 },
+							{ "name": "Keira Knightley", "count": 1 },
+							{ "name": "Ken Loach", "count": 1 },
+							{ "name": "King Kong", "count": 1 },
+							{ "name": "Lasse Hallstrom", "count": 1 },
+							{ "name": "Laszlo Andor", "count": 1 },
+							{ "name": "Lee Young", "count": 1 },
+							{ "name": "Leonardo DiCaprio", "count": 1 },
+							{ "name": "Li", "count": 1 },
+							{ "name": "Link Wray", "count": 1 },
+							{ "name": "Liza Minnelli", "count": 1 },
+							{ "name": "Louis Armstrong", "count": 1 },
+							{ "name": "Louisa Young", "count": 1 },
+							{ "name": "Lucinda Williams", "count": 1 },
+							{ "name": "Madonna", "count": 1 },
+							{ "name": "Marc Almond", "count": 1 },
+							{ "name": "Marc Jacobs", "count": 1 },
+							{ "name": "Mark Knopfler", "count": 1 },
+							{ "name": "Mark Romanek", "count": 1 },
+							{ "name": "Martin Scorsese", "count": 1 },
+							{ "name": "Mary-Kate and Ashley Olsen", "count": 1 },
+							{ "name": "Matt Damon", "count": 1 },
+							{ "name": "Michael J. Fox", "count": 1 },
+							{ "name": "Michelangelo Antonioni", "count": 1 },
+							{ "name": "Mike Hall", "count": 1 },
+							{ "name": "Mischa Barton", "count": 1 },
+							{ "name": "Muammer Gaddafi", "count": 1 },
+							{ "name": "Muddy Waters", "count": 1 },
+							{
+								"name": "Nanci Griffith, Ricky Skaggs, Sharon White",
+								"count": 1
+							},
+							{ "name": "Naomi Watts", "count": 1 },
+							{ "name": "Natalie Maines", "count": 1 },
+							{ "name": "Olli Rehn", "count": 1 },
+							{ "name": "Oscar Wilde", "count": 1 },
+							{ "name": "Paul McCartney", "count": 1 },
+							{ "name": "Paul Simon", "count": 1 },
+							{ "name": "Penelope Cruz", "count": 1 },
+							{ "name": "Perry Ogden", "count": 1 },
+							{ "name": "Peter Aspden", "count": 1 },
+							{ "name": "Peter Jackson", "count": 1 },
+							{ "name": "Peter Watkins", "count": 1 },
+							{ "name": "Philip Seymour Hoffman", "count": 1 },
+							{ "name": "R. Kelly", "count": 1 },
+							{ "name": "Ray Liotta", "count": 1 },
+							{ "name": "Richard Gere", "count": 1 },
+							{ "name": "Robin Williams", "count": 1 },
+							{ "name": "Ry Cooder", "count": 1 },
+							{ "name": "Sam Jones", "count": 1 },
+							{ "name": "Siim Kallas", "count": 1 },
+							{ "name": "Silvio Berlusconi", "count": 1 },
+							{ "name": "Stephen Fry", "count": 1 },
+							{ "name": "Steve Earle", "count": 1 },
+							{ "name": "Tara Fitzgerald", "count": 1 },
+							{ "name": "Terrence Malick", "count": 1 },
+							{ "name": "Tetsuro Fukuyama", "count": 1 },
+							{ "name": "Thandie Newton", "count": 1 },
+							{ "name": "The Beatles", "count": 1 },
+							{ "name": "Thelonious Monk", "count": 1 },
+							{ "name": "Timothy Treadwell", "count": 1 },
+							{ "name": "Toby Keith", "count": 1 },
+							{ "name": "Tom Hanks", "count": 1 },
+							{ "name": "Tom Lehrer", "count": 1 },
+							{ "name": "Tom Parker", "count": 1 },
+							{ "name": "Tom Russell", "count": 1 },
+							{ "name": "Tommy Lee Jones", "count": 1 },
+							{ "name": "Tonio Borg", "count": 1 },
+							{ "name": "Uma Thurman", "count": 1 },
+							{ "name": "Valery Gergiev", "count": 1 },
+							{ "name": "Viviane Reding", "count": 1 },
+							{ "name": "Wade Davis", "count": 1 },
+							{ "name": "Werner Herzog", "count": 1 },
+							{ "name": "Will Smith", "count": 1 },
+							{ "name": "Wolfgang Amadeus Mozart", "count": 1 },
+							{ "name": "Wolfgang Petersen", "count": 1 },
+							{ "name": "Woody Harrelson", "count": 1 },
+							{ "name": "Xavier Bertrand", "count": 1 },
+							{ "name": "Yukio Edano", "count": 1 },
+							{ "name": "Yves Saint Laurent", "count": 1 },
+							{ "name": "k.d. lang", "count": 1 }
+						]
+					},
+					{
+						"name": "organisations",
+						"facetElements": [
+							{ "name": "European Union", "count": 29 },
+							{ "name": "European Commission", "count": 14 },
+							{ "name": "Swedish Match AB", "count": 5 },
+							{ "name": "European Parliament", "count": 3 },
+							{ "name": "BASF SE", "count": 2 },
+							{ "name": "Beach Boys", "count": 2 },
+							{ "name": "Channel Four Television", "count": 2 },
+							{ "name": "Financial Times Ltd", "count": 2 },
+							{ "name": "Grand Ole Opry", "count": 2 },
+							{ "name": "LEO Pharma AS", "count": 2 },
+							{ "name": "London School of Economics", "count": 2 },
+							{ "name": "Novo Nordisk AS", "count": 2 },
+							{ "name": "Velvet Underground", "count": 2 },
+							{ "name": "Actavis", "count": 1 },
+							{ "name": "Airbus", "count": 1 },
+							{ "name": "Alfa Group Consortium", "count": 1 },
+							{ "name": "American Museum of Natural History", "count": 1 },
+							{ "name": "AstraZeneca PLC", "count": 1 },
+							{ "name": "Atlantic Recording Corp", "count": 1 },
+							{ "name": "BBC", "count": 1 },
+							{ "name": "Chanel SA", "count": 1 },
+							{ "name": "Dixie Chicks", "count": 1 },
+							{ "name": "European Investment Bank", "count": 1 },
+							{ "name": "Evotec AG", "count": 1 },
+							{ "name": "Food & Drug Administration USA", "count": 1 },
+							{ "name": "Food Standards Agency UK", "count": 1 },
+							{ "name": "Givenchy SA", "count": 1 },
+							{ "name": "GlaxoSmithKline", "count": 1 },
+							{ "name": "GlaxoSmithKline PLC", "count": 1 },
+							{ "name": "Google Inc", "count": 1 },
+							{ "name": "Greenpeace International", "count": 1 },
+							{ "name": "HCA Inc", "count": 1 },
+							{ "name": "Hugo Boss AG", "count": 1 },
+							{ "name": "Interfax", "count": 1 },
+							{ "name": "JPMorgan Chase", "count": 1 },
+							{ "name": "Jil Sander AG", "count": 1 },
+							{ "name": "Labour Party UK", "count": 1 },
+							{ "name": "Libyan Investment Authority", "count": 1 },
+							{ "name": "London Symphony Orchestra Ltd", "count": 1 },
+							{ "name": "Merck KGaA", "count": 1 },
+							{ "name": "Modemuseum", "count": 1 },
+							{ "name": "Monsanto Co", "count": 1 },
+							{ "name": "NBNK Investments PLC", "count": 1 },
+							{ "name": "New Europe", "count": 1 },
+							{ "name": "Nine Inch Nails", "count": 1 },
+							{ "name": "Novartis AG", "count": 1 },
+							{ "name": "Persian Gold PLC", "count": 1 },
+							{ "name": "Pfizer Inc", "count": 1 },
+							{ "name": "Pharmacreams", "count": 1 },
+							{ "name": "Philip Morris International Inc", "count": 1 },
+							{ "name": "Pulitzer Inc.", "count": 1 },
+							{ "name": "Rolling Stones", "count": 1 },
+							{ "name": "ST Dupont", "count": 1 },
+							{ "name": "Sanofi", "count": 1 },
+							{ "name": "Selfridges & Co Ltd", "count": 1 },
+							{ "name": "Socialist Party", "count": 1 },
+							{ "name": "Sonic Youth", "count": 1 },
+							{ "name": "Southern Baptist Convention", "count": 1 },
+							{ "name": "Sun Records", "count": 1 },
+							{ "name": "Sun Studios", "count": 1 },
+							{ "name": "Swiss International Air Lines Ltd", "count": 1 },
+							{ "name": "Swissair AG", "count": 1 },
+							{ "name": "Syngenta AG", "count": 1 },
+							{ "name": "The King", "count": 1 },
+							{ "name": "Time Inc", "count": 1 },
+							{ "name": "Twentieth Century Fox Film Corp", "count": 1 },
+							{ "name": "UBS AG", "count": 1 },
+							{ "name": "UN Security Council", "count": 1 },
+							{ "name": "Walt Disney Co", "count": 1 },
+							{ "name": "Warner Bros Entertainment Inc", "count": 1 },
+							{ "name": "Welch's", "count": 1 },
+							{ "name": "World Health Organisation", "count": 1 },
+							{ "name": "Yves St Laurent Groupe", "count": 1 }
+						]
+					},
+					{
+						"name": "topics",
+						"facetElements": [
+							{ "name": "Music", "count": 10 },
+							{ "name": "EU trade", "count": 3 },
+							{ "name": "Austerity Europe", "count": 2 },
+							{ "name": "EU business regulation", "count": 2 },
+							{ "name": "Global terror", "count": 2 },
+							{ "name": "Middle Eastern Politics & Society", "count": 2 },
+							{ "name": "Phone hacking", "count": 2 },
+							{ "name": "UK schools", "count": 2 },
+							{ "name": "Climate change", "count": 1 },
+							{ "name": "Dance", "count": 1 },
+							{ "name": "EU energy", "count": 1 },
+							{ "name": "European banks", "count": 1 },
+							{ "name": "Film", "count": 1 },
+							{ "name": "Global Trade", "count": 1 },
+							{ "name": "Mergers & Acquisitions", "count": 1 },
+							{ "name": "Middle East protests", "count": 1 },
+							{ "name": "Non-Fiction", "count": 1 },
+							{ "name": "Stanford scandal", "count": 1 },
+							{ "name": "Theatre", "count": 1 },
+							{ "name": "Trading Technology", "count": 1 },
+							{ "name": "US downturn", "count": 1 },
+							{ "name": "US financial regulation", "count": 1 }
+						]
+					}
+				]
+			}
+		]
+	}
+}
