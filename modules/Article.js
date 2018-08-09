@@ -8,6 +8,14 @@ function searchByParams(params){
 	return fetchContent.search(params);
 }
 
+function searchByParamsDeep(params, depth){
+	return fetchContent.searchDeeper(params, depth);
+}
+
+function searchBySequence(searches){
+	return fetchContent.searchSequence(searches);
+}
+
 function searchByTerm(searchTerm) {
 	const params = {};
 	params.queryString = searchTerm;
@@ -20,6 +28,8 @@ function getByUuid(uuid) {
 
 module.exports = {
 	searchByParams,
+	searchByParamsDeep,
 	searchByTerm,
+	searchBySequence,
 	getByUuid
 };

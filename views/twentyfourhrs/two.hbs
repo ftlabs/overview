@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html>
-	{{#> head title='24hrs v2 - Image Display' subtitle='' }}
-
+	{{#> head title='24hrs v2 - Image Display' subtitle='Displaying the images of the last 24 hours of published articles' }}
+		<style type="text/css">
+			a {
+			}
+			img {
+				width: 100%;
+				height: auto;
+			}
+		</style>
 	{{/head}}
 	<body>
-		{{> header title='24hrs v2 - Image Display' subtitle=''}}
+		{{> header title='24hrs v2 - Image Display' subtitle='Displaying the images of the last 24 hours of published articles'}}
 		
 		<main>
 			<!-- results to go here -->
@@ -24,13 +31,15 @@
 
 			function displayInDOM(json){
 				var output = '';
-				var data = json.sapiObj.results[0].results;
 
-				data.forEach(function(element) {
-					output += imageWrapper(element);
+				json.forEach(results => {
+					let result = results.sapiObj.results[0].results
+					result.forEach(article => {
+						output += imageWrapper(article);
+					});
 				});
 
-				main.innerHTML = output;
+				document.getElementsByTagName('main')[0].innerHTML = output;
 			}
 		</script>
 	</body>

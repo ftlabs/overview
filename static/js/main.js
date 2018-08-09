@@ -1,5 +1,3 @@
-var main = document.getElementsByTagName('main')[0];
-
 function status(response) {
 	if (response.status >= 200 && response.status < 300) {
 		return Promise.resolve(response)
@@ -17,7 +15,6 @@ function infoWrapper(element){
 	var filterdData = getRequiredInfo(element);
 
 	output = '<div class="item">' + domWrap('p', filterdData.title) + '</div>'
-
 	return output;
 }
 
@@ -26,9 +23,8 @@ function imageWrapper(element){
 	var filterdData = getRequiredInfo(element);
 
 	if(filterdData.image !== null){
-		output = '<img src="' + filterdData.image + '" alt="' + filterdData.title + '"></img>';
+		output = '<a href="' + filterdData.link + '"><img src="' + filterdData.image + '" alt="' + filterdData.title + '"></img></a>';
 	}
-
 	return output;
 }
 

@@ -26,3 +26,17 @@ $ npm test
 
 
 
+identify common topics in 24 hours
+hilighting topics and people that appear in those topics (or visa versa)
+pulse lines to show topic relevance, or people relevance over
+
+
+storyline arcs
+
+
+## other apis
+
+latern
+curated list
+reading time
+

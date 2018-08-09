@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{{#> head title='24hrs v3 - ' subtitle='' }}
+		<style type="text/css">
+		</style>
+	{{/head}}
+	<body>
+		{{> header title='24hrs v3 - ' subtitle=''}}
+		
+		<main>
+			<!-- results to go here -->
+		</main>
+
+		<script type="text/javascript" src="/static/js/main.js"></script>
+		<script>
+			fetch('/24hrs/topics/last7days')
+				.then(status)
+				.then(json)
+				.then(function(data) {
+					console.log('Request succeeded with JSON response', data);
+					displayInDOM(data);
+				}).catch(function(error) {
+					console.log('Request failed', error);
+			});
+
+			function displayInDOM(result){
+				if(result != null && result.isArray())
+				{
+					let data 		= json.sapiObj.results[0].facets;
+					let topTopics 	= [];
+
+					// get top topics of last 24 hours
+					data.forEach(element => {
+						if(element.name === 'topics'){
+							topTopics.push( element.facetElements.slice(0,20) );
+						}
+					});
+
+					document.getElementsByTagName('main')[0].innerHTML = JSON.stringify(topTopics);
+				}
+				else {
+					console.log("No usable JSON returned");
+				}
+			}
+		</script>
+	</body>
+</html>

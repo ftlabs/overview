@@ -15,7 +15,9 @@ h2 {
 }
 
 main {
-	display: inline-flex;
+	flex-grow: 1;
+	display: flex;
+	justify-content: flex-start;
 	flex-direction: row;
 	flex-wrap: wrap;
 	align-content: flex-start;
