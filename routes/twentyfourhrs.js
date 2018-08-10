@@ -53,17 +53,70 @@ router.get('/dataReq', async (req, res, next) => {
 });
 
 
+/*
+ * 
+ */
+router.get('/todaysTopTopics/:days/:numTopics', async (req, res, next) => {
+	const MAX_DAYS = 30;
+	const MAX_TOPICS = 20;
+
+
+	return [];
+});
+
+
 router.get('/topics/last7days', async (req, res, next) => {
 	try {
-		const num_days	= 7;
-		const searches	= [];
+		const num_days			= 7;
+		const searches			= [];
+		let dailyTopTopics 		= [];
+		let todaysTopTopics		= [];
+		let topicFacets			= {};
 		
 		for (let i = 1; i <= num_days; i++) {
 			searches.push( createQueryString(i) );
 		}
 
 		const articles = await Article.searchBySequence(searches);
-		res.json(articles);
+
+
+		// get last 7 days of facet topics
+		articles.forEach(element => {
+			let facets = element.sapiObj.results[0].facets;
+			facets.forEach( facet => {
+				if(facet.name === 'topics'){
+					let topicSlice = facet.facetElements.slice(0,20);
+					dailyTopTopics.push(topicSlice);
+				}
+			});
+		});
+
+
+		// get today's (last 24 hours) of top topics
+		dailyTopTopics[0].forEach( topic => {
+			if(topic.hasOwnProperty('name')){
+				todaysTopTopics.push(topic.name);
+			}
+		});
+
+
+		//find the numbers for each of today's top topics in the last 7 days worth of topics
+		todaysTopTopics.forEach( topTopic => {
+			topicFacets[topTopic] = [];
+
+			dailyTopTopics.forEach( day => {
+				const facetValue = day.filter(topic => topic.name == topTopic);
+				if(facetValue[0] != undefined && facetValue[0].hasOwnProperty('count')){
+					topicFacets[topTopic].push(facetValue[0].count);
+				} else {
+					topicFacets[topTopic].push(0);
+				}
+			});
+		});
+
+		console.log(topicFacets);
+
+		res.json(topicFacets);
 	} catch (err) {
 		console.log(err);
 	}

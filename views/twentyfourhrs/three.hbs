@@ -24,19 +24,10 @@
 			});
 
 			function displayInDOM(result){
-				if(result != null && result.isArray())
+				if(result != null)
 				{
-					let data 		= json.sapiObj.results[0].facets;
-					let topTopics 	= [];
-
-					// get top topics of last 24 hours
-					data.forEach(element => {
-						if(element.name === 'topics'){
-							topTopics.push( element.facetElements.slice(0,20) );
-						}
-					});
-
-					document.getElementsByTagName('main')[0].innerHTML = JSON.stringify(topTopics);
+					const main = document.getElementsByTagName('main')[0];
+					main.innerHTML = JSON.stringify(result);
 				}
 				else {
 					console.log("No usable JSON returned");
