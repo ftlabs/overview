@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{{#> head title='' subtitle='' }}
+		<style type="text/css">
+			.item {
+				border: 2px solid grey;
+				padding: 10px;
+				display: block;
+				width: 150px;
+				height: 150px;
+				margin: auto;
+				vertical-align: bottom;
+			}
+		</style>
+	{{/head}}
+	<body>
+		<h1>FacetHistory - Demo Index Page</h1>
+
+		<h2>Endpoint</h2>
+
+		<p>
+		  GET /facetHistory/:facet/:period/:interval/:numInterval/:maxFacets, returns JSON, e.g. <a href="/facetHistory/topics/days/1/5/10">/facetHistory/topics/days/1/5/10</a>
+		</p>
+		<ul>
+			<li>
+				<b>facet</b> : string : facet type to query [topic, organisation, people] matching id facet auto included e.g. people &amp; peopleId 
+			</li>
+			<li>
+				<b>period</b> : string : time period to query [minutes, hours, days]
+			</li>
+			<li>
+				<b>interval</b> : integer : quantity of the time period to query [1, 10]
+			</li>
+			<li>
+				<b>numInterval</b> : integer : number of intervals [1, 10]
+			</li>
+			<li>
+				<b>maxFacets</b> : integer : number of facets to retrun results for [0, 100]
+			</li>
+		</ul>
+
+		<h2>Pages</h2>
+
+		<ul>
+			<li>
+			</li>
+		</ul>
+	</body>
+</html>

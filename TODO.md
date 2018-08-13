@@ -2,6 +2,7 @@
 
 + check that <= or >= is included again in the query string builder
 + validation on url params?
++ needs rate limiting/spreading for large numbers of requests
 
 
 ## For thought

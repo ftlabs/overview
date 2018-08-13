@@ -9,6 +9,7 @@ const app = express();
 const validateRequest = require("./helpers/check-token");
 const articles = require("./routes/articles");
 const twentyfourhrs = require("./routes/twentyfourhrs");
+const facethistory = require("./routes/facethistory");
 const hbs = require('hbs');
 
 hbs.registerPartials(__dirname + '/views/partials');
@@ -41,6 +42,8 @@ if (process.env.BYPASS_TOKEN !== "true") {
 //Core Routes
 app.use("/articles", articles);
 app.use("/24hrs", twentyfourhrs);
+app.use("/facethistory", facethistory);
+
 
 // ---
 
