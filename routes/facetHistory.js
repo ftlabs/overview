@@ -54,7 +54,7 @@ router.get('/:facet/:period/:interval/:numInterval/:maxFacets', async (req, res,
 				start : fullDateTime.first,
 				end : fullDateTime.next,
 			}
-		}
+		};
 
 		const searches = createDateTimeRangeQueryStrings(searchPeriod, numInterval, numIntervals, searchFacet);
 		const queryResults = await Facet.searchBySequence(searches);
@@ -136,22 +136,6 @@ function createFacetQueryString(period, invterval, facetName, offset){
 	console.log("createFacetQueryString: Incorrect facetName passed");
 	return "";
 }
-
-function createQueryString(i){
-	const datetimeRange = Time.getDatetimeRange('days', 1, i);
-	return query = {
-		"queryString": `lastPublishDateTime:>${datetimeRange.next} AND lastPublishDateTime:<${datetimeRange.first}`,
-		"maxResults" : 1,
-		"aspects" : [ 
-			"title"
-		],
-		"facets" : {
-			"names" : ["topics"],
-			"maxElements" : -1
-		}
-	};
-}
-
 
 
 module.exports = router;
