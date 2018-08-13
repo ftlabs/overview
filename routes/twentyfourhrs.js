@@ -26,19 +26,19 @@ router.get('/3', async (req, res, next) => {
 /**
  * Returns numerical facet history for the selected time period.
  *
- * @param facet : facet type to query [topic, organisation, people] matching id facet auto included e.g. people & peopleId 
- * @param period : time period to query [minutes, hours, days]
- * @param interval : quantity of the time period to query [1, 10]
- * @param numInterval : number of intervals [1, 10]
- * @param maxFacets - 0, 100
+ * @string 	facet 			facet type to query [topic, organisation, people] matching id facet auto included e.g. people & peopleId 
+ * @string 	period 			time period to query [minutes, hours, days]
+ * @integer interval 		quantity of the time period to query [1, 10]
+ * @integer numInterval 	number of intervals [1, 10]
+ * @integer maxFacets 		number of facets to retrun results for [0, 100]
  *
  * @example url
  * http://localhost:8000/24hrs/facetHistory/topics/day/1/5/10
  * Quering the topic history of the past 5 days, 1 day intervals and limit returned top facets to 10
  * 
  */
-
-router.get('/facetHistory/:facet/:period/:interval/:numInterval/:maxFacets)', async (req, res, next) => {
+  
+router.get('/facetHistory/:facet/:period/:interval/:numInterval/:maxFacets', async (req, res, next) => {
 
 	const MAX_FACETS			= 100;
 	const MAX_INTERVAL			= 10;

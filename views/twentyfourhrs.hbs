@@ -27,17 +27,23 @@
 		</p>
 
 		<p>
-		  GET /facetHistory/:facet/:days/:numTopics, returns JSON, e.g. <a href="/24hrs/facetHistory/topics/7/10">/facetHistory/topics/7/10</a>
+		  GET /facetHistory/:facet/:period/:interval/:numInterval/:maxFacets, returns JSON, e.g. <a href="/24hrs/facetHistory/topics/days/1/5/10">/facetHistory/topics/days/1/5/10</a>
 		</p>
 		<ul>
 			<li>
-				<b>facet</b> : string : topic (tbc people, organisations)
+				<b>facet</b> : string : facet type to query [topic, organisation, people] matching id facet auto included e.g. people &amp; peopleId 
 			</li>
 			<li>
-				<b>days</b> : num : number of days to query : <i>current hard limit of 30</i>
+				<b>period</b> : string : time period to query [minutes, hours, days]
 			</li>
 			<li>
-				<b>numTopics</b> : num : number of topics to inculde in return : <i>current hard limit of 20</i> &amp;&amp; <i>0 or null will return all results
+				<b>interval</b> : integer : quantity of the time period to query [1, 10]
+			</li>
+			<li>
+				<b>numInterval</b> : integer : number of intervals [1, 10]
+			</li>
+			<li>
+				<b>maxFacets</b> : integer : number of facets to retrun results for [0, 100]
 			</li>
 		</ul>
 
