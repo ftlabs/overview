@@ -1,5 +1,3 @@
-const debug = require('debug')('bin:lib:cache');
-
 function getDatetimeRange(period, frequency, offset, past = true, iso = true){
 	let currDate			= new Date().getTime();
 	let originTime			= 0;
@@ -18,12 +16,12 @@ function getDatetimeRange(period, frequency, offset, past = true, iso = true){
 		return {
 			first: new Date( originTime ).toISOString().split('.')[0] + "Z",
 			next: new Date( diffTime ).toISOString().split('.')[0] + "Z",
-		}
+		};
 	} else {
 		return {
 			first: new Date( originTime ),
 			next: new Date( diffTime ),
-		}
+		};
 	}
 }
 
