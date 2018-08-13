@@ -8,6 +8,10 @@ router.get('/', async (req, res, next) => {
 	res.render("facethistory");
 });
 
+router.get('/1', async (req, res, next) => {
+	res.render("facethistory/one");
+});
+
 
 /**
  * Returns numerical facet history for the selected time period.
