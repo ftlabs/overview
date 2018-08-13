@@ -40,6 +40,7 @@ router.get('/:facet/:period/:interval/:numInterval/:maxFacets', async (req, res,
 		let numInterval			= (req.params.interval > MAX_INTERVAL ? MAX_INTERVAL : req.params.interval);
 		let numIntervals		= (req.params.numInterval > MAX_INTERVAL_NUM ? MAX_INTERVAL_NUM : req.params.numInterval);
 		let numFacetItems		= (req.params.maxFacets > MAX_FACETS ? MAX_FACETS : req.params.maxFacets);
+		let fullDateTime		= Time.getDatetimeRange(searchPeriod, (numInterval * numIntervals), 0);
 		let resultFacets		= {
 			description : "Returns metrics for facet numbers over the time period specificed in the params of the query",
 			requestParams : {
@@ -47,7 +48,11 @@ router.get('/:facet/:period/:interval/:numInterval/:maxFacets', async (req, res,
 				period : searchPeriod,
 				interval : numInterval,
 				numInterval : numIntervals,
-				maxFacets : numFacetItems
+				maxFacets : numFacetItems,
+			},
+			datetimeRange : {
+				start : fullDateTime.first,
+				end : fullDateTime.next,
 			}
 		}
 
