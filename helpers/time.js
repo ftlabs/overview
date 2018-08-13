@@ -1,16 +1,17 @@
 const debug = require('debug')('bin:lib:cache');
 
 function getDatetimeRange(period, frequency, offset, past = true, iso = true){
-	let currDate	= new Date().getTime();
-	let originTime	= 0;
-	let diffTime	= 0;
+	let currDate			= new Date().getTime();
+	let originTime			= 0;
+	let diffTime			= 0;
+	let offsetFrequency		= Number(Number(frequency) + Number(offset));
 
 	if(past === true){
 		originTime = currDate - msDuration(period, offset);
-		diffTime = currDate - msDuration(period, (frequency + offset));
+		diffTime = currDate - msDuration(period, offsetFrequency);
 	} else {
 		originTime = currDate + msDuration(period, offset);
-		diffTime = currDate + msDuration(period, (frequency + offset));
+		diffTime = currDate + msDuration(period, offsetFrequency);
 	}
 
 	if(iso === true){
@@ -30,9 +31,6 @@ function msDuration(period, increment){
 	var ms = 0;
 
 	switch(period){
-		case 'seconds':
-			ms = increment * (1000);
-			break;
 		case 'minutes':
 			ms = increment * (60 * 1000);
 			break;

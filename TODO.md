@@ -1,8 +1,7 @@
 # TODO
 
 + check that <= or >= is included again in the query string builder
-+ Complete the 'topic' param function when working for all time params and facets
-	- then work in branches for future pages/updates
++ validation on url params?
 
 
 ## For thought

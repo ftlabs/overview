@@ -21,96 +21,97 @@ router.get('/3', async (req, res, next) => {
 	res.render("twentyfourhrs/three");
 });
 
-
-
 // -----------------------------------------
 
+/**
+ * Returns numerical facet history for the selected time period.
+ *
+ * @param facet : facet type to query [topic, organisation, people] matching id facet auto included e.g. people & peopleId 
+ * @param period : time period to query [minutes, hours, days]
+ * @param interval : quantity of the time period to query [1, 10]
+ * @param numInterval : number of intervals [1, 10]
+ * @param maxFacets - 0, 100
+ *
+ * @example url
+ * http://localhost:8000/24hrs/facetHistory/topics/day/1/5/10
+ * Quering the topic history of the past 5 days, 1 day intervals and limit returned top facets to 10
+ * 
+ */
 
-router.get('/facetHistory/:facet/:days/:numFacetItems', async (req, res, next) => {
+router.get('/facetHistory/:facet/:period/:interval/:numInterval/:maxFacets)', async (req, res, next) => {
 
-	//TODO: update to be 'time period' & interval/frequency rather than days
+	const MAX_FACETS			= 100;
+	const MAX_INTERVAL			= 10;
+	const MAX_INTERVAL_NUM		= 10;
 
 	try {
-		const MAX_FACET_ITEMS	= 20;
 		const searchFacet		= req.params.facet;
-		const numDays			= req.params.days;
-		const numFacetItems		= req.params.numFacetItems;
-		const searches			= [];
-		const dailyTopTopics 	= [];
-		const todaysTopTopics	= [];
-		const topicFacets		= {};
+		const searchPeriod		= req.params.period;
+		const intervaledFacets 	= [];
+		const recentTopFacets	= [];
+		const facetHistory		= {};
 
-		const resultFacets = {
+		let numInterval			= (req.params.interval > MAX_INTERVAL ? MAX_INTERVAL : req.params.interval);
+		let numIntervals		= (req.params.numInterval > MAX_INTERVAL_NUM ? MAX_INTERVAL_NUM : req.params.numInterval);
+		let numFacetItems		= (req.params.maxFacets > MAX_FACETS ? MAX_FACETS : req.params.maxFacets);
+		let resultFacets		= {
 			description : "Returns metrics for facet numbers over the time period specificed in the params of the query",
 			requestParams : {
 				facet : searchFacet,
-				days : numDays,
-				numFacetItems : numFacetItems
+				period : searchPeriod,
+				interval : numInterval,
+				numInterval : numIntervals,
+				maxFacets : numFacetItems
 			}
 		}
 
-		// Check passed params are within acceptable ranges 
-		//TODO: check if req.params are in correct format > or error out
-
-		// Apply hard coded limits
-		if(numDays > MAX_DAYS){
-			numDays = MAX_DAYS;
-		}
-		if(numFacetItems > MAX_FACET_ITEMS){
-			numFacetItems = MAX_FACET_ITEMS;
-		}
-
-
-
-		// Create date query strings
-		for (let i = 1; i <= numDays; i++) {
-			searches.push( createFacetQueryString(searchFacet, i) );
-		}
-
-		// Request API results for each query string
+		const searches = createDateTimeRangeQueryStrings(searchPeriod, numInterval, numIntervals, searchFacet);
 		const queryResults = await Facet.searchBySequence(searches);
 
-		// Get facet topics for all returned days
+
+		// get facet elements for all returned days
 		queryResults.forEach(result => {
 			let facet = result.sapiObj.results[0].facets;
 
 			facet.forEach( facetElement => {
 				if(facetElement.name === searchFacet){
-					// Shouldn't this just get all?
-					if(numFacetItems === null && numFacetItems === 0){
-						dailyTopTopics.push( facetElement.facetElements );
-					} else {
-						dailyTopTopics.push( facetElement.facetElements.slice(0, numFacetItems) );
-					}
+					intervaledFacets.push( facetElement.facetElements );
 				}
 			});
 		});
 
-		// get today's (last 24 hours) of top topics
-		dailyTopTopics[0].forEach( topic => {
-			if(topic.hasOwnProperty('name')){
-				todaysTopTopics.push(topic.name);
+
+		// get most recent segement of top facets
+		if(numFacetItems >= intervaledFacets[0].length){
+			numFacetItems = intervaledFacets[0].length;
+		}
+
+		for (var i = 0; i < numFacetItems; i++) {
+			let facet = intervaledFacets[0][i];
+
+			if(facet.hasOwnProperty('name')){
+				recentTopFacets.push(facet.name);
 			}
-		});
+		}
 
-		// find the numbers for each of today's top topics in the returned days worth of topics
-		todaysTopTopics.forEach( topTopic => {
-			topicFacets[topTopic] = [];
 
-			dailyTopTopics.forEach( day => {
-				const facetValue = day.filter(topic => topic.name == topTopic);
+		// find the numbers for each of today's top facet elements
+		recentTopFacets.forEach( topFacet => {
+			facetHistory[topFacet] = [];
+
+			intervaledFacets.forEach( day => {
+				const facetValue = day.filter(item => item.name == topFacet);
 
 				if(facetValue[0] !== undefined && facetValue[0].hasOwnProperty('count')){
-					topicFacets[topTopic].push(facetValue[0].count);
+					facetHistory[topFacet].push(facetValue[0].count);
 				} else {
-					topicFacets[topTopic].push(0);
+					facetHistory[topFacet].push(0);
 				}
 			});
 		});
 
-		resultFacets.topics = topicFacets;
 
-		//return
+		resultFacets[searchFacet] = facetHistory;
 		res.json(resultFacets);
 
 	} catch (err) {
@@ -118,10 +119,19 @@ router.get('/facetHistory/:facet/:days/:numFacetItems', async (req, res, next) =
 	}
 });
 
+function createDateTimeRangeQueryStrings(period, numInterval, numIntervals, searchFacet){
+	let queries = [];
+	for (let i = 0; i <= numIntervals; i++) {
+		queries.push( createFacetQueryString(period, numInterval, searchFacet, i) );
+	}
+	return queries; 
+}
 
-function createFacetQueryString(facetName, i){
+function createFacetQueryString(period, invterval, facetName, offset){
+
 	if( facetName === "topics" || facetName === "people" || facetName === "organisations" ){
-		const datetimeRange = Time.getDatetimeRange('days', 1, i);
+		const datetimeRange = Time.getDatetimeRange(period, invterval, offset);
+
 		return query = {
 			"queryString": `lastPublishDateTime:>${datetimeRange.next} AND lastPublishDateTime:<${datetimeRange.first}`,
 			"maxResults" : 1,
@@ -133,11 +143,8 @@ function createFacetQueryString(facetName, i){
 	}
 
 	console.log("createFacetQueryString: Incorrect facetName passed");
-
 	return "";
 }
-
-
 
 // -----------------------------------------
 
