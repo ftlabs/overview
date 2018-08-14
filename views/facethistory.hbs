@@ -19,23 +19,23 @@
 		<h2>Endpoint</h2>
 
 		<p>
-		  GET /facetHistory/:facet/:period/:interval/:numInterval/:maxFacets, returns JSON, e.g. <a href="/facetHistory/topics/days/1/5/10">/facetHistory/topics/days/1/5/10</a>
+		  GET /facetHistory/:facet/?period=&amp;interval=&amp;numInterval=&amp;maxFacets=, returns JSON,<br />e.g. <a href="/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=10">/facetHistory/topics?period=days&amp;interval=1&amp;numInterval=5&amp;maxFacets=10</a>
 		</p>
 		<ul>
 			<li>
-				<b>facet</b> : string : facet type to query [topic, organisation, people] matching id facet auto included e.g. people &amp; peopleId 
+				<b>facet</b> <i>string</i> : facet type to query [topic, organisation, people] matching id facet auto included e.g. people &amp; peopleId 
 			</li>
 			<li>
-				<b>period</b> : string : time period to query [minutes, hours, days]
+				<b>period</b> <i>string</i> : time period to query [minutes, hours, days][default days]
 			</li>
 			<li>
-				<b>interval</b> : integer : quantity of the time period to query [1, 10]
+				<b>interval</b> <i>integer</i> : quantity of the time period to query [1, 5][default 1]
 			</li>
 			<li>
-				<b>numInterval</b> : integer : number of intervals [1, 10]
+				<b>numInterval</b> <i>integer</i> : number of intervals [1, 5][default 5]
 			</li>
 			<li>
-				<b>maxFacets</b> : integer : number of facets to retrun results for [0, 100]
+				<b>maxFacets</b> <i>integer</i> : number of facets to retrun results for [0, 100][default 10]
 			</li>
 		</ul>
 

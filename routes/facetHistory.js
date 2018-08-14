@@ -65,7 +65,6 @@ router.get('/:facet/', async (req, res, next) => {
 		};
 
 
-
 		const searches = createDateTimeRangeQueryStrings(searchPeriod, numInterval, numIntervals, searchFacet);
 		const queryResults = await Facet.searchBySequence(searches);
 
