@@ -31,20 +31,23 @@ router.get('/1', async (req, res, next) => {
 router.get('/:facet/', async (req, res, next) => {
 
 	const MAX_FACETS			= 100;
-	const MAX_INTERVAL			= 10;
-	const MAX_INTERVAL_NUM		= 10;
-
+	const MAX_INTERVAL			= 5;
+	const MAX_INTERVAL_NUM		= 5;
+	const DEFAULT_PERIOD		= 'days';
+	const DEFAULT_FACETS		= 10;
+	const DEFAULT_INTERVAL		= 1;
+	const DEFAULT_INTERVAL_NUM	= 5;
 
 	try {
 		const searchFacet		= req.params.facet;
-		const searchPeriod		= req.query.period;
+		const searchPeriod		= paramCheck('string', req.query.period, 0, 0, ['minutes','hours','days'], 'days');
 		const intervaledFacets 	= [];
 		const recentTopFacets	= [];
 		const facetHistory		= {};
 
-		let numInterval			= (req.query.interval > MAX_INTERVAL ? MAX_INTERVAL : req.query.interval);
-		let numIntervals		= (req.query.numInterval > MAX_INTERVAL_NUM ? MAX_INTERVAL_NUM : req.query.numInterval);
-		let numFacetItems		= (req.query.maxFacets > MAX_FACETS ? MAX_FACETS : req.query.maxFacets);
+		let numInterval 		= paramCheck('int', req.query.interval, 1, MAX_INTERVAL, null, DEFAULT_INTERVAL);
+		let numIntervals 		= paramCheck('int', req.query.numInterval, 1, MAX_INTERVAL_NUM, null, DEFAULT_INTERVAL_NUM);
+		let numFacetItems		= paramCheck('int', req.query.maxFacets, 1, MAX_FACETS, null, DEFAULT_FACETS);
 		let fullDateTime		= Time.getDatetimeRange(searchPeriod, (numInterval * numIntervals), 0);
 		let resultFacets		= {
 			description : "Returns metrics for facet numbers over the time period specificed in the params of the query",
@@ -116,6 +119,26 @@ router.get('/:facet/', async (req, res, next) => {
 		console.log('err: ' + err);
 	}
 });
+
+function paramCheck(type, value, min, max, range, defaultVal){
+	if(value && value !== undefined && value !== null){
+		if(range !== null && range.length > 0 && range.includes(value)){
+			return value;
+		}
+
+		if(type === 'int'){
+			if(value < min){
+				return min;
+			} else if(value > max){
+				return max;
+			} else {
+				return value;
+			}
+		}
+	}
+
+	return defaultVal;
+}
 
 function createDateTimeRangeQueryStrings(period, numInterval, numIntervals, searchFacet){
 	let queries = [];
