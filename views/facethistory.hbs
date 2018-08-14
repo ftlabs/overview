@@ -39,12 +39,88 @@
 			</li>
 		</ul>
 
-		<h2>Pages</h2>
+		<h3>Build-a-query</h3>
+
+		<form>
+			<spam>/facetHistory/</span>
+			<select id="facet" name="facet">
+				<option selected>topics</option>
+				<option>organisation</option>
+				<option>people</option>
+			</select>
+			<span>?period=</span>
+			<select id="period" name="period">
+				<option selected>days</option>
+				<option>hours</option>
+				<option>minutes</option>
+			</select>
+			<span>?interval=</span>
+			<select id="interval" name="interval">
+				<option selected>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+			</select>
+			<span>?numInterval=</span>
+			<select id="numInterval" name="numInterval">
+				<option selected>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+				<option>5</option>
+			</select>
+			<span>?maxFacets=</span>
+			<select id="maxFacets" name="maxFacets">
+				<option>1</option>
+				<option selected>5</option>
+				<option>10</option>
+				<option>25</option>
+				<option>50</option>
+			</select>
+			<br /><br />
+			<a id="queryBuilderLink" target="blank" href="">/facetHistory/</a>
+		</form>
+
+		<br /><br />
+		<br />
+
+		<h2>Example pages</h2>
 
 		<ul>
 			<li>
 				<a href="/facetHistory/1">Facet History v1 - </a>
 			</li>
 		</ul>
+
+		<script type="text/javascript">
+			const facet 			= document.getElementById('facet');
+			const period 			= document.getElementById('period');
+			const interval 			= document.getElementById('interval');
+			const numInterval 		= document.getElementById('numInterval');
+			const maxFacets 		= document.getElementById('maxFacets');
+			const queryLink			= document.getElementById('queryBuilderLink');
+
+			facet.addEventListener('change', updateUrlBuilderLink, false);
+			period.addEventListener('change', updateUrlBuilderLink, false);
+			interval.addEventListener('change', updateUrlBuilderLink, false);
+			numInterval.addEventListener('change', updateUrlBuilderLink, false);
+			maxFacets.addEventListener('change', updateUrlBuilderLink, false);
+
+			function updateUrlBuilderLink(){
+				const facetVal 			= facet.options[facet.selectedIndex].value;
+				const periodVal 		= period.options[period.selectedIndex].value;
+				const intervalVal 		= interval.options[interval.selectedIndex].value;
+				const numIntervalVal 	= numInterval.options[numInterval.selectedIndex].value;
+				const maxFacetsVal 		= maxFacets.options[maxFacets.selectedIndex].value;
+
+				let str = `/facetHistory/${facetVal}?period=${periodVal}&interval=${intervalVal}&numInterval=${numIntervalVal}&maxFacets=${maxFacetsVal}`;
+
+				queryLink.href = str;
+				queryLink.innerHTML = str;
+			}
+
+			updateUrlBuilderLink();
+		</script>
 	</body>
 </html>
