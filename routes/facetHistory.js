@@ -23,27 +23,28 @@ router.get('/1', async (req, res, next) => {
  * @integer maxFacets 		number of facets to retrun results for [0, 100]
  *
  * @example url
- * http://localhost:8000/facetHistory/topics/day/1/5/10
+ * http://localhost:8000/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=10
  * Quering the topic history of the past 5 days, 1 day intervals and limit returned top facets to 10
  * 
  */
-  
-router.get('/:facet/:period/:interval/:numInterval/:maxFacets', async (req, res, next) => {
+
+router.get('/:facet/', async (req, res, next) => {
 
 	const MAX_FACETS			= 100;
 	const MAX_INTERVAL			= 10;
 	const MAX_INTERVAL_NUM		= 10;
 
+
 	try {
 		const searchFacet		= req.params.facet;
-		const searchPeriod		= req.params.period;
+		const searchPeriod		= req.query.period;
 		const intervaledFacets 	= [];
 		const recentTopFacets	= [];
 		const facetHistory		= {};
 
-		let numInterval			= (req.params.interval > MAX_INTERVAL ? MAX_INTERVAL : req.params.interval);
-		let numIntervals		= (req.params.numInterval > MAX_INTERVAL_NUM ? MAX_INTERVAL_NUM : req.params.numInterval);
-		let numFacetItems		= (req.params.maxFacets > MAX_FACETS ? MAX_FACETS : req.params.maxFacets);
+		let numInterval			= (req.query.interval > MAX_INTERVAL ? MAX_INTERVAL : req.query.interval);
+		let numIntervals		= (req.query.numInterval > MAX_INTERVAL_NUM ? MAX_INTERVAL_NUM : req.query.numInterval);
+		let numFacetItems		= (req.query.maxFacets > MAX_FACETS ? MAX_FACETS : req.query.maxFacets);
 		let fullDateTime		= Time.getDatetimeRange(searchPeriod, (numInterval * numIntervals), 0);
 		let resultFacets		= {
 			description : "Returns metrics for facet numbers over the time period specificed in the params of the query",
@@ -59,6 +60,8 @@ router.get('/:facet/:period/:interval/:numInterval/:maxFacets', async (req, res,
 				end : fullDateTime.next,
 			}
 		};
+
+
 
 		const searches = createDateTimeRangeQueryStrings(searchPeriod, numInterval, numIntervals, searchFacet);
 		const queryResults = await Facet.searchBySequence(searches);
