@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Article = require('../modules/Article');
+const Article = require('../modules/article');
 
 router.get('/search/:searchTerm', async (req, res, next) => {
 	try {

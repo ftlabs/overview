@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-	{{#> head title='24hrs v3 - ' subtitle='' }}
+	{{#> head title='Facet History v1 - ' subtitle='' }}
 		<style type="text/css">
+			/* custom style(s) go here */
 		</style>
 	{{/head}}
 	<body>
-		{{> header title='24hrs v3 - ' subtitle=''}}
+		{{> header title='Facet History v1 - ' subtitle=''}}
 		
 		<main>
 			<!-- results to go here -->
@@ -13,25 +14,23 @@
 
 		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script>
-			fetch('/24hrs/topics/last7days')
+			fetch('/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=10')
 				.then(status)
 				.then(json)
-				.then(function(data) {
+				.then(function(data){
 					console.log('Request succeeded with JSON response', data);
 					displayInDOM(data);
 				}).catch(function(error) {
 					console.log('Request failed', error);
 			});
 
-			function displayInDOM(result){
-				if(result != null)
-				{
-					const main = document.getElementsByTagName('main')[0];
-					main.innerHTML = JSON.stringify(result);
-				}
-				else {
-					console.log("No usable JSON returned");
-				}
+			function displayInDOM(json){
+				var output = '';
+				var data = json.topics;
+
+				console.log(data);
+				
+				document.getElementsByTagName('main')[0].innerHTML = output;
 			}
 		</script>
 	</body>

@@ -1,15 +1,18 @@
 const dotenv = require("dotenv").config({
   silent: process.env.NODE_ENVIRONMENT === "production"
 });
-const package = require("./package.json");
-const debug = require("debug")(`${package.name}:index`);
-const express = require("express");
-const path = require("path");
-const app = express();
-const validateRequest = require("./helpers/check-token");
-const articles = require("./routes/articles");
-const twentyfourhrs = require("./routes/twentyfourhrs");
-const hbs = require('hbs');
+
+const package           = require("./package.json");
+const debug             = require("debug")(`${package.name}:index`);
+const s3o               = require('@financial-times/s3o-middleware');
+const express           = require("express");
+const path              = require("path");
+const app               = express();
+const validateRequest   = require("./helpers/check-token");
+const articles          = require("./routes/articles");
+const twentyfourhrs     = require("./routes/twentyfourhrs");
+const facetHistory      = require("./routes/facetHistory");
+const hbs               = require('hbs');
 
 hbs.registerPartials(__dirname + '/views/partials');
 
@@ -41,6 +44,8 @@ if (process.env.BYPASS_TOKEN !== "true") {
 //Core Routes
 app.use("/articles", articles);
 app.use("/24hrs", twentyfourhrs);
+app.use("/facethistory", facetHistory);
+
 
 // ---
 
