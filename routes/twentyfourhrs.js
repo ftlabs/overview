@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Article = require('../modules/Article');
-const Facet = require('../modules/Facet');
-const Time = require('../helpers/Time');
+const Article = require('../modules/article');
+const Facet = require('../modules/facet');
+const Time = require('../helpers/time');
 
 
 router.get('/', async (req, res, next) => {

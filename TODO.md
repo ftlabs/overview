@@ -5,6 +5,8 @@
 + needs rate limiting/spreading for large numbers of requests
 + request caching
 
++ add regions
+
 
 ## For thought
 
