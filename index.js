@@ -9,7 +9,7 @@ const app = express();
 const validateRequest = require("./helpers/check-token");
 const articles = require("./routes/articles");
 const twentyfourhrs = require("./routes/twentyfourhrs");
-const facethistory = require("./routes/facethistory");
+const facethistory = require("./routes/facetHistory");
 const hbs = require('hbs');
 
 hbs.registerPartials(__dirname + '/views/partials');
