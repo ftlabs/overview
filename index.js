@@ -44,7 +44,7 @@ if (process.env.BYPASS_TOKEN !== "true") {
 //Core Routes
 app.use("/articles", articles);
 app.use("/24hrs", twentyfourhrs);
-app.use("/facethistory", facethistory);
+app.use("/facethistory", facetHistory);
 
 
 // ---

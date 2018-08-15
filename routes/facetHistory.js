@@ -72,14 +72,25 @@ router.get('/:facet/', async (req, res, next) => {
 		// get facet elements for all returned days
 		queryResults.forEach(result => {
 			let facet = result.sapiObj.results[0].facets;
+			let indexCount = result.sapiObj.results[0].indexCount;
 
-			facet.forEach( facetElement => {
-				if(facetElement.name === searchFacet){
-					intervaledFacets.push( facetElement.facetElements );
-				}
-			});
+			if(indexCount > 0 && facet !== undefined){
+				facet.forEach( facetElement => {
+					if(facetElement.name === searchFacet){
+						intervaledFacets.push( facetElement.facetElements );
+					}
+				});
+			}
 		});
 
+
+		// stop if no results found
+		if(intervaledFacets.length === 0){
+			res.json({
+				error: "No results found for this set of queries"
+			});
+			return;
+		}
 
 		// get most recent segement of top facets
 		if(numFacetItems >= intervaledFacets[0].length){
@@ -113,6 +124,7 @@ router.get('/:facet/', async (req, res, next) => {
 
 		resultFacets[searchFacet] = facetHistory;
 		res.json(resultFacets);
+		return;
 
 	} catch (err) {
 		console.log('err: ' + err);
