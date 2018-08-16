@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Facet = require('../modules/Facet');
-const Time = require('../helpers/Time');
+const Facet = require('../modules/facet');
+const Time = require('../helpers/time');
 
 
 router.get('/', async (req, res, next) => {
@@ -23,27 +23,31 @@ router.get('/1', async (req, res, next) => {
  * @integer maxFacets 		number of facets to retrun results for [0, 100]
  *
  * @example url
- * http://localhost:8000/facetHistory/topics/day/1/5/10
+ * http://localhost:8000/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=10
  * Quering the topic history of the past 5 days, 1 day intervals and limit returned top facets to 10
  * 
  */
-  
-router.get('/:facet/:period/:interval/:numInterval/:maxFacets', async (req, res, next) => {
+
+router.get('/:facet/', async (req, res, next) => {
 
 	const MAX_FACETS			= 100;
-	const MAX_INTERVAL			= 10;
-	const MAX_INTERVAL_NUM		= 10;
+	const MAX_INTERVAL			= 5;
+	const MAX_INTERVAL_NUM		= 5;
+	const DEFAULT_PERIOD		= 'days';
+	const DEFAULT_FACETS		= 10;
+	const DEFAULT_INTERVAL		= 1;
+	const DEFAULT_INTERVAL_NUM	= 5;
 
 	try {
 		const searchFacet		= req.params.facet;
-		const searchPeriod		= req.params.period;
+		const searchPeriod		= paramCheck('string', req.query.period, 0, 0, ['minutes','hours','days'], 'days');
 		const intervaledFacets 	= [];
 		const recentTopFacets	= [];
 		const facetHistory		= {};
 
-		let numInterval			= (req.params.interval > MAX_INTERVAL ? MAX_INTERVAL : req.params.interval);
-		let numIntervals		= (req.params.numInterval > MAX_INTERVAL_NUM ? MAX_INTERVAL_NUM : req.params.numInterval);
-		let numFacetItems		= (req.params.maxFacets > MAX_FACETS ? MAX_FACETS : req.params.maxFacets);
+		let numInterval 		= paramCheck('int', req.query.interval, 1, MAX_INTERVAL, null, DEFAULT_INTERVAL);
+		let numIntervals 		= paramCheck('int', req.query.numInterval, 1, MAX_INTERVAL_NUM, null, DEFAULT_INTERVAL_NUM);
+		let numFacetItems		= paramCheck('int', req.query.maxFacets, 1, MAX_FACETS, null, DEFAULT_FACETS);
 		let fullDateTime		= Time.getDatetimeRange(searchPeriod, (numInterval * numIntervals), 0);
 		let resultFacets		= {
 			description : "Returns metrics for facet numbers over the time period specificed in the params of the query",
@@ -60,6 +64,7 @@ router.get('/:facet/:period/:interval/:numInterval/:maxFacets', async (req, res,
 			}
 		};
 
+
 		const searches = createDateTimeRangeQueryStrings(searchPeriod, numInterval, numIntervals, searchFacet);
 		const queryResults = await Facet.searchBySequence(searches);
 
@@ -67,14 +72,25 @@ router.get('/:facet/:period/:interval/:numInterval/:maxFacets', async (req, res,
 		// get facet elements for all returned days
 		queryResults.forEach(result => {
 			let facet = result.sapiObj.results[0].facets;
+			let indexCount = result.sapiObj.results[0].indexCount;
 
-			facet.forEach( facetElement => {
-				if(facetElement.name === searchFacet){
-					intervaledFacets.push( facetElement.facetElements );
-				}
-			});
+			if(indexCount > 0 && facet !== undefined){
+				facet.forEach( facetElement => {
+					if(facetElement.name === searchFacet){
+						intervaledFacets.push( facetElement.facetElements );
+					}
+				});
+			}
 		});
 
+
+		// stop if no results found
+		if(intervaledFacets.length === 0){
+			res.json({
+				error: "No results found for this set of queries"
+			});
+			return;
+		}
 
 		// get most recent segement of top facets
 		if(numFacetItems >= intervaledFacets[0].length){
@@ -108,11 +124,32 @@ router.get('/:facet/:period/:interval/:numInterval/:maxFacets', async (req, res,
 
 		resultFacets[searchFacet] = facetHistory;
 		res.json(resultFacets);
+		return;
 
 	} catch (err) {
 		console.log('err: ' + err);
 	}
 });
+
+function paramCheck(type, value, min, max, range, defaultVal){
+	if(value && value !== undefined && value !== null){
+		if(range !== null && range.length > 0 && range.includes(value)){
+			return value;
+		}
+
+		if(type === 'int'){
+			if(value < min){
+				return min;
+			} else if(value > max){
+				return max;
+			} else {
+				return value;
+			}
+		}
+	}
+
+	return defaultVal;
+}
 
 function createDateTimeRangeQueryStrings(period, numInterval, numIntervals, searchFacet){
 	let queries = [];
