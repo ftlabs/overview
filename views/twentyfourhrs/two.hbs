@@ -5,16 +5,16 @@
 			html, body {
 				margin: 0;
 				padding: 0;
-				overflow: hidden;
 			}
 			main {
-				display: flex;
-				flex-wrap: wrap;
-				font-size: 0;
-				width: 110%;
-				height: 110%;
-				margin-left: -2%;
-				margin-top: -2%;
+				display: grid;
+		        grid-template-columns: repeat(auto-fill, minmax(87px, 0fr) ) ;
+			}
+			a {
+		        font-size: 0;
+			}
+			img {
+				width: 87px;
 			}
 			header {
 				display: none;
@@ -30,7 +30,6 @@
 
 		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script>
-
 			let numImages = 0;
 
 			window.addEventListener('resize', calculateImageSizes);
@@ -47,8 +46,51 @@
 				});
 
 				document.getElementsByTagName('main')[0].innerHTML = output;
+			}
 
-				calculateImageSizes();
+			function calculateImageSizes(){
+				const imgs 		= document.getElementsByTagName('img');
+				const imgsList	= Array.prototype.slice.call(imgs);
+				const width 	= window.innerWidth + ((window.innerWidth / 100) * 5);
+				const height 	= window.innerHeight + ((window.innerHeight / 100) * 5);
+				const area 		= (width * height);
+
+
+				if(imgsList.length > 0){
+					let gridImages 	= squareGridCalc(imgsList.length);
+					let imgSize 	= getImageDimensions(area, gridImages);
+
+					
+					
+					
+					
+
+					imgsList.forEach(img => {
+						//img.style.width = imgSize + 'px ';
+						//img.style.height = imgSize + 'px';
+					});
+				}
+
+			}
+
+
+
+			/*
+
+
+			function displayInDOM(json){
+				var output = '';
+
+				json.forEach(results => {
+					let result = results.sapiObj.results[0].results
+					result.forEach(article => {
+						output += imageWrapper(article);
+					});
+				});
+
+				document.getElementsByTagName('main')[0].innerHTML = output;
+
+				//calculateImageSizes();
 			}
 
 			function calculateImageSizes(){
@@ -89,6 +131,8 @@
 				}
 				return num;
 			}
+
+			*/
 
 
 			// -------
