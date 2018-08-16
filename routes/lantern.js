@@ -124,15 +124,20 @@ router.get("/top-views/:days", async (req, res, next) => {
     days = 1;
   }
   dateFrom.setDate(dateTo.getDate() - days);
+  const qs = {
+    dateFrom,
+    dateTo,
+    size: req.query.size ? req.query.size : 5
+  };
 
+  lanternApiRequest("topViews", qs, res);
+});
+
+function lanternApiRequest(method, qs, res) {
   const options = {
     method: "GET",
-    url: `${LANTERN_API_URL}/topViews`,
-    qs: {
-      dateFrom,
-      dateTo,
-      size: req.query.size ? req.query.size : 5
-    },
+    url: `${LANTERN_API_URL}/${method}`,
+    qs,
     headers: {
       "x-api-key": LANTERN_API_KEY
     }
@@ -144,6 +149,6 @@ router.get("/top-views/:days", async (req, res, next) => {
     res.setHeader("Content-Type", "application/json");
     res.json(JSON.parse(body));
   });
-});
+}
 
 module.exports = router;
