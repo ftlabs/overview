@@ -15,45 +15,21 @@ router.get("/top-articles/:days", async (req, res, next) => {
   let dateTo = new Date();
   dateFrom.setDate(dateTo.getDate() - req.params.days);
 
-  const options = {
-    method: "GET",
-    url: `${LANTERN_API_URL}/topArticles`,
-    qs: {
-      dateFrom,
-      dateTo,
-      size: "100"
-    },
-    headers: {
-      "x-api-key": LANTERN_API_KEY
-    }
+  const queryString = {
+    dateFrom,
+    dateTo,
+    size: "100"
   };
 
-  request(options, function(error, response, body) {
-    if (error) throw new Error(error);
-
-    res.setHeader("Content-Type", "application/json");
-    res.json(JSON.parse(body));
-  });
+  lanternApiRequest("topArticles", queryString, res);
 });
 
 router.get("/article-metadata/:uuid", async (req, res, next) => {
-  const options = {
-    method: "GET",
-    url: `${LANTERN_API_URL}/metadata/article`,
-    qs: {
-      uuid: req.params.uuid
-    },
-    headers: {
-      "x-api-key": LANTERN_API_KEY
-    }
+  const queryString = {
+    uuid: req.params.uuid
   };
 
-  request(options, function(error, response, body) {
-    if (error) throw new Error(error);
-
-    res.setHeader("Content-Type", "application/json");
-    res.json(JSON.parse(body));
-  });
+  lanternApiRequest("metadata/article", queryString, res);
 });
 
 router.get("/search/:term", async (req, res, next) => {
@@ -65,25 +41,13 @@ router.get("/search/:term", async (req, res, next) => {
   }
   dateFrom.setDate(dateTo.getDate() - days);
 
-  const options = {
-    method: "GET",
-    url: `${LANTERN_API_URL}/search`,
-    qs: {
-      dateFrom,
-      dateTo,
-      term: req.params.term
-    },
-    headers: {
-      "x-api-key": LANTERN_API_KEY
-    }
+  const queryString = {
+    dateFrom,
+    dateTo,
+    term: req.params.term
   };
 
-  request(options, function(error, response, body) {
-    if (error) throw new Error(error);
-
-    res.setHeader("Content-Type", "application/json");
-    res.json(JSON.parse(body));
-  });
+  lanternApiRequest("search", queryString, res);
 });
 
 router.get("/section-or-topic/:sectionOrTopic", async (req, res, next) => {
@@ -95,25 +59,13 @@ router.get("/section-or-topic/:sectionOrTopic", async (req, res, next) => {
   }
   dateFrom.setDate(dateTo.getDate() - days);
 
-  const options = {
-    method: "GET",
-    url: `${LANTERN_API_URL}/realtime`,
-    qs: {
-      dateFrom,
-      dateTo,
-      section: req.params.sectionOrTopic
-    },
-    headers: {
-      "x-api-key": LANTERN_API_KEY
-    }
+  const queryString = {
+    dateFrom,
+    dateTo,
+    section: req.params.sectionOrTopic
   };
 
-  request(options, function(error, response, body) {
-    if (error) throw new Error(error);
-
-    res.setHeader("Content-Type", "application/json");
-    res.json(JSON.parse(body));
-  });
+  lanternApiRequest("realtime", queryString, res);
 });
 
 router.get("/top-views/:days", async (req, res, next) => {
@@ -124,20 +76,20 @@ router.get("/top-views/:days", async (req, res, next) => {
     days = 1;
   }
   dateFrom.setDate(dateTo.getDate() - days);
-  const qs = {
+  const queryString = {
     dateFrom,
     dateTo,
     size: req.query.size ? req.query.size : 5
   };
 
-  lanternApiRequest("topViews", qs, res);
+  lanternApiRequest("topViews", queryString, res);
 });
 
-function lanternApiRequest(method, qs, res) {
+function lanternApiRequest(apiMethod, queryString, res) {
   const options = {
     method: "GET",
-    url: `${LANTERN_API_URL}/${method}`,
-    qs,
+    url: `${LANTERN_API_URL}/${apiMethod}`,
+    qs: queryString,
     headers: {
       "x-api-key": LANTERN_API_KEY
     }
