@@ -57,7 +57,9 @@ function getLink(obj){
 
 function getImage(obj){
 	if(obj.hasOwnProperty('images') && obj.images[0] !== undefined){
-		return sliceQuotes(JSON.stringify(obj.images[0].url, null, 2));
+		let sliced = sliceQuotes(JSON.stringify(obj.images[0].url, null, 2));
+		let newPath = sliced.split('?')[0] + "?source=search&width=400&height=400";
+		return newPath;
 	}
 	return null;
 }

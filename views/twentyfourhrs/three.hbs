@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
-	{{#> head title='24hrs v2 - Image Display' subtitle='Displaying the images of the last 24 hours of published articles' }}
+	{{#> head title='24hrs v3 - Long Images' subtitle='Displaying the images of the last 24 hours of published articles - in full screen height format' }}
 		<style type="text/css">
 			html, body {
 				margin: 0;
 				padding: 0;
+				overflow: hidden;
 			}
 			main {
-				display: flex;
-				flex-wrap: wrap;
-				font-size: 0;
 			}
 			a {
+				display: inline-block;
 			}
 			img {
+				display: inline-block;
+				width: 100%;
+				height: 100%;
 			}
 			header {
 				display: none;
@@ -21,7 +23,7 @@
 		</style>
 	{{/head}}
 	<body>
-		{{> header title='24hrs v2 - Image Display' subtitle='Displaying the images of the last 24 hours of published articles'}}
+		{{> header title='24hrs v3 - Long Images' subtitle='Displaying the images of the last 24 hours of published articles - in full screen height format'}}
 		
 		<main>
 			<!-- results to go here -->
@@ -29,13 +31,6 @@
 
 		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script>
-
-			let numImages 	= 0;
-			let gridImages 	= squareGridCalc(numImages);
-
-			window.addEventListener('resize', calculateImageSizes);
-
-
 			function displayInDOM(json){
 				var output = '';
 
@@ -47,42 +42,26 @@
 				});
 
 				document.getElementsByTagName('main')[0].innerHTML = output;
-
 				calculateImageSizes();
 			}
 
 			function calculateImageSizes(){
-				const imgs 				= document.getElementsByTagName('img');
-				const imgsList			= Array.prototype.slice.call(imgs);
+				const containers 		= document.getElementsByTagName('a');
+				const containersList	= Array.prototype.slice.call(containers);
 				const width 			= window.innerWidth;
 				const height 			= window.innerHeight;
 
-				if(imgsList.length > 0){
-					
-					getImageDimensions();
+				if(containersList.length > 0){
+					let imgWidth = (window.innerWidth / containersList.length);
+					let imgHeight = height;
 
-					imgsList.forEach(img => {
-						img.style.width = imgWidth + 'px ';
-						img.style.height = imgHeight + 'px';
+					containersList.forEach(container => {
+						container.style.height = imgHeight + 'px';
+						container.style.width = imgWidth + 'px';
 					});
 				}
+				
 			}
-
-
-			function getImageDimensions(area){
-				for
-			}
-
-
-			function squareGridCalc(num){
-				if(num % 2){
-					return num - 1;
-				}
-				return num;
-			}
-
-
-			// -------
 
 			fetch('/24hrs/dataReq')
 				.then(status)
@@ -93,7 +72,6 @@
 				}).catch(function(error) {
 					console.log('Request failed', error);
 			});
-
 		</script>
 	</body>
 </html>
