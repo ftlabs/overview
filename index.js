@@ -12,9 +12,11 @@ const validateRequest   = require("./helpers/check-token");
 const articles          = require("./routes/articles");
 const twentyfourhrs     = require("./routes/twentyfourhrs");
 const facetHistory      = require("./routes/facetHistory");
-const hbs               = require('hbs');
+const lantern           = require("./routes/lantern");
 
-hbs.registerPartials(__dirname + '/views/partials');
+const hbs = require("hbs");
+
+hbs.registerPartials(__dirname + "/views/partials");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -44,15 +46,19 @@ if (process.env.BYPASS_TOKEN !== "true") {
 //Core Routes
 app.use("/articles", articles);
 app.use("/24hrs", twentyfourhrs);
+<<<<<<< HEAD
 app.use("/facethistory", facetHistory);
 
+=======
+app.use("/facethistory", facethistory);
+app.use("/lantern", lantern);
+>>>>>>> lantern
 
 // ---
 
 app.use("/", (req, res) => {
   res.render("index");
 });
-
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -61,7 +67,7 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT;
 if (!PORT) {
-	throw new Error('ERROR: PORT not specified in env');
+  throw new Error("ERROR: PORT not specified in env");
 }
 
 const server = app.listen(PORT, function() {
