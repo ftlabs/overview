@@ -12,8 +12,7 @@ const validateRequest   = require("./helpers/check-token");
 const articles          = require("./routes/articles");
 const twentyfourhrs     = require("./routes/twentyfourhrs");
 const facetHistory      = require("./routes/facetHistory");
-const lantern = require("./routes/lantern");
-const hbs               = require('hbs');
+const lantern           = require("./routes/lantern");
 
 const hbs = require("hbs");
 
@@ -47,9 +46,8 @@ if (process.env.BYPASS_TOKEN !== "true") {
 //Core Routes
 app.use("/articles", articles);
 app.use("/24hrs", twentyfourhrs);
-app.use("/facethistory", facethistory);
+app.use("/facethistory", facetHistory);
 app.use("/lantern", lantern);
-
 
 // ---
 
