@@ -5,16 +5,15 @@
 			html, body {
 				margin: 0;
 				padding: 0;
+				font-size: 0;
+				overflow: hidden;
 			}
 			main {
-				display: grid;
-		        grid-template-columns: repeat(auto-fill, minmax(87px, 0fr) ) ;
 			}
 			a {
 		        font-size: 0;
 			}
 			img {
-				width: 87px;
 			}
 			header {
 				display: none;
@@ -30,10 +29,7 @@
 
 		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script>
-			let numImages = 0;
-
 			window.addEventListener('resize', calculateImageSizes);
-
 
 			function displayInDOM(json){
 				var output = '';
@@ -41,98 +37,105 @@
 				json.forEach(results => {
 					let result = results.sapiObj.results[0].results
 					result.forEach(article => {
-						output += imageWrapper(article);
+						output += imageWrapper(article, "&width=500&height=281");
 					});
 				});
 
 				document.getElementsByTagName('main')[0].innerHTML = output;
+				calculateImageSizes();
 			}
 
 			function calculateImageSizes(){
 				const imgs 		= document.getElementsByTagName('img');
 				const imgsList	= Array.prototype.slice.call(imgs);
-				const width 	= window.innerWidth + ((window.innerWidth / 100) * 5);
-				const height 	= window.innerHeight + ((window.innerHeight / 100) * 5);
-				const area 		= (width * height);
-
+				const area 		= (window.innerWidth * window.innerHeight);
 
 				if(imgsList.length > 0){
-					let gridImages 	= squareGridCalc(imgsList.length);
-					let imgSize 	= getImageDimensions(area, gridImages);
-
-					
-					
-					
-					
+					let numItems 		= imgsList.length;
+					let imageArea 		= fitIntoArea(area, numItems);
+					let imageDimensions = calcDimensions(imageArea, 16, 9);
 
 					imgsList.forEach(img => {
-						//img.style.width = imgSize + 'px ';
-						//img.style.height = imgSize + 'px';
+						img.style.width = imageDimensions.width + 'px ';
+						img.style.height = imageDimensions.height + 'px ';
 					});
 				}
-
 			}
 
+			/*
+			 * Establish the dimensions for the number of items intended to fill an area
+			 *
+			 * @area integer 2D area to be filled
+			 * @numItems integer number of items to fill the area with
+			 *
+			 */
+			function fitIntoArea(area, numItems){
+				let increment       = 100;
+				let step			= 1;
+				let progressImage 	= 0;
+				let progressTotal 	= 0;
+
+				while (increment > 0.1){
+
+					while(progressTotal < area){
+						let [tempArea, tempTotalArea] = areaCalc(step, increment, progressImage, numItems)
+
+						if(tempTotalArea > area){
+							[progressImage, progressTotal] = areaCalc(step-1, increment, progressImage, numItems)
+							step = 1;
+							increment = increment / 2;
+							break;
+						}
+
+						// emergency limit catcher
+						if(increment <= 0.01){ console.log("increment : hard limiter"); return; }
+
+						// emergency limit catcher
+						if(step >= 100){ console.log("step : hard limiter"); return; }
+
+						step++;
+					}
+
+				}
+
+				// add leftover difference to the items
+				let leftover = (area - progressTotal) / numItems;
+
+				return progressImage + leftover;
+			}
 
 
 			/*
-
-
-			function displayInDOM(json){
-				var output = '';
-
-				json.forEach(results => {
-					let result = results.sapiObj.results[0].results
-					result.forEach(article => {
-						output += imageWrapper(article);
-					});
-				});
-
-				document.getElementsByTagName('main')[0].innerHTML = output;
-
-				//calculateImageSizes();
+			 * Calculating the next area estimate in the loop
+			 *
+			 * @iteration integer number of iteration sequence
+			 * @increment integer value to increase teh area calculation by
+			 * @offset integer totla of periously calculated that does not exceed area
+			 * @totalItems integer number of items to fill the area with
+			 *
+			 */
+			function areaCalc(iteration, increment, offset, totalItems){
+				let singleArea = offset + ( ( (iteration) * increment ) * ( (iteration) * increment ) );
+				let totalArea = singleArea * totalItems;
+				return [singleArea, totalArea];
 			}
 
-			function calculateImageSizes(){
-				const imgs 		= document.getElementsByTagName('img');
-				const imgsList	= Array.prototype.slice.call(imgs);
-				const width 	= window.innerWidth + ((window.innerWidth / 100) * 5);
-				const height 	= window.innerHeight + ((window.innerHeight / 100) * 5);
-				const area 		= (width * height);
-
-				if(imgsList.length > 0){
-					let gridImages 	= squareGridCalc(imgsList.length);
-					let imgSize 	= getImageDimensions(area, gridImages);
-
-					imgsList.forEach(img => {
-						img.style.width = imgSize + 'px ';
-						img.style.height = imgSize + 'px';
-					});
-				}
+			/*
+			 * Calculate the width & height dimensions for an item, given the ratio and area
+			 *
+			 * @area integer 2D area to be filled
+			 * @numItems integer number of items to fill the area with
+			 *
+			 */
+			function calcDimensions(area, ratioW, ratioH){
+				let numX	 = ratioW * ratioH;
+				let xSquared = area / numX;
+				let x = Math.sqrt(xSquared);
+				return {
+					width : Math.ceil(x * ratioW),
+					height : Math.ceil(x * ratioH),
+				};
 			}
-
-
-			function getImageDimensions(area, numImages){
-				for(var i = 1; i < 10000; i++){
-					var imageArea 		= i*i;
-					var totalImageArea	= imageArea * numImages;
-
-					if(totalImageArea > area ){
-						return i;
-						break;
-					}
-				}
-			}
-
-
-			function squareGridCalc(num){
-				if(num % 2){
-					return num - 1;
-				}
-				return num;
-			}
-
-			*/
 
 
 			// -------
