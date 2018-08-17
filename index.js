@@ -13,6 +13,7 @@ const articles = require("./routes/articles");
 const twentyfourhrs = require("./routes/twentyfourhrs");
 const facetHistory = require("./routes/facetHistory");
 const lantern = require("./routes/lantern");
+const list = require("./routes/list");
 
 const hbs = require("hbs");
 
@@ -48,6 +49,7 @@ app.use("/articles", articles);
 app.use("/24hrs", twentyfourhrs);
 app.use("/facethistory", facetHistory);
 app.use("/lantern", lantern);
+app.use("/list", list);
 
 // ---
 
