@@ -31,13 +31,15 @@
 
 		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script>
+			window.addEventListener('resize', calculateImageSizes);
+
 			function displayInDOM(json){
 				var output = '';
 
 				json.forEach(results => {
 					let result = results.sapiObj.results[0].results
 					result.forEach(article => {
-						output += imageWrapper(article);
+						output += imageWrapper(article, "&width=400&height=400");
 					});
 				});
 
