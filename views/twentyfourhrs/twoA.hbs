@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
-	{{#> head title='24hrs v3 - Long Images' subtitle='Displaying the images of the last 24 hours of published articles - in full screen height format' }}
+	{{#> head title='24hrs v2a - 100 articles' subtitle='Displaying the images of the last 100 published articles in a fullscreen flexible grid' }}
 		<style type="text/css">
 			html, body, main {
 				margin: 0;
 				padding: 0;
+				font-size: 0;
 				overflow: hidden;
 				height: 100%;
+				width: 100%;
 			}
 			a {
 				display: inline-block;
-				height: 100%;
+		        font-size: 0;
+		        width: 10%;
+		        height: 10%;
 			}
 			img {
-				display: inline-block;
 				width: 100%;
-				height: 100%;
 			}
 			header {
 				display: none;
@@ -23,7 +25,7 @@
 		</style>
 	{{/head}}
 	<body>
-		{{> header title='24hrs v3 - Long Images' subtitle='Displaying the images of the last 24 hours of published articles - in full screen height format'}}
+		{{> header title='24hrs v2 - 100 articles' subtitle='Displaying the images of the last 100 published articles in a fullscreen flexible grid'}}
 		
 		<main>
 			<!-- results to go here -->
@@ -31,7 +33,6 @@
 
 		<script type="text/javascript" src="/static/js/main.js"></script>
 		<script>
-			window.addEventListener('resize', calculateImageSizes);
 
 			function displayInDOM(json){
 				var output = '';
@@ -39,26 +40,11 @@
 				json.forEach(results => {
 					let result = results.sapiObj.results[0].results
 					result.forEach(article => {
-						output += imageWrapper(article, "&width=400&height=400");
+						output += imageBgWrapper(article, "width=500&height=281");
 					});
 				});
 
 				document.getElementsByTagName('main')[0].innerHTML = output;
-				calculateImageSizes();
-			}
-
-			function calculateImageSizes(){
-				const containers 		= document.getElementsByTagName('a');
-				const containersList	= Array.prototype.slice.call(containers);
-
-				if(containersList.length > 0){
-					let imgWidth = (window.innerWidth / containersList.length);
-
-					containersList.forEach(container => {
-						container.style.width = imgWidth + 'px';
-					});
-				}
-				
 			}
 
 			fetch('/24hrs/dataReq')
@@ -70,6 +56,7 @@
 				}).catch(function(error) {
 					console.log('Request failed', error);
 			});
+
 		</script>
 	</body>
 </html>

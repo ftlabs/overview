@@ -18,13 +18,26 @@ function infoWrapper(element){
 	return output;
 }
 
-function imageWrapper(element){
+function imageWrapper(element, params = ""){
 	var output = '';
 	var filterdData = getRequiredInfo(element);
 
 	if(filterdData.image !== null){
-		output = '<a href="' + filterdData.link + '"><img src="' + filterdData.image + '" alt="' + filterdData.title + '"></img></a>';
+		output = '<a href="' + filterdData.link + '"><img src="' + filterdData.image + params + '" alt="' + filterdData.title + '"></img></a>';
 	}
+	return output;
+}
+
+function imageBgWrapper(element, params = ""){
+	var output = '';
+	var filterdData = getRequiredInfo(element);
+
+	if(filterdData.image !== null){
+		bgStr = 
+		output = '<a href="' + filterdData.link + '" title="' + filterdData.title + '" style="background:url(\'' + filterdData.image + params + '\') no-repeat center center;background-size: cover;" ></a>';
+	}
+
+	console.log(output);
 	return output;
 }
 
@@ -58,7 +71,7 @@ function getLink(obj){
 function getImage(obj){
 	if(obj.hasOwnProperty('images') && obj.images[0] !== undefined){
 		let sliced = sliceQuotes(JSON.stringify(obj.images[0].url, null, 2));
-		let newPath = sliced.split('?')[0] + "?source=search&width=400&height=400";
+		let newPath = sliced.split('?')[0] + "?source=search";
 		return newPath;
 	}
 	return null;

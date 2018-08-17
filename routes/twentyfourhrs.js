@@ -17,6 +17,10 @@ router.get('/2', async (req, res, next) => {
 	res.render("twentyfourhrs/two");
 });
 
+router.get('/2a', async (req, res, next) => {
+	res.render("twentyfourhrs/twoA");
+});
+
 router.get('/3', async (req, res, next) => {
 	res.render("twentyfourhrs/three");
 });
