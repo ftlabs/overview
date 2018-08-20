@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Article = require('../modules/article');
 const Facet = require('../modules/facet');
-const Time = require('../helpers/time');
+
 
 
 router.get('/', async (req, res, next) => {
@@ -10,11 +10,12 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/1', async (req, res, next) => {
-	res.render("twentyfourhrs/one");
+	res.render("twentyfourhrs/one", { results: await Article.getDaysOfRecentArticles(1) });
 });
 
 router.get('/2', async (req, res, next) => {
-	res.render("twentyfourhrs/two");
+	let resu = await Article.getDaysOfRecentArticles(1);
+	res.render("twentyfourhrs/two", { results: resu });
 });
 
 router.get('/2a', async (req, res, next) => {
@@ -28,7 +29,6 @@ router.get('/3', async (req, res, next) => {
 router.get('/dataReq', async (req, res, next) => {
 	try {
 		const date = Time.getDatetimeRange('days', 1, 0);
-		console.log(date);
 		const params = {
 			queryString: "lastPublishDateTime:>" + date.next,
 			maxResults : 100,

@@ -18,6 +18,10 @@ const hbs = require("hbs");
 
 hbs.registerPartials(__dirname + "/views/partials");
 
+hbs.registerHelper('imgPath', function(path) {
+  return path.split('?')[0] + "?source=search";
+});
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
