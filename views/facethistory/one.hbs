@@ -1,37 +1,12 @@
 <!DOCTYPE html>
 <html>
 	{{#> head title='Facet History v1 - ' subtitle='' }}
-		<style type="text/css">
-			/* custom style(s) go here */
-		</style>
 	{{/head}}
 	<body>
 		{{> header title='Facet History v1 - ' subtitle=''}}
 		
 		<main>
-			<!-- results to go here -->
+			{{ facetsJson }}
 		</main>
-
-		<script type="text/javascript" src="/static/js/main.js"></script>
-		<script>
-			fetch('/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=10')
-				.then(status)
-				.then(json)
-				.then(function(data){
-					console.log('Request succeeded with JSON response', data);
-					displayInDOM(data);
-				}).catch(function(error) {
-					console.log('Request failed', error);
-			});
-
-			function displayInDOM(json){
-				var output = '';
-				var data = json.topics;
-
-				console.log(data);
-				
-				document.getElementsByTagName('main')[0].innerHTML = output;
-			}
-		</script>
 	</body>
 </html>
