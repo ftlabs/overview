@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Article = require('../modules/article');
+const article = require('../modules/article');
 
 router.get('/search/:searchTerm', async (req, res, next) => {
 	try {
-		const articles = await Article.searchByTerm(req.params.searchTerm);
+		const articles = await article.searchByTerm(req.params.searchTerm);
 		res.json(articles);
 	} catch (err) {
 		next(err);
@@ -13,7 +13,7 @@ router.get('/search/:searchTerm', async (req, res, next) => {
 
 router.get('/get/:uuid', async (req, res, next) => {
 	try {
-		const article = await Article.getByUuid(req.params.uuid);
+		const article = await article.getByUuid(req.params.uuid);
 		res.json(article);
 	} catch (err) {
 		next(err);
