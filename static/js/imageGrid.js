@@ -1,7 +1,7 @@
 window.addEventListener('resize', calculateImageSizes);
 
 function calculateImageSizes(){
-	const imgs 		= document.getElementsByTagName('a');
+	const imgs 		= document.getElementsByTagName('img');
 	const imgsList	= Array.prototype.slice.call(imgs);
 	const area 		= (window.innerWidth * window.innerHeight);
 
@@ -15,9 +15,6 @@ function calculateImageSizes(){
 			img.style.height = imageDimensions.height + 'px ';
 		});
 	}
-
-	console.log('foo');
-	console.log(imgsList);
 }
 
 /*

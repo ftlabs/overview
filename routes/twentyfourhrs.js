@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Article = require('../modules/article');
-const Facet = require('../modules/facet');
-
+const article = require('../modules/article');
+const parameters = require('../helpers/parameters');
 
 
 router.get('/', async (req, res, next) => {
@@ -10,16 +9,17 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/1', async (req, res, next) => {
-	res.render("twentyfourhrs/one", { results: await Article.getDaysOfRecentArticles(1) });
+	res.render("twentyfourhrs/one", { results: await article.getDaysOfRecentArticles(1) });
 });
 
 router.get('/2', async (req, res, next) => {
-	let resu = await Article.getDaysOfRecentArticles(1);
-	res.render("twentyfourhrs/two", { results: resu });
+	res.render("twentyfourhrs/two", { results: await article.getDaysOfRecentArticles(1) });
 });
 
 router.get('/2a', async (req, res, next) => {
-	res.render("twentyfourhrs/twoA");
+	let results = await article.getDaysOfRecentArticles(2);
+	results = parameters.limitReturn(results, 100);
+	res.render("twentyfourhrs/twoA", { results: results });
 });
 
 router.get('/3', async (req, res, next) => {
@@ -47,7 +47,7 @@ router.get('/dataReq', async (req, res, next) => {
 			],
 			facets : {"names":[ "organisations", "organisationsId", "people", "peopleId", "topics", "topicsId"], "maxElements":-1}
 		};
-		const articles = await Article.searchByParamsDeep(params, 4);
+		const articles = await article.searchByParamsDeep(params, 4);
 		res.json(articles);
 	} catch (err) {
 		next(err);
@@ -66,7 +66,7 @@ router.get('/topics/last7days', async (req, res, next) => {
 			searches.push( createQueryString(i) );
 		}
 
-		const articles = await Article.searchBySequence(searches);
+		const articles = await article.searchBySequence(searches);
 
 
 		// get last 7 days of facet topics
@@ -125,7 +125,6 @@ function createQueryString(i){
 		}
 	};
 }
-
 
 
 module.exports = router;

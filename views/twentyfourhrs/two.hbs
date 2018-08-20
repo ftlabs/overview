@@ -26,7 +26,6 @@
 		<main>
 			{{#each results}}
 			{{#if images.0.url}}
-				<a href="{{ location.uri }}" title="{{ title.title }}" style="background:url('{{imgPath images.0.url}}&width=500&height=281') no-repeat center center;background-size: cover;" ></a>
 			<a href="{{ location.uri }}" title="{{ title.title }}" target="_blank">
 				<img src="{{imgPath images.0.url}}&width=500&height=281" alt="title="{{ title.title }}""></img>
 			</a>

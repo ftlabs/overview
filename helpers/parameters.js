@@ -20,6 +20,22 @@ function check(type, value, min, max, range, defaultVal){
 	return defaultVal;
 }
 
+
+function limitReturn(results, max){
+	let limitedResults = [];
+	for(let i = 0; i < results.length; i++){
+		if(results[i].images[0] !== undefined){
+			limitedResults.push(results[i]);
+		}
+		if(limitedResults.length >= max){
+			break;
+		}
+	}
+	return limitedResults;
+}
+
+
 module.exports = {
-	check
+	check,
+	limitReturn
 };
