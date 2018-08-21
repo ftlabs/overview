@@ -1,7 +1,11 @@
 'use strict';
 
 function unique(arrays){
-	return ( [ ...new Set( [].concat(...arrs) ) ] );
+	return ( [ ...new Set( [].concat(...arrays) ) ] );
+}
+
+function matching(arrays){
+	return [];
 }
 
 
