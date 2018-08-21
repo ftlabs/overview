@@ -26,7 +26,7 @@ function getDatetimeRange(period, frequency, offset, past = true, iso = true){
 }
 
 function msDuration(period, increment){
-	var ms = 0;
+	let ms = 0;
 
 	switch(period){
 		case 'minutes':
