@@ -9,23 +9,23 @@ router.get('/', async (req, res, next) => {
 	res.render("twentyfourhrs");
 });
 
-router.get('/1', async (req, res, next) => {
+router.get('/tiledTitles', async (req, res, next) => {
 	let results = await article.getDaysOfRecentArticles(1);
-	res.render("twentyfourhrs/one", { results: results });
+	res.render("twentyfourhrs/tiledTitles", { results: results });
 });
 
-router.get('/2', async (req, res, next) => {
+router.get('/tiledImages', async (req, res, next) => {
 	let results = await article.getDaysOfRecentArticles(1);
-	res.render("twentyfourhrs/two", { results: results });
+	res.render("twentyfourhrs/tiledImages", { results: results });
 });
 
-router.get('/2a', async (req, res, next) => {
+router.get('/tiledImages100Grid', async (req, res, next) => {
 	let results = await article.getDaysOfRecentArticles(2);
 	results = parameters.limitReturn(results, 100);
-	res.render("twentyfourhrs/twoA", { results: results });
+	res.render("twentyfourhrs/tiledImages100Grid", { results: results });
 });
 
-router.get('/3', async (req, res, next) => {
+router.get('/stretchedImages', async (req, res, next) => {
 	let results = await article.getDaysOfRecentArticles(1);
 	res.render("twentyfourhrs/three", { results: results });
 });
