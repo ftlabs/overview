@@ -6,11 +6,11 @@ router.get("/", (req, res, next) => {
   res.render("list");
 });
 
-router.get("/overDuration/:list/:days", async (req, res, next) => {
+router.get("/overDuration/:list", async (req, res, next) => {
   try {
     const data = await listService.overDuration(
       req.params.list,
-      req.params.days
+      req.query.days
     );
     res.setHeader("Content-Type", "application/json");
     res.json(data);
@@ -29,12 +29,12 @@ router.get("/article/:contentId", async (req, res, next) => {
   }
 });
 
-router.get("/position/:list/:position/:days", async (req, res, next) => {
+router.get("/position/:list", async (req, res, next) => {
   try {
     const data = await listService.positionData(
       req.params.list,
-      req.params.position,
-      req.params.days
+      req.query.position,
+      req.query.days
     );
     res.setHeader("Content-Type", "application/json");
     res.json(data);
