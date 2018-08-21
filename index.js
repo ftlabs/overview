@@ -26,7 +26,7 @@ hbs.registerHelper('imgPath', function(path) {
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
-var requestLogger = function(req, res, next) {
+let requestLogger = function(req, res, next) {
   debug("RECEIVED REQUEST:", req.method, req.url);
   next(); // Passing the request to the next handler in the stack.
 };
