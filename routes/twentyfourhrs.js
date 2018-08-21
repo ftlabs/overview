@@ -27,7 +27,7 @@ router.get('/tiledImages100Grid', async (req, res, next) => {
 
 router.get('/stretchedImages', async (req, res, next) => {
 	let results = await article.getDaysOfRecentArticles(1);
-	res.render("twentyfourhrs/three", { results: results });
+	res.render("twentyfourhrs/stretchedImages", { results: results });
 });
 
 
