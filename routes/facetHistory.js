@@ -18,9 +18,7 @@ router.get('/1', async (req, res, next) => {
 			maxFacets 	: 10
 		});
 
-		res.render("facethistory/one", {
-			facetsJson: JSON.stringify(facets)
-		});		
+		res.render("facethistory/one", { facetsJson: JSON.stringify(facets) });		
 		return;
 	} catch (err) {
 		console.log('err: ' + err);
