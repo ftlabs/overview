@@ -4,7 +4,6 @@ const facet = require('../modules/facet');
 
 
 // Paths
-
 router.get('/', async (req, res, next) => {
 	res.render("facethistory");
 });
@@ -30,7 +29,6 @@ router.get('/1', async (req, res, next) => {
 
 
 // Endpoints
-
 router.get('/:facet/', async (req, res, next) => {
 	try {
 		const facets = await facet.searchForFacetHistory({
@@ -41,6 +39,7 @@ router.get('/:facet/', async (req, res, next) => {
 			maxFacets 	: req.query.maxFacets
 		});
 
+		res.setHeader("Content-Type", "application/json");
 		res.json(facets);
 		return;
 	} catch (err) {

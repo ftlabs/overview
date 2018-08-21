@@ -34,6 +34,7 @@ router.get('/stretchedImages', async (req, res, next) => {
 // endpoints
 router.get('/daysOfArticles', async (req, res, next) => {
 	let results = await article.getDaysOfRecentArticles(req.query.days, req.query.aspects, req.query.facets);
+	res.setHeader("Content-Type", "application/json");
 	res.json( results );
 });
 
