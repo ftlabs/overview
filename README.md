@@ -13,6 +13,8 @@ TOKEN= # for authorised access without S3O or IP range. This can be set to a nod
 PORT= # auto set in Heroku, but needs specifying for development.
 ```
 
+You will also need a `keyfile.json` with credentials for big query for the list service.
+
 Install nodemon globally by running `npm install -g nodemon`.
 
 Install the dependencies by running `npm install` and start the server with `npm start`.
