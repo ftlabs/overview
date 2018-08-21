@@ -25,8 +25,8 @@ function getByUuid(uuid){
 	return fetchContent.getArticle(uuid);
 }
 
-function getDaysOfRecentArticles(days){
-	return fetchContent.getRecentArticles(days);
+function getDaysOfRecentArticles(days = 1, aspects = [], facets = []){
+	return fetchContent.getRecentArticles(days, aspects, facets);
 }
 
 
