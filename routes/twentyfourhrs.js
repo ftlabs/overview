@@ -33,9 +33,7 @@ router.get('/3', async (req, res, next) => {
 
 // endpoints
 router.get('/daysOfArticles', async (req, res, next) => {
-	let aspects = (req.query.aspects) ? req.query.aspects : undefined;
-	let facets = (req.query.facets) ? req.query.facets : undefined;
-	let results = await article.getDaysOfRecentArticles(req.query.days, aspects, facets);
+	let results = await article.getDaysOfRecentArticles(req.query.days, req.query.aspects, req.query.facets);
 	res.json( results );
 });
 
