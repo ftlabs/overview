@@ -7,6 +7,7 @@ const debug = require("debug")(`${package.name}:index`);
 const s3o = require("@financial-times/s3o-middleware");
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
 const app = express();
 
 if (process.env.NODE_ENV === "production") {
