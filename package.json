@@ -24,7 +24,7 @@
     "@financial-times/s3o-middleware": "^2.0.4",
     "@google-cloud/bigquery": "^1.3.0",
     "assert": "^1.4.1",
-    "aws-sdk": "^2.7.10",
+    "aws-sdk": "^2.296.0",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "chart.js": "^2.7.1",
@@ -44,7 +44,7 @@
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
-    "nock": "^9.2.6",
+    "nock": "^9.6.1",
     "nodemon": "^1.12.1",
     "proxyquire": "^2.0.1",
     "sinon": "^5.0.10"

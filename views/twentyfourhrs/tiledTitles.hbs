@@ -27,33 +27,13 @@
 		{{> header title='24hrs v1 - Basic Display' subtitle='Displaying the titles of the last 24 hours of published articles'}}
 		
 		<main>
-			<!-- results to go here -->
+			{{#each results}}
+			<div class="item">
+				<p>
+					{{ title.title }}
+				</p>
+			</div>
+			{{/each}}
 		</main>
-
-		<script type="text/javascript" src="/static/js/main.js"></script>
-		<script>
-			fetch('/24hrs/dataReq')
-				.then(status)
-				.then(json)
-				.then(function(data) {
-					console.log('Request succeeded with JSON response', data);
-					displayInDOM(data);
-				}).catch(function(error) {
-					console.log('Request failed', error);
-			});
-
-			function displayInDOM(json){
-				var output = '';
-
-				json.forEach(results => {
-					let result = results.sapiObj.results[0].results
-					result.forEach(article => {
-						output += infoWrapper(article);
-					});
-				});
-				
-				document.getElementsByTagName('main')[0].innerHTML = output;
-			}
-		</script>
 	</body>
 </html>

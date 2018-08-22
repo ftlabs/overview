@@ -28,35 +28,11 @@
 		{{> header title='24hrs v2 - 100 articles' subtitle='Displaying the images of the last 100 published articles in a fullscreen flexible grid'}}
 		
 		<main>
-			<!-- results to go here -->
+			{{#each results}}
+			{{#if images.0.url}}
+			<a href="{{ location.uri }}" title="{{ title.title }}" style="background:url('{{imgPath images.0.url}}&width=500&height=281') no-repeat center center;background-size: cover;" ></a>
+			{{/if}}
+			{{/each}}
 		</main>
-
-		<script type="text/javascript" src="/static/js/main.js"></script>
-		<script>
-
-			function displayInDOM(json){
-				var output = '';
-
-				json.forEach(results => {
-					let result = results.sapiObj.results[0].results
-					result.forEach(article => {
-						output += imageBgWrapper(article, "width=500&height=281");
-					});
-				});
-
-				document.getElementsByTagName('main')[0].innerHTML = output;
-			}
-
-			fetch('/24hrs/dataReq')
-				.then(status)
-				.then(json)
-				.then(function(data) {
-					console.log('Request succeeded with JSON response', data);
-					displayInDOM(data);
-				}).catch(function(error) {
-					console.log('Request failed', error);
-			});
-
-		</script>
 	</body>
 </html>

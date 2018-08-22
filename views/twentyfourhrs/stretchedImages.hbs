@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	{{#> head title='24hrs v3 - Long Images' subtitle='Displaying the images of the last 24 hours of published articles - in full screen height format' }}
+		<style type="text/css">
+			html, body, main {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				height: 100%;
+			}
+			main {
+				overflow: hidden;
+				width: 102%;
+			}
+			a {
+				display: inline-block;
+				height: 100%;
+				float: left;
+			}
+			img {
+				display: inline-block;
+				height: 100%;
+				width: 100%;
+			}
+			header {
+				display: none;
+			}
+		</style>
+	{{/head}}
+	<body>
+		{{> header title='24hrs v3 - Long Images' subtitle='Displaying the images of the last 24 hours of published articles - in full screen height format'}}
+		
+		<main>
+			{{#each results}}
+			{{#if images.0.url}}
+			<a href="{{ location.uri }}" title="{{ title.title }}" target="_blank">
+				<img src="{{imgPath images.0.url}}&width=500&height=281" alt="title="{{ title.title }}""></img>
+			</a>
+			{{/if}}
+			{{/each}}
+		</main>
+
+		<script type="text/javascript" src="/static/js/imageGridLong.js"></script>
+	</body>
+</html>
