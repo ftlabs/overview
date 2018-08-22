@@ -4,7 +4,7 @@
   "description": "Base project used for quick setup with FT Api's",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "test": "export CAPI_KEY=123 && mocha ./test --recursive --exit"
   },
   "repository": {
