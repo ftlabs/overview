@@ -1,5 +1,5 @@
 const dotenv = require("dotenv").config({
-  silent: process.env.NODE_ENVIRONMENT === "production"
+  silent: process.env.NODE_ENV === "production"
 });
 
 const package = require("./package.json");
@@ -8,6 +8,12 @@ const s3o = require("@financial-times/s3o-middleware");
 const express = require("express");
 const path = require("path");
 const app = express();
+
+if (process.env.NODE_ENV === "production") {
+  const googleTokenPath = path.resolve(`${__dirname}/keyfile.json`);
+  fs.writeFileSync(googleTokenPath, process.env.GOOGLE_CREDS);
+}
+
 const validateRequest = require("./helpers/check-token");
 const articles = require("./routes/articles");
 const twentyfourhrs = require("./routes/twentyfourhrs");
@@ -19,8 +25,8 @@ const hbs = require("hbs");
 
 hbs.registerPartials(__dirname + "/views/partials");
 
-hbs.registerHelper('imgPath', function(path) {
-  return path.split('?')[0] + "?source=search";
+hbs.registerHelper("imgPath", function(path) {
+  return path.split("?")[0] + "?source=search";
 });
 
 // view engine setup

@@ -1,4 +1,4 @@
-const lists = require("../listIds");
+const lists = JSON.parse(process.env.LIST_IDS);
 
 function getId(sectionName) {
   return lists[sectionName];
