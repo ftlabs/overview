@@ -1,8 +1,8 @@
 const dotenv = require("dotenv").config({
-  silent: process.env.NODE_ENVIRONMENT === "production"
+  silent: process.env.NODE_ENV === "production"
 });
 
-if (process.env.NODE_ENVIRONMENT === "production") {
+if (process.env.NODE_ENV === "production") {
   const googleTokenPath = path.resolve(`${__dirname}/keyfile.json`);
   fs.writeFileSync(googleTokenPath, process.env.GOOGLE_CREDS);
 }
