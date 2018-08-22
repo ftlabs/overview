@@ -19,21 +19,17 @@
 		<h2>Endpoint</h2>
 
 		<p>
-		  GET /dataReq, returns JSON, e.g. <a href="/24hrs/dataReq">/24hrs/dataReq</a>
+		  GET /daysOfArticles/?days=, returns JSON, e.g. <a href="/24hrs/daysOfArticles?days=1">/24hrs/daysOfArticles?days=1</a>
 		</p>
 
-		<p>
-		  GET /topics/last7days, returns JSON, e.g. <a href="/24hrs/topics/last7days">/topics/last7days</a>
-		</p>
-
-		<h2>Pages</h2>
+		<h2>Example Pages</h2>
 
 		<ul>
 			<li>
-				<a href="/24hrs/1">24hrs v1 - Basic display</a>
+				<a href="/24hrs/tiledTitles">/24hrs/tiledTitles</a>
 			</li>
 			<li>
-				<a href="/24hrs/2">24hrs v2 - Image display</a>
+				<a href="/24hrs/tiledImages">/24hrs/tiledImages</a>
 				
 				<ul>
 					<li>
@@ -45,15 +41,15 @@
 				</ul>
 			</li>
 			<li>
-				<a href="/24hrs/2a">24hrs v2a - 100 latest articles in images</a>
+				<a href="/24hrs/tiledImages100Grid">/24hrs/tiledImages100Grid</a>
 				<ul>
 					<li>
-						Displaying the images of the last 100 published articles in a fullscreen flexible grid
+						Displaying the last 100 published articles (that have header images) in a fullscreen flexible grid
 					</li>
 				</ul>
 			</li>
 			<li>
-				<a href="/24hrs/3">24hrs v3 - Long Images</a>
+				<a href="/24hrs/stretchedImages">/24hrs/stretchedImages</a>
 				<ul>
 					<li>
 						Displaying images from the last 24 hours of published articles - in full screen height format

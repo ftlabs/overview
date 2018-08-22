@@ -19,7 +19,7 @@
 		<h2>Endpoint</h2>
 
 		<p>
-		  GET /facetHistory/:facet/?period=&amp;interval=&amp;numInterval=&amp;maxFacets=, returns JSON,<br />e.g. <a href="/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=10">/facetHistory/topics?period=days&amp;interval=1&amp;numInterval=5&amp;maxFacets=10</a>
+		  GET /facetHistory/:facet/?period=&amp;interval=&amp;numInterval=&amp;maxFacets=, returns JSON,<br />e.g. <a target="blank" href="/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=10">/facetHistory/topics?period=days&amp;interval=1&amp;numInterval=5&amp;maxFacets=10</a>
 		</p>
 		<ul>
 			<li>
@@ -85,42 +85,15 @@
 		<br /><br />
 		<br />
 
-		<h2>Example page(s)</h2>
+		<h2>Example pages</h2>
 
 		<ul>
 			<li>
-				<a href="/facetHistory/1">Facet History v1 - </a>
+				<a target="_blank" href="/facetHistory/1">Facet History v1 - </a>
 			</li>
 		</ul>
 
-		<script type="text/javascript">
-			const facet 			= document.getElementById('facet');
-			const period 			= document.getElementById('period');
-			const interval 			= document.getElementById('interval');
-			const numInterval 		= document.getElementById('numInterval');
-			const maxFacets 		= document.getElementById('maxFacets');
-			const queryLink			= document.getElementById('queryBuilderLink');
 
-			facet.addEventListener('change', updateUrlBuilderLink, false);
-			period.addEventListener('change', updateUrlBuilderLink, false);
-			interval.addEventListener('change', updateUrlBuilderLink, false);
-			numInterval.addEventListener('change', updateUrlBuilderLink, false);
-			maxFacets.addEventListener('change', updateUrlBuilderLink, false);
-
-			function updateUrlBuilderLink(){
-				const facetVal 			= facet.options[facet.selectedIndex].value;
-				const periodVal 		= period.options[period.selectedIndex].value;
-				const intervalVal 		= interval.options[interval.selectedIndex].value;
-				const numIntervalVal 	= numInterval.options[numInterval.selectedIndex].value;
-				const maxFacetsVal 		= maxFacets.options[maxFacets.selectedIndex].value;
-
-				let str = `/facetHistory/${facetVal}?period=${periodVal}&interval=${intervalVal}&numInterval=${numIntervalVal}&maxFacets=${maxFacetsVal}`;
-
-				queryLink.href = str;
-				queryLink.innerHTML = str;
-			}
-
-			updateUrlBuilderLink();
-		</script>
+		<script type="text/javascript" src="/static/js/facetQueryBuilder.js"></script>
 	</body>
 </html>
