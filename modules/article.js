@@ -51,6 +51,10 @@ function getDaysOfRecentArticles(days = 1, aspects = defaultAspects, facets = de
 	return fetchContent.getRecentArticles(days, aspects, facets);
 }
 
+function getArticlesInTopics(days = 1, aspects = defaultAspects, facets = defaultFacets){
+	return fetchContent.getArticleTopics(days, aspects, facets);
+}
+
 
 module.exports = {
 	searchByParams,
@@ -58,5 +62,6 @@ module.exports = {
 	searchByTerm,
 	searchBySequence,
 	getByUuid,
-	getDaysOfRecentArticles
+	getDaysOfRecentArticles,
+	getArticlesInTopics
 };
