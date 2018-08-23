@@ -23,9 +23,14 @@ function sortArray(array, sortable) {
     });
 }
 
+function uniqueSort(arr, sortable){
+	return sortArray(uniqueCount(arr), sortable);
+}
+
 
 module.exports = {
 	unique,
 	uniqueCount,
-	sortArray
+	sortArray,
+	uniqueSort
 };
