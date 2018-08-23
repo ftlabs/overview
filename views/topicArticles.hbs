@@ -11,5 +11,28 @@
 		  GET /relatedContent/?days=&amp;facet=, returns JSON, e.g. <a href="/topicArticles/relatedContent?days=1&facet=topics">/topicArticles/relatedContent?days=1&amp;facet=topics</a>
 		</p>
 
+		<br />
+
+		<h3>Build-a-query</h3>
+
+		<form>
+			<span>topicArticles/relatedContent?days=</span>
+			<select id="days" name="days">
+				<option selected>1</option>
+				<option>2</option>
+				<option>3</option>
+			</select>
+			<span>&amp;facet=</span>
+			<select id="facet" name="facet">
+				<option selected>topics</option>
+				<option>organisation</option>
+				<option>people</option>
+			</select>
+			<br /><br />
+			<a id="queryBuilderLink" target="blank" href="">topicArticles/relatedContent?days=</a>
+		</form>
+
+		<script type="text/javascript" src="/static/js/relatedQueryBuilder.js"></script>
+
 	</body>
 </html>
