@@ -5,19 +5,27 @@ function unique(arrays){
 }
 
 function uniqueCount(array){
-	let count = {};
-	for(let i = 0; i < array.length; i++){
-		count[array[i]] = 1 + (count[array[i]] || 0);
-	}
+	let count = [];
+	array.forEach(item => {
+		let varItem = count.find(function (obj) { return obj.name === item; });
+		if(varItem === undefined){
+			count.push({ name: item, count: 1 });
+		} else {
+			varItem.count =  varItem.count + 1;
+		}
+	});
 	return count;
 }
 
-function matching(arrays){
-	return [];
+function sortArray(array, sortable) {
+    return array.sort(function(obj1, obj2){
+    	return obj2[sortable] - obj1[sortable];
+    });
 }
 
 
 module.exports = {
 	unique,
-	uniqueCount
+	uniqueCount,
+	sortArray
 };
