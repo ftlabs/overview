@@ -8,7 +8,7 @@
 		<h2>Endpoint</h2>
 
 		<p>
-		  GET /relatedContent/?days=&amp;facet=, returns JSON, e.g. <a href="/topicArticles/relatedContent?days=1&facet=topics">/topicArticles/relatedContent?days=1&amp;facet=topics</a>
+		  GET /relatedContent/?days=&amp;facet=, returns JSON, e.g. <a href="/facetsWithArticles/relatedContent?days=1&facet=topics">/facetsWithArticles/relatedContent?days=1&amp;facet=topics</a>
 		</p>
 
 		<br />
@@ -16,7 +16,7 @@
 		<h3>Build-a-query</h3>
 
 		<form>
-			<span>topicArticles/relatedContent?days=</span>
+			<span>facetsWithArticles/relatedContent?days=</span>
 			<select id="days" name="days">
 				<option selected>1</option>
 				<option>2</option>
@@ -29,7 +29,7 @@
 				<option>people</option>
 			</select>
 			<br /><br />
-			<a id="queryBuilderLink" target="blank" href="">topicArticles/relatedContent?days=</a>
+			<a id="queryBuilderLink" target="blank" href="">facetsWithArticles/relatedContent?days=</a>
 		</form>
 
 		<script type="text/javascript" src="/static/js/relatedQueryBuilder.js"></script>

@@ -5,7 +5,7 @@ const article = require('../modules/article');
 
 // paths
 router.get('/', async (req, res, next) => {
-	res.render("topicArticles");
+	res.render("facetsWithArticles");
 });
 
 // endpoints

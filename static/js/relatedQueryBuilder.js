@@ -15,7 +15,7 @@ function updateUrlBuilderLink(){
 	const facetVal 		= facet.options[facet.selectedIndex].value;
 	const dayVal 		= days.options[days.selectedIndex].value;
 
-	let str = `/topicArticles/relatedContent/?days=${dayVal}&facet=${facetVal}`;
+	let str = `/facetsWithArticles/relatedContent/?days=${dayVal}&facet=${facetVal}`;
 
 	queryLink.href = str;
 	queryLink.innerHTML = str;

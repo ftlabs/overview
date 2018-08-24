@@ -14,7 +14,7 @@ const twentyfourhrs = require("./routes/twentyfourhrs");
 const facetHistory = require("./routes/facetHistory");
 const lantern = require("./routes/lantern");
 const list = require("./routes/list");
-const topicArticles = require("./routes/topicArticles");
+const facetsWithArticles = require("./routes/facetsWithArticles");
 const imageClusters = require("./routes/imageClusters");
 
 const hbs = require("hbs");
@@ -56,7 +56,7 @@ app.use("/24hrs", twentyfourhrs);
 app.use("/facethistory", facetHistory);
 app.use("/lantern", lantern);
 app.use("/list", list);
-app.use("/topicArticles", topicArticles);
+app.use("/facetsWithArticles", facetsWithArticles);
 app.use("/imageClusters", imageClusters);
 
 // ---
