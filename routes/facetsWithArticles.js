@@ -17,7 +17,7 @@ router.get('/test', async (req, res, next) => {
 router.get('/relatedContent', async (req, res, next) => {
 	const days = ( req.query.days ) ? req.query.days : 1;
 	const facet = ( req.query.facet ) ? req.query.facet : 'topics';
-	const aspects = ( req.query.aspects ) ? req.query.aspects : undefined;
+	let aspects = ( req.query.aspects ) ? req.query.aspects : undefined;
 
 	if(aspects){ aspects = aspects.split(',') }
 
