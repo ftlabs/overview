@@ -9,8 +9,14 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const app = express();
+const helmet = require('helmet');
+const express_enforces_ssl = require('express-enforces-ssl');
 
 if (process.env.NODE_ENV === "production") {
+  app.use(helmet());
+  app.enable('trust proxy');
+  app.use(express_enforces_ssl());
+
   const googleTokenPath = path.resolve(`${__dirname}/keyfile.json`);
   fs.writeFileSync(googleTokenPath, process.env.GOOGLE_CREDS);
 }
