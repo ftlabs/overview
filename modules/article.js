@@ -4,7 +4,6 @@ const time = require('../helpers/time');
 const CAPI_CONCURRENCE = process.env.hasOwnProperty('CAPI_CONCURRENCE')
 	? process.env.CAPI_CONCURRENCE
 	: 4;
-
 const defaultAspects = [ "audioVisual",
 							"editorial",
 							"images",
