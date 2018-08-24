@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const listService = require("../lib/listService");
+const timelineService = require("../lib/timelineService");
 
 router.get("/", (req, res, next) => {
   res.render("timeline/index");
@@ -8,13 +8,9 @@ router.get("/", (req, res, next) => {
 
 router.get("/latestData", async (req, res, next) => {
   try {
-    const data = await listService.positionData(
-      "uk-homepage-top-stories",
-      0,
-      7
-    );
+    const data = await timelineService.constructJSON();
     res.setHeader("Content-Type", "application/json");
-    res.json(JSON.stringify(json));
+    res.json(JSON.stringify(data));
   } catch (error) {
     console.error(error);
     //   do error stuff
