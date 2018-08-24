@@ -17,7 +17,11 @@ router.get('/test', async (req, res, next) => {
 router.get('/relatedContent', async (req, res, next) => {
 	let days = ( req.query.days ) ? req.query.days : 1;
 	let facet = ( req.query.facet ) ? req.query.facet : 'topics';
-	let results = await article.getArticlesInTopics( days, facet );
+	let aspects = ( req.query.aspects ) ? req.query.aspects : undefined;
+
+	if(aspects){ aspects = aspects.split(',') }
+
+	let results = await article.getArticlesInTopics( days, facet, aspects );
 
 	res.setHeader("Content-Type", "application/json");
 	res.json( results );

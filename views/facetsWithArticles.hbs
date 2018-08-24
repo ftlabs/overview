@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
 	{{#> head title='' subtitle='' }}
+		<style type="text/css">
+			span, select {
+				vertical-align: top;
+			}
+			#aspects {
+				height: 180px;
+			}
+		</style>
 	{{/head}}
 	<body>
 		<h1>Demo Index Page</h1>
@@ -27,6 +35,20 @@
 				<option selected>topics</option>
 				<option>organisation</option>
 				<option>people</option>
+			</select>
+			<span>&amp;aspects=</span>
+			<select multiple="" id="aspects" name="aspects">
+				<option selected>title</option>
+				<option selected>summary</option>
+				<option selected>images</option>
+				<option>audioVisual</option>
+                <option>editorial</option>
+                <option>lifecycle</option>
+                <option>location</option>
+                <option>master</option>
+                <option>metadata</option>
+                <option>nature</option>
+                <option>provenance</option>
 			</select>
 			<br /><br />
 			<a id="queryBuilderLink" target="blank" href="">facetsWithArticles/relatedContent?days=</a>
