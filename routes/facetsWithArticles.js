@@ -8,6 +8,11 @@ router.get('/', async (req, res, next) => {
 	res.render("facetsWithArticles");
 });
 
+router.get('/test', async (req, res, next) => {
+	let results = await article.getArticlesInTopics( 1, 'topics' );
+	res.render("facetsWithArticles/test", { facetsJson: JSON.stringify(results) } );
+});
+
 // endpoints
 router.get('/relatedContent', async (req, res, next) => {
 	let days = ( req.query.days ) ? req.query.days : 1;
