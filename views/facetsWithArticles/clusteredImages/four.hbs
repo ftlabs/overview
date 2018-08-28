@@ -8,15 +8,19 @@
 		h2 {
 			color: #fff;
 		    width: 1000%;
-		    font-size: 9vw;
+		    font-size: 8vw;
 		    text-shadow:
 			   -1px -1px 0 #000,  
 			    1px -1px 0 #000,
 			    -1px 1px 0 #000,
 			     1px 1px 0 #000;
 		}
+		button {
+			position: relative;
+			display: block;
+			margin-top: 10px;
+		}
 		.cluster {
-			border: 1px dashed black;
 		    display: inline-block;
 		    width: 200px;
 		    height: 200px;
@@ -32,9 +36,11 @@
 			width: auto;
 			height: auto;
 			max-width: 100%;
+			left: 0px;
+    		top: 45px;
 		}
 		.circlemask {
-			clip-path: circle(100%);
+			clip-path: circle(72%);
 		}
 		.centerPos {
 			position: absolute;
@@ -45,7 +51,6 @@
 		    text-align: center;
 		}
 		.controls {
-			background-color: white;
 			position: absolute;
 			display: block;
 			padding: 10px;
@@ -55,21 +60,19 @@
 			height: auto;
 			font-size: 12px;	
 		}
-		button {
-			position: relative;
-			display: block;
-			margin-top: 10px;
+		.guideline {
+			border: 1px dashed black;
 		}
 	</style>
 	{{/head}}
 	<body>
 		<main class="centerPos">
 			{{#each topPerson}}
-			<div class="cluster">
+			<div class="cluster guideline">
 				<div class="cluster--images">
 				{{#each articles}}
 				{{#if images.0.url}}
-					<img class="centerPos" src="{{imgPath images.0.url}}" />
+					<img class="" src="{{imgPath images.0.url}}" />
 				{{/if}}
 				{{/each}}
 				</div>
@@ -79,27 +82,34 @@
 		</main>
 		<fieldset class="controls">
 			<legend>Controls:</legend>
-			<label><input type="radio" name="mask" id="clipMask">Mask</label>
-			<button>Refresh page</button>
+			<label><input type="checkbox" name="mask" id="clipMask">Mask</label><br />
+			<label><input type="checkbox" name="guide" id="guideLine" checked>Guide</label>
+			<button>Refresh positions</button>
 		</fieldset>
 
 		<script type="text/javascript">
-			const refreshBtn = document.getElementsByTagName('button')[0];
-			const maskBtn = document.getElementById('clipMask');
+			const maskBtn 		= document.getElementById('clipMask');
+			const guideBtn 		= document.getElementById('guideLine');
+			const refreshBtn 	= document.getElementsByTagName('button')[0];
+			const cluster 		= document.getElementsByClassName('cluster')[0];
 			const clusterImages = document.getElementsByClassName('cluster--images')[0];
 
 			refreshBtn.addEventListener('click', function(){
-				location.reload();
+				positionImages();
 			});
 
 			maskBtn.addEventListener('click', function(){
 				clusterImages.classList.toggle("circlemask");
 			});
 
+			guideBtn.addEventListener('click', function(){
+				cluster.classList.toggle("guideline");
+			});
+
 			function positionImages(){
 				const imgCluster = document.getElementsByClassName('cluster--images')[0];
 				const images = [].slice.call(imgCluster.getElementsByTagName('img'));
-				const maxPos = 100;
+				const maxPos = 80;
 
 				images.forEach(img => {
 					const hor = Math.floor(Math.random() * maxPos);
