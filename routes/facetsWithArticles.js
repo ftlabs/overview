@@ -34,6 +34,13 @@ router.get('/clusteredImages/three', async (req, res, next) => {
 	} );
 });
 
+router.get('/clusteredImages/four', async (req, res, next) => {
+	const results = await article.getArticlesInTopics( 1, 'people' );
+	res.render("facetsWithArticles/clusteredImages/four", {
+		topPerson: results.breakdown.splice(0, 1)
+	} );
+});
+
 
 // endpoints
 router.get('/relatedContent', async (req, res, next) => {

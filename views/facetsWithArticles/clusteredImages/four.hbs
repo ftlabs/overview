@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	{{#> head title='Clustered Images - v3' subtitle='' }}
+	<style type="text/css">
+		main {
+		    width: 100%;
+		}
+		h2 {
+			color: #fff;
+		    width: 1000%;
+		    font-size: 9vw;
+		    text-shadow:
+			   -1px -1px 0 #000,  
+			    1px -1px 0 #000,
+			    -1px 1px 0 #000,
+			     1px 1px 0 #000;
+		}
+		.cluster {
+			border: 1px dashed black;
+		    display: inline-block;
+		    width: 200px;
+		    height: 200px;
+		    position: relative;
+		}
+		.cluster--images {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
+		.cluster--images img {
+			position: absolute;
+			width: auto;
+			height: auto;
+			max-width: 100%;
+		}
+		.circlemask {
+			clip-path: circle(100%);
+		}
+		.centerPos {
+			position: absolute;
+			margin: 0;
+		    top: 50%;
+		    left: 50%;
+		    transform: translate(-50%, -50%);
+		    text-align: center;
+		}
+		.controls {
+			background-color: white;
+			position: absolute;
+			display: block;
+			padding: 10px;
+			top: 5px;
+			right: 5px;
+			width: auto;
+			height: auto;
+			font-size: 12px;	
+		}
+		button {
+			position: relative;
+			display: block;
+			margin-top: 10px;
+		}
+	</style>
+	{{/head}}
+	<body>
+		<main class="centerPos">
+			{{#each topPerson}}
+			<div class="cluster">
+				<div class="cluster--images">
+				{{#each articles}}
+				{{#if images.0.url}}
+					<img class="centerPos" src="{{imgPath images.0.url}}" />
+				{{/if}}
+				{{/each}}
+				</div>
+				<h2 class="centerPos">{{facetName}}</h2>
+			</div>
+			{{/each}}
+		</main>
+		<fieldset class="controls">
+			<legend>Controls:</legend>
+			<label><input type="radio" name="mask" id="clipMask">Mask</label>
+			<button>Refresh page</button>
+		</fieldset>
+
+		<script type="text/javascript">
+			const refreshBtn = document.getElementsByTagName('button')[0];
+			const maskBtn = document.getElementById('clipMask');
+			const clusterImages = document.getElementsByClassName('cluster--images')[0];
+
+			refreshBtn.addEventListener('click', function(){
+				location.reload();
+			});
+
+			maskBtn.addEventListener('click', function(){
+				clusterImages.classList.toggle("circlemask");
+			});
+
+			function positionImages(){
+				const imgCluster = document.getElementsByClassName('cluster--images')[0];
+				const images = [].slice.call(imgCluster.getElementsByTagName('img'));
+				const maxPos = 100;
+
+				images.forEach(img => {
+					const hor = Math.floor(Math.random() * maxPos);
+					const ver = Math.floor(Math.random() * maxPos);
+
+					horPlusMinus = Math.random() < 0.5 ? -hor : hor;
+					verPlusMinus = Math.random() < 0.5 ? -ver : ver;
+
+					img.style.cssText = `transform: translate(${horPlusMinus}%, ${verPlusMinus}%);`;
+				});
+			}
+
+			positionImages();
+		</script>
+	</body>
+</html>
