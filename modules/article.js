@@ -4,7 +4,6 @@ const time = require('../helpers/time');
 const CAPI_CONCURRENCE = process.env.hasOwnProperty('CAPI_CONCURRENCE')
 	? process.env.CAPI_CONCURRENCE
 	: 4;
-
 const defaultAspects = [ "audioVisual",
 							"editorial",
 							"images",
@@ -51,6 +50,10 @@ function getDaysOfRecentArticles(days = 1, aspects = defaultAspects, facets = de
 	return fetchContent.getRecentArticles(days, aspects, facets);
 }
 
+function getArticlesInTopics(days = 1, facet = "topics", aspects = defaultAspects, facets = defaultFacets){
+	return fetchContent.getArticleTopics(days, facet, aspects, facets);
+}
+
 
 module.exports = {
 	searchByParams,
@@ -58,5 +61,6 @@ module.exports = {
 	searchByTerm,
 	searchBySequence,
 	getByUuid,
-	getDaysOfRecentArticles
+	getDaysOfRecentArticles,
+	getArticlesInTopics
 };

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	{{#> head title='' subtitle='' }}
+		<style type="text/css">
+			span, select {
+				vertical-align: top;
+			}
+			#aspects {
+				height: 180px;
+			}
+		</style>
+	{{/head}}
+	<body>
+		<h1>Demo Index Page</h1>
+
+		<h2>Endpoint</h2>
+
+		<p>
+		  GET /relatedContent/?days=&amp;facet=, returns JSON, e.g. <a href="/facetsWithArticles/relatedContent?days=1&facet=topics">/facetsWithArticles/relatedContent?days=1&amp;facet=topics</a>
+		</p>
+
+		<br />
+
+		<h3>Build-a-query</h3>
+
+		<form>
+			<span>facetsWithArticles/relatedContent?days=</span>
+			<select id="days" name="days">
+				<option selected>1</option>
+				<option>2</option>
+				<option>3</option>
+			</select>
+			<span>&amp;facet=</span>
+			<select id="facet" name="facet">
+				<option selected>topics</option>
+				<option>organisations</option>
+				<option>people</option>
+			</select>
+			<span>&amp;aspects=</span>
+			<select multiple="" id="aspects" name="aspects">
+				<option selected>title</option>
+				<option selected>summary</option>
+				<option selected>images</option>
+				<option>audioVisual</option>
+                <option>editorial</option>
+                <option>lifecycle</option>
+                <option>location</option>
+                <option>master</option>
+                <option>metadata</option>
+                <option>nature</option>
+                <option>provenance</option>
+			</select>
+			<br /><br />
+			<a id="queryBuilderLink" target="blank" href="">facetsWithArticles/relatedContent?days=</a>
+		</form>
+
+		<br />
+
+		<h2>Example pages</h2>
+
+		<ul>
+			<li>
+				<a target="_blank" href="/facetsWithArticles/test">Facets With Articles Test</a>
+			</li>
+		</ul>
+
+		<script type="text/javascript" src="/static/js/relatedQueryBuilder.js"></script>
+
+	</body>
+</html>
