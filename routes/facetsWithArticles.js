@@ -44,19 +44,28 @@ router.get('/clusteredImages/four', async (req, res, next) => {
 router.get('/clusteredImages/five-a', async (req, res, next) => {
 	const results = await article.getArticlesInTopics( 1, 'people' );
 	res.render("facetsWithArticles/clusteredImages/fiveA", {
-		topPerson: results.breakdown.splice(0, 3)
+		topPeople: results.breakdown.splice(0, 3)
 	} );
 });
+
 router.get('/clusteredImages/five-b', async (req, res, next) => {
 	const results = await article.getArticlesInTopics( 1, 'topics' );
 	res.render("facetsWithArticles/clusteredImages/fiveB", {
 		topTopics: results.breakdown.splice(0, 3)
 	} );
 });
+
 router.get('/clusteredImages/five-c', async (req, res, next) => {
 	const results = await article.getArticlesInTopics( 1, 'organisations' );
 	res.render("facetsWithArticles/clusteredImages/fiveC", {
 		topOrgs: results.breakdown.splice(0, 3)
+	} );
+});
+
+router.get('/relatedContent/one', async (req, res, next) => {
+	const results = await article.getArticlesInTopics( 1, 'people' );
+	res.render("facetsWithArticles/clusteredImages/one", {
+		topPerson: results.breakdown.splice(0, 1)
 	} );
 });
 
