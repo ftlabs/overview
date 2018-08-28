@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-	{{#> head title='Clustered Images - v4' subtitle='' }}
+	{{#> head title='Clustered Images - v5' subtitle='' }}
 	<style type="text/css">
 		main {
 		    width: 100%;
@@ -8,7 +8,7 @@
 		h2 {
 			color: #fff;
 		    width: 1000%;
-		    font-size: 8vw;
+		    font-size: 2.5vw;
 		    text-shadow:
 			   -1px -1px 0 #000,  
 			    1px -1px 0 #000,
@@ -25,6 +25,7 @@
 		    width: 200px;
 		    height: 200px;
 		    position: relative;
+		    width: 25%;
 		}
 		.cluster--images {
 			position: absolute;
@@ -37,10 +38,10 @@
 			height: auto;
 			max-width: 100%;
 			left: 0px;
-    		top: 45px;
+    		top: 25px;
 		}
 		.circlemask {
-			clip-path: circle(72%);
+			clip-path: circle(55%);
 		}
 		.centerPos {
 			position: absolute;
@@ -69,7 +70,7 @@
 		<main class="centerPos">
 			{{#each topPerson}}
 			<div class="cluster guideline">
-				<div class="cluster--images">
+				<div class="cluster--images circlemask">
 				{{#each articles}}
 				{{#if images.0.url}}
 					<img class="" src="{{imgPath images.0.url}}" />
@@ -82,43 +83,50 @@
 		</main>
 		<fieldset class="controls">
 			<legend>Controls:</legend>
-			<label><input type="checkbox" name="mask" id="clipMask">Mask</label><br />
+			<label><input type="checkbox" name="mask" id="clipMask" checked>Mask</label><br />
 			<label><input type="checkbox" name="guide" id="guideLine" checked>Guide</label>
 			<button>Refresh positions</button>
 		</fieldset>
 
 		<script type="text/javascript">
-			const maskBtn 		= document.getElementById('clipMask');
-			const guideBtn 		= document.getElementById('guideLine');
-			const refreshBtn 	= document.getElementsByTagName('button')[0];
-			const cluster 		= document.getElementsByClassName('cluster')[0];
-			const clusterImages = document.getElementsByClassName('cluster--images')[0];
+			const maskBtn 					= document.getElementById('clipMask');
+			const guideBtn 					= document.getElementById('guideLine');
+			const refreshBtn 				= document.getElementsByTagName('button')[0];
+			const clustersCollection 		= document.getElementsByClassName('cluster');
+			const clusterImagesCollection	= document.getElementsByClassName('cluster--images');
+			const clusters 					= [].slice.call(clustersCollection);
+			const clusterImages 			= [].slice.call(clusterImagesCollection);
 
 			refreshBtn.addEventListener('click', function(){
 				positionImages();
 			});
 
 			maskBtn.addEventListener('click', function(){
-				clusterImages.classList.toggle("circlemask");
+				clusterImages.forEach(clusterImg => {
+					clusterImg.classList.toggle("circlemask");
+				})
 			});
 
 			guideBtn.addEventListener('click', function(){
-				cluster.classList.toggle("guideline");
+				clusters.forEach(cluster => {
+					cluster.classList.toggle("guideline");
+				})
 			});
 
 			function positionImages(){
-				const imgCluster = document.getElementsByClassName('cluster--images')[0];
-				const images = [].slice.call(imgCluster.getElementsByTagName('img'));
-				const maxPos = 80;
+				clusterImages.forEach(imgCluster => {
+					const maxPos = 80;
+					const images = [].slice.call(imgCluster.getElementsByTagName('img'));
 
-				images.forEach(img => {
-					const hor = Math.floor(Math.random() * maxPos);
-					const ver = Math.floor(Math.random() * maxPos);
+					images.forEach(img => {
+						const hor = Math.floor(Math.random() * maxPos);
+						const ver = Math.floor(Math.random() * maxPos);
 
-					horPlusMinus = Math.random() < 0.5 ? -hor : hor;
-					verPlusMinus = Math.random() < 0.5 ? -ver : ver;
+						horPlusMinus = Math.random() < 0.5 ? -hor : hor;
+						verPlusMinus = Math.random() < 0.5 ? -ver : ver;
 
-					img.style.cssText = `transform: translate(${horPlusMinus}%, ${verPlusMinus}%);`;
+						img.style.cssText = `transform: translate(${horPlusMinus}%, ${verPlusMinus}%);`;
+					});
 				});
 			}
 
