@@ -7,16 +7,17 @@
 </head>
 
 <body>
-    <h2>Timeline</h2>
-    <div id='timeline-embed' style="width: 100%; height: 600px"></div>
+    <div>
+        <div id='timeline-embed' style="width: 100%"></div>
+
+    </div>
     <script type="text/javascript">
         fetch('/timeline/latestData')
             .then(function (response) {
                 return response.json();
             }).then(function (myJson) {
-                console.log(myJson)
                 timeline = new TL.Timeline('timeline-embed',
-                    JSON.parse(myJson));
+                    JSON.parse(myJson), { debug: true });
             });
 
     </script>
