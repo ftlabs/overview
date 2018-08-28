@@ -63,9 +63,9 @@ router.get('/clusteredImages/five-c', async (req, res, next) => {
 });
 
 router.get('/relatedContent/one', async (req, res, next) => {
-	const results = await article.getArticlesInTopics( 1, 'people' );
-	res.render("facetsWithArticles/clusteredImages/one", {
-		topPerson: results.breakdown.splice(0, 1)
+	const results = await article.getArticlesInTopics( 1, 'topics' );
+	res.render("facetsWithArticles/relatedContent/one", {
+		topTopic: results.breakdown.splice(0, 1)
 	} );
 });
 
