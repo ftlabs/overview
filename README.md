@@ -14,7 +14,7 @@ PORT= # auto set in Heroku, but needs specifying for development.
 LIST_IDS= # JSON object of list ids for the content list db.
 IMAGE_SERVICE_URL= # Image service URL
 REPLACE_IMG_URL= # Replace image URL
-FT_LOGO= # FT logo image to be used as a backup for
+FT_LOGO= # FT logo image to be used as a backup for articles with no images.
 GOOGLE_CREDS= # *Production only* contents of keyfile.json.
 ```
 
