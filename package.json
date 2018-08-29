@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "start-local": "nodemon index.js",
+    "start:local": "nodemon index.js",
     "test": "export CAPI_KEY=123 && mocha ./test --recursive --exit"
   },
   "repository": {
