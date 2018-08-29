@@ -12,8 +12,7 @@ router.get("/latestData", async (req, res, next) => {
     res.setHeader("Content-Type", "application/json");
     res.json(JSON.stringify(data));
   } catch (error) {
-    console.error(error);
-    //   do error stuff
+    throw new Error(error);
   }
 });
 
