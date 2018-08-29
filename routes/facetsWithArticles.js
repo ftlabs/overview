@@ -62,6 +62,13 @@ router.get('/clusteredImages/five-c', async (req, res, next) => {
 	} );
 });
 
+router.get('/clusteredImages/six', async (req, res, next) => {
+	const results = await article.getArticlesInTopics( 1, 'topics' );
+	res.render("facetsWithArticles/clusteredImages/six", {
+		topTopics: results.breakdown.splice(0, 3)
+	} );
+});
+
 router.get('/relatedContent/one', async (req, res, next) => {
 	const results = await article.getArticlesInTopics( 1, 'topics' );
 	res.render("facetsWithArticles/relatedContent/one", {
