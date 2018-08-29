@@ -13,8 +13,10 @@
             .then(function (response) {
                 return response.json();
             }).then(function (timelineData) {
+                const data = JSON.parse(timelineData)
+                let start_at_slide = data.events.length
                 timeline = new TL.Timeline('timeline-embed',
-                    JSON.parse(timelineData));
+                    data, { start_at_slide });
             });
 
     </script>
