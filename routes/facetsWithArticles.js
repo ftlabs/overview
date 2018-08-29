@@ -13,61 +13,48 @@ router.get('/test', async (req, res, next) => {
 	res.render("facetsWithArticles/test", { facetsJson: JSON.stringify(results) } );
 });
 
-router.get('/clusteredImages/one', async (req, res, next) => {
-	const results = await article.getArticlesInTopics( 1, 'people' );
-	res.render("facetsWithArticles/clusteredImages/one", {
-		topPerson: results.breakdown.splice(0, 1)
-	} );
+router.get('/clusteredImages/:template/:facet', async (req, res, next) => {
+
+	const results = await article.getArticlesInTopics(1, req.params.facet);
+
+	switch(req.params.template){
+		case 'one':
+			view = 'facetsWithArticles/clusteredImages/one';
+			data = results.breakdown.splice(0, 1);
+			break;
+		case 'two':
+			view = 'facetsWithArticles/clusteredImages/two';
+			data = results.breakdown.splice(0, 1);
+			break;
+		case 'three':
+			view = 'facetsWithArticles/clusteredImages/three';
+			data = results.breakdown.splice(0, 1);
+			break;
+		case 'four':
+			view = 'facetsWithArticles/clusteredImages/four';
+			data = results.breakdown.splice(0, 1);
+			break;
+		case 'five-a':
+			view = 'facetsWithArticles/clusteredImages/fiveA';
+			data = results.breakdown.splice(0, 3);
+			break;
+		case 'five-b':
+			view = 'facetsWithArticles/clusteredImages/fiveB';
+			data = results.breakdown.splice(0, 3);
+			break;
+		case 'five-c':
+			view = 'facetsWithArticles/clusteredImages/fiveC';
+			data = results.breakdown.splice(0, 3);
+			break;
+		case 'six':
+			view = 'facetsWithArticles/clusteredImages/six';
+			data = results.breakdown.splice(0, 3);
+			break;
+	}
+
+	res.render(view, {data: data});
 });
 
-router.get('/clusteredImages/two', async (req, res, next) => {
-	const results = await article.getArticlesInTopics( 1, 'people' );
-	res.render("facetsWithArticles/clusteredImages/two", {
-		topPerson: results.breakdown.splice(0, 1)
-	} );
-});
-
-router.get('/clusteredImages/three', async (req, res, next) => {
-	const results = await article.getArticlesInTopics( 1, 'people' );
-	res.render("facetsWithArticles/clusteredImages/three", {
-		topPerson: results.breakdown.splice(0, 1)
-	} );
-});
-
-router.get('/clusteredImages/four', async (req, res, next) => {
-	const results = await article.getArticlesInTopics( 1, 'people' );
-	res.render("facetsWithArticles/clusteredImages/four", {
-		topPerson: results.breakdown.splice(0, 1)
-	} );
-});
-
-router.get('/clusteredImages/five-a', async (req, res, next) => {
-	const results = await article.getArticlesInTopics( 1, 'people' );
-	res.render("facetsWithArticles/clusteredImages/fiveA", {
-		topPeople: results.breakdown.splice(0, 3)
-	} );
-});
-
-router.get('/clusteredImages/five-b', async (req, res, next) => {
-	const results = await article.getArticlesInTopics( 1, 'topics' );
-	res.render("facetsWithArticles/clusteredImages/fiveB", {
-		topTopics: results.breakdown.splice(0, 3)
-	} );
-});
-
-router.get('/clusteredImages/five-c', async (req, res, next) => {
-	const results = await article.getArticlesInTopics( 1, 'organisations' );
-	res.render("facetsWithArticles/clusteredImages/fiveC", {
-		topOrgs: results.breakdown.splice(0, 3)
-	} );
-});
-
-router.get('/clusteredImages/six', async (req, res, next) => {
-	const results = await article.getArticlesInTopics( 1, 'topics' );
-	res.render("facetsWithArticles/clusteredImages/six", {
-		topTopics: results.breakdown.splice(0, 3)
-	} );
-});
 
 router.get('/relatedContent/one', async (req, res, next) => {
 	const results = await article.getArticlesInTopics( 1, 'topics' );
