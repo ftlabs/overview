@@ -41,6 +41,9 @@
 			left: 0px;
     		top: 25px;
 		}
+		.blockmask {
+			overflow: hidden;
+		}
 		.circlemask {
 			clip-path: circle(55%);
 		}
@@ -84,7 +87,8 @@
 		</main>
 		<fieldset class="controls">
 			<legend>Controls:</legend>
-			<label><input type="checkbox" name="mask" id="clipMask" checked>Mask</label><br />
+			<label><input type="checkbox" name="boxMask" id="boxMask">Box Mask</label><br />
+			<label><input type="checkbox" name="circleMask" id="circleMask" checked>Circle Mask</label><br />
 			<label><input type="checkbox" name="guide" id="guideLine">Guide</label>
 			<hr />
 			<label><input type="radio" name="positioning" id="randomPos">Randomised positions</label><br />
@@ -92,7 +96,8 @@
 		</fieldset>
 
 		<script type="text/javascript">
-			const maskBtn 					= document.getElementById('clipMask');
+			const boxMask 					= document.getElementById('boxMask');
+			const circleMask 				= document.getElementById('circleMask');
 			const guideBtn 					= document.getElementById('guideLine');
 			const randomiseBtn 				= document.getElementById('randomPos');
 			const setBtn 					= document.getElementById('setPos');
@@ -109,7 +114,13 @@
 				positionImages('set');
 			});
 
-			maskBtn.addEventListener('click', function(){
+			boxMask.addEventListener('click', function(){
+				clusterImages.forEach(clusterImg => {
+					clusterImg.classList.toggle("blockmask");
+				})
+			});
+			
+			circleMask.addEventListener('click', function(){
 				clusterImages.forEach(clusterImg => {
 					clusterImg.classList.toggle("circlemask");
 				})
