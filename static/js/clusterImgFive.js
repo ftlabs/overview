@@ -12,9 +12,7 @@ function init(){
 }
 
 function addListeners(){
-	refreshBtn.addEventListener('click', function(){
-		positionImages();
-	});
+	refreshBtn.addEventListener('click', positionImages);
 
 	maskBtn.addEventListener('click', function(){
 		clusterImages.forEach(clusterImg => {
@@ -37,10 +35,8 @@ function positionImages(){
 		images.forEach(img => {
 			const hor = Math.floor(Math.random() * maxPos);
 			const ver = Math.floor(Math.random() * maxPos);
-
-			horPlusMinus = Math.random() < 0.5 ? -hor : hor;
-			verPlusMinus = Math.random() < 0.5 ? -ver : ver;
-
+			const horPlusMinus = Math.random() < 0.5 ? -hor : hor;
+			const verPlusMinus = Math.random() < 0.5 ? -ver : ver;
 			img.style.cssText = `transform: translate(${horPlusMinus}%, ${verPlusMinus}%);`;
 		});
 	});
