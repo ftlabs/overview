@@ -12,6 +12,9 @@ LANTERN_API_KEY= # you can request this via slack.
 TOKEN= # for authorised access without S3O or IP range. This can be set to a noddy value for development.
 PORT= # auto set in Heroku, but needs specifying for development.
 LIST_IDS= # JSON object of list ids for the content list db.
+IMAGE_SERVICE_URL= # Image service URL
+REPLACE_IMG_URL= # Replace image URL
+FT_LOGO= # FT logo image to be used as a backup for
 GOOGLE_CREDS= # *Production only* contents of keyfile.json.
 ```
 
