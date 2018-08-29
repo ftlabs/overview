@@ -1,70 +1,7 @@
 <!DOCTYPE html>
 <html>
 	{{#> head title='Clustered Images - v5a' subtitle='' }}
-	<style type="text/css">
-		main {
-		    width: 100%;
-		}
-		h2 {
-			color: #fff;
-		    width: 1000%;
-		    font-size: 2.5vw;
-		    text-shadow:
-			   -1px -1px 0 #000,  
-			    1px -1px 0 #000,
-			    -1px 1px 0 #000,
-			     1px 1px 0 #000;
-		}
-		button {
-			position: relative;
-			display: block;
-			margin-top: 10px;
-		}
-		.cluster {
-		    display: inline-block;
-		    width: 200px;
-		    height: 200px;
-		    position: relative;
-		    width: 25%;
-		}
-		.cluster--images {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-		}
-		.cluster--images img {
-			position: absolute;
-			width: auto;
-			height: auto;
-			max-width: 100%;
-			left: 0px;
-    		top: 25px;
-		}
-		.circlemask {
-			clip-path: circle(55%);
-		}
-		.centerPos {
-			position: absolute;
-			margin: 0;
-		    top: 50%;
-		    left: 50%;
-		    transform: translate(-50%, -50%);
-		    text-align: center;
-		}
-		.controls {
-			position: absolute;
-			display: block;
-			padding: 10px;
-			top: 5px;
-			right: 5px;
-			width: auto;
-			height: auto;
-			font-size: 12px;	
-		}
-		.guideline {
-			border: 1px dashed black;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="/static/css/clusteredImagesFive.css"></style>
 	{{/head}}
 	<body>
 		<main class="centerPos">
@@ -87,50 +24,6 @@
 			<label><input type="checkbox" name="guide" id="guideLine" checked>Guide</label>
 			<button>Refresh positions</button>
 		</fieldset>
-
-		<script type="text/javascript">
-			const maskBtn 					= document.getElementById('clipMask');
-			const guideBtn 					= document.getElementById('guideLine');
-			const refreshBtn 				= document.getElementsByTagName('button')[0];
-			const clustersCollection 		= document.getElementsByClassName('cluster');
-			const clusterImagesCollection	= document.getElementsByClassName('cluster--images');
-			const clusters 					= [].slice.call(clustersCollection);
-			const clusterImages 			= [].slice.call(clusterImagesCollection);
-
-			refreshBtn.addEventListener('click', function(){
-				positionImages();
-			});
-
-			maskBtn.addEventListener('click', function(){
-				clusterImages.forEach(clusterImg => {
-					clusterImg.classList.toggle("circlemask");
-				})
-			});
-
-			guideBtn.addEventListener('click', function(){
-				clusters.forEach(cluster => {
-					cluster.classList.toggle("guideline");
-				})
-			});
-
-			function positionImages(){
-				clusterImages.forEach(imgCluster => {
-					const maxPos = 80;
-					const images = [].slice.call(imgCluster.getElementsByTagName('img'));
-
-					images.forEach(img => {
-						const hor = Math.floor(Math.random() * maxPos);
-						const ver = Math.floor(Math.random() * maxPos);
-
-						horPlusMinus = Math.random() < 0.5 ? -hor : hor;
-						verPlusMinus = Math.random() < 0.5 ? -ver : ver;
-
-						img.style.cssText = `transform: translate(${horPlusMinus}%, ${verPlusMinus}%);`;
-					});
-				});
-			}
-
-			positionImages();
-		</script>
+		<script src="/static/js/clusteredImagesFive.js"></script>
 	</body>
 </html>
