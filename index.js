@@ -28,7 +28,6 @@ const facetHistory = require("./routes/facetHistory");
 const lantern = require("./routes/lantern");
 const list = require("./routes/list");
 const facetsWithArticles = require("./routes/facetsWithArticles");
-const imageClusters = require("./routes/imageClusters");
 
 const hbs = require("hbs");
 
@@ -70,7 +69,6 @@ app.use("/facethistory", facetHistory);
 app.use("/lantern", lantern);
 app.use("/list", list);
 app.use("/facetsWithArticles", facetsWithArticles);
-app.use("/imageClusters", imageClusters);
 
 // ---
 

@@ -14,47 +14,14 @@ router.get('/test', async (req, res, next) => {
 });
 
 router.get('/clusteredImages/:template/:facet', async (req, res, next) => {
-
 	const results = await article.getArticlesInTopics(1, req.params.facet);
-
-	switch(req.params.template){
-		case 'one':
-			view = 'facetsWithArticles/clusteredImages/one';
-			data = results.breakdown.splice(0, 1);
-			break;
-		case 'two':
-			view = 'facetsWithArticles/clusteredImages/two';
-			data = results.breakdown.splice(0, 1);
-			break;
-		case 'three':
-			view = 'facetsWithArticles/clusteredImages/three';
-			data = results.breakdown.splice(0, 1);
-			break;
-		case 'four':
-			view = 'facetsWithArticles/clusteredImages/four';
-			data = results.breakdown.splice(0, 1);
-			break;
-		case 'five-a':
-			view = 'facetsWithArticles/clusteredImages/fiveA';
-			data = results.breakdown.splice(0, 3);
-			break;
-		case 'five-b':
-			view = 'facetsWithArticles/clusteredImages/fiveB';
-			data = results.breakdown.splice(0, 3);
-			break;
-		case 'five-c':
-			view = 'facetsWithArticles/clusteredImages/fiveC';
-			data = results.breakdown.splice(0, 3);
-			break;
-		case 'six':
-			view = 'facetsWithArticles/clusteredImages/six';
-			data = results.breakdown.splice(0, 3);
-			break;
+	if(req.params.template.startsWith('five') || req.params.template === 'six'){
+		data = results.breakdown.splice(0, 3);
+	} else {
+		data = results.breakdown.splice(0, 1);
 	}
-
-	res.render(view, {data: data});
+	res.render(`facetsWithArticles/clusteredImages/${req.params.template}`, {data: data});
 });
-
 
 router.get('/relatedContent/one', async (req, res, next) => {
 	const results = await article.getArticlesInTopics( 1, 'topics' );
