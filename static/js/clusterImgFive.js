@@ -18,7 +18,7 @@ function addListeners(){
 
 	maskBtn.addEventListener('click', function(){
 		clusterImages.forEach(clusterImg => {
-			clusterImg.classList.toggle("circlemask");
+			clusterImg.classList.toggle("mask--circle");
 		})
 	});
 

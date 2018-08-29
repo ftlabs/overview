@@ -1,48 +1,6 @@
 <!DOCTYPE html>
 <html>
-	{{#> head title='Clustered Images - v1' subtitle='' }}
-	<style type="text/css">
-		main {
-		    width: 100%;
-		}
-		h2 {
-			color: #fff;
-		    width: 1000%;
-		    font-size: 9vw;
-		    text-shadow:
-			   -1px -1px 0 #000,  
-			    1px -1px 0 #000,
-			    -1px 1px 0 #000,
-			     1px 1px 0 #000;
-		}
-		.cluster {
-			border: 1px dashed black;
-		    display: inline-block;
-		    width: 200px;
-		    height: 200px;
-		    position: relative;
-		}
-		.cluster--images {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-		}
-		.cluster--images img {
-			position: absolute;
-			width: auto;
-			height: auto;
-			max-width: 100%;
-		}
-		.centerPos {
-			position: absolute;
-			margin: 0;
-		    top: 50%;
-		    left: 50%;
-		    transform: translate(-50%, -50%);
-		    text-align: center;
-		}
-	</style>
-	{{/head}}
+	{{#> clusterHead title='Clustered Images - v1' subtitle='' }}{{/clusterHead}}
 	<body>
 		<main class="centerPos">
 			{{#each data}}

@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
-	{{#> head title='Clustered Images - v5c' subtitle='' }}
-	<link rel="stylesheet" type="text/css" href="/static/css/clusteredImagesFive.css"></style>
-	{{/head}}
+	{{#> clusterHead title='Clustered Images - v5c' subtitle='' }}{{/clusterHead}}
 	<body>
 		<main class="centerPos">
 			{{#each data}}
 			<div class="cluster guideline">
-				<div class="cluster--images circlemask">
+				<div class="cluster--images mask--circle">
 				{{#each articles}}
 				{{#if images.0.url}}
 					<img class="" src="{{imgPath images.0.url}}" />
@@ -24,6 +22,6 @@
 			<label><input type="checkbox" name="guide" id="guideLine" checked>Guide</label>
 			<button>Refresh positions</button>
 		</fieldset>
-		<script src="/static/js/clusteredImagesFive.js"></script>
+		<script src="/static/js/clusterImgFive.js"></script>
 	</body>
 </html>
