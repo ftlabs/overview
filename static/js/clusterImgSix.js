@@ -34,7 +34,7 @@ function addListeners(){
 	guideBtn.addEventListener('click', function(){
 		clusters.forEach(cluster => {
 			cluster.classList.toggle("guideline");
-		})
+		});
 	});
 
 	clusters.forEach(cluster => {
@@ -78,7 +78,6 @@ function toggleMasks(type, images){
 
 function setPositions(){
 	clusterImages.forEach(imgCluster => {
-		const maxPos = 80;
 		const images = [].slice.call(imgCluster.getElementsByTagName('img'));
 		const positions = [
 			{h: 100, v: 100},
