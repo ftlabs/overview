@@ -16,4 +16,10 @@ router.get("/latestData", async (req, res, next) => {
   }
 });
 
+router.get("/topic", async (req, res, next) => {
+  const data = await timelineService.constructTopicJSON();
+
+  res.render("timeline/timelineTopic");
+});
+
 module.exports = router;
