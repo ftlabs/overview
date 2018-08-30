@@ -23,11 +23,13 @@ router.get('/clusteredImages/:template/:facet', async (req, res, next) => {
 	res.render(`facetsWithArticles/clusteredImages/${req.params.template}`, {data: data});
 });
 
-router.get('/relatedContent/one', async (req, res, next) => {
-	const results = await article.getArticlesInTopics( 1, 'topics' );
-	res.render("facetsWithArticles/relatedContent/one", {
-		topTopic: results.breakdown.splice(0, 1)
-	} );
+router.get('/charts/:template/:facet/:days', async (req, res, next) => {
+	const results = await article.getArticlesInTopics(req.params.days, req.params.facet);
+	const data = JSON.stringify(results.breakdown.splice(0, 10));
+	res.render(`facetsWithArticles/charts/${req.params.template}`, {
+		data: data,
+		facet: req.params.facet
+	});
 });
 
 
