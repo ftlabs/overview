@@ -2,20 +2,41 @@ var topicsRefresh = document.getElementById('topicsRefresh');
 var peopleRefresh = document.getElementById('peopleRefresh');
 var organisationsRefresh = document.getElementById('organisationsRefresh');
 
-function init(){
-	addListeners();
+function initControls(template){
+	addListeners(template);
 }
 
-function addListeners(){
+function addListeners(template){
+	pageReloaders(template);
+	colourSwitches();
+}
+
+function pageReloaders(template){
 	topicsRefresh.addEventListener('click', function(){
-		window.location.href = '/facetsWithArticles/charts/one/topics/1';
+		reloadPage(template, 'topics');
 	});
 	peopleRefresh.addEventListener('click', function(){
-		window.location.href = '/facetsWithArticles/charts/one/people/1';
+		reloadPage(template, 'people');
 	});
 	organisationsRefresh.addEventListener('click', function(){
-		window.location.href = '/facetsWithArticles/charts/one/organisations/1';
+		reloadPage(template, 'organisations');
 	});
 }
 
-init();
+function reloadPage(template, facet){
+	window.location.href = '/facetsWithArticles/charts/' + template + '/' + facet + '/1';
+	return;
+}
+
+function colourSwitches(){
+	var selectors = document.getElementsByName('d3ColourSet');
+
+	if(selectors){
+		selectors.forEach(function(selector){
+			selector.addEventListener('click', function(e){
+				var evt = new CustomEvent("MyEventType", {detail: e.target.defaultValue});
+				window.dispatchEvent(evt);
+			});
+		});
+	}
+}
