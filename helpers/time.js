@@ -16,11 +16,13 @@ function getDatetimeRange(period, frequency, offset, past = true, iso = true){
 		return {
 			first: new Date( originTime ).toISOString().split('.')[0] + "Z",
 			next: new Date( diffTime ).toISOString().split('.')[0] + "Z",
+			list: [],
 		};
 	} else {
 		return {
 			first: new Date( originTime ),
 			next: new Date( diffTime ),
+			list: [],
 		};
 	}
 }
