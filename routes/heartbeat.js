@@ -18,7 +18,7 @@ router.get('/one', async (req, res, next) => {
 			maxFacets 	: 10
 		});
 
-		res.render("heartbeat/one", { facetsJson: JSON.stringify(facets) });		
+		res.render("heartbeat/one", { data: JSON.stringify(facets) });		
 		return;
 	} catch (err) {
 		console.log('err: ' + err);
