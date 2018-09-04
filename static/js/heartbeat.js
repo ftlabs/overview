@@ -12,7 +12,7 @@ class Heartbeat {
 		if(typeof fn === "function") this[this.type]();
 	}
 
-	prepareData(){
+	prepData(data){
 		return JSON.parse(data
 			.replace(/&quot;&gt;/g, '>', )
 			.replace(/&lt;/g, '<', )
@@ -23,5 +23,6 @@ class Heartbeat {
 
 	one(){
 		console.log('one');
+		console.log(this.datum);
 	}
 }
