@@ -4,9 +4,15 @@
 	{{/heartbeatHead}}
 	<body>
 		{{> header title='Heartbeat v1 - ' subtitle=''}}
-		<main>
+		<main class="main">
 			
 		</main>
+		<script src="/static/js/d3.v5.js"></script>
 		<script src="/static/js/heartbeat.js"></script>
+		<script>
+			var hb = new Heartbeat('one');
+			var data = hb.prepData("{{data}}");
+			hb.init(data, 'main');
+		</script>
 	</body>
 </html>
