@@ -49,6 +49,16 @@ class Heartbeat {
 	}
 
 	two(){
+		let tsv = [
+			{date: 0, close: 49},
+			{date: 1, close: 39},
+			{date: 2, close: 29},
+			{date: 3, close: 19},
+			{date: 4, close: 9}
+		];
+
+		
+
 		var svg = d3.select("svg"),
 		    margin = {top: 20, right: 20, bottom: 30, left: 50},
 		    width = +svg.attr("width") - margin.left - margin.right,
@@ -67,7 +77,7 @@ class Heartbeat {
 		    .x(function(d) { return x(d.date); })
 		    .y(function(d) { return y(d.close); });
 
-		d3.tsv("data.tsv", function(d) {
+		d3.data(tsv, function(d) {
 		  d.date = parseTime(d.date);
 		  d.close = +d.close;
 		  return d;
@@ -102,5 +112,6 @@ class Heartbeat {
 		      .attr("stroke-width", 1.5)
 		      .attr("d", line);
 		});
+		
 	}
 }
