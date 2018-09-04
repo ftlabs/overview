@@ -49,23 +49,61 @@ class Heartbeat {
 	}
 
 	two(){
-		let tsv = [
-			{date: 0, close: 49},
-			{date: 1, close: 39},
-			{date: 2, close: 29},
-			{date: 3, close: 19},
-			{date: 4, close: 9}
-		];
+		var chartList = []
+		var facets = this.datum.facets
+		var table = document.createElement('table')
 
-		
+		facets.forEach(topic => {
+			var tr = document.createElement('tr')
+			var tdTitle = document.createElement('td')
+			var tdSvg = document.createElement('td')
+			var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+			var className = this.variabliseStr(topic.name);
 
-		var svg = d3.select("svg"),
+			svg.classList.add(className)
+			svg.setAttribute('width', 400)
+			svg.setAttribute('height', 100)
+
+
+			tdTitle.appendChild(document.createTextNode(topic.name))
+			tdSvg.appendChild(svg)
+			
+			tr.appendChild(tdTitle)
+			tr.appendChild(tdSvg)
+			table.appendChild(tr)
+
+			chartList.push({
+				info: this.prepCount(topic.count),
+				dom: className
+			})
+		})
+
+		var container = document.getElementsByClassName(this.datumTarget)[0]
+		container.appendChild(table)
+
+		this.addChartsToPage(chartList)
+	}
+
+	prepCount(data){
+		return data.map((counter, inc) => {
+			return {date: inc, close: counter}
+		})
+	}
+
+	addChartsToPage(list){
+		list.forEach(chart => {
+			this.createLine(chart.info, chart.dom)
+		})
+	}
+
+	createLine(data, domTarget){
+		var target = document.getElementsByClassName(domTarget)[0];
+
+		var svg = d3.select(target),
 		    margin = {top: 20, right: 20, bottom: 30, left: 50},
 		    width = +svg.attr("width") - margin.left - margin.right,
 		    height = +svg.attr("height") - margin.top - margin.bottom,
 		    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-		var parseTime = d3.timeParse("%d-%b-%y");
 
 		var x = d3.scaleTime()
 		    .rangeRound([0, width]);
@@ -77,41 +115,20 @@ class Heartbeat {
 		    .x(function(d) { return x(d.date); })
 		    .y(function(d) { return y(d.close); });
 
-		d3.data(tsv, function(d) {
-		  d.date = parseTime(d.date);
-		  d.close = +d.close;
-		  return d;
-		}, function(error, data) {
-		  if (error) throw error;
+		x.domain(d3.extent(data, function(d) { return d.date; }));
+		y.domain(d3.extent(data, function(d) { return d.close; }));
 
-		  x.domain(d3.extent(data, function(d) { return d.date; }));
-		  y.domain(d3.extent(data, function(d) { return d.close; }));
+		g.append("path")
+			.datum(data)
+			.attr("fill", "none")
+			.attr("stroke", "steelblue")
+			.attr("stroke-linejoin", "round")
+			.attr("stroke-linecap", "round")
+			.attr("stroke-width", 1.5)
+			.attr("d", line);
+	}
 
-		  g.append("g")
-		      .attr("transform", "translate(0," + height + ")")
-		      .call(d3.axisBottom(x))
-		    .select(".domain")
-		      .remove();
-
-		  g.append("g")
-		      .call(d3.axisLeft(y))
-		    .append("text")
-		      .attr("fill", "#000")
-		      .attr("transform", "rotate(-90)")
-		      .attr("y", 6)
-		      .attr("dy", "0.71em")
-		      .attr("text-anchor", "end")
-		      .text("Price ($)");
-
-		  g.append("path")
-		      .datum(data)
-		      .attr("fill", "none")
-		      .attr("stroke", "steelblue")
-		      .attr("stroke-linejoin", "round")
-		      .attr("stroke-linecap", "round")
-		      .attr("stroke-width", 1.5)
-		      .attr("d", line);
-		});
-		
+	variabliseStr(str){
+		return str.replace(/ /g, '').replace(/-/g, '').replace(/&/g, '').toLowerCase()
 	}
 }
