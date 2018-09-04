@@ -64,7 +64,6 @@ class Heartbeat {
 			svg.setAttribute('width', 400)
 			svg.setAttribute('height', 100)
 
-
 			tdTitle.appendChild(document.createTextNode(topic.name))
 			tdSvg.appendChild(svg)
 			
