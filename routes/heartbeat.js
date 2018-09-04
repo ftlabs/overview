@@ -8,17 +8,19 @@ router.get('/', async (req, res, next) => {
 	res.render("heartbeat");
 });
 
-router.get('/one', async (req, res, next) => {
+router.get('/:template/:facet/:days', async (req, res, next) => {
 	try {
 		const facets = await facet.searchForFacetHistory({
-			facet  		: 'topics',
+			facet  		: req.params.facet,
 			period 		: 'days',
 			interval 	: 1,
-			numInterval : 10,
+			numInterval : req.params.days,
 			maxFacets 	: 10
 		});
 
-		res.render("heartbeat/one", { data: JSON.stringify(facets) });		
+		res.render(`heartbeat/${req.params.template}`, {
+			data: JSON.stringify(facets)
+		});		
 		return;
 	} catch (err) {
 		console.log('err: ' + err);
