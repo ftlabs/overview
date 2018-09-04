@@ -22,7 +22,33 @@ class Heartbeat {
 	}
 
 	one(){
-		console.log('one');
-		console.log(this.datum);
+		var facets = this.datum.facets
+		var table = document.createElement('table')
+
+		// TODO - add a display for the time ranges of each columned result
+
+		facets.forEach(topic => {
+			var tr = document.createElement('tr')
+			var td = document.createElement('td')
+
+			td.appendChild(document.createTextNode(topic.name))
+			tr.appendChild(td)
+
+			topic.count.forEach(item => {
+				var td = document.createElement('td')
+				var val = (item) ? item : 0
+				td.appendChild(document.createTextNode(val))
+                tr.appendChild(td)
+			})
+
+			table.appendChild(tr)
+		})
+
+		var container = document.getElementsByClassName(this.datumTarget)[0]
+		container.appendChild(table)
+	}
+
+	two(){
+
 	}
 }
