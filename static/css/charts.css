@@ -1,0 +1,49 @@
+body {
+	background: #fff1e5;
+	font-family: 'MetricWeb', sans-serif;
+}
+h1,
+h2 {
+	font-family: 'FinancierDisplayWeb', serif;
+	text-transform: capitalize;
+}
+
+h2 {
+	font-family: 'MetricWeb', sans-serif;
+	font-size: 18px;
+}
+h3 {
+	font-family: 'MetricWeb', sans-serif;
+	font-size: 16px;
+}
+.controls {
+	position: absolute;
+	display: block;
+	padding: 10px;
+	top: 5px;
+	right: 5px;
+	width: auto;
+	height: auto;
+	font-size: 12px;	
+}
+.chart--bar div {
+	width: 530px;
+    background: #252a33;
+    text-align: right;
+    margin: 1px;
+    padding: 5px;
+    font-size: 14px;
+    color: white;
+}
+
+
+/* 
+ * Teamplate - Two
+ */
+.two h1,
+.two main {
+	text-align: center;
+}
+
+
+

@@ -1,0 +1,133 @@
+body {
+	background: #fff1e5;
+	font-family: 'MetricWeb', sans-serif;
+}
+h1,
+h2 {
+	font-family: 'FinancierDisplayWeb', serif;
+	text-transform: capitalize;
+}
+h2 {
+	font-family: 'MetricWeb', sans-serif;
+	color: #fff;
+    font-size: 2.5vw;
+    text-shadow:
+	   -1px -1px 0 #000,  
+	    1px -1px 0 #000,
+	    -1px 1px 0 #000,
+	     1px 1px 0 #000;
+}
+h3 {
+	font-family: 'MetricWeb', sans-serif;
+	font-size: 16px;
+}
+main {
+    width: 100%;
+}
+button {
+	position: relative;
+	display: block;
+	margin-top: 10px;
+}
+.cluster {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    width: 25%;
+    cursor: pointer;
+}
+.selected {
+	opacity: 0.4;
+}
+.cluster--images {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+.cluster--images img {
+	position: absolute;
+	width: auto;
+	height: auto;
+	max-height: 70%;
+	left: 0px;
+	top: 25px;
+}
+.cluster--images.set img:nth-child(1) {
+	transform: translate(-50%, 50%);
+}
+.cluster--images.set img:nth-child(2) {
+	transform: translate(50%, -50%);
+}
+.cluster--images.set img:nth-child(3) {
+	transform: translate(-50%, -150%);
+}
+.cluster--images.set img:nth-child(4) {
+	transform: translate(-150%, -50%);
+}
+.cluster--images.set img:nth-child(5) {
+	transform: translate(-5%, -5%);
+}
+.cluster--images.set img:nth-child(6) {
+	transform: translate(-5%, -95%);
+}
+.cluster--images.set img:nth-child(7) {
+	transform: translate(-95%, -95%);
+}
+.cluster--images.set img:nth-child(8) {
+	transform: translate(-95%, -5%);
+}
+.cluster--articles {
+	position: absolute;
+	top: -20px;
+}
+.cluster--articles a {
+	display: inline-block;
+	width: 100%;
+	color: #333;
+}
+.cluster--articles img {
+	float: left;
+	max-width: 100px;
+}
+.cluster--articles .text {
+	padding-left: 10px;
+	text-align: left;
+	font-size: 14px;
+}
+.cluster--articles a:nth-child(n+4) {
+	display: none;
+}
+.mask--block {
+	overflow: hidden;
+}
+.mask--circle {
+	clip-path: circle(55%);
+}
+.mask--nonagon {
+	clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);
+}
+.centerPos {
+	position: absolute;
+	margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+.controls {
+	position: absolute;
+	display: block;
+	padding: 10px;
+	top: 5px;
+	right: 5px;
+	width: auto;
+	height: auto;
+	font-size: 12px;	
+}
+.guideline {
+	border: 1px dashed black;
+}
+.hidden {
+	display: none;
+}
