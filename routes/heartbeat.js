@@ -18,10 +18,9 @@ router.get('/:template/:facet/:days', async (req, res, next) => {
 			maxFacets 	: 10
 		});
 
-		res.render(`heartbeat/${req.params.template}`, {
+		return res.render(`heartbeat/${req.params.template}`, {
 			data: JSON.stringify(facets)
-		});		
-		return;
+		});
 	} catch (err) {
 		console.log('err: ' + err);
 	}
