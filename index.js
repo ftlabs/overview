@@ -73,12 +73,8 @@ app.use("/lantern", lantern);
 app.use("/list", list);
 app.use("/timeline", timeline);
 app.use("/facetsWithArticles", facetsWithArticles);
-<<<<<<< HEAD
-=======
 app.use("/imageClusters", imageClusters);
 app.use("/heartbeat", heartbeat);
->>>>>>> adds intial pages
-
 // ---
 
 app.use("/", (req, res) => {
