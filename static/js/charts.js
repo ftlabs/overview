@@ -11,7 +11,9 @@ class ChartBuilder {
 		this.targetObj = targetObj;
 
 		var fn = this[this.type];
-		if(typeof fn === "function") this[this.type]();
+		if(typeof fn === "function"){
+            this[this.type]();
+        } 
 	}
 
 	prepareData(data){
