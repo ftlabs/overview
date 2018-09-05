@@ -22,54 +22,54 @@ class Heartbeat {
 	}
 
 	one(){
-		var facets = this.datum.facets
-		var table = document.createElement('table')
+		var facets = this.datum.facets;
+		var table = document.createElement('table');
 
 		// TODO - add a display for the time ranges of each columned result
 
 		facets.forEach(topic => {
-			var tr = document.createElement('tr')
-			var td = document.createElement('td')
+			var tr = document.createElement('tr');
+			var td = document.createElement('td');
 
-			td.appendChild(document.createTextNode(topic.name))
-			tr.appendChild(td)
+			td.appendChild(document.createTextNode(topic.name));
+			tr.appendChild(td);
 
 			topic.count.forEach(item => {
-				var td = document.createElement('td')
-				var val = (item) ? item : 0
-				td.appendChild(document.createTextNode(val))
-                tr.appendChild(td)
+				var td = document.createElement('td');
+				var val = (item) ? item : 0;
+				td.appendChild(document.createTextNode(val));
+                tr.appendChild(td);
 			})
 
-			table.appendChild(tr)
+			table.appendChild(tr);
 		})
 
-		var container = document.getElementsByClassName(this.datumTarget)[0]
-		container.appendChild(table)
+		var container = document.getElementsByClassName(this.datumTarget)[0];
+		container.appendChild(table);
 	}
 
 	two(){
-		var chartList = []
-		var facets = this.datum.facets
-		var table = document.createElement('table')
+		var chartList = [];
+		var facets = this.datum.facets;
+		var table = document.createElement('table');
 
 		facets.forEach(topic => {
-			var tr = document.createElement('tr')
-			var tdTitle = document.createElement('td')
-			var tdSvg = document.createElement('td')
-			var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+			var tr = document.createElement('tr');
+			var tdTitle = document.createElement('td');
+			var tdSvg = document.createElement('td');
+			var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 			var className = this.variabliseStr(topic.name);
 
-			svg.classList.add(className)
-			svg.setAttribute('width', 400)
-			svg.setAttribute('height', 100)
+			svg.classList.add(className);
+			svg.setAttribute('width', 400);
+			svg.setAttribute('height', 100);
 
-			tdTitle.appendChild(document.createTextNode(topic.name))
-			tdSvg.appendChild(svg)
+			tdTitle.appendChild(document.createTextNode(topic.name));
+			tdSvg.appendChild(svg);
 			
-			tr.appendChild(tdTitle)
-			tr.appendChild(tdSvg)
-			table.appendChild(tr)
+			tr.appendChild(tdTitle);
+			tr.appendChild(tdSvg);
+			table.appendChild(tr);
 
 			chartList.push({
 				info: this.prepCount(topic.count),
@@ -77,21 +77,21 @@ class Heartbeat {
 			})
 		})
 
-		var container = document.getElementsByClassName(this.datumTarget)[0]
-		container.appendChild(table)
+		var container = document.getElementsByClassName(this.datumTarget)[0];
+		container.appendChild(table);
 
-		this.addChartsToPage(chartList)
+		this.addChartsToPage(chartList);
 	}
 
 	prepCount(data){
 		return data.map((counter, inc) => {
-			return {date: inc, close: counter}
+			return {date: inc, close: counter};
 		})
 	}
 
 	addChartsToPage(list){
 		list.forEach(chart => {
-			this.createLine(chart.info, chart.dom)
+			this.createLine(chart.info, chart.dom);
 		})
 	}
 
