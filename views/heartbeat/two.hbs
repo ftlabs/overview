@@ -2,7 +2,7 @@
 <html>
 	{{#> heartbeatHead title='Heartbeat v2 - Line chart(s)' subtitle='' }}
 	{{/heartbeatHead}}
-	<body>
+	<body class="two">
 		<main class="main"></main>
 		<fieldset class="controls">
 			<legend>Controls:</legend>
@@ -17,7 +17,7 @@
 			var hb = new Heartbeat('two');
 			var data = hb.prepData("{{data}}");
 			hb.init(data, 'main');
-			initControls('two')
+			initControls('two');
 		</script>
 	</body>
 </html>

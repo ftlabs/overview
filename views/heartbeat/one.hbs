@@ -2,14 +2,22 @@
 <html>
 	{{#> heartbeatHead title='Heartbeat v1 - Tabled' subtitle='' }}
 	{{/heartbeatHead}}
-	<body>
+	<body class="one">
 		<main class="main"></main>
+		<fieldset class="controls">
+			<legend>Controls:</legend>
+			<input type="button" name="topics" id="topicsRefresh" value="Topics">
+			<input type="button" name="people" id="peopleRefresh" value="People">
+			<input type="button" name="organisations" id="organisationsRefresh" value="Organisations">
+		</fieldset>
 		<script src="/static/js/d3.v5.js"></script>
 		<script src="/static/js/heartbeat.js"></script>
+		<script src="/static/js/heartbeatControls.js"></script>
 		<script>
 			var hb = new Heartbeat('one');
 			var data = hb.prepData("{{data}}");
 			hb.init(data, 'main');
+			initControls('one');
 		</script>
 	</body>
 </html>
