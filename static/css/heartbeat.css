@@ -24,6 +24,10 @@ table {
 	margin: 50px auto 0;
 }
 
+table td {
+	width: 250px;
+}
+
 .controls {
 	position: absolute;
 	display: block;
