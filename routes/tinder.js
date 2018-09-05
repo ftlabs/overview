@@ -8,12 +8,16 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/aMatch', async (req, res, next) => {
-	res.render("tinder/aMatch");
+	res.render("tinder/aMatch",);
 });
 
 router.get('/myType', async (req, res, next) => {
-	let results = await articleList.getDaysOfRecentArticles(1);
-	res.render("tinder/myType", { results: results });
+	// TODO: pass local storage to results of myType to generate a reading list
+	
+	res.render("tinder/myType",);
+
+	// let results = localStorage.getItem('readingList')
+	// res.render("tinder/myType", { results : results });
 });
 
 router.get('/articleList', async (req, res, next) => {
@@ -26,6 +30,7 @@ router.get('/articleList', async (req, res, next) => {
 			itemObj.title = item.title.title;
 			itemObj.url = item.images[0].url;
 			itemObj.author = item.editorial.byline;
+			itemObj.link = item.location.uri;
 			// add more if you need to!
 			return itemObj;
 		}
