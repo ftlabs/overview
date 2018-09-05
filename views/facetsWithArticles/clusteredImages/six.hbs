@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{{#> clusterHead title='Clustered Images - v6' subtitle='' }}{{/clusterHead}}
+	<body>
+		<main class="centerPos">
+			{{#each data}}
+			<div class="cluster">
+				<div class="cluster--images mask--circle">
+				{{#each articles}}
+				{{#if images.0.url}}
+					<img class="" src="{{imgPath images.0.url}}" />
+				{{/if}}
+				{{/each}}
+				</div>
+				<div class="cluster--articles hidden">
+				{{#each articles}}
+				{{#if images.0.url}}
+					<a href="{{location.uri}}">
+						<div>
+							<img class="" src="{{imgPath images.0.url}}" />
+							<p class="text">{{title.title}}</p>
+						</div>
+					</a>
+				{{/if}}
+				{{/each}}
+				</div>
+				<h2 class="centerPos">{{facetName}}</h2>
+			</div>
+			{{/each}}
+		</main>
+		<fieldset class="controls">
+			<legend>Controls:</legend>
+			<label><input type="radio" name="mask" id="boxMask">Box Mask</label><br />
+			<label><input type="radio" name="mask" id="circleMask" checked>Circle Mask</label><br />
+			<label><input type="radio" name="mask" id="nonagonMask">Nonagon Mask</label><br />
+			<hr />
+			<label><input type="radio" name="positioning" id="randomPos">Randomised positions</label><br />
+			<label><input type="radio" name="positioning" id="setPos" checked>Set positions</label>
+			<hr />
+			<label><input type="checkbox" name="guide" id="guideLine">Guide</label>
+		</fieldset>
+		<script type="text/javascript" src="/static/js/clusterImgSix.js"></script>
+	</body>
+</html>

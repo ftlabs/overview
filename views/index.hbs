@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
-{{#> head title='Index' subtitle='Demo Index Page' }}{{/head}}
+{{#> head title='Index' subtitle='Demo Index Page' }}
+	<style type="text/css">
+		body ul li {
+			padding-bottom: 5px;
+		}
+	</style>
+{{/head}}
 
 <body>
 	<h1>Demo Index Page</h1>
@@ -9,10 +15,12 @@
 
 	<ul>
 		<li>
-			<a href="24hrs">24hrs of news</a>
+			<a href="24hrs">24hrs of Articles</a>
+			<ul><li>Displaying all articles published in the last 24hrs</li></ul>
 		</li>
 		<li>
-			<a href="facetHistory">facetHistory</a>
+			<a href="facetHistory">Facet History</a>
+			<ul><li>Displaying how paricular facets have changed over the [given time period]</li></ul>
 		</li>
 		<li>
 			<a href="lantern">Lantern Data</a>
@@ -24,10 +32,12 @@
 			<a href="timeline">Timeline</a>
 		</li>
 		<li>
-			<a href="facetsWithArticles">facetsWithArticles endpoint</a>
+			<a href="facetsWithArticles">Facets With Articles endpoint</a>
+			<ul><li>Collecting all articles relating to a facet. Also collects all other facets that those grouped articles contain.</li></ul>
 		</li>
 		<li>
-			<a href="imageClusters">Clustered images</a>
+			<a href="heartbeat">Heartbeat</a>
+			<ul><li>Creating Github-esque pulse/heartbeat/horse lines for facets. Displaying how present/relevant that facet item was day by day</li></ul>
 		</li>
 		<li>
 			<a href="tinder">FT as Tinder</a>

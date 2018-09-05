@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	{{#> clusterHead title='Clustered Images - v3' subtitle='' }}{{/clusterHead}}
+	<body>
+		<main class="centerPos">
+			{{#each data}}
+			<div class="cluster">
+				<div class="cluster--images">
+				{{#each articles}}
+				{{#if images.0.url}}
+					<img class="centerPos" src="{{imgPath images.0.url}}" />
+				{{/if}}
+				{{/each}}
+				</div>
+				<h2 class="centerPos">{{facetName}}</h2>
+			</div>
+			{{/each}}
+		</main>
+		<button>Refresh page</button>
+		<script type="text/javascript" src="/static/js/clusterImgThree.js"></script>
+	</body>
+</html>
