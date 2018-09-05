@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	{{#> clusterHead title='Clustered Images - v4' subtitle='' }}{{/clusterHead}}
+	<body>
+		<main class="centerPos">
+			{{#each data}}
+			<div class="cluster guideline">
+				<div class="cluster--images">
+				{{#each articles}}
+				{{#if images.0.url}}
+					<img class="" src="{{imgPath images.0.url}}" />
+				{{/if}}
+				{{/each}}
+				</div>
+				<h2 class="centerPos">{{facetName}}</h2>
+			</div>
+			{{/each}}
+		</main>
+		<fieldset class="controls">
+			<legend>Controls:</legend>
+			<label><input type="checkbox" name="mask" id="clipMask">Mask</label><br />
+			<label><input type="checkbox" name="guide" id="guideLine" checked>Guide</label>
+			<button>Refresh positions</button>
+		</fieldset>
+		<script type="text/javascript" src="/static/js/clusterImgFour.js"> </script>
+	</body>
+</html>
