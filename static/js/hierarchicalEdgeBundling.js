@@ -65,7 +65,6 @@ class HierarchicalEdgeBundlingDiagram {
 	// TODO
 	// - Fit the diagram to screen (with a minimum size to avoid crushing)
 	// - break the functions outside of parent functions
-	// - add controls to switch to different facets (reinit chart, don't refresh)
 	// - right now, its displaying how the main facet relates to other facets of the same type
 	//		maybe there should be controls to choose which facets to display/link to
 	// - add caching
@@ -90,8 +89,8 @@ class HierarchicalEdgeBundlingDiagram {
 			.append("g")
 			.attr("transform", "translate(" + radius + "," + radius + ")");
 
-		var link = svg.append("g").selectAll(".link"),
-			node = svg.append("g").selectAll(".node");
+		var link = svg.append("g").selectAll(".link");
+		var node = svg.append("g").selectAll(".node");
 
 		var root = packageHierarchy(this.datum)
 			.sum(function(d) { return d.size; });
@@ -115,6 +114,7 @@ class HierarchicalEdgeBundlingDiagram {
 			.text(function(d) { return d.data.key; })
 			.on("mouseover", mouseovered)
 			.on("mouseout", mouseouted);
+
 
 		function mouseovered(d) {
 		  node
