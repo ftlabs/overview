@@ -20,18 +20,20 @@ function getReadingList() {
 }
 
 function buildReadingList() {
-    if(!readingList) break;
+    if(readingList) {
+        let newHtml = '';
 
-    let newHtml = '';
+        for(let article of readingList) {
+            newHtmlTitle = `<p>Title: ${article.title}</p>`
+            newHtmlImage = `<a href="${article.link}" title="${article.title}" target="_blank"><img src="${article.url}"></img></a>`
+            newHtmlAuthor = article.author ? `<p>Author: ${article.author}</p>` : `<p>Unknown Author</p>`
 
-    for(let article of readingList) {
-        newHtmlTitle = `<p>Title: ${article.title}</p>`
-        newHtmlImage = `<a href="${article.link}" title="${article.title}" target="_blank"><img src="${article.url}"></img></a>`
-        newHtmlAuthor = article.author ? `<p>Author: ${article.author}</p>` : `<p>Unknown Author</p>`
-
-        newHtml = newHtml + newHtmlTitle + newHtmlImage + newHtmlAuthor + `</br>`;
+            newHtml = newHtml + newHtmlTitle + newHtmlImage + newHtmlAuthor + `</br>`;
+        }
+        readingListStorage.innerHTML = newHtml;
+    } else {
+        return;
     }
-    readingListStorage.innerHTML = newHtml;
 }
 
 addListeners();
