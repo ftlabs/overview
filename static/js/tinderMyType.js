@@ -2,9 +2,17 @@ let readingListStorage = document.getElementById('readingListStorage');
 
 let readingList = [];
 
+function addListeners() {
+    document.getElementById('deleteReadingList').addEventListener('click', function() {
+        readingList = [];
+        localStorage.removeItem('readingList')
+        getReadingList();
+    })
+}
+
 function getReadingList() {
     localReadingList = localStorage.getItem('readingList')
-    if(localReadingList) {
+    if(localReadingList && localReadingList.length > 0) {
         readingList = JSON.parse(localReadingList)
     } else {
         readingListStorage.innerHTML = `<p>Nothing has been added to the reading list.</p>`
@@ -12,7 +20,7 @@ function getReadingList() {
 }
 
 function buildReadingList() {
-    if(!readingList) return;
+    if(!readingList) break;
 
     let newHtml = '';
 
@@ -26,5 +34,6 @@ function buildReadingList() {
     readingListStorage.innerHTML = newHtml;
 }
 
+addListeners();
 getReadingList();
 buildReadingList();
