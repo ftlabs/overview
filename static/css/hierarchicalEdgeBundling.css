@@ -6,14 +6,6 @@ h1{
   padding: 0;
 }
 
-fieldset {
-  position: absolute;
-  top: 35px;
-  left: 10px;
-  margin: 0;
-  padding: 0;
-}
-
 main {
   text-align: center;
 }
@@ -21,6 +13,17 @@ main {
 svg {
   display: block;
   margin: 0 auto
+}
+
+.controls {
+  position: absolute;
+  display: block;
+  padding: 10px;
+  top: 5px;
+  right: 5px;
+  width: auto;
+  height: auto;
+  font-size: 12px;  
 }
 
 .node {

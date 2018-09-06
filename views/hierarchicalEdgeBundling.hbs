@@ -6,13 +6,18 @@
 	<body>
 		<h1>Hierarchical Edge Bundling</h1>
 		<main></main>
-		<fieldset>
-			<legend>Controls</legend>
+		<fieldset class="controls">
+			<legend>Controls:</legend>
+			<input type="button" name="topics" id="topicsRefresh" value="Topics">
+			<input type="button" name="people" id="peopleRefresh" value="People">
+			<input type="button" name="organisations" id="organisationsRefresh" value="Organisations">
 		</fieldset>
 	</body>
 	<script src="/static/js/d3.v5.js"></script>
+	<script src="/static/js/refreshFacet.js"></script>
 	<script src="/static/js/hierarchicalEdgeBundling.js"></script>
 	<script>
+		var ctrl = new RefreshFacet('hierarchicalEdgeBundling');
 		var hebd = new HierarchicalEdgeBundlingDiagram();
 		hebd.init("{{data}}", 'main');
 	</script>
