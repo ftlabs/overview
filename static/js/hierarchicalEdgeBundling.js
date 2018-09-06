@@ -69,7 +69,34 @@ class HierarchicalEdgeBundlingDiagram {
 			.attr("dy", "0.31em")
 			.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
 			.attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-			.text(function(d) { return d.data.key; });
+			.text(function(d) { return d.data.key; })
+			.on("mouseover", mouseovered)
+			.on("mouseout", mouseouted);
+
+		function mouseovered(d) {
+		  node
+		      .each(function(n) { n.target = n.source = false; });
+
+		  link
+		      .classed("link--target", function(l) { if (l.target === d) return l.source.source = true; })
+		      .classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
+		    .filter(function(l) { return l.target === d || l.source === d; })
+		      .raise();
+
+		  node
+		      .classed("node--target", function(n) { return n.target; })
+		      .classed("node--source", function(n) { return n.source; });
+		}
+
+		function mouseouted(d) {
+		  link
+		      .classed("link--target", false)
+		      .classed("link--source", false);
+
+		  node
+		      .classed("node--target", false)
+		      .classed("node--source", false);
+		}
 
 
 		// Lazily construct the package hierarchy from class names.
