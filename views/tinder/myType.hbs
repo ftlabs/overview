@@ -10,11 +10,12 @@
 	<body>
 		<main>
 		<h1>Reading List</h1>
-			{{#each results}}
-			<a href="{{ link }}" title="{{ title }}" target="_blank">
-				<img src="{{imgPath url}}&width=500&height=281" alt="title="{{ title }}""></img>
-			</a>
-			{{/each}}
+			<div id="readingListStorage">
+			</div>
+			<hr/>
+			<p>Go back to <a href="/tinder/aMatch">dating?</a></p>
 		</main>
+
+		<script type="text/javascript" src="/static/js/tinderMyType.js"></script>
 	</body>
 </html>

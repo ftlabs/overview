@@ -1,14 +1,8 @@
-let superlikeButton = document.getElementById('superlike');
-let likeButton = document.getElementById('like');
-let dislikeButton = document.getElementById('dislike');
-let readingListButton = document.getElementById('readingList');
-let datingButton = document.getElementById('dating');
-
 let readingList = [];
 let bannedList = [];
 
-function setCurrentArticles() {
-    fetch('/tinder/articleList')
+async function setCurrentArticles() {
+    await fetch('/tinder/articleList')
     .then(function(res) {
         return res.text()
     })
@@ -16,6 +10,7 @@ function setCurrentArticles() {
         filteredArticleList = filterArticles(res)
         sessionStorage.setItem('currentArticles', filteredArticleList)
     })
+    setCurrentDate();
 }
 
 function filterArticles(articleList) {
@@ -27,18 +22,18 @@ function filterArticles(articleList) {
 }
 
 function addListeners() {
-    superlikeButton.addEventListener('click', function() {
+    document.getElementById('superlike').addEventListener('click', function() {
         window.open(getFirstCurrentArticle().link);
         addToReadingList();
         setCurrentDate();
     })
-    likeButton.addEventListener('click', function() {
+    document.getElementById('like').addEventListener('click', function() {
         addToReadingList();
     });
-    dislikeButton.addEventListener('click', function() {
+    document.getElementById('dislike').addEventListener('click', function() {
         addToBannedList();
     });
-    readingListButton.addEventListener('click', function() {
+    document.getElementById('readingList').addEventListener('click', function() {
         window.open('/tinder/myType')
     });
 }
@@ -86,5 +81,4 @@ function setCurrentDate() {
 
 getReadingAndBannedLists();
 setCurrentArticles();
-setCurrentDate();
 addListeners();

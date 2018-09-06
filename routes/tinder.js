@@ -12,12 +12,7 @@ router.get('/aMatch', async (req, res, next) => {
 });
 
 router.get('/myType', async (req, res, next) => {
-	// TODO: pass local storage to results of myType to generate a reading list
-	
 	res.render("tinder/myType",);
-
-	// let results = localStorage.getItem('readingList')
-	// res.render("tinder/myType", { results : results });
 });
 
 router.get('/articleList', async (req, res, next) => {
