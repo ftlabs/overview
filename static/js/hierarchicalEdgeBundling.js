@@ -28,6 +28,49 @@ class HierarchicalEdgeBundlingDiagram {
 		return reformatted;
 	}
 
+	newNodeObj(name = "name"){
+		return {
+			"name": "flare." + this.variabliseStr(name),
+			"size": 0,
+			"imports": [],
+		};
+	}
+
+	calcSize(facet){
+		return facet.articleCount 
+			+ facet.relatedTopicCount.length 
+			+ facet.relatedPeopleCount.length 
+			+ facet.relatedOrgsCount.length;
+	}
+
+	variabliseStr(str){
+		return str.replace(/ /g, '').replace(/-/g, '').replace(/&/g, '');
+	}
+
+	addImports(facet){
+		var topics = this.extractImports('topics', facet.relatedTopicCount);
+		var people = this.extractImports('people', facet.relatedPeopleCount);
+		var orgs = this.extractImports('orgs', facet.relatedOrgsCount);
+		return [].concat(topics, people, orgs);
+	}
+
+	extractImports(type, data){
+		var extracts = [];
+		data.forEach(item => {
+			extracts.push("flare." + type + "." + this.variabliseStr(item.name));
+		});
+		return extracts;
+	}
+
+	// TODO
+	// - Fit the diagram to screen (with a minimum size to avoid crushing)
+	// - break the functions outside of parent functions
+	// - add controls to switch to different facets (reinit chart, don't refresh)
+	// - right now, its displaying how the main facet relates to other facets of the same type
+	//		maybe there should be controls to choose which facets to display/link to
+	// - add caching
+	// - pre PR code review
+
 	start(){
 		var diameter = 860,
 			radius = diameter / 2,
@@ -149,39 +192,5 @@ class HierarchicalEdgeBundlingDiagram {
 
 			return imports;
 		}
-	}
-
-	newNodeObj(name = "name"){
-		return {
-			"name": "flare." + this.variabliseStr(name),
-			"size": 0,
-			"imports": [],
-		};
-	}
-
-	calcSize(facet){
-		return facet.articleCount 
-			+ facet.relatedTopicCount.length 
-			+ facet.relatedPeopleCount.length 
-			+ facet.relatedOrgsCount.length;
-	}
-
-	variabliseStr(str){
-		return str.replace(/ /g, '').replace(/-/g, '').replace(/&/g, '');
-	}
-
-	addImports(facet){
-		var topics = this.extractImports('topics', facet.relatedTopicCount);
-		var people = this.extractImports('people', facet.relatedPeopleCount);
-		var orgs = this.extractImports('orgs', facet.relatedOrgsCount);
-		return [].concat(topics, people, orgs);
-	}
-
-	extractImports(type, data){
-		var extracts = [];
-		data.forEach(item => {
-			extracts.push("flare." + type + "." + this.variabliseStr(item.name));
-		});
-		return extracts;
 	}
 }

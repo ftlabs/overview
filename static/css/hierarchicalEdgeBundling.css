@@ -6,6 +6,14 @@ h1{
   padding: 0;
 }
 
+fieldset {
+  position: absolute;
+  top: 35px;
+  left: 10px;
+  margin: 0;
+  padding: 0;
+}
+
 main {
   text-align: center;
 }
