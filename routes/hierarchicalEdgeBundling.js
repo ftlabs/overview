@@ -9,9 +9,6 @@ router.get('/:facet', async (req, res, next) => {
 	res.render("hierarchicalEdgeBundling", {
 		data: JSON.stringify(results)
 	});
-
-
-	res.render("hierarchicalEdgeBundling");
 });
 
 

@@ -5,6 +5,12 @@
 	{{/head}}
 	<body>
 		<h1>Hierarchical Edge Bundling</h1>
+		<main></main>
 	</body>
+	<script src="/static/js/d3.v5.js"></script>
 	<script src="/static/js/hierarchicalEdgeBundling.js"></script>
+	<script>
+		var hebd = new HierarchicalEdgeBundlingDiagram();
+		hebd.init("{{data}}", 'main');
+	</script>
 </html>

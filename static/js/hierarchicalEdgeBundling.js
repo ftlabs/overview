@@ -1,133 +1,160 @@
-class Heartbeat {
+class HierarchicalEdgeBundlingDiagram {
 
-	constructor(type){
-		this.type = type;
+	constructor(){
 	}
 
 	init(data, target){
-		this.datum = data;
+		this.datum = this.prepData(data);
 		this.datumTarget = target;
-
-		var fn = this[this.type];
-		if(typeof fn === "function") this[this.type]();
+		this.start();
 	}
 
 	prepData(data){
-		return JSON.parse(data
+		var reformatted = [];
+		var parsed = JSON.parse(data
 			.replace(/&quot;&gt;/g, '>', )
 			.replace(/&lt;/g, '<', )
 			.replace(/&gt;/g, '>', )
 			.replace(/&quot;/g, '"', )
 			.replace(/&amp;/g, '&', ));
+
+		parsed.breakdown.forEach(facet => {
+			var newObj = this.newNodeObj(parsed.facet + '.' + facet.facetName);
+			newObj.size = this.calcSize(facet);
+			newObj.imports = this.addImports(facet);
+			reformatted.push(newObj);
+		});
+
+		return reformatted;
 	}
 
-	one(){
-		var facets = this.datum.facets;
-		var table = document.createElement('table');
+	start(){
+		var diameter = 860,
+			radius = diameter / 2,
+			innerRadius = radius - 120;
 
-		// TODO - add a display for the time ranges of each columned result
+		var cluster = d3.cluster()
+			.size([360, innerRadius]);
 
-		facets.forEach(topic => {
-			var tr = document.createElement('tr');
-			var td = document.createElement('td');
+		var line = d3.radialLine()
+			.curve(d3.curveBundle.beta(0.85))
+			.radius(function(d) { return d.y; })
+			.angle(function(d) { return d.x / 180 * Math.PI; });
 
-			td.appendChild(document.createTextNode(topic.name));
-			tr.appendChild(td);
+		var svg = d3.select("body").append("svg")
+			.attr("width", diameter)
+			.attr("height", diameter)
+			.append("g")
+			.attr("transform", "translate(" + radius + "," + radius + ")");
 
-			topic.count.forEach(item => {
-				var td = document.createElement('td');
-				var val = (item) ? item : 0;
-				td.appendChild(document.createTextNode(val));
-                tr.appendChild(td);
-			})
+		var link = svg.append("g").selectAll(".link"),
+			node = svg.append("g").selectAll(".node");
 
-			table.appendChild(tr);
-		})
+		var root = packageHierarchy(this.datum)
+			.sum(function(d) { return d.size; });
 
-		var container = document.getElementsByClassName(this.datumTarget)[0];
-		container.appendChild(table);
-	}
+		cluster(root);
 
-	two(){
-		var chartList = [];
-		var facets = this.datum.facets;
-		var table = document.createElement('table');
-
-		facets.forEach(topic => {
-			var tr = document.createElement('tr');
-			var tdTitle = document.createElement('td');
-			var tdSvg = document.createElement('td');
-			var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-			var className = this.variabliseStr(topic.name);
-
-			svg.classList.add(className);
-			svg.setAttribute('width', 400);
-			svg.setAttribute('height', 100);
-
-			tdTitle.appendChild(document.createTextNode(topic.name));
-			tdSvg.appendChild(svg);
-			
-			tr.appendChild(tdTitle);
-			tr.appendChild(tdSvg);
-			table.appendChild(tr);
-
-			chartList.push({
-				info: this.prepCount(topic.count),
-				dom: className
-			})
-		})
-
-		var container = document.getElementsByClassName(this.datumTarget)[0];
-		container.appendChild(table);
-
-		this.addChartsToPage(chartList);
-	}
-
-	prepCount(data){
-		return data.map((counter, inc) => {
-			return {date: inc, close: counter};
-		})
-	}
-
-	addChartsToPage(list){
-		list.forEach(chart => {
-			this.createLine(chart.info, chart.dom);
-		})
-	}
-
-	createLine(data, domTarget){
-		var target = document.getElementsByClassName(domTarget)[0];
-
-		var svg = d3.select(target),
-		    margin = {top: 20, right: 20, bottom: 30, left: 50},
-		    width = +svg.attr("width") - margin.left - margin.right,
-		    height = +svg.attr("height") - margin.top - margin.bottom,
-		    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-		var x = d3.scaleTime()
-		    .rangeRound([0, width]);
-
-		var y = d3.scaleLinear()
-		    .rangeRound([height, 0]);
-
-		var line = d3.line()
-		    .x(function(d) { return x(d.date); })
-		    .y(function(d) { return y(d.close); });
-
-		x.domain(d3.extent(data, function(d) { return d.date; }));
-		y.domain(d3.extent(data, function(d) { return d.close; }));
-
-		g.append("path")
-			.datum(data)
-			.attr("fill", "none")
-			.attr("stroke", "steelblue")
-			.attr("stroke-linejoin", "round")
-			.attr("stroke-linecap", "round")
-			.attr("stroke-width", 1.5)
+		link = link
+			.data(packageImports(root.leaves()))
+			.enter().append("path")
+			.each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+			.attr("class", "link")
 			.attr("d", line);
+
+		node = node
+			.data(root.leaves())
+			.enter().append("text")
+			.attr("class", "node")
+			.attr("dy", "0.31em")
+			.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
+			.attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
+			.text(function(d) { return d.data.key; });
+
+
+		// Lazily construct the package hierarchy from class names.
+		function packageHierarchy(classes) {
+			var map = {};
+
+			function find(name, data) {
+				var node = map[name], i;
+				if (!node) {
+					node = map[name] = data || {name: name, children: []};
+					if (name.length) {
+						node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
+						node.parent.children.push(node);
+						node.key = name.substring(i + 1);
+					}
+				}
+				return node;
+			}
+
+			classes.forEach(function(d) {
+				find(d.name, d);
+			});
+
+			return d3.hierarchy(map[""]);
+		}
+
+		// Return a list of imports for the given array of nodes.
+		function packageImports(nodes) {
+			var map = {},
+				imports = [];
+
+			
+			// Compute a map from name to node.
+			nodes.forEach(function(d) {
+				map[d.data.name] = d;
+			});
+
+
+			// For each import, construct a link from the source to target node.
+			nodes.forEach(function(d) {
+				if (d.data.imports){
+					d.data.imports.forEach(function(i) {
+						if(map[i]){
+							imports.push(map[d.data.name].path(map[i]));
+						}
+					});
+				}
+			});
+			
+
+			return imports;
+		}
+	}
+
+	newNodeObj(name = "name"){
+		return {
+			"name": "flare." + this.variabliseStr(name),
+			"size": 0,
+			"imports": [],
+		};
+	}
+
+	calcSize(facet){
+		return facet.articleCount 
+			+ facet.relatedTopicCount.length 
+			+ facet.relatedPeopleCount.length 
+			+ facet.relatedOrgsCount.length;
 	}
 
 	variabliseStr(str){
-		return str.replace(/ /g, '').replace(/-/g, '').replace(/&/g, '').toLowerCase()
+		return str.replace(/ /g, '').replace(/-/g, '').replace(/&/g, '');
+	}
+
+	addImports(facet){
+		var topics = this.extractImports('topics', facet.relatedTopicCount);
+		var people = this.extractImports('people', facet.relatedPeopleCount);
+		var orgs = this.extractImports('orgs', facet.relatedOrgsCount);
+		return [].concat(topics, people, orgs);
+	}
+
+	extractImports(type, data){
+		var extracts = [];
+		data.forEach(item => {
+			extracts.push("flare." + type + "." + this.variabliseStr(item.name));
+		});
+		return extracts;
 	}
 }

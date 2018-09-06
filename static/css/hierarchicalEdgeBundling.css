@@ -1,3 +1,20 @@
+h1{
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  text-align: center;
+}
+
+svg {
+  display: block;
+  margin: 0 auto
+}
+
 .node {
   font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
   fill: #bbb;
