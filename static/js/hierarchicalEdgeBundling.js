@@ -23,6 +23,7 @@ class HierarchicalEdgeBundlingDiagram {
 	}
 
 	prepData(data){
+
 		var reformatted = [];
 		var parsed = JSON.parse(data
 			.replace(/&quot;&gt;/g, '>', )
@@ -31,8 +32,10 @@ class HierarchicalEdgeBundlingDiagram {
 			.replace(/&quot;/g, '"', )
 			.replace(/&amp;/g, '&', ));
 
+		console.log(data)
+
 		parsed.breakdown.forEach(facet => {
-			var newObj = this.newNodeObj(parsed.facet + '.' + facet.facetName);
+			var newObj = this.newNodeObj(parsed.facet, facet.facetName);
 			newObj.size = this.calcSize(facet);
 			newObj.imports = this.addImports(facet);
 			reformatted.push(newObj);
@@ -41,9 +44,9 @@ class HierarchicalEdgeBundlingDiagram {
 		return reformatted;
 	}
 
-	newNodeObj(name = "name"){
+	newNodeObj(facet, name = "name"){
 		return {
-			"name": "flare." + this.variabliseStr(name),
+			"name": "flare." + facet + '.' + this.sanatiseStr(name),
 			"size": 0,
 			"imports": [],
 		};
@@ -56,8 +59,12 @@ class HierarchicalEdgeBundlingDiagram {
 			+ facet.relatedOrgsCount.length;
 	}
 
+	sanatiseStr(str){
+		return str.replace(/\./g, ' ');
+	}
+
 	variabliseStr(str){
-		return str.replace(/ /g, '').replace(/-/g, '').replace(/&/g, '');
+		return str.replace(/ /g, '').replace(/-/g, '').replace(/&/g, '').replace(/\./g, '');
 	}
 
 	addImports(facet){
@@ -70,7 +77,7 @@ class HierarchicalEdgeBundlingDiagram {
 	extractImports(type, data){
 		var extracts = [];
 		data.forEach(item => {
-			extracts.push("flare." + type + "." + this.variabliseStr(item.name));
+			extracts.push("flare." + type + "." + this.sanatiseStr(item.name));
 		});
 		return extracts;
 	}
@@ -79,12 +86,26 @@ class HierarchicalEdgeBundlingDiagram {
 	// - break the functions outside of parent functions
 	// - right now, its displaying how the main facet relates to other facets of the same type
 	//		maybe there should be controls to choose which facets to display/link to?
+	// see why some people only have one name
+	// put spacing back in people/topic/org names
+	// add legend - red/green line meanings
+	// fix performance
+
+
+	//more controls
+	// list the items to select and auto hilight
+	// have a search function
+	// faux filters for myFT collections (hilight existing topics)
+	// check org relations
+	// add display sequencer
+
 
 	start(){
+		var wWidth = window.innerWidth;
 		var wHeight = (window.innerHeight > 600) ? window.innerHeight : 600;
 
-		var diameter = wHeight,
-			radius = diameter / 2,
+		var diameter = wWidth,
+			radius = wHeight / 2,
 			innerRadius = radius - 120;
 
 		var cluster = d3.cluster()
@@ -99,7 +120,7 @@ class HierarchicalEdgeBundlingDiagram {
 			.attr("width", diameter)
 			.attr("height", diameter)
 			.append("g")
-			.attr("transform", "translate(" + radius + "," + radius + ")");
+			.attr("transform", "translate(" + wWidth/2 + "," + radius + ")");
 
 		var link = svg.append("g").selectAll(".link");
 		var node = svg.append("g").selectAll(".node");
