@@ -31,12 +31,21 @@ class HierarchicalEdgeBundlingDiagram {
 			.replace(/&quot;/g, '"', )
 			.replace(/&amp;/g, '&', ));
 
+		console.log(data
+			.replace(/&quot;&gt;/g, '>', )
+			.replace(/&lt;/g, '<', )
+			.replace(/&gt;/g, '>', )
+			.replace(/&quot;/g, '"', )
+			.replace(/&amp;/g, '&', ));
+
 		parsed.breakdown.forEach(facet => {
 			var newObj = this.newNodeObj(parsed.facet, facet.facetName);
 			newObj.size = this.calcSize(facet);
 			newObj.imports = this.addImports(facet);
 			reformatted.push(newObj);
 		});
+
+		console.log(reformatted)
 
 		return reformatted;
 	}
@@ -67,7 +76,7 @@ class HierarchicalEdgeBundlingDiagram {
 	addImports(facet){
 		var topics = this.extractImports('topics', facet.relatedTopicCount);
 		var people = this.extractImports('people', facet.relatedPeopleCount);
-		var orgs = this.extractImports('orgs', facet.relatedOrgsCount);
+		var orgs = this.extractImports('organisations', facet.relatedOrgsCount);
 		return [].concat(topics, people, orgs);
 	}
 
