@@ -23,7 +23,6 @@ class HierarchicalEdgeBundlingDiagram {
 	}
 
 	prepData(data){
-
 		var reformatted = [];
 		var parsed = JSON.parse(data
 			.replace(/&quot;&gt;/g, '>', )
@@ -31,8 +30,6 @@ class HierarchicalEdgeBundlingDiagram {
 			.replace(/&gt;/g, '>', )
 			.replace(/&quot;/g, '"', )
 			.replace(/&amp;/g, '&', ));
-
-		console.log(data)
 
 		parsed.breakdown.forEach(facet => {
 			var newObj = this.newNodeObj(parsed.facet, facet.facetName);
@@ -60,7 +57,7 @@ class HierarchicalEdgeBundlingDiagram {
 	}
 
 	sanatiseStr(str){
-		return str.replace(/\./g, ' ');
+		return str.replace(/\./g, ' ').replace(/&#x27;/g, '\'');
 	}
 
 	variabliseStr(str){
@@ -86,16 +83,14 @@ class HierarchicalEdgeBundlingDiagram {
 	// - break the functions outside of parent functions
 	// - right now, its displaying how the main facet relates to other facets of the same type
 	//		maybe there should be controls to choose which facets to display/link to?
-	// see why some people only have one name
-	// put spacing back in people/topic/org names
 	// add legend - red/green line meanings
 	// fix performance
 
 
 	//more controls
-	// list the items to select and auto hilight
+	// list the items to select and auto highlight
 	// have a search function
-	// faux filters for myFT collections (hilight existing topics)
+	// faux filters for myFT collections (highlight existing topics)
 	// check org relations
 	// add display sequencer
 
