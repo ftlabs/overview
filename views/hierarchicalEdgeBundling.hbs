@@ -20,5 +20,9 @@
 		var ctrl = new RefreshFacet('hierarchicalEdgeBundling');
 		var hebd = new HierarchicalEdgeBundlingDiagram();
 		hebd.init("{{data}}", 'main');
+
+		window.addEventListener('resize', function(){
+			hebd.refreshDiagram();
+		});
 	</script>
 </html>

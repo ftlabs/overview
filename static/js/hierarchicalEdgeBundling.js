@@ -4,9 +4,22 @@ class HierarchicalEdgeBundlingDiagram {
 	}
 
 	init(data, target){
+		this.scp = this;
 		this.datum = this.prepData(data);
 		this.datumTarget = target;
 		this.start();
+	}
+
+	refreshDiagram(){
+		this.removeDiagram();
+		this.start();
+	}
+
+	removeDiagram(){
+		var svg = document.getElementsByTagName('svg')[0];
+		if(svg){
+			svg.parentNode.removeChild(svg);
+		}
 	}
 
 	prepData(data){
@@ -62,16 +75,15 @@ class HierarchicalEdgeBundlingDiagram {
 		return extracts;
 	}
 
-	// TODO
-	// - Fit the diagram to screen (with a minimum size to avoid crushing)
+	// UPDATES
 	// - break the functions outside of parent functions
 	// - right now, its displaying how the main facet relates to other facets of the same type
-	//		maybe there should be controls to choose which facets to display/link to
-	// - add caching
-	// - pre PR code review
+	//		maybe there should be controls to choose which facets to display/link to?
 
 	start(){
-		var diameter = 860,
+		var wHeight = (window.innerHeight > 600) ? window.innerHeight : 600;
+
+		var diameter = wHeight,
 			radius = diameter / 2,
 			innerRadius = radius - 120;
 
@@ -83,7 +95,7 @@ class HierarchicalEdgeBundlingDiagram {
 			.radius(function(d) { return d.y; })
 			.angle(function(d) { return d.x / 180 * Math.PI; });
 
-		var svg = d3.select("body").append("svg")
+		var svg = d3.select("main").append("svg")
 			.attr("width", diameter)
 			.attr("height", diameter)
 			.append("g")
