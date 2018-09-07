@@ -31,21 +31,12 @@ class HierarchicalEdgeBundlingDiagram {
 			.replace(/&quot;/g, '"', )
 			.replace(/&amp;/g, '&', ));
 
-		console.log(data
-			.replace(/&quot;&gt;/g, '>', )
-			.replace(/&lt;/g, '<', )
-			.replace(/&gt;/g, '>', )
-			.replace(/&quot;/g, '"', )
-			.replace(/&amp;/g, '&', ));
-
 		parsed.breakdown.forEach(facet => {
 			var newObj = this.newNodeObj(parsed.facet, facet.facetName);
 			newObj.size = this.calcSize(facet);
 			newObj.imports = this.addImports(facet);
 			reformatted.push(newObj);
 		});
-
-		console.log(reformatted)
 
 		return reformatted;
 	}
@@ -100,7 +91,6 @@ class HierarchicalEdgeBundlingDiagram {
 	// list the items to select and auto highlight
 	// have a search function
 	// faux filters for myFT collections (highlight existing topics)
-	// check org relations
 	// add display sequencer
 
 
@@ -110,7 +100,7 @@ class HierarchicalEdgeBundlingDiagram {
 
 		var diameter = wWidth,
 			radius = wHeight / 2,
-			innerRadius = radius - 120;
+			innerRadius = radius - 180;
 
 		var cluster = d3.cluster()
 			.size([360, innerRadius]);
