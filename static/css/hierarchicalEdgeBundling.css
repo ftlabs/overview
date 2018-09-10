@@ -15,7 +15,8 @@ svg {
   margin: 0 auto
 }
 
-.controls {
+.controls,
+.legend {
   position: absolute;
   display: block;
   padding: 10px;
@@ -23,7 +24,34 @@ svg {
   right: 5px;
   width: auto;
   height: auto;
-  font-size: 12px;  
+  font-size: 12px; 
+}
+
+.controls {
+  top: 5px;
+  right: 5px;
+}
+
+.legend {
+  top: 55px;
+  left: 5px;
+  width: 100px;
+}
+
+.legend .square {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #666;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.legend .link {
+  background-color: steelblue;
+}
+
+.legend .connection {
+  background-color: #2ca02c;
 }
 
 .node {

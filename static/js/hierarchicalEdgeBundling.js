@@ -84,7 +84,6 @@ class HierarchicalEdgeBundlingDiagram {
 	// - right now, its displaying how the main facet relates to other facets of the same type
 	//		maybe there should be controls to choose which facets to display/link to?
 	// add legend - red/green line meanings
-	// fix performance
 
 
 	//more controls
@@ -110,14 +109,19 @@ class HierarchicalEdgeBundlingDiagram {
 			.radius(function(d) { return d.y; })
 			.angle(function(d) { return d.x / 180 * Math.PI; });
 
+		//mandala madness
+		//.angle(function(d) { return d.x; });
+
 		var svg = d3.select("main").append("svg")
 			.attr("width", diameter)
 			.attr("height", diameter)
 			.append("g")
-			.attr("transform", "translate(" + wWidth/2 + "," + radius + ")");
+			.attr("transform", "translate(" + wWidth / 2 + "," + radius + ")");
 
 		var link = svg.append("g").selectAll(".link");
 		var node = svg.append("g").selectAll(".node");
+
+		this.testVar = "testVar";
 
 		var root = packageHierarchy(this.datum)
 			.sum(function(d) { return d.size; });
@@ -149,23 +153,23 @@ class HierarchicalEdgeBundlingDiagram {
 
 		  link
 		      .classed("link--target", function(l) { if (l.target === d) return l.source.source = true; })
-		      .classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
+		      //.classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
 		    .filter(function(l) { return l.target === d || l.source === d; })
 		      .raise();
 
 		  node
 		      .classed("node--target", function(n) { return n.target; })
-		      .classed("node--source", function(n) { return n.source; });
+		      //.classed("node--source", function(n) { return n.source; });
 		}
 
 		function mouseouted(d) {
 		  link
 		      .classed("link--target", false)
-		      .classed("link--source", false);
+		      //.classed("link--source", false);
 
 		  node
 		      .classed("node--target", false)
-		      .classed("node--source", false);
+		      //.classed("node--source", false);
 		}
 
 
