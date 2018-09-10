@@ -4,7 +4,7 @@ var readingList = [];
 function addListeners() {
     document.getElementById('deleteReadingList').addEventListener('click', function() {
         readingList = [];
-        localStorage.removeItem('readingList')
+        localStorage.removeItem('readingList');
         getReadingList();
     })
 }
@@ -12,9 +12,9 @@ function addListeners() {
 function getReadingList() {
     localReadingList = localStorage.getItem('readingList')
     if(localReadingList && localReadingList.length > 0) {
-        readingList = JSON.parse(localReadingList)
+        readingList = JSON.parse(localReadingList);
     } else {
-        readingListStorage.innerHTML = '<p>Nothing has been added to the reading list.</p>'
+        readingListStorage.innerHTML = '<p>Nothing has been added to the reading list.</p>';
     }
 }
 

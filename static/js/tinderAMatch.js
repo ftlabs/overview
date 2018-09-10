@@ -5,20 +5,20 @@ function setCurrentArticles() {
     getReadingAndBannedLists();
     fetch('/tinder/articleList')
     .then(function(res) {
-        return res.text()
+        return res.text();
     })
     .then(function(res) {
-        filteredArticleList = filterArticles(res)
-        sessionStorage.setItem('currentArticles', filteredArticleList)
+        filteredArticleList = filterArticles(res);
+        sessionStorage.setItem('currentArticles', filteredArticleList);
     })
     .then(setCurrentDate)
     .then(addListeners);
 }
 
 function filterArticles(articleList) {
-    articleList = JSON.parse(articleList)
+    articleList = JSON.parse(articleList);
     // TODO: filter out banned + reading lists from the article list before saving
-    return JSON.stringify(articleList)
+    return JSON.stringify(articleList);
 }
 
 function addListeners() {
@@ -34,23 +34,23 @@ function addListeners() {
         addToList('banned');
     });
     document.getElementById('readingList').addEventListener('click', function() {
-        window.open('/tinder/myType')
+        window.open('/tinder/myType');
     });
 }
 
 function getReadingAndBannedLists() {
-    localReadingList = localStorage.getItem('readingList')
-    localBannedList = localStorage.getItem('bannedList')
-    if(localReadingList) readingList = JSON.parse(localReadingList)
-    if(localBannedList) bannedList = JSON.parse(localBannedList)
+    localReadingList = localStorage.getItem('readingList');
+    localBannedList = localStorage.getItem('bannedList');
+    if(localReadingList) readingList = JSON.parse(localReadingList);
+    if(localBannedList) bannedList = JSON.parse(localBannedList);
 }
 
 function getCurrentArticles() {
-    return JSON.parse(sessionStorage.getItem('currentArticles'))
+    return JSON.parse(sessionStorage.getItem('currentArticles'));
 }
 
 function getFirstCurrentArticle() {
-    return getCurrentArticles()[0]
+    return getCurrentArticles()[0];
 }
 
 function addToList(type) {
@@ -66,15 +66,15 @@ function addToList(type) {
 }
 
 function removeFirstCurrentArticle(){
-    currentArticleObject = getCurrentArticles()
-    currentArticleObject.shift()
-    sessionStorage.setItem('currentArticles', JSON.stringify(currentArticleObject))
+    currentArticleObject = getCurrentArticles();
+    currentArticleObject.shift();
+    sessionStorage.setItem('currentArticles', JSON.stringify(currentArticleObject));
 }
 
 function setCurrentDate() {
     document.getElementById('articleTitle').innerHTML = getFirstCurrentArticle().title;
-    document.getElementById('articleImage').innerHTML = '<img src="' + getFirstCurrentArticle().url} + '">'
-    document.getElementById('articleAuthor').innerHTML = getFirstCurrentArticle().author || 'Unknown Author'
+    document.getElementById('articleImage').innerHTML = '<img src="' + getFirstCurrentArticle().url + '">';
+    document.getElementById('articleAuthor').innerHTML = getFirstCurrentArticle().author || 'Unknown Author';
 }
 
 setCurrentArticles();
