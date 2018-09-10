@@ -100,17 +100,6 @@ class HierarchicalEdgeBundlingDiagram {
 		return this.itemList;
 	}
 
-	// UPDATES
-	// - break the functions outside of parent functions
-	// - right now, its displaying how the main facet relates to other facets of the same type
-	//		maybe there should be controls to choose which facets to display/link to?
-
-
-	//more controls
-	// faux filters for myFT collections (highlight existing topics)
-	// add display sequencer
-
-
 	start(){
 		var wWidth = window.innerWidth;
 		var wHeight = (window.innerHeight > 600) ? window.innerHeight : 600;
