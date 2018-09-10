@@ -107,8 +107,6 @@ class HierarchicalEdgeBundlingDiagram {
 
 
 	//more controls
-	// list the items to select and auto highlight
-	// have a search function
 	// faux filters for myFT collections (highlight existing topics)
 	// add display sequencer
 
@@ -173,7 +171,10 @@ class HierarchicalEdgeBundlingDiagram {
 
 
 		function mouseovered(d) {
-			link.classed("link--target", function(l) { if (l.target === d) return l.source.source = true; });
+			link
+				.classed("link--target", function(l) { if (l.target === d) return l.source.source = true; })
+	      		.filter(function(l) { return l.target === d || l.source === d; })
+	      		.raise();
 		}
 
 		function mouseouted(d) {
