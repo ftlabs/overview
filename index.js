@@ -30,6 +30,7 @@ const list = require("./routes/list");
 const timeline = require("./routes/timeline");
 const facetsWithArticles = require("./routes/facetsWithArticles");
 const heartbeat = require("./routes/heartbeat");
+const tinder = require("./routes/tinder");
 
 const hbs = require("hbs");
 
@@ -73,6 +74,7 @@ app.use("/list", list);
 app.use("/timeline", timeline);
 app.use("/facetsWithArticles", facetsWithArticles);
 app.use("/heartbeat", heartbeat);
+app.use("/tinder", tinder);
 // ---
 
 app.use("/", (req, res) => {
