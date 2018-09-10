@@ -31,12 +31,7 @@ class HierarchicalEdgeBundlingDiagram {
 
 	prepData(data){
 		var reformatted = [];
-		var parsed = JSON.parse(data
-			.replace(/&quot;&gt;/g, '>', )
-			.replace(/&lt;/g, '<', )
-			.replace(/&gt;/g, '>', )
-			.replace(/&quot;/g, '"', )
-			.replace(/&amp;/g, '&', ));
+		var parsed = JSON.parse(this.formatStr(data));
 
 		parsed.breakdown.forEach(facet => {
 			var newObj = this.newNodeObj(parsed.facet, facet.facetName);
@@ -48,6 +43,14 @@ class HierarchicalEdgeBundlingDiagram {
 		return reformatted;
 	}
 
+	formatStr(str){
+		return str.replace(/&quot;&gt;/g, '>')
+			.replace(/&lt;/g, '<')
+			.replace(/&gt;/g, '>')
+			.replace(/&quot;/g, '"')
+			.replace(/&amp;/g, '&');
+	}
+
 	newNodeObj(facet, name = "name"){
 		return {
 			"name": "flare." + facet + '.' + this.sanatiseStr(name),
@@ -57,10 +60,7 @@ class HierarchicalEdgeBundlingDiagram {
 	}
 
 	calcSize(facet){
-		return facet.articleCount 
-			+ facet.relatedTopicCount.length 
-			+ facet.relatedPeopleCount.length 
-			+ facet.relatedOrgsCount.length;
+		return facet.articleCount + facet.relatedTopicCount.length + facet.relatedPeopleCount.length + facet.relatedOrgsCount.length;
 	}
 
 	sanatiseStr(str){
@@ -90,7 +90,7 @@ class HierarchicalEdgeBundlingDiagram {
 		this.datum.forEach(item => {
 			var split = item.name.split(".");
 			this.itemList.push(split[split.length -1]);
-		})
+		});
 	}
 
 	getItems(){
@@ -161,7 +161,11 @@ class HierarchicalEdgeBundlingDiagram {
 
 		function mouseovered(d) {
 			link
-				.classed("link--target", function(l) { if (l.target === d) return l.source.source = true; })
+				.classed("link--target", function(l) { if (l.target === d){
+					l.source.source = true;
+					return true;
+					} 
+				})
 	      		.filter(function(l) { return l.target === d || l.source === d; })
 	      		.raise();
 		}

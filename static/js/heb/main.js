@@ -35,9 +35,10 @@ function initControls(){
 }
 
 function generateList(){
-	hebd.getItems().forEach(item => {
-		selectList.appendChild( new Option(item, item) );
-	});
+	var items = hebd.getItems();
+	for(var i = 0; i <= items.length; i++){
+		selectList.appendChild( new Option(items[i], items[i]) );
+	}
 }
 
 function setLinks(){
@@ -71,9 +72,9 @@ function addListeners(){
 
 	sequencer.addEventListener('change', toggleSequencer, false);
 
-	speedOptions.forEach(option => {
-		option.addEventListener('change', toggleSpeed, false);
-	});
+	for (var i = 0; i < speedOptions.length; i++) {
+	    speedOptions[i].addEventListener('change', toggleSpeed, false);
+	}
 }
 
 function resetNodes(){
@@ -81,8 +82,8 @@ function resetNodes(){
 	    nodes[i].classList.remove('selected');
 	}
 
-	for (var i = 0; i < links.length; i++) {
-	    links[i].classList.remove('linked--target');
+	for (var j = 0; j < links.length; j++) {
+	    links[j].classList.remove('linked--target');
 	}
 }
 
@@ -95,7 +96,8 @@ function nodeLinkHighlight(selected){
 			hebd.link
 	      		.classed("linked--target", function(l) {
 	      			if (l.target.data.key === selected){
-	      				return l.source.source = true;
+	      				l.source.source = true;
+	      				return true;
 	      			}
 	      		})
 	      		.filter(function(l) { return l.target.data.key === selected || l.source.data.key === selected; })
