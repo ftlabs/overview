@@ -1,8 +1,9 @@
-let readingList = [];
-let bannedList = [];
+var readingList = [];
+var bannedList = [];
 
-async function setCurrentArticles() {
-    await fetch('/tinder/articleList')
+function setCurrentArticles() {
+    getReadingAndBannedLists();
+    fetch('/tinder/articleList')
     .then(function(res) {
         return res.text()
     })
@@ -10,28 +11,27 @@ async function setCurrentArticles() {
         filteredArticleList = filterArticles(res)
         sessionStorage.setItem('currentArticles', filteredArticleList)
     })
-    setCurrentDate();
+    .then(setCurrentDate)
+    .then(addListeners);
 }
 
 function filterArticles(articleList) {
     articleList = JSON.parse(articleList)
-    
     // TODO: filter out banned + reading lists from the article list before saving
-    
     return JSON.stringify(articleList)
 }
 
 function addListeners() {
     document.getElementById('superlike').addEventListener('click', function() {
         window.open(getFirstCurrentArticle().link);
-        addToReadingList();
+        addToList('reading');
         setCurrentDate();
     })
     document.getElementById('like').addEventListener('click', function() {
-        addToReadingList();
+        addToList('reading');
     });
     document.getElementById('dislike').addEventListener('click', function() {
-        addToBannedList();
+        addToList('banned');
     });
     document.getElementById('readingList').addEventListener('click', function() {
         window.open('/tinder/myType')
@@ -53,18 +53,16 @@ function getFirstCurrentArticle() {
     return getCurrentArticles()[0]
 }
 
-function addToReadingList() {
-    readingList.push(getFirstCurrentArticle());
+function addToList(type) {
+    if(type === 'reading') {
+        readingList.push(getFirstCurrentArticle());
+        localStorage.setItem('readingList', JSON.stringify(readingList));
+    } else if(type === 'banned') {
+        bannedList.push(getFirstCurrentArticle());
+        localStorage.setItem('bannedList', JSON.stringify(bannedList));
+    }
     removeFirstCurrentArticle();
     setCurrentDate();
-    localStorage.setItem('readingList', JSON.stringify(readingList));
-}
-
-function addToBannedList() {
-    bannedList.push(getFirstCurrentArticle());
-    removeFirstCurrentArticle();
-    setCurrentDate();
-    localStorage.setItem('bannedList', JSON.stringify(bannedList));
 }
 
 function removeFirstCurrentArticle(){
@@ -75,10 +73,8 @@ function removeFirstCurrentArticle(){
 
 function setCurrentDate() {
     document.getElementById('articleTitle').innerHTML = getFirstCurrentArticle().title;
-    document.getElementById('articleImage').setAttribute("src", getFirstCurrentArticle().url);
+    document.getElementById('articleImage').innerHTML = `<img src="${getFirstCurrentArticle().url}">`
     document.getElementById('articleAuthor').innerHTML = getFirstCurrentArticle().author || 'Unknown Author'
 }
 
-getReadingAndBannedLists();
 setCurrentArticles();
-addListeners();

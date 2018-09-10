@@ -1,6 +1,5 @@
-let readingListStorage = document.getElementById('readingListStorage');
-
-let readingList = [];
+var readingListStorage = document.getElementById('readingListStorage');
+var readingList = [];
 
 function addListeners() {
     document.getElementById('deleteReadingList').addEventListener('click', function() {
