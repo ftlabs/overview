@@ -14,20 +14,20 @@ function getReadingList() {
     if(localReadingList && localReadingList.length > 0) {
         readingList = JSON.parse(localReadingList)
     } else {
-        readingListStorage.innerHTML = `<p>Nothing has been added to the reading list.</p>`
+        readingListStorage.innerHTML = '<p>Nothing has been added to the reading list.</p>'
     }
 }
 
 function buildReadingList() {
     if(readingList) {
-        let newHtml = '';
+        var newHtml = '';
 
-        for(let article of readingList) {
-            newHtmlTitle = `<p>Title: ${article.title}</p>`
-            newHtmlImage = `<a href="${article.link}" title="${article.title}" target="_blank"><img src="${article.url}"></img></a>`
-            newHtmlAuthor = article.author ? `<p>Author: ${article.author}</p>` : `<p>Unknown Author</p>`
+        for(var article of readingList) {
+            newHtmlTitle = '<p>Title: ' + article.title + '</p>';
+            newHtmlImage = '<a href="' + article.link + '" title="' + article.title + '" target="_blank"><img src="' + article.url + '"></img></a>';
+            newHtmlAuthor = article.author ? '<p>Author: ' + article.author + '</p>' : '<p>Unknown Author</p>';
 
-            newHtml = newHtml + newHtmlTitle + newHtmlImage + newHtmlAuthor + `</br>`;
+            newHtml = newHtml + newHtmlTitle + newHtmlImage + newHtmlAuthor + '</br>';
         }
         readingListStorage.innerHTML = newHtml;
     } else {

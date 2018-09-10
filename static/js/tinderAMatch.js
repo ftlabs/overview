@@ -73,7 +73,7 @@ function removeFirstCurrentArticle(){
 
 function setCurrentDate() {
     document.getElementById('articleTitle').innerHTML = getFirstCurrentArticle().title;
-    document.getElementById('articleImage').innerHTML = `<img src="${getFirstCurrentArticle().url}">`
+    document.getElementById('articleImage').innerHTML = '<img src="' + getFirstCurrentArticle().url} + '">'
     document.getElementById('articleAuthor').innerHTML = getFirstCurrentArticle().author || 'Unknown Author'
 }
 
