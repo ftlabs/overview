@@ -1,5 +1,14 @@
 var readingList = [];
 var bannedList = [];
+var Hammer = new Hammer(document, {
+    recognizers: [
+        [Hammer.Swipe,{ direction: Hammer.DIRECTION_ALL }],
+        [Hammer.Tap, { event: 'doubletap', taps: 2 }]
+    ]
+});
+
+var infoPanel;
+// Hammer.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
 
 function setCurrentArticles() {
     getReadingAndBannedLists();
@@ -22,20 +31,40 @@ function filterArticles(articleList) {
 }
 
 function addListeners() {
-    document.getElementById('superlike').addEventListener('click', function() {
-        window.open(getFirstCurrentArticle().link);
-        addToList('reading');
-        setCurrentDate();
-    })
-    document.getElementById('like').addEventListener('click', function() {
-        addToList('reading');
-    });
-    document.getElementById('dislike').addEventListener('click', function() {
-        addToList('banned');
-    });
+    infoPanel = document.querySelector('.infoPanel');
     document.getElementById('readingList').addEventListener('click', function() {
         window.open('/tinder/myType');
     });
+
+    Hammer.on('doubletap', function(e) {
+        window.open(getFirstCurrentArticle().link);
+        addToList('reading');
+        setCurrentDate();
+    });
+
+    Hammer.on('swipeleft', function(e) {
+        addToList('banned');
+    });
+
+    Hammer.on('swiperight', function(e) {
+        addToList('reading');
+    });
+
+    Hammer.on('swipeup', function(e){
+        toggleInfo('show');
+    });
+
+    Hammer.on('swipedown', function(e){
+        toggleInfo('hide');
+    });
+}
+
+function toggleInfo(state) {
+    if(state === 'show') {
+        infoPanel.classList.remove('panel-hidden');
+    }  else if(state === 'hide') {
+        infoPanel.classList.add('panel-hidden');
+    }
 }
 
 function getReadingAndBannedLists() {
@@ -63,6 +92,7 @@ function addToList(type) {
     }
     removeFirstCurrentArticle();
     setCurrentDate();
+    toggleInfo('hide');
 }
 
 function removeFirstCurrentArticle(){
@@ -73,7 +103,7 @@ function removeFirstCurrentArticle(){
 
 function setCurrentDate() {
     document.getElementById('articleTitle').innerHTML = getFirstCurrentArticle().title;
-    document.getElementById('articleImage').innerHTML = '<img src="' + getFirstCurrentArticle().url + '">';
+    document.getElementById('articleImage').style.backgroundImage = "url(" + getFirstCurrentArticle().url + ")";
     document.getElementById('articleAuthor').innerHTML = getFirstCurrentArticle().author || 'Unknown Author';
 }
 

@@ -23,7 +23,7 @@ router.get('/articleList', async (req, res, next) => {
 		
 		if (item.images[0] && item.images[0].url) {
 			itemObj.title = item.title.title;
-			itemObj.url = item.images[0].url;
+			itemObj.url = formatTinderURL(item.images[0].url);
 			itemObj.author = item.editorial.byline;
 			itemObj.link = item.location.uri;
 			// add more if you need to!
@@ -32,5 +32,9 @@ router.get('/articleList', async (req, res, next) => {
 	}).filter(n => n)
 	res.send(results);
 });
+
+function formatTinderURL(url) {
+	return url.split('?')[0].concat('?source=ftlabs');
+}
 
 module.exports = router;
