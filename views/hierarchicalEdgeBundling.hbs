@@ -16,18 +16,16 @@
 			<input type="button" name="topics" id="topicsRefresh" value="Topics">
 			<input type="button" name="people" id="peopleRefresh" value="People">
 			<input type="button" name="organisations" id="organisationsRefresh" value="Organisations">
+			<hr>
+			<select id="itemList">
+				<option value="">Highlight facet item</option>
+			</select>
 		</fieldset>
 	</body>
 	<script src="/static/js/d3.v5.js"></script>
-	<script src="/static/js/refreshFacet.js"></script>
-	<script src="/static/js/hierarchicalEdgeBundling.js"></script>
+	<script src="/static/js/heb/hierarchicalEdgeBundling.js"></script>
+	<script src="/static/js/heb/main.js"></script>
 	<script>
-		var ctrl = new RefreshFacet('hierarchicalEdgeBundling');
-		var hebd = new HierarchicalEdgeBundlingDiagram();
-		hebd.init("{{data}}", 'main');
-
-		window.addEventListener('resize', function(){
-			hebd.refreshDiagram();
-		});
+		init('{{data}}');
 	</script>
 </html>

@@ -54,6 +54,11 @@ svg {
   background-color: #2ca02c;
 }
 
+.selected {
+  font-weight: bold !important;
+  fill: black !important;
+}
+
 .node {
   font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
   fill: #bbb;
@@ -96,4 +101,10 @@ svg {
 
 .link--target {
   stroke: #2ca02c;
+}
+
+.linked--target {
+  stroke: #d62728;
+  stroke-opacity: 1;
+  stroke-width: 2px;
 }

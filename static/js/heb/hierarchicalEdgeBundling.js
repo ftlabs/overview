@@ -7,6 +7,13 @@ class HierarchicalEdgeBundlingDiagram {
 		this.scp = this;
 		this.datum = this.prepData(data);
 		this.datumTarget = target;
+		this.itemList = [];
+
+		this.links = null;
+		this.nodes = null;
+	}
+
+	draw(){
 		this.start();
 	}
 
@@ -79,11 +86,24 @@ class HierarchicalEdgeBundlingDiagram {
 		return extracts;
 	}
 
+	listItems(){
+		this.datum.forEach(item => {
+			var split = item.name.split(".");
+			this.itemList.push(split[split.length -1]);
+		})
+	}
+
+	getItems(){
+		if(this.itemList.length <= 0){
+			this.listItems();
+		}
+		return this.itemList;
+	}
+
 	// UPDATES
 	// - break the functions outside of parent functions
 	// - right now, its displaying how the main facet relates to other facets of the same type
 	//		maybe there should be controls to choose which facets to display/link to?
-	// add legend - red/green line meanings
 
 
 	//more controls
@@ -135,9 +155,12 @@ class HierarchicalEdgeBundlingDiagram {
 			.attr("class", "link")
 			.attr("d", line);
 
+		this.link = link;
+
 		node = node
 			.data(root.leaves())
 			.enter().append("text")
+			.attr("id", function(d) { return d.data.key; })
 			.attr("class", "node")
 			.attr("dy", "0.31em")
 			.attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + (d.y + 8) + ",0)" + (d.x < 180 ? "" : "rotate(180)"); })
@@ -146,30 +169,15 @@ class HierarchicalEdgeBundlingDiagram {
 			.on("mouseover", mouseovered)
 			.on("mouseout", mouseouted);
 
+		this.node = node;
+
 
 		function mouseovered(d) {
-		  node
-		      .each(function(n) { n.target = n.source = false; });
-
-		  link
-		      .classed("link--target", function(l) { if (l.target === d) return l.source.source = true; })
-		      //.classed("link--source", function(l) { if (l.source === d) return l.target.target = true; })
-		    .filter(function(l) { return l.target === d || l.source === d; })
-		      .raise();
-
-		  node
-		      .classed("node--target", function(n) { return n.target; })
-		      //.classed("node--source", function(n) { return n.source; });
+			link.classed("link--target", function(l) { if (l.target === d) return l.source.source = true; });
 		}
 
 		function mouseouted(d) {
-		  link
-		      .classed("link--target", false)
-		      //.classed("link--source", false);
-
-		  node
-		      .classed("node--target", false)
-		      //.classed("node--source", false);
+			link.classed("link--target", false);
 		}
 
 
