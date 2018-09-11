@@ -31,6 +31,7 @@ const timeline = require("./routes/timeline");
 const facetsWithArticles = require("./routes/facetsWithArticles");
 const heartbeat = require("./routes/heartbeat");
 const tinder = require("./routes/tinder");
+const ftMaps = require("./routes/ftMaps");
 
 const hbs = require("hbs");
 
@@ -75,6 +76,7 @@ app.use("/timeline", timeline);
 app.use("/facetsWithArticles", facetsWithArticles);
 app.use("/heartbeat", heartbeat);
 app.use("/tinder", tinder);
+app.use("/ftMaps", ftMaps);
 // ---
 
 app.use("/", (req, res) => {
