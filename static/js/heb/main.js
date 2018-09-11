@@ -3,6 +3,7 @@
 var topicsRefresh = document.getElementById('topicsRefresh');
 var peopleRefresh = document.getElementById('peopleRefresh');
 var organisationsRefresh = document.getElementById('organisationsRefresh');
+var genreRefresh = document.getElementById('genreRefresh');
 var selectList = document.getElementById('itemList');
 var sequencer = document.getElementById('sequencer');
 var speedOptions = document.getElementsByName('speed');
@@ -66,6 +67,10 @@ function addListeners(){
 		reloadPage('organisations');
 	});
 
+	genreRefresh.addEventListener('click', function(){
+		reloadPage('genre');
+	});
+
 	selectList.addEventListener('change', function(e){
 		nodeLinkHighlight(e.target.value);
 	});
@@ -80,6 +85,7 @@ function addListeners(){
 function resetNodes(){
 	for (var i = 0; i < nodes.length; i++) {
 	    nodes[i].classList.remove('selected');
+	    nodes[i].classList.remove('noded--source');
 	}
 
 	for (var j = 0; j < links.length; j++) {
@@ -93,6 +99,10 @@ function nodeLinkHighlight(selected){
 		var item = document.getElementById(selected);
 		if(item){
 			item.classList.add('selected');
+
+			hebd.node
+				.each(function(n) { n.target = n.source = false; });
+
 			hebd.link
 	      		.classed("linked--target", function(l) {
 	      			if (l.target.data.key === selected){
@@ -103,6 +113,8 @@ function nodeLinkHighlight(selected){
 	      		.filter(function(l) { return l.target.data.key === selected || l.source.data.key === selected; })
 	      		.raise();
 
+	      	hebd.node
+		      .classed("noded--source", function(n) { return n.source; });
 		}
 	}
 }

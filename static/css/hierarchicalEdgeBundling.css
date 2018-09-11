@@ -35,7 +35,7 @@ svg {
 .legend {
   top: 55px;
   left: 5px;
-  width: 100px;
+  width: 85px;
 }
 
 .legend .square {
@@ -52,6 +52,10 @@ svg {
 
 .legend .connection {
   background-color: #2ca02c;
+}
+
+.legend .selected {
+  background-color: #d62728;
 }
 
 .selected {
@@ -107,4 +111,8 @@ svg {
   stroke: #d62728;
   stroke-opacity: 1;
   stroke-width: 2px;
+}
+
+.noded--source {
+  stroke: #d62728;
 }

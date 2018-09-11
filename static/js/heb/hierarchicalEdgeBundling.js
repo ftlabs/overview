@@ -160,18 +160,31 @@ class HierarchicalEdgeBundlingDiagram {
 
 
 		function mouseovered(d) {
+			node
+				.each(function(n) { n.target = n.source = false; });
+
 			link
-				.classed("link--target", function(l) { if (l.target === d){
-					l.source.source = true;
-					return true;
+				.classed("link--target", function(l) {
+					if (l.target === d) {
+						l.source.source = true;
+						return true;
 					} 
 				})
 	      		.filter(function(l) { return l.target === d || l.source === d; })
 	      		.raise();
+
+	      	node
+		      .classed("node--target", function(n) { return n.target; })
+		      .classed("node--source", function(n) { return n.source; });
 		}
 
 		function mouseouted(d) {
-			link.classed("link--target", false);
+			link
+				.classed("link--target", false);
+
+			node
+      			.classed("node--target", false)
+      			.classed("node--source", false);
 		}
 
 

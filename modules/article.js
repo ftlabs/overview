@@ -21,7 +21,9 @@ const defaultFacets = [ "organisations",
 						"people", 
 						"peopleId",
 						"topics",
-						"topicsId"
+						"topicsId",
+						"genre",
+						"genreId"
 					];
 
 

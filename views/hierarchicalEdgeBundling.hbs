@@ -10,24 +10,31 @@
 			<legend>Legend</legend>
 			<div class="square link"></div><span>Link</span><br />
 			<div class="square connection"></div><span>Connection</span><br />
+			<div class="square selected"></div><span>Selected</span>
 		</fieldset>
 		<fieldset class="controls">
-			<legend>Controls:</legend>
+			<legend>Controls</legend>
+			<label>Facet</label><br />
+			<input type="button" name="all" id="allRefresh" value="All">
 			<input type="button" name="topics" id="topicsRefresh" value="Topics">
 			<input type="button" name="people" id="peopleRefresh" value="People">
 			<input type="button" name="organisations" id="organisationsRefresh" value="Organisations">
+			<input type="button" name="genre" id="genreRefresh" value="Genre">
 			<hr>
-			<select id="itemList">
-				<option value="">Highlight facet item</option>
-			</select>
+				<label>Filters</label><br />
 			<hr>
-			<input type="checkbox" name="sequencer" id="sequencer"> Enable Sequencer<br />
-			<label for="speed100">100ms</label>
-			<input type="radio" name="speed" id="speed100" value="100">
-			<label for="speed500">500ms</label>
-			<input type="radio" name="speed" id="speed500" value="500">
-			<label for="speed1000">1000ms</label>
-			<input type="radio" name="speed" id="speed1000" value="1000" checked>
+				<label>Highlight item</label><br />
+				<select id="itemList">
+					<option value="">--</option>
+				</select>
+			<hr>
+				<input type="checkbox" name="sequencer" id="sequencer"> Enable Sequencer<br />
+				<label for="speed100">100ms</label>
+				<input type="radio" name="speed" id="speed100" value="100">
+				<label for="speed500">500ms</label>
+				<input type="radio" name="speed" id="speed500" value="500">
+				<label for="speed1000">1000ms</label>
+				<input type="radio" name="speed" id="speed1000" value="1000" checked>
 		</fieldset>
 	</body>
 	<script src="/static/js/d3.v5.js"></script>
