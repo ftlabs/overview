@@ -34,7 +34,7 @@ class HierarchicalEdgeBundlingDiagram {
 		var parsed = JSON.parse(this.formatStr(data));
 
 		parsed.breakdown.forEach(facet => {
-			var newObj = this.newNodeObj(parsed.facet, facet.facetName);
+			var newObj = this.newNodeObj(facet.facet, facet.facetName);
 			newObj.size = this.calcSize(facet);
 			newObj.imports = this.addImports(facet);
 			reformatted.push(newObj);
@@ -75,7 +75,8 @@ class HierarchicalEdgeBundlingDiagram {
 		var topics = this.extractImports('topics', facet.relatedTopicCount);
 		var people = this.extractImports('people', facet.relatedPeopleCount);
 		var orgs = this.extractImports('organisations', facet.relatedOrgsCount);
-		return [].concat(topics, people, orgs);
+		var genre = this.extractImports('genre', facet.relatedGenreCount);
+		return [].concat(topics, people, orgs, genre);
 	}
 
 	extractImports(type, data){
@@ -116,9 +117,6 @@ class HierarchicalEdgeBundlingDiagram {
 			.radius(function(d) { return d.y; })
 			.angle(function(d) { return d.x / 180 * Math.PI; });
 
-		//mandala madness
-		//.angle(function(d) { return d.x; });
-
 		var svg = d3.select("main").append("svg")
 			.attr("width", diameter)
 			.attr("height", diameter)
@@ -128,17 +126,18 @@ class HierarchicalEdgeBundlingDiagram {
 		var link = svg.append("g").selectAll(".link");
 		var node = svg.append("g").selectAll(".node");
 
-		this.testVar = "testVar";
-
 		var root = packageHierarchy(this.datum)
 			.sum(function(d) { return d.size; });
 
 		cluster(root);
 
+
 		link = link
 			.data(packageImports(root.leaves()))
 			.enter().append("path")
-			.each(function(d) { d.source = d[0], d.target = d[d.length - 1]; })
+			.each(function(d) {
+				d.source = d[0], d.target = d[d.length - 1];
+			})
 			.attr("class", "link")
 			.attr("d", line);
 
@@ -214,15 +213,13 @@ class HierarchicalEdgeBundlingDiagram {
 
 		// Return a list of imports for the given array of nodes.
 		function packageImports(nodes) {
-			var map = {},
-				imports = [];
+			var map = {};
+			var imports = [];
 
-			
 			// Compute a map from name to node.
 			nodes.forEach(function(d) {
 				map[d.data.name] = d;
 			});
-
 
 			// For each import, construct a link from the source to target node.
 			nodes.forEach(function(d) {

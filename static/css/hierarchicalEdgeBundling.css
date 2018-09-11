@@ -1,9 +1,13 @@
-h1{
-  position: absolute;
-  top: 5px;
-  left: 10px;
-  margin: 0;
+h1 {
+  margin: 0 0 5px;
   padding: 0;
+}
+
+h2 {
+  margin: 0 0 10px;
+  padding: 0;
+  font-weight: normal;
+  font-style: italic;
 }
 
 main {
@@ -15,26 +19,53 @@ svg {
   margin: 0 auto
 }
 
-.controls,
-.legend {
+.abs {
   position: absolute;
   display: block;
-  padding: 10px;
+}
+
+.abs.top-left {
+  top: 5px;
+  left: 5px;
+}
+
+.abs.top-right {
   top: 5px;
   right: 5px;
+}
+
+.abs.bottom-left {
+  bottom: 5px;
+  left: 5px;
+}
+
+.abs.bottom-right {
+  bottom: 5px;
+  right: 5px;
+}
+
+.logo {
+  display: block;
+  width: 40px;
+  height: 40px;
+  opacity: 0.6;
+}
+
+
+
+
+.controls,
+.legend {
+  padding: 10px;
   width: auto;
   height: auto;
   font-size: 12px; 
 }
 
 .controls {
-  top: 5px;
-  right: 5px;
 }
 
 .legend {
-  top: 55px;
-  left: 5px;
   width: 85px;
 }
 

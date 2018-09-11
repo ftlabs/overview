@@ -4,7 +4,8 @@ var topicsRefresh = document.getElementById('topicsRefresh');
 var peopleRefresh = document.getElementById('peopleRefresh');
 var organisationsRefresh = document.getElementById('organisationsRefresh');
 var genreRefresh = document.getElementById('genreRefresh');
-var selectList = document.getElementById('itemList');
+var filterList = document.getElementById('filterList');
+var highlightList = document.getElementById('highlightList');
 var sequencer = document.getElementById('sequencer');
 var speedOptions = document.getElementsByName('speed');
 var activeSequencer = false;
@@ -38,7 +39,7 @@ function initControls(){
 function generateList(){
 	var items = hebd.getItems();
 	for(var i = 0; i <= items.length; i++){
-		selectList.appendChild( new Option(items[i], items[i]) );
+		filterList.appendChild( new Option(items[i], items[i]) );
 	}
 }
 
@@ -71,8 +72,12 @@ function addListeners(){
 		reloadPage('genre');
 	});
 
-	selectList.addEventListener('change', function(e){
+	highlightList.addEventListener('change', function(e){
 		nodeLinkHighlight(e.target.value);
+	});
+
+	filterList.addEventListener('change', function(e){
+		nodeFilters(e.target.value);
 	});
 
 	sequencer.addEventListener('change', toggleSequencer, false);
@@ -117,6 +122,10 @@ function nodeLinkHighlight(selected){
 		      .classed("noded--source", function(n) { return n.source; });
 		}
 	}
+}
+
+function nodeFilters(selected){
+	drawDiagram(selected);
 }
 
 function reloadPage(facet){

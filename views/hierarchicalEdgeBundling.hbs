@@ -4,38 +4,49 @@
 	<link rel="stylesheet" type="text/css" href="/static/css/hierarchicalEdgeBundling.css">
 	{{/head}}
 	<body>
-		<h1>Hierarchical Edge Bundling</h1>
 		<main></main>
-		<fieldset class="legend">
-			<legend>Legend</legend>
-			<div class="square link"></div><span>Link</span><br />
-			<div class="square connection"></div><span>Connection</span><br />
-			<div class="square selected"></div><span>Selected</span>
-		</fieldset>
-		<fieldset class="controls">
-			<legend>Controls</legend>
-			<label>Facet</label><br />
-			<input type="button" name="all" id="allRefresh" value="All">
-			<input type="button" name="topics" id="topicsRefresh" value="Topics">
-			<input type="button" name="people" id="peopleRefresh" value="People">
-			<input type="button" name="organisations" id="organisationsRefresh" value="Organisations">
-			<input type="button" name="genre" id="genreRefresh" value="Genre">
-			<hr>
-				<label>Filters</label><br />
-			<hr>
-				<label>Highlight item</label><br />
-				<select id="itemList">
-					<option value="">--</option>
-				</select>
-			<hr>
-				<input type="checkbox" name="sequencer" id="sequencer"> Enable Sequencer<br />
-				<label for="speed100">100ms</label>
-				<input type="radio" name="speed" id="speed100" value="100">
-				<label for="speed500">500ms</label>
-				<input type="radio" name="speed" id="speed500" value="500">
-				<label for="speed1000">1000ms</label>
-				<input type="radio" name="speed" id="speed1000" value="1000" checked>
-		</fieldset>
+		<div class="abs top-left">
+			<h1>Hierarchical Edge Bundling</h1>
+			<h2>Using articles published in the last 24hrs</h2>
+			<fieldset class="legend">
+				<legend>Legend</legend>
+				<div class="square link"></div><span>Link</span><br />
+				<div class="square connection"></div><span>Connection</span><br />
+				<div class="square selected"></div><span>Selected</span>
+			</fieldset>
+		</div>
+		<div class="abs top-right">
+			<fieldset class="controls">
+				<legend>Controls</legend>
+				<label>Facet</label><br />
+				<input type="button" name="all" id="allRefresh" value="All">
+				<input type="button" name="topics" id="topicsRefresh" value="Topics">
+				<input type="button" name="people" id="peopleRefresh" value="People">
+				<input type="button" name="organisations" id="organisationsRefresh" value="Organisations">
+				<input type="button" name="genre" id="genreRefresh" value="Genre">
+				<hr>
+					<label>Filter</label><br />
+					<select id="filterList">
+						<option value="">--</option>
+					</select>
+				<hr>
+					<label>Highlight item</label><br />
+					<select id="highlightList">
+						<option value="">--</option>
+					</select>
+				<hr>
+					<input type="checkbox" name="sequencer" id="sequencer"> Enable Sequencer<br />
+					<label for="speed100">100ms</label>
+					<input type="radio" name="speed" id="speed100" value="100">
+					<label for="speed500">500ms</label>
+					<input type="radio" name="speed" id="speed500" value="500">
+					<label for="speed1000">1000ms</label>
+					<input type="radio" name="speed" id="speed1000" value="1000" checked>
+			</fieldset>
+		</div>
+		<div class="abs bottom-left">
+			<img class="logo" src="/static/img/ft-labs-logo.jpg" alt="FT Labs logo" />
+		</div>
 	</body>
 	<script src="/static/js/d3.v5.js"></script>
 	<script src="/static/js/heb/hierarchicalEdgeBundling.js"></script>
