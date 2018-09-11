@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{{#> head title='FT Maps' subtitle='News around the world' }}
+		<style type="text/css">
+			html, body {
+				text-align: center;
+			}
+		</style>
+	{{/head}}
+    <body>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+        {{!-- <script src="~/node_modules/datamaps/dist/datamaps.world.js"></script> --}}
+        <script src="http://datamaps.github.io/scripts/datamaps.world.min.js?v=1"></script>
+        <h1>FT Maps</h1>
+        {{!-- <div id="mapContainer" style="position: relative; width: 80%; max-height: 450px;"></div> --}}
+        <div id="mapContainer"></div>
+
+
+        <script>
+            var map = new Datamap({
+            scope: 'world',
+            element: document.getElementById('mapContainer'),
+            projection: 'mercator',
+            geographyConfig: {
+                highlightOnHover: false,
+            },
+            height: 600,
+            width: 800,
+            fills: {
+                'MAJOR': '#306596',
+                'MEDIUM': '#0fa0fa',
+                'MINOR': '#bada55',
+                defaultFill: '#666666'
+            },
+
+            data: {     
+            }
+        })
+        </script>
+    </body>
+</html>
