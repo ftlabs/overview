@@ -101,21 +101,7 @@ select {
   background-color: #d62728;
 }
 
-.topics {
-  color: #1382BA;
-}
 
-.people {
-  color: #EF5423;
-}
-
-.organisations {
-  color: #0DA359;
-}
-
-.genre {
-  color: #746BAE;
-}
 
 /* Diagram styles */
 
@@ -176,4 +162,24 @@ select {
 .selected {
   font-weight: bold !important;
   fill: black !important;
+}
+
+.topics {
+  color: #1382BA;
+  fill: #1382BA;
+}
+
+.people {
+  color: #EF5423;
+  fill: #EF5423;
+}
+
+.organisations {
+  color: #0DA359;
+  fill: #0DA359;
+}
+
+.genre {
+  color: #746BAE;
+  fill: #746BAE;
 }
