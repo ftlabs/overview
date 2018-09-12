@@ -39,6 +39,7 @@
     "ffmpeg-static": "^2.0.0",
     "hbs": "^4.0.1",
     "helmet": "^3.13.0",
+    "i18n-iso-countries": "^3.7.7",
     "is-uuid": "^1.0.2",
     "md5": "^2.2.1",
     "mocha": "^4.0.1",
