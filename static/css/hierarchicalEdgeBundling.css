@@ -3,29 +3,21 @@ body {
   font-family: 'MetricWeb', sans-serif;
 }
 
-h1,
-h2 {
+h1 {
   font-family: 'FinancierDisplayWeb', serif;
   text-transform: capitalize;
-}
-
-h1 {
   margin: 0 0 5px;
   padding: 0;
 }
 
 h2 {
   font-family: 'MetricWeb', sans-serif;
+  text-transform: capitalize;
   font-size: 18px;
   margin: 0 0 10px;
   padding: 0;
   font-weight: normal;
   font-style: italic;
-}
-
-h3 {
-  font-family: 'MetricWeb', sans-serif;
-  font-size: 16px;
 }
 
 main {
@@ -78,7 +70,7 @@ select {
   padding: 10px;
   width: auto;
   height: auto;
-  font-size: 12px; 
+  font-size: 14px; 
 }
 
 .controls {
@@ -109,15 +101,26 @@ select {
   background-color: #d62728;
 }
 
-.selected {
-  font-weight: bold !important;
-  fill: black !important;
+.topics {
+  color: #1382BA;
+}
+
+.people {
+  color: #EF5423;
+}
+
+.organisations {
+  color: #0DA359;
+}
+
+.genre {
+  color: #746BAE;
 }
 
 /* Diagram styles */
 
 .node {
-  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 300 11px 'MetricWeb', sans-serif;
   fill: #bbb;
 }
 
@@ -168,4 +171,9 @@ select {
 
 .noded--source {
   stroke: #d62728;
+}
+
+.selected {
+  font-weight: bold !important;
+  fill: black !important;
 }

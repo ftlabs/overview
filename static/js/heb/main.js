@@ -63,10 +63,6 @@ function addListeners(){
 		hebd.refreshDiagram();
 	});
 
-	for (var i = 0; i < facetOptions.length; i++) {
-	    facetOptions[i].addEventListener('change', redrawDiagram, false);
-	}
-
 	highlightList.addEventListener('change', function(e){
 		nodeLinkHighlight(e.target.value);
 	});
@@ -77,8 +73,12 @@ function addListeners(){
 
 	sequencer.addEventListener('change', toggleSequencer, false);
 
-	for (var i = 0; i < speedOptions.length; i++) {
-	    speedOptions[i].addEventListener('change', toggleSpeed, false);
+	for (var j = 0; j < speedOptions.length; j++) {
+	    speedOptions[j].addEventListener('change', toggleSpeed, false);
+	}
+
+	for (var i = 0; i < facetOptions.length; i++) {
+	    facetOptions[i].addEventListener('change', redrawDiagram, false);
 	}
 }
 
@@ -126,10 +126,6 @@ function nodeLinkHighlight(selected){
 
 function nodeFilters(selected){
 	drawDiagram(selected);
-}
-
-function reloadPage(facet){
-	window.location.href = '/hierarchicalEdgeBundling/' + facet;
 }
 
 function drawDiagram(){

@@ -1,16 +1,15 @@
 class HierarchicalEdgeBundlingDiagram {
 
 	constructor(){
+		this.links = null;
+		this.nodes = null;
+		this.itemList = [];
 	}
 
 	init(data, target){
 		this.scp = this;
 		this.datum = this.prepData(data);
 		this.datumTarget = target;
-		this.itemList = [];
-
-		this.links = null;
-		this.nodes = null;
 	}
 
 	draw(facets){
@@ -21,7 +20,6 @@ class HierarchicalEdgeBundlingDiagram {
 		} else {
 			this.removeDiagram();
 		}
-		
 	}
 
 	refreshDiagram(){
@@ -74,10 +72,6 @@ class HierarchicalEdgeBundlingDiagram {
 		return str.replace(/\./g, ' ').replace(/&#x27;/g, '\'');
 	}
 
-	variabliseStr(str){
-		return str.replace(/ /g, '').replace(/-/g, '').replace(/&/g, '').replace(/\./g, '');
-	}
-
 	addImports(facet){
 		var topics = this.extractImports('topics', facet.relatedTopicCount);
 		var people = this.extractImports('people', facet.relatedPeopleCount);
@@ -94,20 +88,26 @@ class HierarchicalEdgeBundlingDiagram {
 		return extracts;
 	}
 
-	listItems(){
-		this.datum.forEach(item => {
-			var split = item.name.split(".");
-			
-			if(this.facets.indexOf(split[1]) >= 0){
-				this.itemList.push(split[split.length -1]);
-			}
-		});
+	getItems(){
 		return this.itemList;
 	}
 
-	getItems(){
+	filterData(data){
+		var filtered = [];
 		this.itemList = [];
-		return this.listItems();
+
+		this.datum.forEach(item => {
+			var nameSplit = item.name.split('.');
+			var facet = nameSplit[1];
+			var name = nameSplit[nameSplit.length - 1];
+
+			if(this.facets.indexOf(facet) >= 0){
+				filtered.push(item);
+				this.itemList.push(name);
+			}
+		});
+
+		return filtered;
 	}
 
 	start(){
@@ -135,7 +135,9 @@ class HierarchicalEdgeBundlingDiagram {
 		var link = svg.append("g").selectAll(".link");
 		var node = svg.append("g").selectAll(".node");
 
-		var root = packageHierarchy(this.datum, this.facets)
+		var filterdData = this.filterData(this.datum);
+
+		var root = packageHierarchy(filterdData)
 			.sum(function(d) { return d.size; });
 
 		cluster(root);
@@ -196,7 +198,7 @@ class HierarchicalEdgeBundlingDiagram {
 
 
 		// Lazily construct the package hierarchy from class names.
-		function packageHierarchy(classes, facets) {
+		function packageHierarchy(classes) {
 			var map = {};
 
 			function find(name, data) {
@@ -213,10 +215,7 @@ class HierarchicalEdgeBundlingDiagram {
 			}
 
 			classes.forEach(function(d) {
-				var facet = d.name.split('.')[1];
-				if(facets.indexOf(facet) >= 0){
-					find(d.name, d);
-				}
+				find(d.name, d);
 			});
 
 			return d3.hierarchy(map[""]);
@@ -227,12 +226,10 @@ class HierarchicalEdgeBundlingDiagram {
 			var map = {};
 			var imports = [];
 
-			// Compute a map from name to node.
 			nodes.forEach(function(d) {
 				map[d.data.name] = d;
 			});
 
-			// For each import, construct a link from the source to target node.
 			nodes.forEach(function(d) {
 				if (d.data.imports){
 					d.data.imports.forEach(function(i) {
@@ -242,7 +239,6 @@ class HierarchicalEdgeBundlingDiagram {
 					});
 				}
 			});
-			
 
 			return imports;
 		}
