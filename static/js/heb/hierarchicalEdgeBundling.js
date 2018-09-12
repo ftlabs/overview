@@ -13,8 +13,15 @@ class HierarchicalEdgeBundlingDiagram {
 		this.nodes = null;
 	}
 
-	draw(){
-		this.start();
+	draw(facets){
+		this.facets = facets;
+
+		if(facets.length > 0){
+			this.start();
+		} else {
+			this.removeDiagram();
+		}
+		
 	}
 
 	refreshDiagram(){
@@ -126,11 +133,10 @@ class HierarchicalEdgeBundlingDiagram {
 		var link = svg.append("g").selectAll(".link");
 		var node = svg.append("g").selectAll(".node");
 
-		var root = packageHierarchy(this.datum)
+		var root = packageHierarchy(this.datum, this.facets)
 			.sum(function(d) { return d.size; });
 
 		cluster(root);
-
 
 		link = link
 			.data(packageImports(root.leaves()))
@@ -188,7 +194,7 @@ class HierarchicalEdgeBundlingDiagram {
 
 
 		// Lazily construct the package hierarchy from class names.
-		function packageHierarchy(classes) {
+		function packageHierarchy(classes, facets) {
 			var map = {};
 
 			function find(name, data) {
@@ -205,7 +211,10 @@ class HierarchicalEdgeBundlingDiagram {
 			}
 
 			classes.forEach(function(d) {
-				find(d.name, d);
+				var facet = d.name.split('.')[1];
+				if(facets.indexOf(facet) >= 0){
+					find(d.name, d);
+				}
 			});
 
 			return d3.hierarchy(map[""]);

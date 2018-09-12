@@ -1,20 +1,21 @@
 //use strict 
 
-var topicsRefresh = document.getElementById('topicsRefresh');
-var peopleRefresh = document.getElementById('peopleRefresh');
-var organisationsRefresh = document.getElementById('organisationsRefresh');
-var genreRefresh = document.getElementById('genreRefresh');
+var facetOptions = document.getElementsByName('facetSelect');
+
 var filterList = document.getElementById('filterList');
 var highlightList = document.getElementById('highlightList');
+
 var sequencer = document.getElementById('sequencer');
 var speedOptions = document.getElementsByName('speed');
 var activeSequencer = false;
 var sequencerInterval = null;
 var sequencerCurrent = 0;
+
 var links = [];
 var nodes = [];
 var hebd = null;
 var data = null;
+
 
 function init(dataStr){
 	data = dataStr;
@@ -22,6 +23,7 @@ function init(dataStr){
 	initDiagram();
 	initControls();
 	addListeners();
+
 	drawDiagram();
 }
 
@@ -56,21 +58,12 @@ function addListeners(){
 		hebd.refreshDiagram();
 	});
 
-	topicsRefresh.addEventListener('click', function(){
-		reloadPage('topics');
-	});
-
-	peopleRefresh.addEventListener('click', function(){
-		reloadPage('people');
-	});
-
-	organisationsRefresh.addEventListener('click', function(){
-		reloadPage('organisations');
-	});
-
-	genreRefresh.addEventListener('click', function(){
-		reloadPage('genre');
-	});
+	for (var i = 0; i < facetOptions.length; i++) {
+	    facetOptions[i].addEventListener('change', function(){
+	    	hebd.removeDiagram();
+	    	drawDiagram();
+	    }, false);
+	}
 
 	highlightList.addEventListener('change', function(e){
 		nodeLinkHighlight(e.target.value);
@@ -133,7 +126,18 @@ function reloadPage(facet){
 }
 
 function drawDiagram(){
-	hebd.draw();
+	hebd.draw( getSelectedFacets() );
+}
+
+function getSelectedFacets(){
+	var selected = [];
+	var checkboxes = document.getElementsByName('facetSelect');
+	checkboxes.forEach(box => {
+		if(box.checked){
+			selected.push(box.value);
+		}
+	});
+	return selected;
 }
 
 function toggleSequencer(){
