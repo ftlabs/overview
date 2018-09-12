@@ -3,6 +3,7 @@ class HierarchicalEdgeBundlingDiagram {
 	constructor(){
 		this.links = null;
 		this.nodes = null;
+		this.filter = null;
 		this.itemList = [];
 	}
 
@@ -12,8 +13,9 @@ class HierarchicalEdgeBundlingDiagram {
 		this.datumTarget = target;
 	}
 
-	draw(facets){
+	draw(facets, filter = null){
 		this.facets = facets;
+		this.filter = filter;
 
 		if(facets.length > 0){
 			this.start();
@@ -99,11 +101,22 @@ class HierarchicalEdgeBundlingDiagram {
 		this.datum.forEach(item => {
 			var nameSplit = item.name.split('.');
 			var facet = nameSplit[1];
-			var name = nameSplit[nameSplit.length - 1];
 
 			if(this.facets.indexOf(facet) >= 0){
-				filtered.push(item);
-				this.itemList.push(name);
+
+				if(this.filter !== null){
+					var itemSplit = this.filter.split('.');
+					var shortname = itemSplit[itemSplit.length - 1];
+
+					if(item.key === shortname || item.imports.includes(this.filter)){
+						filtered.push(item);
+						this.itemList.push(item.name);
+					}
+				} else {
+					filtered.push(item);
+					this.itemList.push(item.name);
+				}
+
 			}
 		});
 

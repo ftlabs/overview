@@ -46,7 +46,11 @@ function generateList(){
 	filterList.appendChild( new Option("--", "") );
 
 	for(var i = 0; i <= items.length; i++){
-		filterList.appendChild( new Option(items[i], items[i]) );
+		if(items[i] !== undefined){
+			var itemSplit = items[i].split('.');
+			var shortname = itemSplit[itemSplit.length - 1];
+			filterList.appendChild( new Option(shortname, items[i]) );
+		}
 	}
 }
 
@@ -64,7 +68,7 @@ function addListeners(){
 	});
 
 	highlightList.addEventListener('change', function(e){
-		nodeLinkHighlight(e.target.value);
+		//nodeLinkHighlight(e.target.value);
 	});
 
 	filterList.addEventListener('change', function(e){
@@ -125,10 +129,12 @@ function nodeLinkHighlight(selected){
 }
 
 function nodeFilters(selected){
-	drawDiagram(selected);
+	resetNodes();
+	hebd.removeDiagram();
+	hebd.draw( getSelectedFacets(), selected );
 }
 
-function drawDiagram(){
+function drawDiagram(filter = null){
 	hebd.draw( getSelectedFacets() );
 	generateList();
 }
