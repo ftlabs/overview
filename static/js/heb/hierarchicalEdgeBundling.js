@@ -97,15 +97,17 @@ class HierarchicalEdgeBundlingDiagram {
 	listItems(){
 		this.datum.forEach(item => {
 			var split = item.name.split(".");
-			this.itemList.push(split[split.length -1]);
+			
+			if(this.facets.indexOf(split[1]) >= 0){
+				this.itemList.push(split[split.length -1]);
+			}
 		});
+		return this.itemList;
 	}
 
 	getItems(){
-		if(this.itemList.length <= 0){
-			this.listItems();
-		}
-		return this.itemList;
+		this.itemList = [];
+		return this.listItems();
 	}
 
 	start(){

@@ -33,13 +33,18 @@ function initDiagram(){
 }
 
 function initControls(){
-	generateList();
 	setLinks();
 	setNodes();
 }
 
 function generateList(){
+	while (filterList.firstChild) {
+	    filterList.removeChild(filterList.firstChild);
+	}
+
 	var items = hebd.getItems();
+	filterList.appendChild( new Option("--", "") );
+
 	for(var i = 0; i <= items.length; i++){
 		filterList.appendChild( new Option(items[i], items[i]) );
 	}
@@ -59,10 +64,7 @@ function addListeners(){
 	});
 
 	for (var i = 0; i < facetOptions.length; i++) {
-	    facetOptions[i].addEventListener('change', function(){
-	    	hebd.removeDiagram();
-	    	drawDiagram();
-	    }, false);
+	    facetOptions[i].addEventListener('change', redrawDiagram, false);
 	}
 
 	highlightList.addEventListener('change', function(e){
@@ -80,12 +82,17 @@ function addListeners(){
 	}
 }
 
+function redrawDiagram(){
+	hebd.removeDiagram();
+	drawDiagram();
+	generateList();
+}
+
 function resetNodes(){
 	for (var i = 0; i < nodes.length; i++) {
 	    nodes[i].classList.remove('selected');
 	    nodes[i].classList.remove('noded--source');
 	}
-
 	for (var j = 0; j < links.length; j++) {
 	    links[j].classList.remove('linked--target');
 	}
@@ -127,6 +134,7 @@ function reloadPage(facet){
 
 function drawDiagram(){
 	hebd.draw( getSelectedFacets() );
+	generateList();
 }
 
 function getSelectedFacets(){
@@ -140,6 +148,9 @@ function getSelectedFacets(){
 	return selected;
 }
 
+/*
+ * Sequencer functions
+ */
 function toggleSequencer(){
 	var speed = 1000;
 
@@ -175,12 +186,11 @@ function setSequencer(speed){
 function tickSequence(){
 	var items = hebd.getItems();
 	var nextItem = items[sequencerCurrent];
-	nodeLinkHighlight(nextItem);
 
+	nodeLinkHighlight(nextItem);
 	sequencerCurrent++;
 
 	if(sequencerCurrent >= items.length){
 		sequencerCurrent = 0;
 	}
 }
-

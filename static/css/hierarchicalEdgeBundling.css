@@ -1,13 +1,31 @@
+body {
+  background: #fff1e5;
+  font-family: 'MetricWeb', sans-serif;
+}
+
+h1,
+h2 {
+  font-family: 'FinancierDisplayWeb', serif;
+  text-transform: capitalize;
+}
+
 h1 {
   margin: 0 0 5px;
   padding: 0;
 }
 
 h2 {
+  font-family: 'MetricWeb', sans-serif;
+  font-size: 18px;
   margin: 0 0 10px;
   padding: 0;
   font-weight: normal;
   font-style: italic;
+}
+
+h3 {
+  font-family: 'MetricWeb', sans-serif;
+  font-size: 16px;
 }
 
 main {
@@ -17,6 +35,10 @@ main {
 svg {
   display: block;
   margin: 0 auto
+}
+
+select {
+  width: 100%;
 }
 
 .abs {
@@ -51,9 +73,6 @@ svg {
   opacity: 0.6;
 }
 
-
-
-
 .controls,
 .legend {
   padding: 10px;
@@ -63,6 +82,7 @@ svg {
 }
 
 .controls {
+  width: 250px;
 }
 
 .legend {
@@ -93,6 +113,8 @@ svg {
   font-weight: bold !important;
   fill: black !important;
 }
+
+/* Diagram styles */
 
 .node {
   font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
