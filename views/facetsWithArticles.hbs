@@ -8,6 +8,16 @@
 			#aspects {
 				height: 180px;
 			}
+			form {
+				margin-bottom: 25px;
+			}
+			form a {
+				display: block;
+				margin: 15px 0;
+			}
+			h2 {
+				margin-top: 25px;
+			}
 		</style>
 	{{/head}}
 	<body>
@@ -20,7 +30,6 @@
 			<li>A list of the articles tagged with the above facet item</li>
 			<li>A list of other topics, organisations and people that the above articles are tagged with</li>
 		</ul>
-		<br />
 		<h2>Endpoint</h2>
 		<p>
 		  GET /relatedContent/?days=&amp;facet=, returns JSON, e.g. <a href="/facetsWithArticles/relatedContent?days=1&facet=topics">/facetsWithArticles/relatedContent?days=1&amp;facet=topics</a>
@@ -54,10 +63,8 @@
                 <option>nature</option>
                 <option>provenance</option>
 			</select>
-			<br /><br />
 			<a id="queryBuilderLink" target="blank" href="">facetsWithArticles/relatedContent?days=</a>
 		</form>
-		<br />
 		<h2>Example pages</h2>
 		<ul>
 			<li>
