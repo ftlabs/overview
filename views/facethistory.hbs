@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	{{#> head title='' subtitle='' }}
-		<style type="text/css">
+		<style>
 			.item {
 				border: 2px solid grey;
 				padding: 10px;
@@ -10,6 +10,13 @@
 				height: 150px;
 				margin: auto;
 				vertical-align: bottom;
+			}
+			form {
+				margin-bottom: 25px;
+			}
+			form a {
+				display: block;
+				margin: 15px 0;
 			}
 		</style>
 	{{/head}}
@@ -38,7 +45,7 @@
 		</ul>
 		<h3>Build-a-query</h3>
 		<form>
-			<spam>/facetHistory/</span>
+			<span>/facetHistory/</span>
 			<select id="facet" name="facet">
 				<option selected>topics</option>
 				<option>organisation</option>
@@ -74,16 +81,14 @@
 				<option>25</option>
 				<option>50</option>
 			</select>
-			<br /><br />
 			<a id="queryBuilderLink" target="blank" href="">/facetHistory/</a>
 		</form>
-		<br /><br /> <br />
 		<h2>Example pages</h2>
 		<ul>
 			<li>
 				<a target="_blank" href="/facetHistory/1">Facet History v1 - </a>
 			</li>
 		</ul>
-		<script type="text/javascript" src="/static/js/facetHistory/queryBuilder.js"></script>
+		<script src="/static/js/facetHistory/queryBuilder.js"></script>
 	</body>
 </html>
