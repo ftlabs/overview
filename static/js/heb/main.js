@@ -12,6 +12,7 @@ var sequencerCurrent = 0;
 
 var links = [];
 var nodes = [];
+var list = [];
 var hebd = null;
 var data = null;
 
@@ -41,6 +42,8 @@ function generateList(){
 	    filterList.removeChild(filterList.firstChild);
 	}
 
+	this.list = [];
+
 	var items = hebd.getItems();
 
 	for(var i = 0; i <= items.length; i++){
@@ -48,6 +51,7 @@ function generateList(){
 			var itemSplit = items[i].split('.');
 			var shortname = itemSplit[itemSplit.length - 1];
 			filterList.appendChild( new Option(shortname, items[i]) );
+			list.push(items[i]);
 		}
 	}
 }
@@ -97,11 +101,22 @@ function resetNodes(){
 }
 
 function nodeFilters(selected){
-	selected = (selected !== "") ? selected : null;
+	selected = checkNodeExists(selected);
 	resetNodes();
 	hebd.removeDiagram();
 	hebd.draw(getSelectedFacets(), selected);
 	highlightNode(selected);
+}
+
+function checkNodeExists(selected){
+	selected = (selected !== "") ? selected : null;
+
+	if(this.list.includes(selected)){
+		return selected;
+	}
+
+	filterInput.value = "";
+	return null;
 }
 
 function highlightNode(selected){
