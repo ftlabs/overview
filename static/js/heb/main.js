@@ -1,7 +1,9 @@
 //use strict 
 
 var facetOptions = document.getElementsByName('facetSelect');
+var filterInput = document.getElementById('filterInput');
 var filterList = document.getElementById('filterList');
+var filterSubmit = document.getElementById('filterSubmit');
 var sequencer = document.getElementById('sequencer');
 var speedOptions = document.getElementsByName('speed');
 var activeSequencer = false;
@@ -40,7 +42,6 @@ function generateList(){
 	}
 
 	var items = hebd.getItems();
-	filterList.appendChild( new Option("--", "") );
 
 	for(var i = 0; i <= items.length; i++){
 		if(items[i] !== undefined){
@@ -64,8 +65,8 @@ function addListeners(){
 		hebd.refreshDiagram();
 	});
 
-	filterList.addEventListener('change', function(e){
-		nodeFilters(e.target.value);
+	filterSubmit.addEventListener('click', function(e){
+		nodeFilters(filterInput.value);
 	});
 
 	sequencer.addEventListener('change', toggleSequencer, false);

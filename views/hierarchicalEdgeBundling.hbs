@@ -33,8 +33,9 @@
 				<input type="checkbox" checked="" name="facetSelect" value="genre"> Genre<br />
 				<hr>
 					<label>Filter</label><br />
-					<select id="filterList">
-					</select>
+					<input list="filterList" name="filters" id="filterInput">
+					<datalist id="filterList"></datalist>
+					<input id="filterSubmit" type="submit">
 				<hr>
 					<input type="checkbox" name="sequencer" id="sequencer"> Enable Sequencer<br />
 					<label for="speed100">100ms</label>
