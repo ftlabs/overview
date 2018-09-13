@@ -5,7 +5,7 @@ const article = require('../modules/article');
 
 // paths
 router.get('/', async (req, res, next) => {
-	const results = await article.getArticleRelations( 1, req.params.facet );
+	const results = await article.getArticleRelations( 1 );
 	res.render("hierarchicalEdgeBundling", {
 		data: JSON.stringify(results)
 	});

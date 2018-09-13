@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	{{#> head title='' subtitle='' }}
-		<style type="text/css">
+		<style>
 			span, select {
 				vertical-align: top;
 			}
@@ -12,28 +12,21 @@
 	{{/head}}
 	<body>
 		<h1>Demo Index Page</h1>
-
 		<p>
 			Creates a listed collection of facet items (either topics, organisations or people). Each item has:
-			<ul>
-				<li>The name of the facet item</li>
-				<li>A list of the articles tagged with the above facet item</li>
-				<li>A list of other topics, organisations and people that the above articles are tagged with</li>
-			</ul>
 		</p>
-
+		<ul>
+			<li>The name of the facet item</li>
+			<li>A list of the articles tagged with the above facet item</li>
+			<li>A list of other topics, organisations and people that the above articles are tagged with</li>
+		</ul>
 		<br />
-
 		<h2>Endpoint</h2>
-
 		<p>
 		  GET /relatedContent/?days=&amp;facet=, returns JSON, e.g. <a href="/facetsWithArticles/relatedContent?days=1&facet=topics">/facetsWithArticles/relatedContent?days=1&amp;facet=topics</a>
 		</p>
-
 		<br />
-
 		<h3>Build-a-query</h3>
-
 		<form>
 			<span>facetsWithArticles/relatedContent?days=</span>
 			<select id="days" name="days">
@@ -64,11 +57,8 @@
 			<br /><br />
 			<a id="queryBuilderLink" target="blank" href="">facetsWithArticles/relatedContent?days=</a>
 		</form>
-
 		<br />
-
 		<h2>Example pages</h2>
-
 		<ul>
 			<li>
 				<a target="_blank" href="/facetsWithArticles/test">Facets With Articles Test</a>
@@ -114,8 +104,6 @@
 				</ul>
 			</li>
 		</ul>
-
-		<script type="text/javascript" src="/static/js/relatedQueryBuilder.js"></script>
-
+		<script src="/static/js/facetRelated/queryBuilder.js"></script>
 	</body>
 </html>

@@ -22,7 +22,6 @@
 	{{/head}}
 	<body>
 		{{> header title='24hrs v2 - Image Display' subtitle='Displaying the images of the last 24 hours of published articles'}}
-		
 		<main>
 			{{#each results}}
 			{{#if images.0.url}}
@@ -32,7 +31,6 @@
 			{{/if}}
 			{{/each}}
 		</main>
-
-		<script type="text/javascript" src="/static/js/imageGrid.js"></script>
+		<script type="text/javascript" src="/static/js/imgGrid/imageGrid.js"></script>
 	</body>
 </html>

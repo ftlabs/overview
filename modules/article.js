@@ -52,8 +52,8 @@ function getDaysOfRecentArticles(days = 1, aspects = defaultAspects, facets = de
 	return fetchContent.getRecentArticles(days, aspects, facets);
 }
 
-function getArticleRelations(days = 1, aspects = defaultAspects, facets = defaultFacets){
-	return fetchContent.getArticleRelations(days, aspects, facets);
+function getArticleRelations(days = 1, facets = defaultFacets, aspects = defaultAspects){
+	return fetchContent.getArticleRelations(days, facets, aspects);
 }
 
 
