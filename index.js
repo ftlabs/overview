@@ -11,7 +11,6 @@ const fs = require("fs");
 const app = express();
 const helmet = require("helmet");
 const express_enforces_ssl = require("express-enforces-ssl");
-const isoCountries = require("i18n-iso-countries");
 
 if (process.env.NODE_ENV === "production") {
   app.use(helmet());
