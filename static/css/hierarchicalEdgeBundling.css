@@ -159,11 +159,6 @@ select {
   stroke: #d62728;
 }
 
-.selected {
-  font-weight: bold !important;
-  fill: black !important;
-}
-
 .topics {
   color: #1382BA;
   fill: #1382BA;
@@ -182,4 +177,9 @@ select {
 .genre {
   color: #333;
   fill: #333;
+}
+
+.selected {
+  font-weight: bold;
+  fill: black;
 }

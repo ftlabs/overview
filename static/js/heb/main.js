@@ -112,6 +112,33 @@ function highlightNode(selected){
 	}
 }
 
+function nodeLinkHighlight(selected){
+	resetNodes();
+	if(selected !== ""){
+		selected = selected.split('.')[2];
+		var item = document.getElementById(selected);
+		if(item){
+			item.classList.add('selected');
+
+			hebd.node
+				.each(function(n) { n.target = n.source = false; });
+
+			hebd.link
+	      		.classed("linked--target", function(l) {
+	      			if (l.target.data.key === selected){
+	      				l.source.source = true;
+	      				return true;
+	      			}
+	      		})
+	      		.filter(function(l) { return l.target.data.key === selected || l.source.data.key === selected; })
+	      		.raise();
+
+	      	hebd.node
+		      .classed("noded--source", function(n) { return n.source; });
+		}
+	}
+}
+
 function drawDiagram(filter = null){
 	hebd.draw( getSelectedFacets() );
 	generateList();
