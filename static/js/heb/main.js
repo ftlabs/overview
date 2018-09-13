@@ -1,10 +1,7 @@
 //use strict 
 
 var facetOptions = document.getElementsByName('facetSelect');
-
 var filterList = document.getElementById('filterList');
-var highlightList = document.getElementById('highlightList');
-
 var sequencer = document.getElementById('sequencer');
 var speedOptions = document.getElementsByName('speed');
 var activeSequencer = false;
@@ -67,10 +64,6 @@ function addListeners(){
 		hebd.refreshDiagram();
 	});
 
-	highlightList.addEventListener('change', function(e){
-		//nodeLinkHighlight(e.target.value);
-	});
-
 	filterList.addEventListener('change', function(e){
 		nodeFilters(e.target.value);
 	});
@@ -102,36 +95,21 @@ function resetNodes(){
 	}
 }
 
-function nodeLinkHighlight(selected){
-	resetNodes();
-	if(selected !== ""){
-		var item = document.getElementById(selected);
-		if(item){
-			item.classList.add('selected');
-
-			hebd.node
-				.each(function(n) { n.target = n.source = false; });
-
-			hebd.link
-	      		.classed("linked--target", function(l) {
-	      			if (l.target.data.key === selected){
-	      				l.source.source = true;
-	      				return true;
-	      			}
-	      		})
-	      		.filter(function(l) { return l.target.data.key === selected || l.source.data.key === selected; })
-	      		.raise();
-
-	      	hebd.node
-		      .classed("noded--source", function(n) { return n.source; });
-		}
-	}
-}
-
 function nodeFilters(selected){
+	selected = (selected !== "") ? selected : null;
 	resetNodes();
 	hebd.removeDiagram();
-	hebd.draw( getSelectedFacets(), selected );
+	hebd.draw(getSelectedFacets(), selected);
+	highlightNode(selected);
+}
+
+function highlightNode(selected){
+	if(selected !== null){
+		var item = document.getElementById(selected.split('.')[2]);
+		if(item){
+			item.classList.add('selected');
+		}
+	}
 }
 
 function drawDiagram(filter = null){
