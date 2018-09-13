@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-	{{#> head title='Heartbeat v1 - Tabled' subtitle='' }}
+	{{#> heartbeat/head title='Heartbeat v1 - Tabled' subtitle='' }}
 	<style>
 		table {
 			margin: 0 auto;
 		}
 	</style>
-	{{/head}}
+	{{/heartbeat/head}}
 	<body class="one">
 		<main class="main"></main>
-		<fieldset class="controls">
-			<legend>Controls:</legend>
-			<input type="button" name="topics" id="topicsRefresh" value="Topics">
-			<input type="button" name="people" id="peopleRefresh" value="People">
-			<input type="button" name="organisations" id="organisationsRefresh" value="Organisations">
-		</fieldset>
-		{{> heartbeatScripts}}
+		{{> heartbeat/controls}}
+		{{> heartbeat/scripts}}
 		<script>
 			var hb = new Heartbeat('one');
 			var data = hb.prepData("{{data}}");

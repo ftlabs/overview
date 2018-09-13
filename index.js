@@ -35,7 +35,7 @@ const tinder = require("./routes/tinder");
 
 const hbs = require("hbs");
 
-hbs.registerPartials(__dirname + "/views/partials");
+hbs.registerPartials(__dirname + "/views/partials/");
 
 hbs.registerHelper("imgPath", function(path) {
   return path.split("?")[0] + "?source=search";
