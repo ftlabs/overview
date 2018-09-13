@@ -160,7 +160,7 @@ var list = [
        "alpha":"CMR",
     },
     {  
-       "name":"Canada",
+       "name":"Canada Toronto",
        "alpha":"CAN",
     },
     {  
@@ -180,7 +180,7 @@ var list = [
        "alpha":"CHL",
     },
     {  
-       "name":"China",
+       "name":"China Beijing",
        "alpha":"CHN",
     },
     {  
@@ -328,7 +328,7 @@ var list = [
        "alpha":"GMB",
     },
     {  
-       "name":"Georgia",
+       "name":"Republic of Georgia",
        "alpha":"GEO",
     },
     {  
@@ -740,7 +740,7 @@ var list = [
        "alpha":"ROU",
     },
     {  
-       "name":"Russian Federation",
+       "name":"Russian Federation Moscow",
        "alpha":"RUS",
     },
     {  
@@ -944,7 +944,7 @@ var list = [
        "alpha":"ARE",
     },
     {  
-       "name":"United Kingdom of Great Britain Northern Ireland Scotland Wales",
+       "name":"United Kingdom of Great Britain Northern Ireland Scotland England and Wales",
        "alpha":"GBR",
     },
     {  
@@ -1004,11 +1004,11 @@ var list = [
        "alpha":"ZWE",
     },
     {  
-        "name":"UK Borough of Reading Cumbria",
+        "name":"UK Borough of Reading Cumbria City of London City of Manchester",
         "alpha":"GBR",
      },
      {  
-        "name":"US Detroit, Michigan South Carolina North Carolina Hibbing, Minnesota San Francisco",
+        "name":"US Detroit, Michigan South Carolina North Carolina Hibbing, Minnesota San Francisco Orange County, California Washington D.C. New York State Arizona",
         "alpha":"USA",
      },
  ]

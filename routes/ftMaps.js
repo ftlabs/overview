@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const articleList = require('../modules/article');
-const countries = require('../static/js/countryCodes.js');
+const countries = require('../static/js/mapCodes/countryCodes.js');
+const continents = require('../static/js/mapCodes/continentCodes.js');
 
 // paths
 router.get('/', async (req, res, next) => {
@@ -29,6 +30,10 @@ router.get('/articleList', async (req, res, next) => {
 
 router.get('/countryCodes', async (req, res, next) => {
 	res.send(countries)
+});
+
+router.get('/continentCodes', async (req, res, next) => {
+	res.send(continents)
 });
 
 module.exports = router;
