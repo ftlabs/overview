@@ -31,6 +31,7 @@ const timeline = require("./routes/timeline");
 const facetsWithArticles = require("./routes/facetsWithArticles");
 const heartbeat = require("./routes/heartbeat");
 const hierarchicalEdgeBundling = require("./routes/hierarchicalEdgeBundling");
+const tinder = require("./routes/tinder");
 
 const hbs = require("hbs");
 
@@ -75,6 +76,8 @@ app.use("/timeline", timeline);
 app.use("/facetsWithArticles", facetsWithArticles);
 app.use("/heartbeat", heartbeat);
 app.use("/hierarchicalEdgeBundling", hierarchicalEdgeBundling);
+app.use("/tinder", tinder);
+
 // ---
 
 app.use("/", (req, res) => {
