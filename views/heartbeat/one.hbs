@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-	{{#> heartbeatHead title='Heartbeat v1 - Tabled' subtitle='' }}
-	{{/heartbeatHead}}
+	{{#> head title='Heartbeat v1 - Tabled' subtitle='' }}
+	<style>
+		table {
+			margin: 0 auto;
+		}
+	</style>
+	{{/head}}
 	<body class="one">
 		<main class="main"></main>
 		<fieldset class="controls">
@@ -10,9 +15,7 @@
 			<input type="button" name="people" id="peopleRefresh" value="People">
 			<input type="button" name="organisations" id="organisationsRefresh" value="Organisations">
 		</fieldset>
-		<script src="/static/js/libs/d3.v5.js"></script>
-		<script src="/static/js/heartbeat/heartbeat.js"></script>
-		<script src="/static/js/heartbeat/heartbeatControls.js"></script>
+		{{> heartbeatScripts}}
 		<script>
 			var hb = new Heartbeat('one');
 			var data = hb.prepData("{{data}}");
