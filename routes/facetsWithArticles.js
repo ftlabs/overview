@@ -9,12 +9,12 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/test', async (req, res, next) => {
-	const results = await article.getArticlesInTopics( 1, 'topics' );
+	const results = await article.getArticleRelations( 1 );
 	res.render("facetsWithArticles/test", { facetsJson: JSON.stringify(results) } );
 });
 
 router.get('/clusteredImages/:template/:facet', async (req, res, next) => {
-	const results = await article.getArticlesInTopics(1, req.params.facet);
+	const results = await article.getArticleRelations(1);
 	if(req.params.template.startsWith('five') || req.params.template === 'six'){
 		data = results.breakdown.splice(0, 3);
 	} else {
@@ -24,7 +24,7 @@ router.get('/clusteredImages/:template/:facet', async (req, res, next) => {
 });
 
 router.get('/charts/:template/:facet/:days', async (req, res, next) => {
-	const results = await article.getArticlesInTopics(req.params.days, req.params.facet);
+	const results = await article.getArticleRelations(req.params.days);
 	const data = JSON.stringify(results.breakdown.splice(0, 10));
 	res.render(`facetsWithArticles/charts/${req.params.template}`, {
 		data: data,
@@ -41,7 +41,7 @@ router.get('/relatedContent', async (req, res, next) => {
 
 	if(aspects){ aspects = aspects.split(',') }
 
-	const results = await article.getArticlesInTopics( days, facet, aspects );
+	const results = await article.getArticleRelations( days );
 
 	res.setHeader("Content-Type", "application/json");
 	res.json( results );

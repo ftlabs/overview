@@ -21,7 +21,9 @@ const defaultFacets = [ "organisations",
 						"people", 
 						"peopleId",
 						"topics",
-						"topicsId"
+						"topicsId",
+						"genre",
+						"genreId"
 					];
 
 
@@ -50,8 +52,8 @@ function getDaysOfRecentArticles(days = 1, aspects = defaultAspects, facets = de
 	return fetchContent.getRecentArticles(days, aspects, facets);
 }
 
-function getArticlesInTopics(days = 1, facet = "topics", aspects = defaultAspects, facets = defaultFacets){
-	return fetchContent.getArticleTopics(days, facet, aspects, facets);
+function getArticleRelations(days = 1, facets = defaultFacets, aspects = defaultAspects){
+	return fetchContent.getArticleRelations(days, facets, aspects);
 }
 
 
@@ -62,5 +64,5 @@ module.exports = {
 	searchBySequence,
 	getByUuid,
 	getDaysOfRecentArticles,
-	getArticlesInTopics
+	getArticleRelations
 };
