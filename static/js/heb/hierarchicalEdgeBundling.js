@@ -126,10 +126,13 @@ class HierarchicalEdgeBundlingDiagram {
 	start(){
 		var wWidth = window.innerWidth;
 		var wHeight = (window.innerHeight > 600) ? window.innerHeight : 600;
+		var innerRadius = 0;
 
-		var diameter = wWidth,
-			radius = wHeight / 2,
-			innerRadius = radius - 180;
+		if(wWidth > wHeight){
+			innerRadius = (wHeight / 2) - 170;
+		} else {
+			innerRadius = (wWidth / 2) - 170;
+		}
 
 		var cluster = d3.cluster()
 			.size([360, innerRadius]);
@@ -140,10 +143,10 @@ class HierarchicalEdgeBundlingDiagram {
 			.angle(function(d) { return d.x / 180 * Math.PI; });
 
 		var svg = d3.select("main").append("svg")
-			.attr("width", diameter)
-			.attr("height", diameter)
+			.attr("width", wWidth)
+			.attr("height", wHeight)
 			.append("g")
-			.attr("transform", "translate(" + wWidth / 2 + "," + radius + ")");
+			.attr("transform", "translate(" + wWidth / 2 + "," + ((wHeight / 2) - 20) + ")");
 
 		var link = svg.append("g").selectAll(".link");
 		var node = svg.append("g").selectAll(".node");
