@@ -76,3 +76,9 @@ $ npm test
 + Curated list
 + Reading time
 
+
+## Other display ideas
+
++ Hyperbolic geometry
+
+

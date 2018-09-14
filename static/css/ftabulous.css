@@ -1,0 +1,36 @@
+body {
+	background: #fff1e5;
+	font-family: 'MetricWeb', sans-serif;
+}
+
+h1 {
+	font-family: 'FinancierDisplayWeb', serif;
+    text-transform: capitalize;
+    margin: 5px;
+    padding: 0;
+}
+
+h2 {
+	font-family: 'MetricWeb', sans-serif;
+    text-transform: capitalize;
+    font-size: 18px;
+    margin: 5px;
+    padding: 0;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.facetSelection {
+    width: 100%;
+    text-align: center;
+    background: none;
+    background: -moz-linear-gradient(top, transparent 50%, transparent 50%, #000000 50%, transparent 52%);
+    background: -webkit-linear-gradient(top, transparent 50%,transparent 50%,#000000 50%,transparent 52%);
+    background: linear-gradient(to bottom, transparent 50%,transparent 50%,#000000 50%,transparent 52%);
+}
+
+.facetSelection .inner {
+    background: #fff1e5;
+    display: inline-block;
+    padding: 5px;
+}
