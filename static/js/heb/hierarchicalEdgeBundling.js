@@ -126,13 +126,7 @@ class HierarchicalEdgeBundlingDiagram {
 	start(){
 		var wWidth = window.innerWidth;
 		var wHeight = (window.innerHeight > 600) ? window.innerHeight : 600;
-		var innerRadius = 0;
-
-		if(wWidth > wHeight){
-			innerRadius = (wHeight / 2) - 170;
-		} else {
-			innerRadius = (wWidth / 2) - 170;
-		}
+		var innerRadius = (wWidth > wHeight) ? (wHeight / 2) - 170 : (wWidth / 2) - 170;
 
 		var cluster = d3.cluster()
 			.size([360, innerRadius]);
