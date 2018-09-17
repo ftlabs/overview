@@ -17,7 +17,7 @@ router.get("/latestData", async (req, res, next) => {
 });
 
 router.get("/topic", async (req, res, next) => {
-  const data = await timelineService.constructTopicJSON();
+  const data = await timelineService.constructTopicJSON(["Brexit"]);
 
   res.render("timeline/timelineTopic");
 });
