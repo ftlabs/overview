@@ -33,6 +33,18 @@ table td {
     padding: 5px 10px;
 }
 
+table th {
+    vertical-align: middle;
+}
+
+table td {
+    vertical-align: top;
+}
+
+ul {
+    margin: 0;
+}
+
 .hidden {
     display: none;
 }

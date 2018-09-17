@@ -2,7 +2,9 @@
 var main = document.getElementById('main');
 var facetBtns = document.getElementsByName('select');
 var genresFilter = document.getElementById('genresFilter');
+var articleFilter = document.getElementById('articleFilter');
 var articleStatsFilter = document.getElementById('articleStatsFilter');
+
 var data = null;
 var table = null;
 var facet = null;
@@ -34,7 +36,8 @@ function addListeners(){
 	});
 
 	genresFilter.addEventListener('click', genresFilterClickHandler);
-	articleStatsFilter.addEventListener('click',articleStatsFilterClickHandler);
+	articleFilter.addEventListener('click', articleFilterClickHandler);
+	articleStatsFilter.addEventListener('click', articleStatsFilterClickHandler);
 }
 
 function facetClickHandler(e){
@@ -83,7 +86,11 @@ function genresFilterClickHandler(e){
 	showHideRows();
 }
 
-function articleStatsFilterClickHandler(){
+function articleFilterClickHandler(e){
+	showHideTypes('articles');
+}
+
+function articleStatsFilterClickHandler(e){
 	showHideTypes('articleStats');
 }
 
@@ -120,9 +127,11 @@ function generateTableHeader(){
 	tr.classList.add('header');
 
 	var headings = [
+		{name: "Pulse line", classes: ""},
 		{name: "Name", classes: ""},
 		{name: "Facet", classes: ""},
-		{name: "Article Count", classes: "articleStats"},
+		{name: "Article count", classes: "articleStats"},
+		{name: "Articles", value: "", classes: "articles"},
 		{name: "Topic count", classes: "articleStats"},
 		{name: "People count", classes: "articleStats"},
 		{name: "Organisation count", classes: "articleStats"},
@@ -147,9 +156,11 @@ function generateDataRow(item){
 	tr.setAttribute('data-genres', genres);
 
 	var content = [
+		{name: "pulseLine", value: "", classes: ""},
 		{name: "facetName", value: item.facetName, classes: ""},
 		{name: "facet", value: item.facet, classes: ""},
 		{name: "articleCount", value: item.articleCount, classes: "articleStats"},
+		{name: "articles", value: articleListing(item.articles), classes: "articles"},
 		{name: "relatedTopicCount", value: item.relatedTopicCount.length, classes: "articleStats"},
 		{name: "relatedPeopleCount", value: item.relatedPeopleCount.length, classes: "articleStats"},
 		{name: "relatedOrgsCount", value: item.relatedOrgsCount.length, classes: "articleStats"},
@@ -164,6 +175,17 @@ function generateDataRow(item){
 	});
 
 	return tr;
+}
+
+function articleListing(articles){
+	var str = "<ul>";
+	if(articles.length > 0 ){
+		articles.forEach(article => {
+			str += '<li><a href="' +  article.location.uri + '">' + article.title.title + '</a></li>';
+		});
+	}
+	str +=  "</ul>";
+	return str;
 }
 
 function getNames(arr){
