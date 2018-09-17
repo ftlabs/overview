@@ -58,8 +58,8 @@ function showHideRows(){
 	table.childNodes.forEach(child => {
 		if(facet === "all" 
 			|| child.classList.contains('header') 
-			|| child.classList.contains(facet) 
-			|| !datasetCheck(filters.genres, child.dataset.genres)
+			|| (child.classList.contains(facet) 
+			&& !datasetCheck(filters.genres, child.dataset.genres))
 		){
 			child.classList.remove('hidden');
 		} else {
