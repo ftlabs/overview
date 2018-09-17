@@ -304,7 +304,7 @@ var list = [
        "alpha":"FIN",
     },
     {  
-       "name":"France",
+       "name":"France Paris",
        "alpha":"FRA",
     },
     {  
@@ -940,7 +940,7 @@ var list = [
        "alpha":"UKR",
     },
     {  
-       "name":"United Arab Emirates",
+       "name":"United Arab Emirates Abu Dhabi Dubai",
        "alpha":"ARE",
     },
     {  
@@ -1004,7 +1004,7 @@ var list = [
        "alpha":"ZWE",
     },
     {  
-        "name":"UK Borough of Reading Cumbria City of London City of Manchester",
+        "name":"UK Borough of Reading, Berkshire Cumbria City of London City of Manchester, Heathrow",
         "alpha":"GBR",
      },
      {  
