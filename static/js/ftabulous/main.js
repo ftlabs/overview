@@ -4,7 +4,7 @@ var facetBtns = document.getElementsByName('select');
 var genresFilter = document.getElementById('genresFilter');
 var articleFilter = document.getElementById('articleFilter');
 var articleStatsFilter = document.getElementById('articleStatsFilter');
-
+var relatedStatsFilter = document.getElementById('relatedStatsFilter');
 var data = null;
 var table = null;
 var facet = null;
@@ -38,6 +38,7 @@ function addListeners(){
 	genresFilter.addEventListener('click', genresFilterClickHandler);
 	articleFilter.addEventListener('click', articleFilterClickHandler);
 	articleStatsFilter.addEventListener('click', articleStatsFilterClickHandler);
+	relatedStatsFilter.addEventListener('click', relatedStatsFilterClickHandler);
 }
 
 function facetClickHandler(e){
@@ -94,6 +95,10 @@ function articleStatsFilterClickHandler(e){
 	showHideTypes('articleStats');
 }
 
+function relatedStatsFilterClickHandler(e){
+	showHideTypes('releatedStats');
+}
+
 function showHideTypes(className){
 	var elements = document.getElementsByClassName(className);
 	var show = false;
@@ -133,9 +138,13 @@ function generateTableHeader(){
 		{name: "Article count", classes: "articleStats"},
 		{name: "Articles", value: "", classes: "articles"},
 		{name: "Topic count", classes: "articleStats"},
+		{name: "Related Topics", classes: "releatedStats"},
 		{name: "People count", classes: "articleStats"},
+		{name: "Related People", classes: "releatedStats"},
 		{name: "Organisation count", classes: "articleStats"},
+		{name: "Related Organisations", classes: "releatedStats"},
 		{name: "Genre count", classes: "articleStats"},
+		{name: "Related Genres", classes: "releatedStats"},
 	];
 
 	headings.forEach(header => {
@@ -162,9 +171,13 @@ function generateDataRow(item){
 		{name: "articleCount", value: item.articleCount, classes: "articleStats"},
 		{name: "articles", value: articleListing(item.articles), classes: "articles"},
 		{name: "relatedTopicCount", value: item.relatedTopicCount.length, classes: "articleStats"},
+		{name: "relatedTopic", value: facetListing(item.relatedTopicCount), classes: "releatedStats"},
 		{name: "relatedPeopleCount", value: item.relatedPeopleCount.length, classes: "articleStats"},
+		{name: "relatedPeople", value: facetListing(item.relatedPeopleCount), classes: "releatedStats"},
 		{name: "relatedOrgsCount", value: item.relatedOrgsCount.length, classes: "articleStats"},
+		{name: "relatedOrgs", value: facetListing(item.relatedOrgsCount), classes: "releatedStats"},
 		{name: "relatedGenreCount", value: item.relatedGenreCount.length, classes: "articleStats"},
+		{name: "relatedGenre", value: facetListing(item.relatedGenreCount), classes: "releatedStats"},
 	];
 
 	content.forEach(col => {
@@ -182,6 +195,17 @@ function articleListing(articles){
 	if(articles.length > 0 ){
 		articles.forEach(article => {
 			str += '<li><a href="' +  article.location.uri + '">' + article.title.title + '</a></li>';
+		});
+	}
+	str +=  "</ul>";
+	return str;
+}
+
+function facetListing(facets){
+	var str = "<ul>";
+	if(facets.length > 0 ){
+		facets.forEach(facet => {
+			str += '<li>' + facet.name + '</a></li>';
 		});
 	}
 	str +=  "</ul>";
