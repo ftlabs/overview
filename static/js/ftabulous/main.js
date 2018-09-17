@@ -5,7 +5,9 @@ var genresFilter = document.getElementById('genresFilter');
 var articleStatsFilter = document.getElementById('articleStatsFilter');
 var data = null;
 var table = null;
-var filters = [];
+var facet = null;
+var filters = ['News', 'Feature', 'Opinion'];
+
 
 function init(dataStr){
 	data = prepData(dataStr);
@@ -32,14 +34,14 @@ function addListeners(){
 	});
 
 	genresFilter.addEventListener('click', genresFilterClickHandler);
-
 	articleStatsFilter.addEventListener('click',articleStatsFilterClickHandler);
 }
 
 function facetClickHandler(e){
 	undisable(facetBtns);
 	e.target.disabled = true;
-	showHideRows(e.target.value);
+	facet = e.target.value;
+	showHideRows();
 }
 
 function undisable(items){
@@ -48,9 +50,13 @@ function undisable(items){
 	});
 }
 
-function showHideRows(facet){
+function showHideRows(){
 	table.childNodes.forEach(child => {
-		if(facet === "all" || child.classList.contains('header') || child.classList.contains(facet)){
+		if(facet === "all" 
+			|| child.classList.contains('header') 
+			|| child.classList.contains(facet) 
+			|| !datasetCheck(filters.genres, child.dataset.genres)
+		){
 			child.classList.remove('hidden');
 		} else {
 			child.classList.add('hidden');
@@ -58,19 +64,30 @@ function showHideRows(facet){
 	});
 }
 
+function datasetCheck(haystack, needles){
+	if(typeof(haystack) == 'object' && typeof(needles) == 'string' && haystack.length > 0){
+		var arr = needles.split('|');
+		return arr.some(function (v) {
+	        return haystack.indexOf(v) >= 0;
+	    });
+	}
+	return false;
+}
+
 function genresFilterClickHandler(e){
-	if(e.target.checked){
-		filters.genres = ['News', 'Feature', 'Opinion'];
+	if(!e.target.checked){
+		filters.genres = ['News', 'Feature', 'Opinion']; 
 	} else {
 		filters.genres = [];
 	}
+	showHideRows();
 }
 
 function articleStatsFilterClickHandler(){
-	toggleShowHide('articleStats');
+	showHideTypes('articleStats');
 }
 
-function toggleShowHide(className){
+function showHideTypes(className){
 	var elements = document.getElementsByClassName(className);
 	var show = false;
 
@@ -127,7 +144,7 @@ function generateDataRow(item){
 	tr.classList.add(item.facet);
 
 	var genres = getNames(item.relatedGenreCount);
-	tr.setAttribute('data', "genres: " + genres);
+	tr.setAttribute('data-genres', genres);
 
 	var content = [
 		{name: "facetName", value: item.facetName, classes: ""},
