@@ -1,0 +1,185 @@
+body {
+  background: #fff1e5;
+  font-family: 'MetricWeb', sans-serif;
+}
+
+h1 {
+  font-family: 'FinancierDisplayWeb', serif;
+  text-transform: capitalize;
+  margin: 0 0 5px;
+  padding: 0;
+}
+
+h2 {
+  font-family: 'MetricWeb', sans-serif;
+  text-transform: capitalize;
+  font-size: 18px;
+  margin: 0 0 10px;
+  padding: 0;
+  font-weight: normal;
+  font-style: italic;
+}
+
+main {
+  text-align: center;
+}
+
+svg {
+  display: block;
+  margin: 0 auto
+}
+
+select {
+  width: 100%;
+}
+
+.abs {
+  position: absolute;
+  display: block;
+}
+
+.abs.top-left {
+  top: 5px;
+  left: 5px;
+}
+
+.abs.top-right {
+  top: 5px;
+  right: 5px;
+}
+
+.abs.bottom-left {
+  bottom: 5px;
+  left: 5px;
+}
+
+.abs.bottom-right {
+  bottom: 5px;
+  right: 5px;
+}
+
+.logo {
+  display: block;
+  width: 40px;
+  height: 40px;
+  opacity: 0.6;
+}
+
+.controls,
+.legend {
+  padding: 10px;
+  width: auto;
+  height: auto;
+  font-size: 14px; 
+}
+
+.controls {
+  width: 250px;
+}
+
+.legend {
+  width: 85px;
+}
+
+.legend .square {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #666;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.legend .link {
+  background-color: steelblue;
+}
+
+.legend .connection {
+  background-color: #2ca02c;
+}
+
+.legend .selected {
+  background-color: #d62728;
+}
+
+
+
+/* Diagram styles */
+
+.node {
+  font: 300 11px 'MetricWeb', sans-serif;
+  fill: #bbb;
+}
+
+.node:hover {
+  fill: #000;
+}
+
+.link {
+  stroke: steelblue;
+  stroke-opacity: 0.4;
+  fill: none;
+  pointer-events: none;
+}
+
+.node:hover,
+.node--source,
+.node--target {
+  font-weight: 700;
+}
+
+.node--source {
+  fill: #2ca02c;
+}
+
+.node--target {
+  fill: #d62728;
+}
+
+.link--source,
+.link--target {
+  stroke-opacity: 1;
+  stroke-width: 2px;
+}
+
+.link--source {
+  stroke: #d62728;
+}
+
+.link--target {
+  stroke: #2ca02c;
+}
+
+.linked--target {
+  stroke: #d62728;
+  stroke-opacity: 1;
+  stroke-width: 2px;
+}
+
+.noded--source {
+  stroke: #d62728;
+}
+
+.topics {
+  color: #1382BA;
+  fill: #1382BA;
+}
+
+.people {
+  color: #EF5423;
+  fill: #EF5423;
+}
+
+.organisations {
+  color: #0DA359;
+  fill: #0DA359;
+}
+
+.genre {
+  color: #333;
+  fill: #333;
+}
+
+.selected {
+  font-weight: bold;
+  fill: black;
+}

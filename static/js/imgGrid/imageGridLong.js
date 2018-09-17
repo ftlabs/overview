@@ -9,7 +9,7 @@ function calculateImageSizes(){
 
 		containersList.forEach(container => {
 			container.style.width = imgWidth + '%';
-		});x
+		});
 	}
 	
 }

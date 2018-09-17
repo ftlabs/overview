@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	{{#> head title='' subtitle='' }}
-		<style type="text/css">
+		<style>
 			.item {
 				border: 2px solid grey;
 				padding: 10px;
@@ -11,13 +11,21 @@
 				margin: auto;
 				vertical-align: bottom;
 			}
+			form {
+				margin-bottom: 25px;
+			}
+			form a {
+				display: block;
+				margin: 15px 0;
+			}
+			h2 {
+				margin-top: 25px;
+			}
 		</style>
 	{{/head}}
 	<body>
 		<h1>FacetHistory - Demo Index Page</h1>
-
 		<h2>Endpoint</h2>
-
 		<p>
 		  GET /facetHistory/:facet/?period=&amp;interval=&amp;numInterval=&amp;maxFacets=, returns JSON,<br />e.g. <a target="blank" href="/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=10">/facetHistory/topics?period=days&amp;interval=1&amp;numInterval=5&amp;maxFacets=10</a>
 		</p>
@@ -38,11 +46,9 @@
 				<b>maxFacets</b> <i>integer</i> : number of facets to retrun results for [0, 100][default 10]
 			</li>
 		</ul>
-
 		<h3>Build-a-query</h3>
-
 		<form>
-			<spam>/facetHistory/</span>
+			<span>/facetHistory/</span>
 			<select id="facet" name="facet">
 				<option selected>topics</option>
 				<option>organisation</option>
@@ -78,22 +84,14 @@
 				<option>25</option>
 				<option>50</option>
 			</select>
-			<br /><br />
 			<a id="queryBuilderLink" target="blank" href="">/facetHistory/</a>
 		</form>
-
-		<br /><br />
-		<br />
-
 		<h2>Example pages</h2>
-
 		<ul>
 			<li>
 				<a target="_blank" href="/facetHistory/1">Facet History v1 - </a>
 			</li>
 		</ul>
-
-
-		<script type="text/javascript" src="/static/js/facetQueryBuilder.js"></script>
+		<script src="/static/js/facetHistory/queryBuilder.js"></script>
 	</body>
 </html>

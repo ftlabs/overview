@@ -1,18 +1,11 @@
 <!DOCTYPE html>
-<html>
-	{{#> heartbeatHead title='Heartbeat v2 - Line chart(s)' subtitle='' }}
-	{{/heartbeatHead}}
+<html lang="en">
+	{{#> heartbeat/head title='Heartbeat v2 - Line chart(s)' subtitle='' }}
+	{{/heartbeat/head}}
 	<body class="two">
 		<main class="main"></main>
-		<fieldset class="controls">
-			<legend>Controls:</legend>
-			<input type="button" name="topics" id="topicsRefresh" value="Topics">
-			<input type="button" name="people" id="peopleRefresh" value="People">
-			<input type="button" name="organisations" id="organisationsRefresh" value="Organisations">
-		</fieldset>
-		<script src="/static/js/d3.v5.js"></script>
-		<script src="/static/js/heartbeat.js"></script>
-		<script src="/static/js/heartbeatControls.js"></script>
+		{{> heartbeat/controls}}
+		{{> heartbeat/scripts}}
 		<script>
 			var hb = new Heartbeat('two');
 			var data = hb.prepData("{{data}}");

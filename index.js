@@ -30,12 +30,13 @@ const list = require("./routes/list");
 const timeline = require("./routes/timeline");
 const facetsWithArticles = require("./routes/facetsWithArticles");
 const heartbeat = require("./routes/heartbeat");
+const hierarchicalEdgeBundling = require("./routes/hierarchicalEdgeBundling");
 const tinder = require("./routes/tinder");
 const ftMaps = require("./routes/ftMaps");
 
 const hbs = require("hbs");
 
-hbs.registerPartials(__dirname + "/views/partials");
+hbs.registerPartials(__dirname + "/views/partials/");
 
 hbs.registerHelper("imgPath", function(path) {
   return path.split("?")[0] + "?source=search";
@@ -75,6 +76,7 @@ app.use("/list", list);
 app.use("/timeline", timeline);
 app.use("/facetsWithArticles", facetsWithArticles);
 app.use("/heartbeat", heartbeat);
+app.use("/hierarchicalEdgeBundling", hierarchicalEdgeBundling);
 app.use("/tinder", tinder);
 app.use("/ftMaps", ftMaps);
 // ---

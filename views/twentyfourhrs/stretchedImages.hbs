@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	{{#> head title='24hrs v3 - Long Images' subtitle='Displaying the images of the last 24 hours of published articles - in full screen height format' }}
 		<style type="text/css">
 			html, body, main {
@@ -29,7 +29,6 @@
 	{{/head}}
 	<body>
 		{{> header title='24hrs v3 - Long Images' subtitle='Displaying the images of the last 24 hours of published articles - in full screen height format'}}
-		
 		<main>
 			{{#each results}}
 			{{#if images.0.url}}
@@ -39,7 +38,6 @@
 			{{/if}}
 			{{/each}}
 		</main>
-
-		<script type="text/javascript" src="/static/js/imageGridLong.js"></script>
+		<script type="text/javascript" src="/static/js/imgGrid/imageGridLong.js"></script>
 	</body>
 </html>
