@@ -11,12 +11,22 @@
 		<h2>Using articles published in the last 24hrs</h2>
 		<div class="facetSelection">
 			<div class="inner">
+				<button type="submit" name="select" class="o-buttons o-buttons--primary" value="all" disabled>All</button>
 				<button type="submit" name="select" class="o-buttons o-buttons--primary" value="topics">Topics</button>
 				<button type="submit" name="select" class="o-buttons o-buttons--primary" value="people">People</button>
 				<button type="submit" name="select" class="o-buttons o-buttons--primary" value="organisations">Organisations</button>
 				<button type="submit" name="select" class="o-buttons o-buttons--primary" value="genre">Genre</button>
 			</div>
 		</div>
+		<fieldset class="filters">
+			<legend>Filters</legend>
+			<input type="checkbox" name="genres" value="genres" class="o-forms__checkbox" id="genresFilter">
+			<label for="genresFilter" class="o-forms__label">Show only News, Feature &amp; Opinion genres</label>
+			<br />
+			<input type="checkbox" name="articleStats" value="articleStats" class="o-forms__checkbox" id="articleStatsFilter" checked="">
+			<label for="articleStatsFilter" class="o-forms__label">Show article stats</label>
+		</fieldset>
+		<main id="main"></main>
 		<script src="/static/js/ftabulous/main.js"></script>
 		<script>
 			init('{{data}}');

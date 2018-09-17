@@ -6,6 +6,7 @@ body {
 h1 {
 	font-family: 'FinancierDisplayWeb', serif;
     text-transform: capitalize;
+    text-align: center;
     margin: 5px;
     padding: 0;
 }
@@ -13,11 +14,27 @@ h1 {
 h2 {
 	font-family: 'MetricWeb', sans-serif;
     text-transform: capitalize;
-    font-size: 18px;
+    text-align: center;
+    font-size: 17px;
     margin: 5px;
     padding: 0;
     font-weight: normal;
     font-style: italic;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th,
+table td {
+    border: 1px solid black;
+    padding: 5px 10px;
+}
+
+.hidden {
+    display: none;
 }
 
 .facetSelection {
@@ -25,12 +42,40 @@ h2 {
     text-align: center;
     background: none;
     background: -moz-linear-gradient(top, transparent 50%, transparent 50%, #000000 50%, transparent 52%);
-    background: -webkit-linear-gradient(top, transparent 50%,transparent 50%,#000000 50%,transparent 52%);
-    background: linear-gradient(to bottom, transparent 50%,transparent 50%,#000000 50%,transparent 52%);
+    background: -webkit-linear-gradient(top, transparent 50%, transparent 50%, #000000 50%, transparent 52%);
+    background: linear-gradient(to bottom, transparent 50%, transparent 50%, #000000 50%, transparent 52%);
+    margin: 10px 0;
+}
+
+.filters {
+    margin: 10px 0 30px;
+    font-size: 14px;
+    border: 1px solid #333;
+}
+
+.filters legend {
+    text-align: center;
 }
 
 .facetSelection .inner {
     background: #fff1e5;
     display: inline-block;
     padding: 5px;
+}
+
+/*
+ * Origami Overides
+ */
+
+.o-forms__label{
+    font-size: 14px !important;
+    line-height: 10px !important;
+    padding-left: 28px !important;
+    min-height: 13px !important;
+}
+
+.o-forms__label:after,
+.o-forms__label:before {
+    width: 15px !important;
+    height: 15px !important;
 }
