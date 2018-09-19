@@ -10,7 +10,7 @@ var data = null;
 var facetHistory = null;
 var table = null;
 var facet = null;
-var filters = ['News', 'Feature', 'Opinion'];
+var filters = [];
 
 
 function init(dataStr, historyStr){
@@ -66,38 +66,54 @@ function undisable(items){
 }
 
 function showHideRows(){
-	table.childNodes.forEach(child => {
-		if(facet === "all" || child.classList.contains('header') || (child.classList.contains(facet) ) ){
-			if(filters.genres && filters.genres.length > 0){
-				if(!datasetCheck(filters.genres, child.dataset.genres)){
-					child.classList.remove('hidden');
-				} else {
-					child.classList.add('hidden');
-				}
-			} else {
-				child.classList.remove('hidden');
-			}
-		} else {
-			child.classList.add('hidden');
+	var rows = table.rows;
+
+	for(var i = 0; i < rows.length; i++){
+		var show = false;
+
+		if(filters.genres && filters.genres.length > 0){
+			show = filterContains(filters.genres, rows[i].dataset.genres);
 		}
-	});
+		if(facet === "all" 
+			|| rows[i].classList.contains('header') 
+			|| rows[i].classList.contains(facet)
+			|| (filters.genres && filters.genres.length > 0 && filterContains(filters.genres, rows[i].dataset.genres))
+		){
+			show = true;
+		}
+
+		if(show){
+			rows[i].classList.remove('hidden');
+		} else {
+			rows[i].classList.add('hidden');
+		}
+	}
 }
 
-function datasetCheck(haystack, needles){
-	if(typeof(haystack) == 'object' && typeof(needles) == 'string' && haystack.length > 0){
-		var arr = needles.split('|');
-		return arr.some(function (v) {
-	        return haystack.indexOf(v) >= 0;
-	    });
+function filterContains(haystack, needles){
+	var check = false;
+
+	if(haystack.length === 0){
+		return true;
 	}
-	return false;
+
+	if(needles){
+		var searchItems = needles.split('|');
+		for(var i = 0; i < searchItems.length; i++){
+			if(haystack.includes(searchItems[i])){
+				check = true;
+				break;
+			}
+		}
+	}
+	return check;
 }
 
 function genresFilterClickHandler(e){
 	if(!e.target.checked){
-		filters.genres = ['News', 'Feature', 'Opinion']; 
+		filters.genres = []; 
 	} else {
-		filters.genres = [];
+		filters.genres = ['News', 'Feature', 'Opinion'];
 	}
 	showHideRows();
 }
