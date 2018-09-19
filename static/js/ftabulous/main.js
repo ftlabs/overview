@@ -51,6 +51,12 @@ function facetClickHandler(e){
 	e.target.disabled = true;
 	facet = e.target.value;
 	showHideRows();
+
+	if(facet === 'all'){
+		showHideTypes('facet', false, 'show');
+	} else {
+		showHideTypes('facet', false, 'hide');
+	}
 }
 
 function undisable(items){
@@ -62,7 +68,7 @@ function undisable(items){
 function showHideRows(){
 	table.childNodes.forEach(child => {
 		if(facet === "all" || child.classList.contains('header') || (child.classList.contains(facet) ) ){
-			if(filters.genres && filters.genres.le > 0){
+			if(filters.genres && filters.genres.length > 0){
 				if(!datasetCheck(filters.genres, child.dataset.genres)){
 					child.classList.remove('hidden');
 				} else {
@@ -112,16 +118,17 @@ function pulselinesFilterClickHandler(e){
 	showHideTypes('pulselines');
 }
 
-function showHideTypes(className){
+function showHideTypes(className, toggle = true, state = 'hide'){
 	var elements = document.getElementsByClassName(className);
-	var show = false;
 
-	if(elements[0].classList.contains('hidden')){
-		show = true;
+	if(toggle){
+		if(elements[0].classList.contains('hidden')){
+			state = 'show';
+		}
 	}
 
 	for(var i = 0; i < elements.length; i++){
-		if(show){
+		if(state === 'show'){
 			elements[i].classList.remove('hidden');
 		} else {
 			elements[i].classList.add('hidden');
@@ -147,7 +154,7 @@ function generateTableHeader(){
 	var headings = [
 		{name: "Pulse line", classes: "pulselines"},
 		{name: "Name", classes: ""},
-		{name: "Facet", classes: ""},
+		{name: "Facet", classes: "facet"},
 		{name: "Article count", classes: "articleStats"},
 		{name: "Articles", value: "", classes: "articles"},
 		{name: "Topic count", classes: "articleStats"},
@@ -186,7 +193,7 @@ function generateDataRow(item){
 	var content = [
 		{name: "pulseLine", value: svgStr, classes: "pulselines"},
 		{name: "facetName", value: item.facetName, classes: ""},
-		{name: "facet", value: item.facet, classes: ""},
+		{name: "facet", value: item.facet, classes: "facet"},
 		{name: "articleCount", value: item.articleCount, classes: "articleStats"},
 		{name: "articles", value: articleListing(item.articles), classes: "articles"},
 		{name: "relatedTopicCount", value: item.relatedTopicCount.length, classes: "articleStats"},
