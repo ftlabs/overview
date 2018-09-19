@@ -5,21 +5,25 @@ var genresFilter = document.getElementById('genresFilter');
 var articleFilter = document.getElementById('articleFilter');
 var articleStatsFilter = document.getElementById('articleStatsFilter');
 var relatedStatsFilter = document.getElementById('relatedStatsFilter');
+var pulselinesFilter = document.getElementById('pulselinesFilter');
 var data = null;
+var facetHistory = null;
 var table = null;
 var facet = null;
 var filters = ['News', 'Feature', 'Opinion'];
 
 
-function init(dataStr){
+function init(dataStr, historyStr){
 	data = prepData(dataStr);
+	facetHistory = prepData(historyStr);
 
 	addListeners();
 	generateTable();
+	generatePulseLines();
 }
 
 function prepData(data){
-	return JSON.parse(this.formatStr(data));
+	return JSON.parse(formatStr(data));
 }
 
 function formatStr(str){
@@ -39,6 +43,7 @@ function addListeners(){
 	articleFilter.addEventListener('click', articleFilterClickHandler);
 	articleStatsFilter.addEventListener('click', articleStatsFilterClickHandler);
 	relatedStatsFilter.addEventListener('click', relatedStatsFilterClickHandler);
+	pulselinesFilter.addEventListener('click', pulselinesFilterClickHandler);
 }
 
 function facetClickHandler(e){
@@ -56,12 +61,16 @@ function undisable(items){
 
 function showHideRows(){
 	table.childNodes.forEach(child => {
-		if(facet === "all" 
-			|| child.classList.contains('header') 
-			|| (child.classList.contains(facet) 
-			&& !datasetCheck(filters.genres, child.dataset.genres))
-		){
-			child.classList.remove('hidden');
+		if(facet === "all" || child.classList.contains('header') || (child.classList.contains(facet) ) ){
+			if(filters.genres && filters.genres.le > 0){
+				if(!datasetCheck(filters.genres, child.dataset.genres)){
+					child.classList.remove('hidden');
+				} else {
+					child.classList.add('hidden');
+				}
+			} else {
+				child.classList.remove('hidden');
+			}
 		} else {
 			child.classList.add('hidden');
 		}
@@ -99,6 +108,10 @@ function relatedStatsFilterClickHandler(e){
 	showHideTypes('releatedStats');
 }
 
+function pulselinesFilterClickHandler(e){
+	showHideTypes('pulselines');
+}
+
 function showHideTypes(className){
 	var elements = document.getElementsByClassName(className);
 	var show = false;
@@ -132,7 +145,7 @@ function generateTableHeader(){
 	tr.classList.add('header');
 
 	var headings = [
-		{name: "Pulse line", classes: ""},
+		{name: "Pulse line", classes: "pulselines"},
 		{name: "Name", classes: ""},
 		{name: "Facet", classes: ""},
 		{name: "Article count", classes: "articleStats"},
@@ -164,8 +177,14 @@ function generateDataRow(item){
 	var genres = getNames(item.relatedGenreCount);
 	tr.setAttribute('data-genres', genres);
 
+	if(item.facet === "genre"){
+		tr.setAttribute('data-genres', item.facetName);
+	}
+
+	var svgStr = '<svg class="' + variabliseStr(item.facetName) + '" width="200" height="100"></svg>';
+
 	var content = [
-		{name: "pulseLine", value: "", classes: ""},
+		{name: "pulseLine", value: svgStr, classes: "pulselines"},
 		{name: "facetName", value: item.facetName, classes: ""},
 		{name: "facet", value: item.facet, classes: ""},
 		{name: "articleCount", value: item.articleCount, classes: "articleStats"},
@@ -220,4 +239,69 @@ function getNames(arr){
 		}
 	});
 	return str.substring(0, str.length - 1);
+}
+
+function generatePulseLines(){
+	var chartList = [];
+	var facets = facetHistory.facets;
+
+	facets.forEach(facet => {
+		chartList.push({
+			info: prepCount(facet.count),
+			dom: variabliseStr(facet.name)
+		});
+	});
+
+	addChartsToPage(chartList);
+}
+
+function prepCount(data){
+	return data.map((counter, inc) => {
+		return {date: inc, close: counter};
+	})
+}
+
+function addChartsToPage(list){
+	list.forEach(chart => {
+		createLine(chart.info, chart.dom);
+	})
+}
+
+function createLine(data, domTarget){
+	var target = document.getElementsByClassName(domTarget)[0];
+
+	if(target)
+	{
+		var svg = d3.select(target),
+		    margin = {top: 20, right: 20, bottom: 30, left: 50},
+		    width = +svg.attr("width") - margin.left - margin.right,
+		    height = +svg.attr("height") - margin.top - margin.bottom,
+		    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+		var x = d3.scaleTime()
+		    .rangeRound([0, width]);
+
+		var y = d3.scaleLinear()
+		    .rangeRound([height, 0]);
+
+		var line = d3.line()
+		    .x(function(d) { return x(d.date); })
+		    .y(function(d) { return y(d.close); });
+
+		x.domain(d3.extent(data, function(d) { return d.date; }));
+		y.domain(d3.extent(data, function(d) { return d.close; }));
+
+		g.append("path")
+			.datum(data)
+			.attr("fill", "none")
+			.attr("stroke", "steelblue")
+			.attr("stroke-linejoin", "round")
+			.attr("stroke-linecap", "round")
+			.attr("stroke-width", 1.5)
+			.attr("d", line);
+	}
+}
+
+function variabliseStr(str){
+	return str.replace(/ /g, '').replace(/-/g, '').replace(/&/g, '').toLowerCase()
 }

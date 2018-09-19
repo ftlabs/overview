@@ -75,6 +75,7 @@ $ npm test
 + UPP (credential request required)
 + Curated list
 + Reading time
++ Fast Charts
 
 
 ## Other display ideas

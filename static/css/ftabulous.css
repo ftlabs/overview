@@ -22,6 +22,13 @@ h2 {
     font-style: italic;
 }
 
+fieldset {
+    background: #fff1e5;
+    position: absolute;
+    top: -5px;
+    right: 8px;
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
