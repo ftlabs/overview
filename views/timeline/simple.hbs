@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link title="timeline-styles" rel="stylesheet" href="../../static/css/timeline-simple.css">
+    <script src="../../static/js/simpleTimeline.js"></script>
+
+</head>
+
+<body>
+    <h1>Top stories over the last 24 hours</h1>
+    <div class="flex-parent">
+        <div class="input-flex-container">
+            {{#each data}}
+            {{#if firstArticle}}
+            <div class="input active">
+                <span data-year="{{title}}" data-info="{{formatedDate}}"></span>
+            </div>
+            {{else}}
+            <div class="input">
+                <span data-year="{{title}}" data-info="{{formatedDate}}"></span>
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
+        <div class="description-flex-container">
+            {{#each data}}
+            {{#if firstArticle}}
+            <p class="active">
+                {{title}}
+            </p>
+            {{else}}
+            <p>{{title}}</p>
+            {{/if}}
+            {{/each}}
+        </div>
+    </div>
+
+
+</body>
+
+</html>
