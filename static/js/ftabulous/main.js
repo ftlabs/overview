@@ -1,7 +1,7 @@
 //use strict 
 var main = document.getElementById('main');
 var facetBtns = document.getElementsByName('select');
-var genresFilter = document.getElementById('genresFilter');
+//var genresFilter = document.getElementById('genresFilter');
 var articleFilter = document.getElementById('articleFilter');
 var articleStatsFilter = document.getElementById('articleStatsFilter');
 var relatedStatsFilter = document.getElementById('relatedStatsFilter');
@@ -39,7 +39,7 @@ function addListeners(){
 		btn.addEventListener('click', facetClickHandler);
 	});
 
-	genresFilter.addEventListener('click', genresFilterClickHandler);
+	//genresFilter.addEventListener('click', genresFilterClickHandler);
 	articleFilter.addEventListener('click', articleFilterClickHandler);
 	articleStatsFilter.addEventListener('click', articleStatsFilterClickHandler);
 	relatedStatsFilter.addEventListener('click', relatedStatsFilterClickHandler);
@@ -204,7 +204,7 @@ function generateDataRow(item){
 		tr.setAttribute('data-genres', item.facetName);
 	}
 
-	var svgStr = '<svg class="' + variabliseStr(item.facetName) + '" width="200" height="100"></svg>';
+	var svgStr = '<svg class="' + variabliseStr(item.facetName) + '" width="400" height="100"></svg>';
 
 	var content = [
 		{name: "pulseLine", value: svgStr, classes: "pulselines"},
@@ -268,9 +268,10 @@ function generatePulseLines(){
 	var chartList = [];
 	var facets = facetHistory.facets;
 
+
 	facets.forEach(facet => {
 		chartList.push({
-			info: prepCount(facet.count),
+			info: prepCount(facet.logCount),
 			dom: variabliseStr(facet.name)
 		});
 	});
