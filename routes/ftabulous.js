@@ -5,6 +5,10 @@ const facet = require('../modules/facet');
 
 // paths
 router.get('/', async (req, res, next) => {
+	res.render("ftabulous");
+});
+
+router.get('/table', async (req, res, next) => {
 	const facetPrams = {
 		facet  		: ['topics', 'organisations', 'people', 'genre'],
 		period 		: 'days',
@@ -16,15 +20,13 @@ router.get('/', async (req, res, next) => {
 	const results = await article.getArticleRelations(1);
 	const history = await facet.searchForFacetHistory(facetPrams);
 
-	res.render("ftabulous", {
+	res.render("ftabulous/table", {
 		data: JSON.stringify(results),
 		facetHistory: JSON.stringify(history)
 	});
 });
 
-router.get('/testPoint', async(req, res, next) => {
-
-
+router.get('/vis_one', async (req, res, next) => {
 	const facetPrams = {
 		facet  		: ['topics', 'organisations', 'people', 'genre'],
 		period 		: 'days',
@@ -33,11 +35,13 @@ router.get('/testPoint', async(req, res, next) => {
 		maxFacets 	: 10
 	};
 
+	const results = await article.getArticleRelations(1);
 	const history = await facet.searchForFacetHistory(facetPrams);
 
-	res.setHeader("Content-Type", "application/json");
-	res.json(history);
-	return;
+	res.render("ftabulous/vis_one", {
+		data: JSON.stringify(results),
+		facetHistory: JSON.stringify(history)
+	});
 });
 
 
