@@ -6,9 +6,7 @@ var facetHistory = null;
 function init(dataStr, historyStr){
 	data = prepData(dataStr);
 	facetHistory = prepData(historyStr);
-
-	addListeners();
-	start();
+	start(data);
 }
 
 function prepData(data){
@@ -23,13 +21,24 @@ function formatStr(str){
 		.replace(/&amp;/g, '&');
 }
 
-function addListeners(){
-}
+function start(datum){
+	var collection = {
+		main : topFacets(5, 'people', data.breakdown),
+		sub: []
+	};
 
-function start(){
-	var topTen = topFacets(5, 'people', data.breakdown);
-	console.log(topTen);
+	collection.main.forEach(person => {
+		collection.sub[person.facetName] = [];
+		person.relatedPeopleCount.forEach(related => {
+			collection.sub[person.facetName].push(getByName(related.name, data.breakdown)[0]);
+		});
+	});
+
+	//faux face API 
 	
+
+	console.log(collection);
+	draw(collection);
 }
 
 function topFacets(limit, facet, facetData){
@@ -43,4 +52,18 @@ function topFacets(limit, facet, facetData){
 		}
 	}
 	return top;
+}
+
+function getByName(name, facetData){
+	return result = facetData.filter(obj => {
+		return obj.facetName === name;
+	});
+}
+
+function draw(col){
+	drawParent(col)
+}
+
+function drawParent(col){
+
 }
