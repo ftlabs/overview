@@ -1,5 +1,5 @@
 //use strict 
-var main = document.getElementByTagName('main')[0];
+var main = document.getElementsByTagName('main')[0];
 var data = null;
 var facetHistory = null;
 
@@ -8,6 +8,7 @@ function init(dataStr, historyStr){
 	facetHistory = prepData(historyStr);
 
 	addListeners();
+	start();
 }
 
 function prepData(data){
@@ -23,4 +24,23 @@ function formatStr(str){
 }
 
 function addListeners(){
+}
+
+function start(){
+	var topTen = topFacets(5, 'people', data.breakdown);
+	console.log(topTen);
+	
+}
+
+function topFacets(limit, facet, facetData){
+	var top = [];
+	for (let i = 0; i < facetData.length; i++) {
+		if(facetData[i].facet === facet){
+			top.push(facetData[i]);
+		}
+		if(top.length >= limit){
+			break;
+		}
+	}
+	return top;
 }
