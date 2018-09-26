@@ -9,6 +9,12 @@ router.get("/hexagon", async (req, res, next) => {
   res.render("spaceUtilisation/hexagon", { articles });
 });
 
+router.get("/grid", async (req, res, next) => {
+  let articles = await spaceUtilisationService.getData();
+  articles = chunkArray(articles, 25);
+  res.render("spaceUtilisation/grid", { articles: [articles[0], articles[1]] });
+});
+
 function chunkArray(myArray, chunk_size) {
   var index = 0;
   var arrayLength = myArray.length;

@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>grid</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/css/spaceUtilisation/grid.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div>
+        {{#each articles}}
+        <div class="grid">
+            {{#each this}}
+            <div>
+                <h1>{{title}}</h1>
+                <p>{{ standfirst }}</p>
+            </div>
+            {{/each}}
+        </div>
+        {{/each}}
+    </div>
+</body>
+
+</html>

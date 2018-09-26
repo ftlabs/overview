@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+}
+
+h1 {
+  font-size: 120%;
+}
+
+.grid {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  /* grid-gap: 20px; */
+  grid-auto-flow: row;
+}
+
+.grid div {
+  border: 1px solid rgb(0, 95, 107);
+  background-color: rgba(0, 95, 107, 0.8);
+  padding: 0.2em;
+  color: #fff;
+  font-size: 120%;
+  overflow: hidden;
+}
