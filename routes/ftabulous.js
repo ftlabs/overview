@@ -26,7 +26,7 @@ router.get('/table', async (req, res, next) => {
 	});
 });
 
-router.get('/vis_one', async (req, res, next) => {
+router.get('/venn_people', async (req, res, next) => {
 	const facetPrams = {
 		facet  		: ['topics', 'organisations', 'people', 'genre'],
 		period 		: 'days',
@@ -38,7 +38,7 @@ router.get('/vis_one', async (req, res, next) => {
 	const results = await article.getArticleRelations(1);
 	const history = await facet.searchForFacetHistory(facetPrams);
 
-	res.render("ftabulous/vis_one", {
+	res.render("ftabulous/venn_people", {
 		data: JSON.stringify(results),
 		facetHistory: JSON.stringify(history)
 	});

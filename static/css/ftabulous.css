@@ -81,6 +81,8 @@ ul {
  * Page specific
  */
 
+/* Table page */
+
 .table h1,
 .table h2 {
     text-align: center;
@@ -88,8 +90,21 @@ ul {
     padding: 0;
 }
 
-.vis-one {
+/* Visual one page */
 
+.venn-people {
+    text-align: center;
+}
+
+.venn-people .person {
+    display: inline-block;
+    padding: 0 15px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.venn-people .person:first-child {
+    padding: 0 15px 0 0;
 }
 
 
