@@ -44,5 +44,23 @@ router.get('/venn_people', async (req, res, next) => {
 	});
 });
 
+router.get('/tree', async (req, res, next) => {
+	const facetPrams = {
+		facet  		: ['topics', 'people'],
+		period 		: 'days',
+		interval 	: 1,
+		numInterval : 10,
+		maxFacets 	: 10
+	};
+
+	const results = await article.getArticleRelations(1);
+	const history = await facet.searchForFacetHistory(facetPrams);
+
+	res.render("ftabulous/tree", {
+		data: JSON.stringify(results),
+		facetHistory: JSON.stringify(history)
+	});
+});
+
 
 module.exports = router;
