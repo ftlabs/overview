@@ -83,19 +83,6 @@ function draw(data){
 
 function drawDiagram(col){
 	var sets = prepareSets(col);
-/*
-	sets = [
-		{sets:["Audio"], figure: 8.91, label: "Audio", size: 8.91},
-		{sets:["Direct Buy"], figure: 34.53, label: "Direct Buy", size: 34.53},
-		{sets:["Branded Takeover"], figure: 40.9, label: "Branded Takeover", size: 40.9},
-		{sets: ["Audio", "Direct Buy"], figure: 5.05, label: "", size: 5.05},
-		{sets: ["Audio", "Branded Takeover"], figure: 3.65, label: "", size: 3.65},
-		{sets: ["Direct Buy", "Branded Takeover"], figure: 4.08, label: "", size: 4.08},
-		{sets: ["Audio", "Direct Buy", "Branded Takeover"], figure: 2.8, label: "", size: 2.8}
-		];
-
-	console.log(sets);
-	*/
 
 	var chart = venn.VennDiagram()
 		.width(window.innerWidth - 100)
