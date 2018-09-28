@@ -55,10 +55,22 @@ router.get('/tree', async (req, res, next) => {
 
 	const results = await article.getArticleRelations(1);
 	const history = await facet.searchForFacetHistory(facetPrams);
+	let first = {};
+
+	results.breakdown.forEach(rb => {
+		if(rb.facet === "topics"){
+			first = {
+				header: rb.facetName,
+				data: rb
+			};
+			return;
+		}
+	});
 
 	res.render("ftabulous/tree", {
 		data: JSON.stringify(results),
-		facetHistory: JSON.stringify(history)
+		facetHistory: JSON.stringify(history),
+		first: [first]
 	});
 });
 

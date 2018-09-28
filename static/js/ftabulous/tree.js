@@ -8,6 +8,7 @@ function init(dataStr, historyStr){
 	facetHistory = prepData(historyStr);
 
 	addListeners();
+	start();
 }
 
 function prepData(data){
@@ -23,6 +24,14 @@ function formatStr(str){
 }
 
 function addListeners(){
+
+}
+
+function start(){
+	createRow();
+}
+
+function createRow(){
 	
 }
 
