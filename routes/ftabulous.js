@@ -58,6 +58,16 @@ router.get('/people_venn', async (req, res, next) => {
 	});
 });
 
+router.get('/people_venn_timeselect', async (req, res, next) => {
+	const results = await article.getArticleRelations(1);
+	const history = await facet.searchForFacetHistory(facetPrams);
+
+	res.render("ftabulous/people_venn_timeselect", {
+		data: JSON.stringify(results),
+		facetHistory: JSON.stringify(history)
+	});
+});
+
 router.get('/tree', async (req, res, next) => {
 	const facetPrams = {
 		facet  		: ['topics', 'people'],

@@ -94,6 +94,18 @@ ul {
     text-align: center;
 }
 
+.timeselect header{
+    position: absolute;
+    margin: 0 auto;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
+
+.timeselect #venn {
+    margin-top: 50px;
+}
+
 .people-text p,
 .people-venn p {
     max-width: 60%;
