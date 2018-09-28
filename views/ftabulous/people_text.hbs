@@ -6,16 +6,13 @@
 		<link rel="stylesheet" href="https://build.origami.ft.com/v2/bundles/css?modules=o-fonts@^3.0.4,o-buttons@^5.10.3,o-forms@^5.2.4">
 		<link rel="stylesheet" type="text/css" href="/static/css/ftabulous.css">
 	</head>
-	<body class="venn-people">
+	<body class="people-text">
 		<header>
 			<h1>FTabulous - Venn (people)</h1>
-			<h2>Venn diagram of how the top 5 tagged people in FT articles (in the last 24 hours) relate to other people tagged in the same articles</h2>
+			<p>Venn diagram of how the top 5 tagged people in FT articles (in the last 24 hours) relate to other people tagged in the same articles</p>
 		</header>
 		<main></main>
-		<div id="venn_one"></div>
-		<script src="/static/js/libs/d3.v5.js"></script>
-		<script src="/static/js/libs/venn.js"></script>
-		<script src="/static/js/ftabulous/venn_people.js"></script>
+		<script src="/static/js/ftabulous/people_text.js"></script>
 		<script>
 			init('{{data}}', '{{facetHistory}}');
 		</script>

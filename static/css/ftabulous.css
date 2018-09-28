@@ -89,25 +89,36 @@ ul {
 
 /* Venn diagram page */
 
-.venn-people {
+.people-text,
+.people-venn {
     text-align: center;
 }
 
-.venn-people .person {
+.people-text p,
+.people-venn p {
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+
+.people-text .person {
     display: inline-block;
-    padding: 0 15px;
+    border-left: 1px solid grey;
     text-align: left;
+    padding: 15px;
+    width: 16%;
     vertical-align: top;
 }
 
-.venn-people .person:first-child {
-    padding: 0 15px 0 0;
+.people-text .person:first-child {
+    border-left: none;
 }
+
+
 
 /* Tree view */
 
-.tree {
-}
+
 
 /*
  * Origami Overides

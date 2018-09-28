@@ -39,7 +39,6 @@ function start(datum){
 	});
 
 	draw(collection.sub);
-	drawDiagram(collection);
 }
 
 function topFacets(limit, facet, facetData){
@@ -80,22 +79,6 @@ function draw(data){
 	});
 }
 
-
-function drawDiagram(col){
-	var sets = prepareSets(col);
-
-	var chart = venn.VennDiagram()
-		.width(window.innerWidth - 100)
-		.height(500);
-	
-	var div = d3.select("#venn_one").datum(sets).call(chart);
-		div.selectAll("text").style("fill", "white");
-		div.selectAll(".venn-circle path")
-				.style("fill-opacity", .8)
-				.style("stroke-width", 1)
-				.style("stroke-opacity", 1)
-				.style("stroke", "fff");
-}
 
 function prepareSets(data){
 	let result = [];
