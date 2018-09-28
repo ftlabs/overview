@@ -9,11 +9,8 @@ h1 {
 }
 
 h2 {
-	font-family: 'MetricWeb', sans-serif;
+	font-family: 'FinancierDisplayWeb', serif;
     text-transform: capitalize;
-    font-size: 17px;
-    font-weight: normal;
-    font-style: italic;
 }
 
 fieldset {

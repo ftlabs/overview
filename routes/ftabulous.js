@@ -8,6 +8,25 @@ router.get('/', async (req, res, next) => {
 	res.render("ftabulous");
 });
 
+router.get('/getArticleRelations', async (req, res, next) => {
+	const results = await article.getArticleRelations(1);
+	res.setHeader("Content-Type", "application/json");
+	res.json(results);
+});
+
+router.get('/searchForFacetHistory', async (req, res, next) => {
+	const facetPrams = {
+		facet  		: ['topics', 'organisations', 'people', 'genre'],
+		period 		: 'days',
+		interval 	: 1,
+		numInterval : 10,
+		maxFacets 	: 10
+	};
+	const results = await facet.searchForFacetHistory(facetPrams);
+	res.setHeader("Content-Type", "application/json");
+	res.json(results);
+});
+
 router.get('/table', async (req, res, next) => {
 	const facetPrams = {
 		facet  		: ['topics', 'organisations', 'people', 'genre'],
