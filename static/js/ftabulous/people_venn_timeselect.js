@@ -1,6 +1,7 @@
 //use strict 
 var diagramCtn = document.getElementById('venn');
 var numSlider = document.getElementById('rangeInput');
+var sliderCount = document.getElementById('currentRangeCount');
 var data = null;
 var facetHistory = null;
 var numFacets = 5;
@@ -45,8 +46,8 @@ function addListeners(){
 }
 
 function sliderChange(e){
-	console.log(e.target.value)
 	numFacets = e.target.value;
+	sliderCount.value = e.target.value;
 	redrawDiagram()
 }
 
@@ -107,7 +108,7 @@ function drawDiagram(col){
 		.height(window.innerHeight - 100);
 	
 	var div = d3.select("#venn").datum(sets).call(chart);
-		div.selectAll("text").style("fill", "white").style("font-size", "1.5vw");
+		div.selectAll("text").style("fill", "white").style("font-size", "1.2vw");
 		div.selectAll(".venn-circle path")
 				.style("fill-opacity", .8)
 				.style("stroke-width", 1)

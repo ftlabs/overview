@@ -112,6 +112,10 @@ ul {
     right: 5px;
 }
 
+#currentRangeCount{
+    width: 20px;
+}
+
 .people-text p,
 .people-venn p {
     max-width: 60%;
