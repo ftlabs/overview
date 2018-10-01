@@ -11,6 +11,10 @@
 			<h1>FTabulous - Venn Time Select (people)</h1>
 			<p>Venn diagram of how tagged people in FT articles (in the last 24 hours) relate to other people tagged in the same articles</p>
 		</header>
+		<fieldset class="controls">
+			<legend>Controls</legend>
+			<input id="rangeInput" type="range" name="rangeInput" min="1" max="10">
+		</fieldset>
 		<div id="venn"></div>
 		<script src="/static/js/libs/d3.v5.js"></script>
 		<script src="/static/js/libs/venn.js"></script>

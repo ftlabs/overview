@@ -106,6 +106,12 @@ ul {
     margin-top: 50px;
 }
 
+.timeselect .controls{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
 .people-text p,
 .people-venn p {
     max-width: 60%;

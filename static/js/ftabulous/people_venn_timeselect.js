@@ -1,11 +1,17 @@
 //use strict 
 var diagramCtn = document.getElementById('venn');
+var numSlider = document.getElementById('rangeInput');
 var data = null;
 var facetHistory = null;
+var numFacets = 5;
+var maxLength = 25;
 
 function init(dataStr, historyStr){
 	data = prepData(dataStr);
 	facetHistory = prepData(historyStr);
+
+	//disabled because the diagram cannot (currently) handle drawing all possible people
+	//updateSlider();
 
 	addListeners();
 	start();
@@ -23,12 +29,30 @@ function formatStr(str){
 		.replace(/&amp;/g, '&');
 }
 
+function updateSlider(){
+	var max = data.breakdown.length;
+
+	if(max > maxLength){
+		max = maxLength;
+	}
+
+	numSlider.setAttribute('max', max);
+}
+
 function addListeners(){
 	window.addEventListener('resize', redrawDiagram);
+	numSlider.addEventListener('change', sliderChange);
+}
+
+function sliderChange(e){
+	console.log(e.target.value)
+	numFacets = e.target.value;
+	redrawDiagram()
 }
 
 function redrawDiagram(){
 	removeDiagram();
+	//add loading gif
 	start();
 }
 
@@ -38,7 +62,7 @@ function removeDiagram(){
 
 function start(){
 	var collection = {
-		main : topFacets(5, 'people', data.breakdown),
+		main : topFacets(numFacets, 'people', data.breakdown),
 		sub: []
 	};
 
