@@ -64,7 +64,7 @@ router.get('/people_venn_moardata', async (req, res, next) => {
 	const results = await article.getArticleRelations(1);
 	const history = await facet.searchForFacetHistory(facetPrams);
 
-	res.render("ftabulous/people_venn", {
+	res.render("ftabulous/people_venn_moardata", {
 		data: JSON.stringify(results),
 		facetHistory: JSON.stringify(history)
 	});

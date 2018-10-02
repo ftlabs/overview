@@ -97,16 +97,18 @@ function prepareSets(data){
 		//main people
 		result.push({
 			sets:[person.facetName],
-			label: person.facetName,
+			label: `${person.facetName}, Article count: ${person.articleCount}`,
 			size: countRelated(person.relatedPeopleCount)
 		});
+
+		console.log(person);
 
 		//related people
 		person.relatedPeopleCount.forEach(rpc => {
 			//single
 			result.push({
 				sets:[rpc.name],
-				label: "",
+				label: `${rpc.name}, Occurrences: ${rpc.count}`,
 				size: Number(rpc.count)
 			});
 
