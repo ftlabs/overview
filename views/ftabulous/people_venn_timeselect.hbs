@@ -13,8 +13,7 @@
 			<input id="currentRangeCount" name="currentRangeCount" type="text" value="5" disabled />
 		</fieldset>
 		<div id="venn"></div>
-		<script src="/static/js/libs/d3.v5.js"></script>
-		<script src="/static/js/libs/venn.js"></script>
+		{{> ftabulous/vennScripts}}
 		<script src="/static/js/ftabulous/people_venn_timeselect.js"></script>
 		<script>
 			init('{{data}}');

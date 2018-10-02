@@ -15,8 +15,7 @@
 			<input class="dayBtn" type="button" value="Day 3">
 		</fieldset>
 		<div id="venn"></div>
-		<script src="/static/js/libs/d3.v5.js"></script>
-		<script src="/static/js/libs/venn.js"></script>
+		{{> ftabulous/vennScripts}}
 		<script src="/static/js/ftabulous/people_venn_timetravel.js"></script>
 		<script>
 			init('{{data}}');
