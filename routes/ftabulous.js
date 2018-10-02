@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const article = require('../modules/article');
 const facet = require('../modules/facet');
+const fs = require('fs');
+const path = require('path');
 
 const facetPrams = {
 	facet  		: ['topics', 'organisations', 'people', 'genre'],
@@ -60,11 +62,24 @@ router.get('/people_venn', async (req, res, next) => {
 
 router.get('/people_venn_timeselect', async (req, res, next) => {
 	const results = await article.getArticleRelations(1);
-	const history = await facet.searchForFacetHistory(facetPrams);
 
 	res.render("ftabulous/people_venn_timeselect", {
-		data: JSON.stringify(results),
-		facetHistory: JSON.stringify(history)
+		data: JSON.stringify(results)
+	});
+});
+
+router.get('/people_venn_timetravel', async (req, res, next) => {
+	const filePath = path.join(__dirname, '../data/simulationVenn.json');
+
+	fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
+		if(!err){
+			res.render("ftabulous/people_venn_timetravel", {
+				
+				data: JSON.stringify(JSON.parse(data))
+			});
+		} else {
+			console.log(err);
+		}
 	});
 });
 

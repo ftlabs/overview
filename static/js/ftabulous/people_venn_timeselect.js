@@ -3,13 +3,11 @@ var diagramCtn = document.getElementById('venn');
 var numSlider = document.getElementById('rangeInput');
 var sliderCount = document.getElementById('currentRangeCount');
 var data = null;
-var facetHistory = null;
 var numFacets = 5;
 var maxLength = 25;
 
 function init(dataStr, historyStr){
 	data = prepData(dataStr);
-	facetHistory = prepData(historyStr);
 
 	//disabled because the diagram cannot (currently) handle drawing all possible people
 	//updateSlider();
@@ -105,7 +103,7 @@ function drawDiagram(col){
 
 	var chart = venn.VennDiagram()
 		.width(window.innerWidth - 100)
-		.height(window.innerHeight - 100);
+		.height(window.innerHeight - 150);
 	
 	var div = d3.select("#venn").datum(sets).call(chart);
 		div.selectAll("text").style("fill", "white").style("font-size", "1.2vw");
@@ -123,7 +121,7 @@ function prepareSets(data){
 		result.push({
 			sets:[person.facetName],
 			label: person.facetName,
-			size: countRelated(person.relatedPeopleCount)
+			size: person.articleCount
 		});
 
 		//related people
@@ -132,23 +130,27 @@ function prepareSets(data){
 			result.push({
 				sets:[rpc.name],
 				label: "",
-				size: Number(rpc.count)
+				size: 0.2
 			});
 
 			//combined
 			result.push({
 				sets:[rpc.name, person.facetName],
 				label: '',
-				//size: Number(rpc.count)
-				size: 0.5
+				size: 0.2
 			});
+			
 			
 		});
 	});
 	return result;
 }
 
-function countRelated(related, figure = 0){
+function log10min(num){
+	return (Math.log10(num) > 0) ? Math.log10(num) : 0.1;
+}
+
+function countRelated(related, figure = 0.1){
 	related.forEach(rp => {
 		figure += rp.count;
 	});

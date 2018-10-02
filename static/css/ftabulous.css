@@ -103,13 +103,17 @@ ul {
 }
 
 .timeselect #venn {
-    margin-top: 50px;
+    margin-top: 120px;
 }
 
 .timeselect .controls{
     position: absolute;
     top: 5px;
     right: 5px;
+}
+
+path {
+    transition: all 1s ease;
 }
 
 #currentRangeCount{
@@ -136,11 +140,12 @@ ul {
     border-left: none;
 }
 
-
-
-/* Tree view */
-
-
+.timetravel .controls{
+    font-size: 12px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
 
 /*
  * Origami Overides
