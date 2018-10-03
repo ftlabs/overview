@@ -101,8 +101,6 @@ function prepareSets(data){
 			size: countRelated(person.relatedPeopleCount)
 		});
 
-		console.log(person);
-
 		//related people
 		person.relatedPeopleCount.forEach(rpc => {
 			//single
