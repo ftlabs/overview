@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	{{#>ftabulous/head title='FTabulous - Venn Time Travel (people)'}}{{/ftabulous/head}}
+	<body class="people-venn timetravel">
+		<header>
+			<h1>FTabulous - Venn Time Travel (people)</h1>
+			<p>
+				Displays simulated data to demonstrate data changing over time <br /><i>*Some people not showing due to venn diagram display issues</i>
+			</p>
+		</header>
+		<fieldset class="controls">
+			<legend>Controls</legend>
+			<input class="dayBtn" type="button" value="Day 1" disabled>
+			<input class="dayBtn" type="button" value="Day 2">
+			<input class="dayBtn" type="button" value="Day 3">
+		</fieldset>
+		<div id="venn"></div>
+		{{> ftabulous/vennScripts}}
+		<script src="/static/js/ftabulous/people_venn_timetravel.js"></script>
+		<script>
+			init('{{data}}');
+		</script>
+	</body>
+</html>
