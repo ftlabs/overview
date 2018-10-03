@@ -36,6 +36,13 @@ For tests, run:
 $ npm test
 ```
 
+## Demo pages
+
+All demos are listed on the home page ('/') when running the project **and/or** you can view them on the Heroku test link.
+
++ [Home page](https://ftlabs-overview.herokuapp.com/)
+
+
 
 ## Endpoints
 
