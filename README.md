@@ -74,18 +74,18 @@ Returns a json reponse with a array of articles, similar to a SAPI request
 
 ```
 [
-	{
-		"aspectSet": "article",
-    	"modelVersion": "1",
-    	"id": "19afc8be-c5b4-11e8-8167-bea19d5dd52e",
-    	...
+  {
+    "aspectSet": "article",
+    "modelVersion": "1",
+    "id": "19afc8be-c5b4-11e8-8167-bea19d5dd52e",
+    ...
 	},
 	...
 	{
 		"aspectSet": "article",
-    	"modelVersion": "1",
-    	"id": "c9f02364-c612-11e8-8167-bea19d5dd52e",
-    	...
+    "modelVersion": "1",
+    "id": "c9f02364-c612-11e8-8167-bea19d5dd52e",
+    ...
 	}
 ]
 ```
