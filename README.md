@@ -197,7 +197,7 @@ Returns a json reponse with a array of articles, similar to a SAPI request
 
 ---
 
-## Other apis to investigate
+## Other APIs to investigate
 
 + UPP (credential request required)
 + Curated list
@@ -208,5 +208,5 @@ Returns a json reponse with a array of articles, similar to a SAPI request
 ## Other display ideas
 
 + Hyperbolic geometry
-
++ Relationship trees
 
