@@ -41,7 +41,17 @@ $ npm test
 All demos are listed on the home page ('/') when running the project **and/or** you can view them on the Heroku test link.
 
 + [Home page](https://ftlabs-overview.herokuapp.com/)
-
++ [24 hours or articles](https://ftlabs-overview.herokuapp.com/24hrs)
++ [Facet history](https://ftlabs-overview.herokuapp.com/facetHistory)
++ [Lanturn Data](https://ftlabs-overview.herokuapp.com/lantern)
++ [Content list data](https://ftlabs-overview.herokuapp.com/list)
++ [Timeline](https://ftlabs-overview.herokuapp.com/timeline)
++ [Facets with Articles endpoint](https://ftlabs-overview.herokuapp.com/facetsWithArticles)
++ [Heartbeat](https://ftlabs-overview.herokuapp.com/heartbeat)
++ [Hierarchical Edge Bundling](https://ftlabs-overview.herokuapp.com/hierarchicalEdgeBundling)
++ [FT as Tinder](https://ftlabs-overview.herokuapp.com/tinder)
++ [FT Rainbow Maps]()
++ [FTabulous]()
 
 
 ## Endpoints
