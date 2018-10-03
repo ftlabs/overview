@@ -50,11 +50,13 @@ All demos are listed on the home page ('/') when running the project **and/or** 
 + [Heartbeat](https://ftlabs-overview.herokuapp.com/heartbeat)
 + [Hierarchical Edge Bundling](https://ftlabs-overview.herokuapp.com/hierarchicalEdgeBundling)
 + [FT as Tinder](https://ftlabs-overview.herokuapp.com/tinder)
-+ [FT Rainbow Maps]()
-+ [FTabulous]()
++ [FT Rainbow Maps](https://ftlabs-overview.herokuapp.com/ftMaps)
++ [FTabulous](https://ftlabs-overview.herokuapp.com/ftabulous)
 
 
 ## Endpoints
+
+More details on the endpoints created for this project. Each endpoint sits on top of existing FT API(s) and provides a custom query or view of that data.
 
 ---
 
