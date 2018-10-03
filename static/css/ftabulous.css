@@ -1,0 +1,165 @@
+body {
+	background: #fff1e5;
+	font-family: 'MetricWeb', sans-serif;
+}
+
+h1 {
+	font-family: 'FinancierDisplayWeb', serif;
+    text-transform: capitalize;
+}
+
+h2 {
+	font-family: 'FinancierDisplayWeb', serif;
+    text-transform: capitalize;
+}
+
+fieldset {
+    background: #fff1e5;
+    position: absolute;
+    top: -5px;
+    right: 8px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th,
+table td {
+    border: 1px solid black;
+    padding: 5px 10px;
+}
+
+table th {
+    vertical-align: middle;
+}
+
+table td {
+    vertical-align: top;
+}
+
+ul {
+    margin: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.facetSelection {
+    width: 100%;
+    text-align: center;
+    background: none;
+    background: -moz-linear-gradient(top, transparent 50%, transparent 50%, #000000 50%, transparent 52%);
+    background: -webkit-linear-gradient(top, transparent 50%, transparent 50%, #000000 50%, transparent 52%);
+    background: linear-gradient(to bottom, transparent 50%, transparent 50%, #000000 50%, transparent 52%);
+    margin: 10px 0;
+}
+
+.filters {
+    margin: 10px 0 30px;
+    font-size: 14px;
+    border: 1px solid #333;
+}
+
+.filters legend {
+    text-align: center;
+}
+
+.facetSelection .inner {
+    background: #fff1e5;
+    display: inline-block;
+    padding: 5px;
+}
+
+
+/*
+ * Page specific
+ */
+
+/* Table page */
+
+.table h1,
+.table h2 {
+    text-align: center;
+    margin: 5px;
+    padding: 0;
+}
+
+/* Venn diagram page */
+
+.people-text,
+.people-venn {
+    text-align: center;
+}
+
+.timeselect header{
+    position: absolute;
+    margin: 0 auto;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
+
+.timeselect #venn {
+    margin-top: 120px;
+}
+
+.timeselect .controls{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+path {
+    transition: all 1s ease;
+}
+
+#currentRangeCount{
+    width: 20px;
+}
+
+.people-text p,
+.people-venn p {
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+
+.people-text .person {
+    display: inline-block;
+    border-left: 1px solid grey;
+    text-align: left;
+    padding: 15px;
+    width: 16%;
+    vertical-align: top;
+}
+
+.people-text .person:first-child {
+    border-left: none;
+}
+
+.timetravel .controls{
+    font-size: 12px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+/*
+ * Origami Overides
+ */
+
+.o-forms__label{
+    font-size: 14px !important;
+    line-height: 10px !important;
+    padding-left: 28px !important;
+    min-height: 13px !important;
+}
+
+.o-forms__label:after,
+.o-forms__label:before {
+    width: 15px !important;
+    height: 15px !important;
+}
