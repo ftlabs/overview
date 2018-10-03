@@ -70,25 +70,8 @@ All demos are listed on the home page ('/') when running the project **and/or** 
 
 Returns a json reponse with a array of articles, similar to a SAPI request
 
-[/24hrs/daysOfArticles?days=1](http://localhost:8000/24hrs/daysOfArticles?days=1)
+[/24hrs/daysOfArticles?days=1](https://ftlabs-overview.herokuapp.com/24hrs/daysOfArticles?days=1)
 
-```
-[
-  {
-    "aspectSet": "article",
-    "modelVersion": "1",
-    "id": "19afc8be-c5b4-11e8-8167-bea19d5dd52e",
-    ...
-	},
-	...
-	{
-		"aspectSet": "article",
-    "modelVersion": "1",
-    "id": "c9f02364-c612-11e8-8167-bea19d5dd52e",
-    ...
-	}
-]
-```
 
 ---
 
@@ -106,7 +89,7 @@ Returns a json reponse with a array of articles, similar to a SAPI request
 
 **Example response**
 
-[/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=2](http://localhost:8000/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=2)
+[/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=2](https://ftlabs-overview.herokuapp.com/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=2)
 
 ```
 {
@@ -163,7 +146,7 @@ Returns a json reponse with a array of articles, similar to a SAPI request
 
 **Example response**
 
-[/facetsWithArticles/relatedContent/?days=1&facet=topics&aspects=title,summary,images](http://localhost:8000/facetsWithArticles/relatedContent/?days=1&facet=topics&aspects=title,summary,images)
+[/facetsWithArticles/relatedContent/?days=1&facet=topics&aspects=title,summary,images](https://ftlabs-overview.herokuapp.com/facetsWithArticles/relatedContent/?days=1&facet=topics&aspects=title,summary,images)
 
 ```
 {
