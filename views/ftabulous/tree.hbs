@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+	{{#>ftabulous/head title='FTabulous - Tree'}}{{/ftabulous/head}}
+	<body class="tree">
+		<header>
+			<h1>FTabulous - Tree</h1>
+			<h2>Description</h2>
+		</header>
+		<main>
+			<div id="main-grid" class="o-grid-container">
+				{{#each first}}
+					{{rowCenter header=first.header data=first.data}}
+				{{/each}}
+			</div>
+		</main>
+		<script src="/static/js/ftabulous/tree.js"></script>
+		<script>
+			init('{{data}}', '{{facetHistory}}');
+		</script>
+	</body>
+</html>

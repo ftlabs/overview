@@ -36,8 +36,29 @@ For tests, run:
 $ npm test
 ```
 
+## Demo pages
+
+All demos are listed on the home page ('/') when running the project **and/or** you can view them on the Heroku test link.
+
++ [Home page](https://ftlabs-overview.herokuapp.com/)
++ [24 hours or articles](https://ftlabs-overview.herokuapp.com/24hrs)
++ [Facet history](https://ftlabs-overview.herokuapp.com/facetHistory)
++ [Lanturn Data](https://ftlabs-overview.herokuapp.com/lantern)
++ [Content list data](https://ftlabs-overview.herokuapp.com/list)
++ [Timeline](https://ftlabs-overview.herokuapp.com/timeline)
++ [Facets with Articles endpoint](https://ftlabs-overview.herokuapp.com/facetsWithArticles)
++ [Heartbeat](https://ftlabs-overview.herokuapp.com/heartbeat)
++ [Hierarchical Edge Bundling](https://ftlabs-overview.herokuapp.com/hierarchicalEdgeBundling)
++ [FT as Tinder](https://ftlabs-overview.herokuapp.com/tinder)
++ [FT Rainbow Maps](https://ftlabs-overview.herokuapp.com/ftMaps)
++ [FTabulous](https://ftlabs-overview.herokuapp.com/ftabulous)
+
 
 ## Endpoints
+
+More details on the endpoints created for this project. Each endpoint sits on top of existing FT API(s) and provides a custom query or view of that data.
+
+---
 
 ### /24hrs/daysOfArticles
 
@@ -47,6 +68,14 @@ $ npm test
 
 + ***days*** (integer) *default = 1*, although can return multiple days worth of news if you increase that number
 
+**Response**
+
+Returns a json reponse with a array of articles, similar to a SAPI request
+
+[/24hrs/daysOfArticles?days=1](https://ftlabs-overview.herokuapp.com/24hrs/daysOfArticles?days=1)
+
+
+---
 
 ### /facetHistory/:facet
 
@@ -54,11 +83,59 @@ $ npm test
 
 **Params**
 
-+ ***period*** [minutes|days|hours] *default = 'days'*
-+ ***interval*** (integer) *default = 1*
-+ ***numInterval*** (integer) *default = 5*
-+ ***maxFacets*** (integer) *default = 100*
++ **period** [minutes|days|hours] *default = 'days'*
++ **interval** (integer) *default = 1*
++ **numInterval** (integer) *default = 5*
++ **maxFacets** (integer) *default = 100*
 
+
+**Example response**
+
+[/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=2](https://ftlabs-overview.herokuapp.com/facetHistory/topics?period=days&interval=1&numInterval=5&maxFacets=2)
+
+```
+{
+  "description": "Returns metrics for facet numbers over the time period specificed in the params of the query",
+  "requestParams": {
+    "facet": "topics",
+    "period": "days",
+    "interval": "1",
+    "numInterval": "5",
+    "maxFacets": "2"
+  },
+  "datetimeRange": {
+    "start": "2018-10-02T08:55:46Z",
+    "end": "2018-09-27T08:55:46Z",
+    "list": []
+  },
+  "facets": [
+    {
+      "name": "Companies",
+      "count": [
+        50,
+        43,
+        8,
+        31,
+        60,
+        60
+      ]
+    },
+    {
+      "name": "World",
+      "count": [
+        49,
+        46,
+        8,
+        42,
+        45,
+        68
+      ]
+    }
+  ]
+}
+```
+
+---
 
 ### /facetsWithArticles/relatedContent
 
@@ -66,13 +143,70 @@ $ npm test
 
 **Params**
 
-+ ***days*** (integer) *default = 1*
-+ ***facet*** (integer) *default = 'topics'*
++ **days** (integer) *default = 1*
++ **facet** (integer) *default = 'topics'*
 
+**Example response**
 
-## Other apis to investigate
+[/facetsWithArticles/relatedContent/?days=1&facet=topics&aspects=title,summary,images](https://ftlabs-overview.herokuapp.com/facetsWithArticles/relatedContent/?days=1&facet=topics&aspects=title,summary,images)
+
+```
+{
+  "description": "List of facets, from the last 1 days. Each returned facet item has a list of articles it features in and a list of other facets listed by those articles",
+  "facetItemTotal": 377,
+  "articleTotal": 1312,
+  "breakdown": [
+    {
+      "facetName": "News",
+      "articles": [
+        {
+          "aspectSet": "article",
+          "modelVersion": "1",
+          "id": "0ce372cc-c55d-11e8-bc21-54264d1c4647",
+          ...
+         },
+         ...
+      ],
+      "articleCount": 85,
+      "facet": "genre",
+      "relatedTopicCount": [
+        {
+          "name": "Companies",
+          "count": 15
+        },
+        {
+          "name": "World",
+          "count": 13
+        },
+        {
+          "name": "US & Canadian companies",
+          "count": 6
+        },
+        {
+          "name": "Markets",
+          "count": 5
+        }
+      ],
+      "relatedPeopleCount": [],
+      "relatedOrgsCount": [],
+      "relatedGenreCount": []
+    }
+  ]
+}
+```
+
+---
+
+## Other APIs to investigate
 
 + UPP (credential request required)
 + Curated list
 + Reading time
++ Fast Charts
+
+
+## Other display ideas
+
++ Hyperbolic geometry
++ Relationship trees
 

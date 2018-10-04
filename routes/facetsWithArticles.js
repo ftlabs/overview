@@ -25,9 +25,20 @@ router.get('/clusteredImages/:template/:facet', async (req, res, next) => {
 
 router.get('/charts/:template/:facet/:days', async (req, res, next) => {
 	const results = await article.getArticleRelations(req.params.days);
-	const data = JSON.stringify(results.breakdown.splice(0, 10));
+	const data = [];
+	let maxitems = 10;
+
+	for(var i = 0; i < results.breakdown.length; i++){
+		if(results.breakdown[i].facet == req.params.facet){
+			data.push(results.breakdown[i]);
+		}
+		if(data.length >= maxitems){
+			break;
+		}
+	}
+
 	res.render(`facetsWithArticles/charts/${req.params.template}`, {
-		data: data,
+		data: JSON.stringify(data),
 		facet: req.params.facet
 	});
 });

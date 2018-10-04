@@ -1,0 +1,185 @@
+{
+	"days": [{
+		"number": 1,
+		"data": {
+			"articleCount": 13,
+			"facet": "people",
+			"facetName": "Donald Trump",
+			"relatedPeopleCount": [{
+				"name": "Justin Trudeau",
+				"count": 2
+			}, {
+				"name": "Brett Kavanaugh",
+				"count": 2
+			}, {
+				"name": "Matteo Salvini",
+				"count": 1
+			}, {
+				"name": "Chrystia Freeland",
+				"count": 1
+			}, {
+				"name": "Rodrigo Duterte",
+				"count": 1
+			}, {
+				"name": "Jeff Sessions",
+				"count": 1
+			}, {
+				"name": "Ajit Pai",
+				"count": 1
+			}, {
+				"name": "Jerry Brown",
+				"count": 1
+			}, {
+				"name": "Kellyanne Conway",
+				"count": 1
+			}, {
+				"name": "Joe Manchin",
+				"count": 1
+			}, {
+				"name": "Stormy Daniels",
+				"count": 1
+			}, {
+				"name": "Recep Tayyip Erdogan",
+				"count": 1
+			}, {
+				"name": "Susan Margaret Collins",
+				"count": 1
+			}, {
+				"name": "Amy Klobuchar",
+				"count": 1
+			}, {
+				"name": "Lisa Murkowski",
+				"count": 1
+			}, {
+				"name": "Lindsey Graham",
+				"count": 1
+			}, {
+				"name": "Heidi Heitkamp",
+				"count": 1
+			}, {
+				"name": "Jeff Flake",
+				"count": 1
+			}, {
+				"name": "Christine Blasey Ford",
+				"count": 1
+			}, {
+				"name": "Peter Navarro",
+				"count": 1
+			}, {
+				"name": "Robert Lighthizer",
+				"count": 1
+			}, {
+				"name": "Enrique Peña Nieto",
+				"count": 1
+			}, {
+				"name": "Mazie Hirono",
+				"count": 1
+			}]
+		}
+  },
+  {
+		"number": 2,
+		"data": {
+			"articleCount": 13,
+			"facet": "people",
+			"facetName": "Donald Trump",
+			"relatedPeopleCount": [{
+				"name": "Justin Trudeau",
+				"count": 2
+			}, {
+				"name": "Brett Kavanaugh",
+				"count": 2
+			}, {
+				"name": "Matteo Salvini",
+				"count": 1
+			}, {
+				"name": "Chrystia Freeland",
+				"count": 1
+			}, {
+				"name": "Rodrigo Duterte",
+				"count": 1
+			}, {
+				"name": "Jeff Sessions",
+				"count": 1
+			}]
+		}
+  },
+  {
+		"number": 3,
+		"data": {
+			"articleCount": 13,
+			"facet": "people",
+			"facetName": "Donald Trump",
+			"relatedPeopleCount": [{
+				"name": "Justin Trudeau",
+				"count": 2
+			}, {
+				"name": "Brett Kavanaugh",
+				"count": 2
+			}, {
+				"name": "Matteo Salvini",
+				"count": 1
+			}, {
+				"name": "Chrystia Freeland",
+				"count": 1
+			}, {
+				"name": "Rodrigo Duterte",
+				"count": 1
+			}, {
+				"name": "Jeff Sessions",
+				"count": 1
+			}, {
+				"name": "Ajit Pai",
+				"count": 1
+			}, {
+				"name": "Jerry Brown",
+				"count": 1
+			}, {
+				"name": "Kellyanne Conway",
+				"count": 1
+			}, {
+				"name": "Joe Manchin",
+				"count": 1
+			}, {
+				"name": "Stormy Daniels",
+				"count": 1
+			}, {
+				"name": "Recep Tayyip Erdogan",
+				"count": 1
+			}, {
+				"name": "Susan Margaret Collins",
+				"count": 1
+			}, {
+				"name": "Amy Klobuchar",
+				"count": 1
+			}, {
+				"name": "Lisa Murkowski",
+				"count": 1
+			}, {
+				"name": "Lindsey Graham",
+				"count": 1
+			}, {
+				"name": "Heidi Heitkamp",
+				"count": 1
+			}, {
+				"name": "Jeff Flake",
+				"count": 1
+			}, {
+				"name": "Christine Blasey Ford",
+				"count": 1
+			}, {
+				"name": "Peter Navarro",
+				"count": 1
+			}, {
+				"name": "Robert Lighthizer",
+				"count": 1
+			}, {
+				"name": "Enrique Peña Nieto",
+				"count": 1
+			}, {
+				"name": "Mazie Hirono",
+				"count": 1
+			}]
+		}
+  }]
+}

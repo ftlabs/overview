@@ -74,8 +74,8 @@ class Heartbeat {
 			chartList.push({
 				info: this.prepCount(topic.count),
 				dom: className
-			})
-		})
+			});
+		});
 
 		var container = document.getElementsByClassName(this.datumTarget)[0];
 		container.appendChild(table);
