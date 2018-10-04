@@ -6,19 +6,20 @@
     <title>grid</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/static/css/spaceUtilisation/grid.css">
-    <link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 
 <body>
-    <div class="grid-container">
+    <div class="grid">
         {{#each articles}}
-        <div class="grid">
-            {{#each this}}
-            <div>
-                <h1>{{title}}</h1>
-                <p>{{ standfirst }}</p>
+        <div class="container position-{{position}}">
+            <img class="article-image" src="{{image}}" alt="" />
+            <div class="image-overlay"></div>
+            <div class="contents">
+                <h1 class="headline">{{title}}</h1>
+                <p class="standfirst">{{ standfirst }}</p>
             </div>
-            {{/each}}
+
         </div>
         {{/each}}
     </div>

@@ -19,21 +19,21 @@ body {
 .hex {
   position: relative;
   visibility: hidden;
-  outline: 1px solid transparent; /* fix for jagged edges in FF on hover transition */
+  outline: 1px solid transparent;
 }
 .hex::after {
   content: "";
   display: block;
-  padding-bottom: 86.602%; /* =  100 / tan(60) * 1.5 */
+  padding-bottom: 86.602%;
 }
 .hexIn {
   position: absolute;
   width: 96%;
-  padding-bottom: 110.851%; /* =  width / sin(60) */
+  padding-bottom: 110.851%;
   margin: 0 2%;
   overflow: hidden;
   visibility: hidden;
-  outline: 1px solid transparent; /* fix for jagged edges in FF on hover transition */
+  outline: 1px solid transparent;
   -webkit-transform: rotate3d(0, 0, 1, -60deg) skewY(30deg);
   -ms-transform: rotate3d(0, 0, 1, -60deg) skewY(30deg);
   transform: rotate3d(0, 0, 1, -60deg) skewY(30deg);
