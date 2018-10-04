@@ -4,7 +4,7 @@ const router = express.Router();
 const spaceUtilisationService = require("../lib/spaceUtilisation");
 
 router.get("/", async (req, res, next) => {
-  res.render("spaceUtilisation/index", { articles });
+  res.render("spaceUtilisation/index");
 });
 
 router.get("/hexagon", async (req, res, next) => {

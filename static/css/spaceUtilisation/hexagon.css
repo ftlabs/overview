@@ -41,7 +41,7 @@ body {
 .hexIn * {
   position: absolute;
   visibility: visible;
-  outline: 1px solid transparent; /* fix for jagged edges in FF on hover transition */
+  outline: 1px solid transparent;
 }
 .hexLink {
   display: block;
@@ -137,36 +137,31 @@ body {
     width: 25%; /* = 100 / 4 */
   }
   .hex:nth-child(7n + 5) {
-    /* first hexagon of even rows */
-    margin-left: 12.5%; /* = width of .hex / 2  to indent even rows */
+    margin-left: 12.5%;
   }
 }
 
 @media (max-width: 900px) and (min-width: 601px) {
-  /* <- 3-2  hexagons per row */
   #hexGrid {
     padding-bottom: 7.4%;
   }
   .hex {
-    width: 33.333%; /* = 100 / 3 */
+    width: 33.333%;
   }
   .hex:nth-child(5n + 4) {
-    /* first hexagon of even rows */
-    margin-left: 16.666%; /* = width of .hex / 2  to indent even rows */
+    margin-left: 16.666%;
   }
 }
 
 @media (max-width: 600px) {
-  /* <- 2-1  hexagons per row */
   #hexGrid {
     padding-bottom: 11.2%;
   }
   .hex {
-    width: 50%; /* = 100 / 3 */
+    width: 50%;
   }
   .hex:nth-child(3n + 3) {
-    /* first hexagon of even rows */
-    margin-left: 25%; /* = width of .hex / 2  to indent even rows */
+    margin-left: 25%;
   }
 }
 
