@@ -26,6 +26,9 @@ class ChartBuilder {
 	}
 
 	one(){
+
+        console.log(this.datum);
+
 		d3.select('.' + this.targetObj)
 			.selectAll("div")
 			.data(this.datum)
