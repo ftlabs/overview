@@ -8,7 +8,9 @@ class ChartBuilder {
 
 	init(data, targetObj){
 		this.datum = data;
-		this.targetObj = targetObj;
+        this.targetObj = targetObj;
+        
+        console.log(this.datum)
 
 		var fn = this[this.type];
 		if(typeof fn === "function"){
