@@ -28,7 +28,7 @@ router.get('/charts/:template/:facet/:days', async (req, res, next) => {
 	const data = [];
 	let maxitems = 10;
 
-	for(var i = 0; i < results.breakdown.length; i++){
+	for(let i = 0; i < results.breakdown.length; i++){
 		if(results.breakdown[i].facet == req.params.facet){
 			data.push(results.breakdown[i]);
 		}
