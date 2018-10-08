@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://build.origami.ft.com/v2/bundles/css?modules=o-fonts@^3.0.4,o-buttons@^5.10.3,o-forms@^5.2.4,o-table@^6.7.0,o-toggle@^1.1.10,o-loading@^2.2.1,o-header@^7.5.13,o-teaser@^2.3.1,o-teaser-collection@^2.2.0,o-grid@^4.4.4">
+    <link title="timeline-styles" rel="stylesheet" href="/static/css/timeline-vertical.css">
+    <script src="/static/js/verticalTimeline.js"></script>
+</head>
+
+<body>
+    {{> origami/header}}
+    <main id="site-content" class="main-body o-grid-container o-normalise-clearfix" role="main">
+        <div class="o-grid-row">
+            <div data-o-grid-colspan="12 XL10 XLoffset1">
+                <div class="o-grid-row">
+                    {{> origami/leftMain}}
+                    <div class="o-teaser-collection__item--stretched" data-o-grid-colspan="12 S6">
+                        <section style="background-color: #f2dfce; padding: 0 20px; margin: 20px 0;">
+                            <div class="o-teaser__meta">
+                                <span class="o-teaser__tag-prefix">
+                                    Timeline
+                                </span>
+                                <a href="/companies/technology" class="o-teaser__tag" data-trackable="primary-concept">
+                                    Top stories of the last 24 hours
+                                </a>
+                            </div>
+                            <div class="grid-parent">
+                                <div class="grid-container small">
+                                    {{#each data}}
+                                    <div class="spot-container">
+                                        <div class="spot {{#if firstArticle}}first{{/if}}"></div>
+                                    </div>
+                                    <img src="{{image}}">
+                                    <p>{{title}}</p>
+                                    <div class="sparkline">
+                                        <p>
+                                            -sparkline-
+                                        </p>
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <p class="myft-section-tail-action">
+                                <a class="myft-section-tail-action__link" data-trackable="industry recommendations"
+                                    href="/myft/explore/b6dc54a9-34c1-41a8-9479-7faa0c0edbda#industry">
+                                    Find topics relevant to your industry
+                                </a>
+                            </p>
+                        </section>
+                    </div>
+                </div>
+                <section class="top-stories o-teaser-collection">
+                    <section>
+                        <div class="o-teaser__meta">
+                            <a href="/companies/personal-goods" class="o-teaser__tag" data-trackable="primary-concept">Top
+                                stories</a>
+                        </div>
+                        <div class="grid-parent">
+                            <div class="grid-container">
+                                {{#each data}}
+                                <div class="spot-container">
+                                    <div class="spot"></div>
+                                </div>
+                                <img src="{{image}}">
+                                <p>{{title}}</p>
+                                <div class="sparkline">
+                                    <p>
+                                        -sparkline-
+                                    </p>
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </section>
+                    {{> origami/teaserRow}}
+                </section>
+            </div>
+        </div>
+    </main>
+    <script>console.log('{{data}}');</script>
+</body>
+
+</html>

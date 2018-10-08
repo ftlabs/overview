@@ -69,6 +69,7 @@ if (process.env.BYPASS_TOKEN !== "true") {
 }
 
 //Core Routes
+app.use(s3o);
 app.use("/articles", articles);
 app.use("/24hrs", twentyfourhrs);
 app.use("/facethistory", facetHistory);

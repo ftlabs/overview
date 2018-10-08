@@ -1,0 +1,136 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #fff1e5;
+	font-family: 'MetricWeb', sans-serif;
+}
+
+h1,
+h2 {
+	font-family: 'FinancierDisplayWeb', serif;
+	text-transform: capitalize;
+}
+
+h2 {
+	font-family: 'MetricWeb', sans-serif;
+	font-size: 18px;
+}
+
+h3 {
+	font-family: 'MetricWeb', sans-serif;
+	font-size: 16px;
+}
+
+.grid-parent {
+  position: relative;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 50px 80px 350px 90px;
+  grid-template-rows: 50px;
+}
+
+.grid-container.small {
+  grid-template-columns: 50px 60px 240px 90px;
+  grid-template-rows: 50px;
+}
+
+.grid-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.grid-container p {
+  padding-left: 20px;
+}
+
+.grid-container.small p {
+  height: 50px;
+  margin: 0;
+}
+
+.o-grid-row{
+  border-bottom: 1px solid #ccc1b7;
+}
+
+
+.o-teaser__meta{
+  padding: 30px 0 15px 0;
+}
+
+.spot {
+  display: block;
+  width: 15px;
+  height: 15px;
+  margin: 15px auto;
+  border-radius: 15px;
+  background-color: #2c3e50;
+}
+
+.small .spot {
+  margin: 5px auto;
+}
+
+.spot.first{
+  background-color: #990f3d;
+}
+
+.spot-container {
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(left, transparent 48%, #2c3e50 50%, transparent 51%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, transparent 48%,#2c3e50 50%,transparent 51%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, transparent 48%,#2c3e50 50%, transparent 51%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff1e5', endColorstr='#fff1e5',GradientType=1 ); /* IE6-9 */
+}
+
+.o-teaser__meta:after {
+  margin-top: 4px;
+  margin-bottom: 12px;
+  content: '';
+  display: block;
+  width: 60px;
+  border-bottom: 4px solid #990f3d;
+}
+
+.myft-section-tail-action {
+  padding-top: 8px;
+  border-top: 1px solid #000;
+  float: right;
+  padding-left: 20px;
+  padding-right: 4px;
+  position: absolute;
+  right: 20px;
+  bottom: 30px;
+}
+
+.myft-section-tail-action__link {
+  font-family: MetricWeb, sans-serif;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 600;
+  border-bottom: 0;
+  color: #000;
+}
+
+.myft-section-tail-action:after {
+  background-image: url(https://www.ft.com/__origami/service/image/v2/images/raw/fticon-v1:arrow-right?source=o-icons&tint=%23000000,%23000000&format=svg);
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
+  background-color: transparent;
+  vertical-align: baseline;
+  content: '';
+  display: inline-block;
+  position: relative;
+  top: 8px;
+  right: -13px;
+  margin-left: -13px;
+  margin-top: -10px;
+}
