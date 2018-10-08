@@ -18,7 +18,7 @@ const defaultAspects = [ "audioVisual",
 						];
 const defaultFacets = [ "organisations",
 						"organisationsId",
-						"people", 
+						"people",
 						"peopleId",
 						"topics",
 						"topicsId",
@@ -56,6 +56,10 @@ function getArticleRelations(days = 1, facets = defaultFacets, aspects = default
 	return fetchContent.getArticleRelations(days, facets, aspects);
 }
 
+function getArticlesAggregation(days = 1, facets = defaultFacets, aspects = defaultAspects){
+	return fetchContent.getArticlesAggregation(days, facets, aspects);
+}
+
 
 module.exports = {
 	searchByParams,
@@ -64,5 +68,6 @@ module.exports = {
 	searchBySequence,
 	getByUuid,
 	getDaysOfRecentArticles,
-	getArticleRelations
+	getArticleRelations,
+	getArticlesAggregation,
 };
