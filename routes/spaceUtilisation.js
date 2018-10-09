@@ -19,8 +19,8 @@ router.get("/grid", async (req, res, next) => {
 });
 
 function chunkArray(myArray, chunk_size) {
-  const index = 0;
-  const arrayLength = myArray.length;
+  let index = 0;
+  let arrayLength = myArray.length;
   let tempArray = [];
 
   for (index = 0; index < arrayLength; index += chunk_size) {
