@@ -31,4 +31,4 @@ function extractUUID(link) {
   return undefined;
 }
 
-modules.exports = { formatImageUrl };
+module.exports = { formatImageUrl };
