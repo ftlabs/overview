@@ -30,6 +30,10 @@ router.get("/article/:contentId", async (req, res, next) => {
 });
 
 router.get("/position/:list", async (req, res, next) => {
+  if (typeof req.query.position === "string") {
+    req.query.position = req.query.position.split(",");
+  }
+
   try {
     const data = await listService.positionData(
       req.params.list,
