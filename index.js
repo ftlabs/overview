@@ -32,6 +32,7 @@ const facetsWithArticles = require("./routes/facetsWithArticles");
 const heartbeat = require("./routes/heartbeat");
 const hierarchicalEdgeBundling = require("./routes/hierarchicalEdgeBundling");
 const tinder = require("./routes/tinder");
+const spaceUtilisation = require("./routes/spaceUtilisation");
 const ftMaps = require("./routes/ftMaps");
 const ftabulous = require("./routes/ftabulous");
 
@@ -80,6 +81,7 @@ app.use("/facetsWithArticles", facetsWithArticles);
 app.use("/heartbeat", heartbeat);
 app.use("/hierarchicalEdgeBundling", hierarchicalEdgeBundling);
 app.use("/tinder", tinder);
+app.use("/space", spaceUtilisation);
 app.use("/ftMaps", ftMaps);
 app.use("/ftabulous", ftabulous);
 

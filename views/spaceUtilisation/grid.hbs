@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>grid</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/css/spaceUtilisation/grid.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+</head>
+
+<body>
+    <div class="grid">
+        {{#each articles}}
+        <div class="container position-{{position}}">
+            <img class="article-image" src="{{image}}" alt="" />
+            <div class="image-overlay"></div>
+            <div class="contents">
+                <h1 class="headline">{{title}}</h1>
+                <p class="standfirst">{{ standfirst }}</p>
+            </div>
+
+        </div>
+        {{/each}}
+    </div>
+</body>
+
+</html>
