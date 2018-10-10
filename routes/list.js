@@ -36,7 +36,7 @@ router.get("/position/:list", async (req, res, next) => {
 
   try {
     const data = await listService.positionData(
-      req.params.list,
+      req.query.list,
       req.query.position,
       req.query.days
     );
