@@ -58,6 +58,17 @@ router.get('/relatedContent', async (req, res, next) => {
 	res.json( results );
 });
 
+router.get('/articlesAggregation', async (req, res, next) => {
+	const days = ( req.query.days ) ? req.query.days : 1;
+	const facet = ( req.query.facet ) ? req.query.facet : 'topics';
+	let aspects = ( req.query.aspects ) ? req.query.aspects : undefined;
+
+	if(aspects){ aspects = aspects.split(',') }
+
+	const results = await article.getArticlesAggregation( days );
+	res.json( results );
+});
+
 
 
 module.exports = router;
