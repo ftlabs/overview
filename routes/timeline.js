@@ -20,10 +20,10 @@ router.get("/simple", async (req, res, next) => {
   }
 });
 
-
 router.get("/vertical", async (req, res, next) => {
   try {
-    const data = await timelineService.simpleJSON();
+    let data = await timelineService.simpleJSON();
+    data = data.splice(0,5);
     res.render("timeline/vertical", { data });
   } catch (error) {
     throw new Error(error);
@@ -48,12 +48,6 @@ router.get("/simpleData", async (req, res, next) => {
   } catch (error) {
     throw new Error(error);
   }
-});
-
-router.get("/topic", async (req, res, next) => {
-  const data = await timelineService.constructTopicJSON(["Brexit"]);
-
-  res.render("timeline/timelineTopic");
 });
 
 module.exports = router;
