@@ -4,16 +4,31 @@
 
 <body>
     <h2>Demos</h2>
-
+    <p>The main endpoint is '/list/position' The defaults will search 24 hours worth of data for list positions 1, 2,
+        3, 4 and 5 in uk-homepage-top-stories. You can add parameters for days 'days=7' if you want more than 24 hours,
+        position for multiple positions 'position=1,2,3,4' and specify a specific list 'list=world-top-stories'</p>
+    <h1>Examples</h1>
     <ul>
         <li>
-            <a href="/list/overDuration/uk-homepage-top-stories?days=5">Specific list history over a peroid of time. Example is uk-homepage-top-stories over the last 5 days.</a>
+            <a href="/list/position?position=1,2,3,4&list=world-top-stories&days=7">list history from world-top-stories
+                from the a 7 day period starting 3 days ago.</a>
+        </li>
+
+    </ul>
+    <h1>Other examples of list data</h1>
+    <ul>
+        <li>
+            <a href="/list/overDuration/uk-homepage-top-stories?days=5">Specific list history over a peroid of time.
+                Example is uk-homepage-top-stories over the last 5 days.</a>
         </li>
         <li>
-            <a href="/list/article/8665efbc-a140-11e8-85da-eeb7a9ce36e4">Specific article history. Example is 8665efbc-a140-11e8-85da-eeb7a9ce36e4.</a>
+            <a href="/list/article/8665efbc-a140-11e8-85da-eeb7a9ce36e4">Specific article history. Example is
+                8665efbc-a140-11e8-85da-eeb7a9ce36e4.</a>
         </li>
         <li>
-            <a href="/list/position/world-top-stories?position=5&days=7">Specific position over specified period of time. Example is position 5 of world top stories over 7 days.</a>
+            <a href="/list/position?position=5&days=7&list=world-top-stories">Specific position over specified period
+                of
+                time. Example is position 5 of world top stories over 7 days.</a>
         </li>
 
     </ul>
