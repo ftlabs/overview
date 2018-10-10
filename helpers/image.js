@@ -15,6 +15,11 @@ function formatImageUrl(url, size) {
   return format.concat(`?source=ftlabs&width=${size}`);
 }
 
+function resizeImageURL(url, size){
+  const parts = url.split('?');
+  return parts[0].concat(`?source=ftlabs&width=${size}`);
+}
+
 function checkUrl(url) {
   const ftcmsImageRegex = /^https?:\/\/(?:(?:www\.)?ft\.com\/cms|im\.ft-static\.com\/content\/images|com\.ft\.imagepublish\.(?:prod|upp-prod-eu|upp-prod-us)\.s3\.amazonaws\.com|prod-upp-image-read\.ft\.com)\/([a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12})/g;
   return ftcmsImageRegex.test(url);
@@ -31,4 +36,4 @@ function extractUUID(link) {
   return undefined;
 }
 
-module.exports = { formatImageUrl };
+module.exports = { formatImageUrl, resizeImageURL };

@@ -14,11 +14,11 @@
             {{#each data}}
             {{#if firstArticle}}
             <div class="input active">
-                <span data-year="{{title}}" data-info="{{formatedDate}}"></span>
+                <span data-year="{{title.title}}" data-info="{{formatedDate}}"></span>
             </div>
             {{else}}
             <div class="input">
-                <span data-year="{{title}}" data-info="{{formatedDate}}"></span>
+                <span data-year="{{title.title}}" data-info="{{formatedDate}}"></span>
             </div>
             {{/if}}
             {{/each}}
@@ -27,10 +27,10 @@
             {{#each data}}
             {{#if firstArticle}}
             <p class="active">
-                {{title}}
+                {{title.title}}
             </p>
             {{else}}
-            <p>{{title}}</p>
+            <p>{{title.title}}</p>
             {{/if}}
             {{/each}}
         </div>
