@@ -69,6 +69,26 @@ router.get('/articlesAggregation/visual_1', async (req, res, next) => {
 	} );
 });
 
+router.get('/articlesAggregation/visual_2', async (req, res, next) => {
+	const days = ( req.query.days ) ? req.query.days : 1;
+	const results = await article.getArticlesAggregation( days );
+
+	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
+	const reversedTopics = topics.reverse();
+
+	let data = reversedTopics.map((topic, index) => {
+		return {
+			name: topic[0],
+			count: (index + 1),
+		};
+	});
+
+	res.render("facetsWithArticles/articlesAggregation/visual_2", {
+		data: data.reverse()
+	} );
+});
+
 
 // endpoints
 router.get('/relatedContent', async (req, res, next) => {
