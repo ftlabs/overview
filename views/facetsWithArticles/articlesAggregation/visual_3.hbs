@@ -8,8 +8,10 @@
 <body class="three">
 	{{> origami/header}}
 	<main class="o-grid-container">
-		<h2>Top People</h2>
-		<p>Displays the top people and their related content for the past {{days}} day(s)</p>
+		<div class="explaination">
+			<h2>Top People</h2>
+			<p>Displays the top people and their related content for the past {{days}} day(s)</p>
+		</div>
 		<div class="o-grid-row">
 			{{#each data}}
 			<div class="row" data-o-grid-colspan="4">

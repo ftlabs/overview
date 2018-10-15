@@ -8,8 +8,10 @@
 <body>
 	{{> origami/header}}
 	<main class="o-grid-container">
-		<h2>Top topics</h2>
-		<p>Lists the top 3 primary theme topics over the last {{days}} day(s)</p>
+		<div class="explaination">
+			<h2>Top topics</h2>
+			<p>Lists the top 3 primary theme topics over the last {{days}} day(s)</p>
+		</div>
 		<div class="">
 			{{#each data}}
 			<div style="font-size: {{count}}vw; padding:0; margin: 0 25px 0 0; display: inline-block;">

@@ -8,8 +8,10 @@
 <body class="five">
 	{{> origami/header}}
 	<main class="o-grid-container">
-		<h2>Top Topics with articles</h2>
-		<p>Displays the top topics along, with small article thumbnails, for the past {{days}} day(s). Articles are also (roughly) sized based on importance</p>
+		<div class="explaination">
+			<h2>Top Topics with articles</h2>
+			<p>Displays the top topics along, with small article thumbnails, for the past {{days}} day(s). Articles are also (roughly) sized based on importance</p>
+		</div>
 		<div class="o-grid-row">
 			{{#each data}}
 			<div class="circle">

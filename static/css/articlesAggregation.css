@@ -17,6 +17,14 @@ h1 {
 h2 {
   font-family: "FinancierDisplayWeb", serif;
   text-transform: capitalize;
+  font-size: 24px;
+}
+
+.explaination {
+	background-color: #f2dfce;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-bottom: 1px solid #ccc1b7;
 }
 
 /*
