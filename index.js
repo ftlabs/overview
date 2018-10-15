@@ -35,12 +35,14 @@ const tinder = require("./routes/tinder");
 const spaceUtilisation = require("./routes/spaceUtilisation");
 const ftMaps = require("./routes/ftMaps");
 const ftabulous = require("./routes/ftabulous");
+const ame = require("./routes/aggregatedMetadataExperiments");
+
 
 const hbs = require("hbs");
 
 hbs.registerPartials(__dirname + "/views/partials/");
 
-hbs.registerHelper("imgPath", function(path) {
+hbs.registerHelper("imgPath", function (path) {
   return path.split("?")[0] + "?source=search";
 });
 
@@ -48,7 +50,7 @@ hbs.registerHelper("imgPath", function(path) {
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
-let requestLogger = function(req, res, next) {
+let requestLogger = function (req, res, next) {
   debug("RECEIVED REQUEST:", req.method, req.url);
   next(); // Passing the request to the next handler in the stack.
 };
@@ -84,6 +86,7 @@ app.use("/tinder", tinder);
 app.use("/space", spaceUtilisation);
 app.use("/ftMaps", ftMaps);
 app.use("/ftabulous", ftabulous);
+app.use("/ame", ame);
 
 // ---
 
@@ -101,7 +104,7 @@ if (!PORT) {
   throw new Error("ERROR: PORT not specified in env");
 }
 
-const server = app.listen(PORT, function() {
+const server = app.listen(PORT, function () {
   console.log("Server is listening on port", PORT);
 });
 
