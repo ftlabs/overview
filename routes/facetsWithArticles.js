@@ -157,7 +157,12 @@ router.get('/aggregations/:template', async (req, res, next) => {
 
 	res.render(`facetsWithArticles/aggregations/${template}`, {
 		data: correlationAnalysis,
-		groupings
+		groupings,
+		params: {
+			days,
+			minCorrelation,
+			timeslip,
+		}
 	});
 });
 
