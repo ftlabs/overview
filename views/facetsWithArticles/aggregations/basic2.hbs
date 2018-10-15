@@ -4,18 +4,16 @@
 		<h1>Article Aggregations: Basic 2: reoriented table</h1>
 		<main class="centerPos">
 			<table>
-				<tr><td>metadataKey</td><td>taxonomies (article count)</td></tr>
 				<tr>
-					<td>primaryTheme.topics</td>
+					<td colspan="2">primaryTheme.topics</td>
 				</tr>
 			{{#each data.primaryTheme.topics}}
 					<tr>
-						<td></td>
 						<td>{{ this.[0] }}({{ this.[1] }})</td>
 						<td>
 							<ul>
 							{{#each this.[2]}}
-									<li>{{ uuid }}</li>
+									<li>{{ title }}</li>
 							{{/each}}
 							</ul>
 						</td>

@@ -134,8 +134,11 @@ router.get('/aggregations/:template', async (req, res, next) => {
 			const csv = [metadataKey,taxonomy,name].join(':');
 			// debug(`facetsWithArticles: /aggregations/:template csv=${csv}`);
 			const articlesDetails = genreNewsStuff.articlesByMetadataCsv[csv].map(uuid => {
+				const article = genreNewsStuff.articlesByUuid[uuid];
 				return {
-					uuid
+					uuid,
+					article,
+					title : article.title.title,
 				};
 			});
 
