@@ -90,10 +90,6 @@ router.get('/articlesAggregation/visual_2', async (req, res, next) => {
 	} );
 });
 
-//what is sections:sections:New Issues
-
-
-
 router.get('/articlesAggregation/visual_3', async (req, res, next) => {
 	const days = ( req.query.days ) ? req.query.days : 1;
 	const results = await article.getArticlesAggregation( days );
@@ -102,7 +98,24 @@ router.get('/articlesAggregation/visual_3', async (req, res, next) => {
 	} );
 });
 
+router.get('/articlesAggregation/visual_4', async (req, res, next) => {
+	const days = ( req.query.days ) ? req.query.days : 1;
+	const results = await article.getArticlesAggregation( days );
+	res.render("facetsWithArticles/articlesAggregation/visual_4", {
+		data: results
+	} );
+});
 
+router.get('/articlesAggregation/visual_5', async (req, res, next) => {
+	const days = ( req.query.days ) ? req.query.days : 1;
+	const results = await article.getArticlesAggregation( days );
+
+	//what is sections:sections:New Issues
+
+	res.render("facetsWithArticles/articlesAggregation/visual_5", {
+		data: results
+	} );
+});
 
 
 // endpoints
