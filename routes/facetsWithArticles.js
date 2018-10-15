@@ -110,9 +110,10 @@ router.get('/aggregations/:template', async (req, res, next) => {
 		['primaryTheme', 'regions'],
 		['people', 'people'],
 		['regions', 'regions'],
-		['topics', 'topics'],
 		['organisations', 'organisations'],
 	];
+
+	const groupings = [];
 
 	// ensure we have placeholders for al the expected groupings
 	// and flesh out any items that have been found (by adding an item to the pair)
@@ -145,10 +146,17 @@ router.get('/aggregations/:template', async (req, res, next) => {
 			nameAndCount.push(articlesDetails);
 		})
 
-
+		groupings.push( {
+			metadataKey,
+			taxonomy,
+			'topNames' : correlationAnalysis[metadataKey][taxonomy],
+		} );
 	})
 
-	res.render(`facetsWithArticles/aggregations/${template}`, {data: correlationAnalysis});
+	res.render(`facetsWithArticles/aggregations/${template}`, {
+		data: correlationAnalysis,
+		groupings
+	});
 });
 
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<body>
+		<h1>Article Aggregations: Basic 3: more groupings</h1>
+		<main class="centerPos">
+			<table>
+				{{#each groupings}}
+					<tr>
+						<td colspan="2">{{ this.metadataKey }}.{{ this.taxonomy }}</td>
+					</tr>
+					{{#each topNames}}
+						<tr>
+							<td>
+								{{ this.[0] }}({{this.[1]}})
+						</td>
+						<td>
+							<ul>
+							{{#each this.[2]}}
+								<li>{{title}}</li>
+							{{/each}}
+							</ul>
+						</td>
+				  {{/each}}
+				{{/each}}
+			</table>
+
+		</main>
+	</body>
+</html>
