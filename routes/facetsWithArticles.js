@@ -91,6 +91,32 @@ router.get('/articlesAggregation', async (req, res, next) => {
 	res.json( results );
 });
 
+router.get('/aggregations/basic1', async (req, res, next) => {
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
+	const correlationAnalysis = results.aggregationsByGenre['genre:genre:News'].correlationAnalysis;
+
+	// ensure we have placeholders for al the expected groupings
+	['primaryTheme', 'people', 'regions', 'topics', 'organisations'].forEach(meatadataKey => {
+		if (! correlationAnalysis.hasOwnProperty(meatadataKey)) {
+			correlationAnalysis[meatadataKey]={};
+		}
+	});
+
+	['topics', 'regions'].forEach( taxonomy => {
+		if (! correlationAnalysis.primaryTheme.hasOwnProperty(taxonomy)) {
+			correlationAnalysis.primaryTheme[taxonomy]={};
+		}
+	})
+
+	res.render(`facetsWithArticles/aggregations/basic1`, {data: correlationAnalysis});
+});
+
 
 
 module.exports = router;
