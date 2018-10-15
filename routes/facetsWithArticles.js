@@ -88,7 +88,8 @@ router.get('/articlesAggregation/visual_4', async (req, res, next) => {
 	const days = ( req.query.days ) ? req.query.days : 1;
 	const results = await article.getArticlesAggregation( days );
 	res.render("facetsWithArticles/articlesAggregation/visual_4", {
-		data: topPeopleFilter(results, 3, 1)
+		data: topPeopleFilter(results, 3, 1),
+		days: days
 	} );
 });
 
@@ -98,9 +99,19 @@ router.get('/articlesAggregation/visual_5', async (req, res, next) => {
 
 	res.render("facetsWithArticles/articlesAggregation/visual_5", {
 		data: topTopicFilter(results, 10, 10),
+		days: days
 	} );
 });
 
+router.get('/articlesAggregation/visual_6', async (req, res, next) => {
+	const days = ( req.query.days ) ? req.query.days : 1;
+	const results = await article.getArticlesAggregation( days );
+
+	res.render("facetsWithArticles/articlesAggregation/visual_6", {
+		data: results,
+		days: days
+	} );
+});
 
 /*
  * Endpoints
