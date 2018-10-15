@@ -129,6 +129,69 @@ h2 {
 /*
  * Visual Five
  */
- .five {
+.five .o-grid-row {
+	width: 300%;
+	overflow-x: scroll;
+}
+.five .circle {
+	background: #F2DFCE;
+	text-align: center;
+	height: 100px;
+    width: 100px;
+	border-radius: 100px;
+	margin-right: 5px;
+	margin-top: 50px;
+}
+.five .circle .circleContents {
+	margin-top: 30px;
+}
+.five .circle .circleContents .name {
+	margin-bottom: 10px;
+	font-size: 13px;
+	font-family: 'FinancierDisplayWeb', serif;
+	text-transform: capitalize;
+}
 
- }
+.five .circle:first-child {
+	height: 200px;
+	width: 200px;
+	margin-top: 0;
+}
+.five .circle:first-child .circleContents {
+	margin-top: 35px;
+}
+.five .circle:first-child .circleContents .name {
+	margin-bottom: 15px;
+	font-size: 20px;
+}
+.five .circle:first-child .square {
+	width: 25px;
+	height: 25px;
+}
+
+
+.five .circle:first-child {
+    background: #FF8833
+}
+.five .circle .articles {
+	margin: 0 auto;
+	width: 75%;
+}
+.five .circle .articles a {
+	text-decoration: none;
+}
+.five .square {
+	background: grey;
+	border: 1px solid #666;
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	margin: 1px;
+}
+.five .square a {
+	text-decoration: none;
+}
+
+p:nth-child(2) {
+    background: #FF8833
+}

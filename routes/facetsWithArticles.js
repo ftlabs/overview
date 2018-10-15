@@ -4,7 +4,9 @@ const article = require('../modules/article');
 const arrs = require('../helpers/array');
 
 
-// paths
+/*
+ * Paths
+ */
 router.get('/', async (req, res, next) => {
 	res.render("facetsWithArticles");
 });
@@ -48,24 +50,8 @@ router.get('/articlesAggregation/visual_1', async (req, res, next) => {
 	const days = ( req.query.days ) ? req.query.days : 1;
 	const results = await article.getArticlesAggregation( days );
 
-	const genreNews = results.aggregationsByGenre['genre:genre:News'];
-	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
-	let data = topics.map(topic => { return { name: topic[0] }; } );
-
-	data.forEach(topic => {
-		const articlesIDs = genreNews.articlesByMetadataCsv[`primaryTheme:topics:${topic.name}`];
-
-		topic['articles'] = articlesIDs.map(article => {
-			return genreNews.articlesByUuid[article];
-		});
-
-		topic['articles'] = topic['articles'].splice(0,2);
-	});
-
-	data = data.splice(0,3);
-
 	res.render("facetsWithArticles/articlesAggregation/visual_1", {
-		data: data,
+		data: topTopicFilter(results),
 		days: days
 	} );
 });
@@ -110,15 +96,15 @@ router.get('/articlesAggregation/visual_5', async (req, res, next) => {
 	const days = ( req.query.days ) ? req.query.days : 1;
 	const results = await article.getArticlesAggregation( days );
 
-	//what is sections:sections:New Issues
-
 	res.render("facetsWithArticles/articlesAggregation/visual_5", {
-		data: results
+		data: topTopicFilter(results, 10, 10),
 	} );
 });
 
 
-// endpoints
+/*
+ * Endpoints
+ */
 router.get('/relatedContent', async (req, res, next) => {
 	const days = ( req.query.days ) ? req.query.days : 1;
 	const facet = ( req.query.facet ) ? req.query.facet : 'topics';
@@ -144,6 +130,26 @@ router.get('/articlesAggregation', async (req, res, next) => {
 });
 
 
+/*
+ * Shared filters
+ */
+function topTopicFilter(results, topicLimit = 3, articleLimit = 2){
+	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
+	let data = topics.map(topic => { return { name: topic[0] }; } );
+
+	data.forEach(topic => {
+		const articlesIDs = genreNews.articlesByMetadataCsv[`primaryTheme:topics:${topic.name}`];
+
+		topic['articles'] = articlesIDs.map(article => {
+			return genreNews.articlesByUuid[article];
+		});
+
+		topic['articles'] = topic['articles'].splice(0, articleLimit);
+	});
+
+	return data.splice(0, topicLimit);
+}
 
 
 function topPeopleFilter(results, peopleLimit = 3, articleLimit = 2){

@@ -11,7 +11,24 @@
 		<h2></h2>
 		<p></p>
 		<div class="o-grid-row">
-			
+			{{#each data}}
+			<div class="circle">
+				<div class="circleContents">
+					<p class="name">{{name}}</p>
+					<div class="articles">
+						{{#each articles}}
+						<a href="{{location.uri}}" target="_blank">
+							{{#if images.0.url}}
+							<img class="square" src="{{images.0.url}}">
+							{{else}}
+							<div class="square"></div>
+							{{/if}}
+						</a>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+			{{/each}}
 		</div>
 	</main>
 </body>
