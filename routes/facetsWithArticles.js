@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const article = require('../modules/article');
+const debug = require('debug')('views:facetsWithArticles');
 
 
 // paths
@@ -91,7 +92,9 @@ router.get('/articlesAggregation', async (req, res, next) => {
 	res.json( results );
 });
 
-router.get('/aggregations/basic1', async (req, res, next) => {
+router.get('/aggregations/:template', async (req, res, next) => {
+	const template = req.params.template;
+
 	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
 	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
 	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
@@ -99,22 +102,50 @@ router.get('/aggregations/basic1', async (req, res, next) => {
 	let   facets         = undefined;
 
 	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
-	const correlationAnalysis = results.aggregationsByGenre['genre:genre:News'].correlationAnalysis;
+	const genreNewsStuff = results.aggregationsByGenre['genre:genre:News'];
+	const correlationAnalysis = genreNewsStuff.correlationAnalysis;
+
+	const metadataKeyPairsForCorrelationAnalysis = [ // lifted from fetchContent:aggregateArticles
+		['primaryTheme', 'topics'],
+		['primaryTheme', 'regions'],
+		['people', 'people'],
+		['regions', 'regions'],
+		['topics', 'topics'],
+		['organisations', 'organisations'],
+	];
 
 	// ensure we have placeholders for al the expected groupings
-	['primaryTheme', 'people', 'regions', 'topics', 'organisations'].forEach(meatadataKey => {
-		if (! correlationAnalysis.hasOwnProperty(meatadataKey)) {
+	// and flesh out any items that have been found (by adding an item to the pair)
+	metadataKeyPairsForCorrelationAnalysis.forEach( metadataKeyAndTaxonomy => {
+		const metadataKey = metadataKeyAndTaxonomy[0];
+		const taxonomy    = metadataKeyAndTaxonomy[1];
+
+		if (! correlationAnalysis.hasOwnProperty(metadataKey)) {
 			correlationAnalysis[meatadataKey]={};
 		}
-	});
 
-	['topics', 'regions'].forEach( taxonomy => {
 		if (! correlationAnalysis.primaryTheme.hasOwnProperty(taxonomy)) {
 			correlationAnalysis.primaryTheme[taxonomy]={};
 		}
+
+		// loop over each name/count pair, flesh out articles details
+		correlationAnalysis[metadataKey][taxonomy].forEach(nameAndCount => {
+			const name = nameAndCount[0];
+			const csv = [metadataKey,taxonomy,name].join(':');
+			// debug(`facetsWithArticles: /aggregations/:template csv=${csv}`);
+			const articlesDetails = genreNewsStuff.articlesByMetadataCsv[csv].map(uuid => {
+				return {
+					uuid
+				};
+			});
+
+			nameAndCount.push(articlesDetails);
+		})
+
+
 	})
 
-	res.render(`facetsWithArticles/aggregations/basic1`, {data: correlationAnalysis});
+	res.render(`facetsWithArticles/aggregations/${template}`, {data: correlationAnalysis});
 });
 
 
