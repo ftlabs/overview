@@ -1,197 +1,193 @@
 html,
 body {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-	background: #fff1e5;
-	font-family: 'MetricWeb', sans-serif;
+  background: #fff1e5;
+  font-family: "MetricWeb", sans-serif;
 }
 
 h1 {
-	font-family: 'FinancierDisplayWeb', serif;
-    text-transform: capitalize;
+  font-family: "FinancierDisplayWeb", serif;
+  text-transform: capitalize;
 }
 
 h2 {
-	font-family: 'FinancierDisplayWeb', serif;
-    text-transform: capitalize;
+  font-family: "FinancierDisplayWeb", serif;
+  text-transform: capitalize;
 }
 
 /*
  * Visual Three
  */
 .three .header {
-	display: grid;
-	grid-template-columns: 20% 70%;
-	grid-template-rows: 50%;
-	grid-template-areas: 
-		"image name";
-	margin-bottom: 15px;
+  display: grid;
+  grid-template-columns: 20% 70%;
+  grid-template-rows: 50%;
+  grid-template-areas: "image name";
+  margin-bottom: 15px;
 }
 
 .three .header .image {
-	grid-area: image;
+  grid-area: image;
 
-	background: #0F5499;
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
-    color: white;
+  background: #0f5499;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  color: white;
 }
 .three .header .image p {
-	text-align: center;
-	font-size: 23px;
-    line-height: 5px;
+  text-align: center;
+  font-size: 23px;
+  line-height: 5px;
 }
 .three .header .name {
-	grid-area: name;
+  grid-area: name;
 }
 .three .header .name p {
-	margin: 0;
-	padding: 5px;
+  margin: 0;
+  padding: 5px;
 }
 .three .header .name span {
-	margin: 0;
-	padding: 5px;
+  margin: 0;
+  padding: 5px;
 }
 .three .header .name .facets {
-	font-size: 14px;
+  font-size: 14px;
 }
 .three .row {
-	padding: 20px;
+  padding: 20px;
 }
 .three .row:first-child {
-	background-color: #99C6FB;
-	border-radius: 3px;
+  background-color: #99c6fb;
+  border-radius: 3px;
 }
 .three .o-teaser--small {
-	border-bottom: 1px solid #999999;
+  border-bottom: 1px solid #999999;
 }
 
-@media (min-width: 46.25em){
-	.three .o-grid-row {
-		margin-left: 0px;
-	}
+@media (min-width: 46.25em) {
+  .three .o-grid-row {
+    margin-left: 0px;
+  }
 }
-
 
 /*
  * Visual Four
  */
 .four .bubble {
-	background-color: #F2DFCE;
-	width: 250px;
-	height: 250px;
-	border-radius: 250px;
-    position: relative;
-	overflow: hidden;
-	text-align: center;
-	margin: 0 25px 25px 0;
+  background-color: #f2dfce;
+  width: 250px;
+  height: 250px;
+  border-radius: 250px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  margin: 0 25px 25px 0;
 }
 .four .bubble .imgHolder {
-	margin-top: -40px;
-    width: 100%;
-    position: relative;
-    display: block;
-    height: 65%;
-    overflow: hidden;
+  margin-top: -40px;
+  width: 100%;
+  position: relative;
+  display: block;
+  height: 65%;
+  overflow: hidden;
 }
 .four .bubble .imgHolder img {
-	position: absolute;
-    top: 40px;
-    left: 0;
-    right: 0;
-    width: 100%;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  width: 100%;
 }
 .four .bubble p {
-	margin: 10px 0 15px;
-	font-size: 20px;
-	font-family: 'FinancierDisplayWeb', serif;
-	text-transform: capitalize;
+  padding: 10px 0;
+  margin: 0px 0 10px 0;
+  font-size: 20px;
+  font-family: "FinancierDisplayWeb", serif;
+  text-transform: capitalize;
+  background-color: #99c6fb;
+}
+.four .bubble:first-child p {
+  background-color: #4e96eb;
 }
 .four .bubble .article {
-	padding: 0 30px;
+  padding: 0 30px;
 }
 .four .bubble .article a {
-	color: black;
+  color: black;
 }
 
-@media (min-width: 46.25em){
-	.four .o-grid-row {
-		margin-left: 0px;
-	}
+@media (min-width: 46.25em) {
+  .four .o-grid-row {
+    margin-left: 0px;
+  }
 }
-
-
 
 /*
  * Visual Five
  */
 .five .o-grid-row {
-	width: 300%;
-	overflow-x: scroll;
+  width: 300%;
+  overflow-x: scroll;
 }
 .five .circle {
-	background: #F2DFCE;
-	text-align: center;
-	height: 100px;
-    width: 100px;
-	border-radius: 100px;
-	margin-right: 5px;
-	margin-top: 50px;
+  background: #f2dfce;
+  text-align: center;
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  margin-right: 5px;
+  margin-top: 50px;
 }
 .five .circle .circleContents {
-	margin-top: 30px;
+  margin-top: 30px;
 }
 .five .circle .circleContents .name {
-	margin-bottom: 10px;
-	font-size: 13px;
-	font-family: 'FinancierDisplayWeb', serif;
-	text-transform: capitalize;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-family: "FinancierDisplayWeb", serif;
+  text-transform: capitalize;
 }
 
 .five .circle:first-child {
-	height: 200px;
-	width: 200px;
-	margin-top: 0;
+  height: 200px;
+  width: 200px;
+  margin-top: 0;
 }
 .five .circle:first-child .circleContents {
-	margin-top: 35px;
+  margin-top: 35px;
 }
 .five .circle:first-child .circleContents .name {
-	margin-bottom: 15px;
-	font-size: 20px;
+  margin-bottom: 15px;
+  font-size: 20px;
 }
 .five .circle:first-child .square {
-	width: 25px;
-	height: 25px;
+  width: 25px;
+  height: 25px;
 }
-
 
 .five .circle:first-child {
-    background: #FF8833
+  background: #ff8833;
 }
 .five .circle .articles {
-	margin: 0 auto;
-	width: 75%;
+  margin: 0 auto;
+  width: 75%;
 }
 .five .circle .articles a {
-	text-decoration: none;
+  text-decoration: none;
 }
 .five .square {
-	background: grey;
-	border: 1px solid #666;
-	display: inline-block;
-	width: 15px;
-	height: 15px;
-	margin: 1px;
+  background: grey;
+  border: 1px solid #666;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin: 1px;
 }
 .five .square a {
-	text-decoration: none;
-}
-
-p:nth-child(2) {
-    background: #FF8833
+  text-decoration: none;
 }
