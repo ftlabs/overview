@@ -1,0 +1,26 @@
+<div class="o-teaser o-teaser--small  o-teaser--image-position-left  o-teaser--has-image " data-o-component="o-teaser">
+	<div class="o-teaser__content">
+		<div class="o-teaser__meta">
+
+			{{#if tag}}
+			<a href="#" class="o-teaser__tag">{{tag}}</a>
+			{{/if}}
+
+		</div>
+
+		{{#if url}}
+		<h2 class="o-teaser__heading">
+			<a href="{{url}}">{{title}}</a>
+		</h2>
+		{{/if}}
+
+
+	</div>
+	{{#if image}}
+	<div class="o-teaser__image-container">
+		<div class="o-teaser__image-placeholder image-placeholder">
+			<img src="{{image}}" class="o-teaser__image" alt="demo image">
+		</div>
+	</div>
+	{{/if}}
+</div>
