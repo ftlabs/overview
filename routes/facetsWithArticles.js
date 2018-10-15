@@ -94,7 +94,7 @@ router.get('/articlesAggregation/visual_3', async (req, res, next) => {
 	const days = ( req.query.days ) ? req.query.days : 1;
 	const results = await article.getArticlesAggregation( days );
 	res.render("facetsWithArticles/articlesAggregation/visual_3", {
-		data: topPeopleFilter(results)
+		data: topPeopleFilter(results, 3)
 	} );
 });
 
@@ -102,7 +102,7 @@ router.get('/articlesAggregation/visual_4', async (req, res, next) => {
 	const days = ( req.query.days ) ? req.query.days : 1;
 	const results = await article.getArticlesAggregation( days );
 	res.render("facetsWithArticles/articlesAggregation/visual_4", {
-		data: results
+		data: topPeopleFilter(results, 3, 1)
 	} );
 });
 
@@ -146,7 +146,7 @@ router.get('/articlesAggregation', async (req, res, next) => {
 
 
 
-function topPeopleFilter(results){
+function topPeopleFilter(results, peopleLimit = 3, articleLimit = 2){
 	const genreNews = results.aggregationsByGenre['genre:genre:News'];
 
 	let people = genreNews.correlationAnalysis.people.people;
@@ -162,7 +162,7 @@ function topPeopleFilter(results){
 			return genreNews.articlesByUuid[article];
 		});
 
-		people['articles'] = people['articles'].splice(0,2);
+		people['articles'] = people['articles'].splice(0, articleLimit);
 
 
 		/*
@@ -218,9 +218,19 @@ function topPeopleFilter(results){
 		*/
 		const matches = people['name'].match(/\b(\w)/g);
 		people['spotData'] = matches.join('');
+
+		/*
+		* Set image - from first article
+		*/
+		people['image'] = '';
+		people['articles'].forEach(article => {
+			if(article.images[0] !== undefined && people['image'] === ""){
+				people['image'] = article.images[0].url;
+			}
+		});
 	});
 
-	return data.splice(0,3);
+	return data.splice(0, peopleLimit);
 }
 
 

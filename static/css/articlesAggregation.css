@@ -75,3 +75,60 @@ h2 {
 		margin-left: 0px;
 	}
 }
+
+
+/*
+ * Visual Four
+ */
+.four .bubble {
+	background-color: #F2DFCE;
+	width: 250px;
+	height: 250px;
+	border-radius: 250px;
+    position: relative;
+	overflow: hidden;
+	text-align: center;
+	margin: 0 25px 25px 0;
+}
+.four .bubble .imgHolder {
+	margin-top: -40px;
+    width: 100%;
+    position: relative;
+    display: block;
+    height: 65%;
+    overflow: hidden;
+}
+.four .bubble .imgHolder img {
+	position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+.four .bubble p {
+	margin: 10px 0 15px;
+	font-size: 20px;
+	font-family: 'FinancierDisplayWeb', serif;
+	text-transform: capitalize;
+}
+.four .bubble .article {
+	padding: 0 30px;
+}
+.four .bubble .article a {
+	color: black;
+}
+
+@media (min-width: 46.25em){
+	.four .o-grid-row {
+		margin-left: 0px;
+	}
+}
+
+
+
+/*
+ * Visual Five
+ */
+ .five {
+
+ }
