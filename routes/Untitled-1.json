@@ -1,0 +1,1121 @@
+[
+  {
+    "name": "Brexit",
+    "size": "600px",
+    "score": 6,
+    "articles": [
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "2e407a74-d06a-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/2e407a74-d06a-11e8-a9f2-7574db66bcd5",
+        "title": { "title": "EU gives UK 24-hour Brexit deadline" },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-15T12:08:01Z",
+          "lastPublishDateTime": "2018-10-15T13:36:32Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/2e407a74-d06a-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "Brussels is giving Britain a day to settle its position on Brexit before deciding how to respond to Prime Minister..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "2e407a74-d06a-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": {
+          "subheading": "Brussels waits to see if Theresa May can muster cabinet support for exit deal",
+          "byline": "Mehreen Khan and Alex Barker in Brussels and George Parker in London"
+        },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": { "name": "UK politics & policy", "taxonomy": "sections" }
+          },
+          "primaryTheme": {
+            "term": { "name": "Brexit", "taxonomy": "topics" }
+          },
+          "authors": [
+            { "term": { "name": "George Parker", "taxonomy": "authors" } },
+            { "term": { "name": "Mehreen Khan", "taxonomy": "authors" } },
+            { "term": { "name": "Alex Barker", "taxonomy": "authors" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "organisations": [
+            {
+              "term": { "name": "European Union", "taxonomy": "organisations" }
+            }
+          ],
+          "people": [
+            { "term": { "name": "Theresa May", "taxonomy": "people" } }
+          ],
+          "regions": [
+            { "term": { "name": "UK", "taxonomy": "regions" } },
+            { "term": { "name": "Europe", "taxonomy": "regions" } }
+          ],
+          "sections": [
+            { "term": { "name": "Theresa May", "taxonomy": "sections" } },
+            { "term": { "name": "Brexit", "taxonomy": "sections" } },
+            {
+              "term": { "name": "UK politics & policy", "taxonomy": "sections" }
+            },
+            { "term": { "name": "Europe", "taxonomy": "sections" } },
+            { "term": { "name": "UK", "taxonomy": "sections" } },
+            { "term": { "name": "General News", "taxonomy": "sections" } },
+            { "term": { "name": "European Union", "taxonomy": "sections" } },
+            { "term": { "name": "EU foreign policy", "taxonomy": "sections" } },
+            { "term": { "name": "World", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } }
+          ],
+          "topics": [
+            { "term": { "name": "EU foreign policy", "taxonomy": "topics" } },
+            { "term": { "name": "World", "taxonomy": "topics" } },
+            { "term": { "name": "Brexit", "taxonomy": "topics" } },
+            { "term": { "name": "UK politics & policy", "taxonomy": "topics" } }
+          ]
+        },
+        "images": [
+          {
+            "url": "https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2Fac0fd098-d075-11e8-9a3c-5d5eac8f1ab4?source=search&fit=scale-down&width=167",
+            "type": "secondary"
+          }
+        ],
+        "metadataCsvs": []
+      },
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "bfffa642-d079-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/bfffa642-d079-11e8-a9f2-7574db66bcd5",
+        "title": {
+          "title": "Brexit talks could drag into December warns Ireland’s Varadkar"
+        },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-15T13:05:06Z",
+          "lastPublishDateTime": "2018-10-15T13:05:06Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/bfffa642-d079-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "Ireland has raised the prospect of deadlocked Brexit talks slipping into December, saying a no-deal withdrawal from the..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "bfffa642-d079-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": { "byline": "Arthur Beesley in Dublin" },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": { "name": "Europe", "taxonomy": "sections" }
+          },
+          "primaryTheme": {
+            "term": { "name": "Brexit", "taxonomy": "topics" }
+          },
+          "authors": [
+            { "term": { "name": "Arthur Beesley", "taxonomy": "authors" } }
+          ],
+          "brand": [
+            { "term": { "name": "fastFT", "taxonomy": "brand" } },
+            { "term": { "name": "Financial Times", "taxonomy": "brand" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "organisations": [
+            {
+              "term": { "name": "European Union", "taxonomy": "organisations" }
+            }
+          ],
+          "people": [
+            { "term": { "name": "Leo Varadkar", "taxonomy": "people" } }
+          ],
+          "regions": [
+            { "term": { "name": "Ireland", "taxonomy": "regions" } },
+            { "term": { "name": "UK", "taxonomy": "regions" } },
+            { "term": { "name": "Europe", "taxonomy": "regions" } }
+          ],
+          "sections": [
+            { "term": { "name": "fastFT", "taxonomy": "sections" } },
+            { "term": { "name": "Brexit", "taxonomy": "sections" } },
+            { "term": { "name": "Ireland", "taxonomy": "sections" } },
+            { "term": { "name": "Europe", "taxonomy": "sections" } },
+            { "term": { "name": "UK", "taxonomy": "sections" } },
+            { "term": { "name": "European Union", "taxonomy": "sections" } },
+            { "term": { "name": "Leo Varadkar", "taxonomy": "sections" } },
+            { "term": { "name": "World", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } },
+            { "term": { "name": "Financial Times", "taxonomy": "sections" } }
+          ],
+          "topics": [
+            { "term": { "name": "World", "taxonomy": "topics" } },
+            { "term": { "name": "Brexit", "taxonomy": "topics" } }
+          ]
+        },
+        "images": [
+          {
+            "url": "https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F8670024a-d07a-11e8-a9f2-7574db66bcd5?source=search&fit=scale-down&width=167",
+            "type": "secondary"
+          }
+        ],
+        "metadataCsvs": []
+      },
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "9b3b6d2e-d064-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/9b3b6d2e-d064-11e8-a9f2-7574db66bcd5",
+        "title": {
+          "title": "May to address UK parliament on state of Brexit talks"
+        },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-15T10:41:21Z",
+          "lastPublishDateTime": "2018-10-15T10:41:21Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/9b3b6d2e-d064-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "Theresa May will give a Commons statement on the state of Brexit negotiations on Monday afternoon. Downing Street said..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "9b3b6d2e-d064-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": { "byline": "George Parker" },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": { "name": "UK politics & policy", "taxonomy": "sections" }
+          },
+          "primaryTheme": {
+            "term": { "name": "Brexit", "taxonomy": "topics" }
+          },
+          "authors": [
+            { "term": { "name": "George Parker", "taxonomy": "authors" } }
+          ],
+          "brand": [
+            { "term": { "name": "fastFT", "taxonomy": "brand" } },
+            { "term": { "name": "Financial Times", "taxonomy": "brand" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "organisations": [
+            {
+              "term": { "name": "European Union", "taxonomy": "organisations" }
+            },
+            {
+              "term": {
+                "name": "House of Commons UK",
+                "taxonomy": "organisations"
+              }
+            }
+          ],
+          "people": [
+            { "term": { "name": "Theresa May", "taxonomy": "people" } }
+          ],
+          "regions": [{ "term": { "name": "UK", "taxonomy": "regions" } }],
+          "sections": [
+            { "term": { "name": "Theresa May", "taxonomy": "sections" } },
+            { "term": { "name": "fastFT", "taxonomy": "sections" } },
+            { "term": { "name": "Brexit", "taxonomy": "sections" } },
+            {
+              "term": { "name": "House of CommonsUK", "taxonomy": "sections" }
+            },
+            {
+              "term": { "name": "UK politics & policy", "taxonomy": "sections" }
+            },
+            { "term": { "name": "UK", "taxonomy": "sections" } },
+            { "term": { "name": "General News", "taxonomy": "sections" } },
+            { "term": { "name": "European Union", "taxonomy": "sections" } },
+            { "term": { "name": "World", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } },
+            { "term": { "name": "Financial Times", "taxonomy": "sections" } }
+          ],
+          "topics": [
+            { "term": { "name": "World", "taxonomy": "topics" } },
+            { "term": { "name": "Brexit", "taxonomy": "topics" } },
+            { "term": { "name": "UK politics & policy", "taxonomy": "topics" } }
+          ]
+        },
+        "images": [
+          {
+            "url": "https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2Fc77408fa-d065-11e8-a9f2-7574db66bcd5?source=search&fit=scale-down&width=167",
+            "type": "secondary"
+          }
+        ],
+        "metadataCsvs": []
+      },
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "aa9b9bda-d056-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/aa9b9bda-d056-11e8-a9f2-7574db66bcd5",
+        "title": {
+          "title": "Irish deputy PM voices ‘frustration’ at Brexit impasse"
+        },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-15T08:50:32Z",
+          "lastPublishDateTime": "2018-10-15T08:50:32Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/aa9b9bda-d056-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "Ireland’s government has voiced its “frustration” over a deadlock in Brexit talks, warning it will now take longer for..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "aa9b9bda-d056-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": { "byline": "Mehreen Khan" },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": { "name": "Europe", "taxonomy": "sections" }
+          },
+          "primaryTheme": {
+            "term": { "name": "Brexit", "taxonomy": "topics" }
+          },
+          "authors": [
+            { "term": { "name": "Mehreen Khan", "taxonomy": "authors" } }
+          ],
+          "brand": [
+            { "term": { "name": "fastFT", "taxonomy": "brand" } },
+            { "term": { "name": "Financial Times", "taxonomy": "brand" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "organisations": [
+            {
+              "term": { "name": "European Union", "taxonomy": "organisations" }
+            }
+          ],
+          "people": [
+            { "term": { "name": "Simon Coveney", "taxonomy": "people" } }
+          ],
+          "regions": [
+            { "term": { "name": "Ireland", "taxonomy": "regions" } },
+            { "term": { "name": "Northern Ireland", "taxonomy": "regions" } },
+            { "term": { "name": "UK", "taxonomy": "regions" } },
+            { "term": { "name": "Europe", "taxonomy": "regions" } }
+          ],
+          "sections": [
+            { "term": { "name": "EU trade", "taxonomy": "sections" } },
+            { "term": { "name": "UK trade", "taxonomy": "sections" } },
+            { "term": { "name": "Europe", "taxonomy": "sections" } },
+            { "term": { "name": "UK", "taxonomy": "sections" } },
+            { "term": { "name": "European Union", "taxonomy": "sections" } },
+            { "term": { "name": "fastFT", "taxonomy": "sections" } },
+            { "term": { "name": "Brexit", "taxonomy": "sections" } },
+            { "term": { "name": "Simon Coveney", "taxonomy": "sections" } },
+            { "term": { "name": "Northern Ireland", "taxonomy": "sections" } },
+            { "term": { "name": "Ireland", "taxonomy": "sections" } },
+            { "term": { "name": "World", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } },
+            { "term": { "name": "Financial Times", "taxonomy": "sections" } }
+          ],
+          "topics": [
+            { "term": { "name": "EU trade", "taxonomy": "topics" } },
+            { "term": { "name": "World", "taxonomy": "topics" } },
+            { "term": { "name": "Brexit", "taxonomy": "topics" } },
+            { "term": { "name": "UK trade", "taxonomy": "topics" } }
+          ]
+        },
+        "images": [],
+        "metadataCsvs": []
+      },
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "e5ecd62a-cfcc-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/e5ecd62a-cfcc-11e8-a9f2-7574db66bcd5",
+        "title": {
+          "title": "Brexit talks reach stand-off as May brands draft deal a ‘non-starter’"
+        },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-14T18:44:20Z",
+          "lastPublishDateTime": "2018-10-15T07:31:50Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/e5ecd62a-cfcc-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "Brexit talks have reached a dramatic stand-off just two days ahead of a high stakes EU summit after Theresa May warned a..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "e5ecd62a-cfcc-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": {
+          "subheading": "Prospect of complete breakdown increases after tense Raab-Barnier meeting",
+          "byline": "George Parker in London and Alex Barker in Brussels"
+        },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": { "name": "UK politics & policy", "taxonomy": "sections" }
+          },
+          "primaryTheme": {
+            "term": { "name": "Brexit", "taxonomy": "topics" }
+          },
+          "authors": [
+            { "term": { "name": "George Parker", "taxonomy": "authors" } },
+            { "term": { "name": "Alex Barker", "taxonomy": "authors" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "organisations": [
+            {
+              "term": { "name": "European Union", "taxonomy": "organisations" }
+            },
+            {
+              "term": {
+                "name": "Conservative Party UK",
+                "taxonomy": "organisations"
+              }
+            },
+            {
+              "term": {
+                "name": "DUP Democratic Unionist Party UK",
+                "taxonomy": "organisations"
+              }
+            }
+          ],
+          "people": [
+            { "term": { "name": "Dominic Raab", "taxonomy": "people" } }
+          ],
+          "regions": [{ "term": { "name": "UK", "taxonomy": "regions" } }],
+          "sections": [
+            {
+              "term": {
+                "name": "DUP Democratic Unionist Party UK",
+                "taxonomy": "sections"
+              }
+            },
+            { "term": { "name": "Dominic Raab", "taxonomy": "sections" } },
+            { "term": { "name": "EU trade", "taxonomy": "sections" } },
+            { "term": { "name": "UK trade", "taxonomy": "sections" } },
+            { "term": { "name": "Brexit", "taxonomy": "sections" } },
+            {
+              "term": { "name": "UK politics & policy", "taxonomy": "sections" }
+            },
+            {
+              "term": {
+                "name": "Conservative Party UK",
+                "taxonomy": "sections"
+              }
+            },
+            { "term": { "name": "UK", "taxonomy": "sections" } },
+            { "term": { "name": "European Union", "taxonomy": "sections" } },
+            { "term": { "name": "World", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } }
+          ],
+          "topics": [
+            { "term": { "name": "EU trade", "taxonomy": "topics" } },
+            { "term": { "name": "World", "taxonomy": "topics" } },
+            { "term": { "name": "UK trade", "taxonomy": "topics" } },
+            { "term": { "name": "Brexit", "taxonomy": "topics" } },
+            { "term": { "name": "UK politics & policy", "taxonomy": "topics" } }
+          ]
+        },
+        "images": [
+          {
+            "url": "https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F370ea28e-cfd9-11e8-9a3c-5d5eac8f1ab4?source=search&fit=scale-down&width=167",
+            "type": "secondary"
+          }
+        ],
+        "metadataCsvs": []
+      },
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "29dccce2-c63f-11e8-ba8f-ee390057b8c9",
+        "apiUrl": "https://api.ft.com/content/29dccce2-c63f-11e8-ba8f-ee390057b8c9",
+        "title": { "title": "Brexit countdown: all you need to know" },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-15T05:51:00Z",
+          "lastPublishDateTime": "2018-10-15T05:51:00Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/29dccce2-c63f-11e8-ba8f-ee390057b8c9"
+        },
+        "summary": {
+          "excerpt": "As the climax of Britain’s negotiations with the EU approaches, the FT provides answers to the big questions about..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "29dccce2-c63f-11e8-ba8f-ee390057b8c9"
+        },
+        "editorial": {
+          "subheading": "As the deadline looms, the FT looks at the exit checklist and economic implications",
+          "byline": "FT reporters"
+        },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": { "name": "Europe", "taxonomy": "sections" }
+          },
+          "primaryTheme": {
+            "term": { "name": "Brexit", "taxonomy": "topics" }
+          },
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "organisations": [
+            {
+              "term": { "name": "European Union", "taxonomy": "organisations" }
+            }
+          ],
+          "regions": [
+            { "term": { "name": "UK", "taxonomy": "regions" } },
+            { "term": { "name": "Europe", "taxonomy": "regions" } }
+          ],
+          "sections": [
+            { "term": { "name": "Brexit", "taxonomy": "sections" } },
+            { "term": { "name": "Europe", "taxonomy": "sections" } },
+            { "term": { "name": "UK", "taxonomy": "sections" } },
+            { "term": { "name": "European Union", "taxonomy": "sections" } },
+            { "term": { "name": "World", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } }
+          ],
+          "topics": [
+            { "term": { "name": "World", "taxonomy": "topics" } },
+            { "term": { "name": "Brexit", "taxonomy": "topics" } }
+          ]
+        },
+        "images": [
+          {
+            "url": "https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F938eface-31ad-11e8-ac48-10c6fdc22f03?source=search&fit=scale-down&width=167",
+            "type": "secondary"
+          }
+        ],
+        "metadataCsvs": []
+      }
+    ],
+    "metadata": [
+      { "name": "Theresa May", "count": 2 },
+      { "name": "European Union", "count": 6 },
+      { "name": "Leo Varadkar", "count": 1 },
+      { "name": "House of Commons UK", "count": 1 },
+      { "name": "Simon Coveney", "count": 1 },
+      { "name": "Dominic Raab", "count": 1 },
+      { "name": "Conservative Party UK", "count": 1 },
+      { "name": "DUP Democratic Unionist Party UK", "count": 1 }
+    ]
+  },
+  {
+    "name": "USeconomy",
+    "size": "200px",
+    "score": 2,
+    "articles": [
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "dd83dd94-d071-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/dd83dd94-d071-11e8-a9f2-7574db66bcd5",
+        "title": {
+          "title": "US retail sales notch back-to-back months of unexpectedly weak growth"
+        },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-15T12:52:25Z",
+          "lastPublishDateTime": "2018-10-15T12:52:25Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/dd83dd94-d071-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "US consumers kept their wallets closed again in September, making for back-to-back months of unexpectedly weak spending..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "dd83dd94-d071-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": { "byline": "Peter Wells" },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": { "name": "US", "taxonomy": "sections" }
+          },
+          "primaryTheme": {
+            "term": { "name": "US economy", "taxonomy": "topics" }
+          },
+          "authors": [
+            { "term": { "name": "Peter Wells", "taxonomy": "authors" } }
+          ],
+          "brand": [
+            { "term": { "name": "fastFT", "taxonomy": "brand" } },
+            { "term": { "name": "Financial Times", "taxonomy": "brand" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "regions": [{ "term": { "name": "US", "taxonomy": "regions" } }],
+          "sections": [
+            { "term": { "name": "US", "taxonomy": "sections" } },
+            { "term": { "name": "fastFT", "taxonomy": "sections" } },
+            {
+              "term": { "name": "Economic Indicators", "taxonomy": "sections" }
+            },
+            { "term": { "name": "Economy", "taxonomy": "sections" } },
+            { "term": { "name": "US economy", "taxonomy": "sections" } },
+            { "term": { "name": "Retail Sales", "taxonomy": "sections" } },
+            { "term": { "name": "World", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } },
+            { "term": { "name": "Financial Times", "taxonomy": "sections" } }
+          ],
+          "topics": [
+            { "term": { "name": "World", "taxonomy": "topics" } },
+            { "term": { "name": "US economy", "taxonomy": "topics" } },
+            { "term": { "name": "Economy", "taxonomy": "topics" } }
+          ]
+        },
+        "images": [],
+        "metadataCsvs": []
+      },
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "fa3419a2-d019-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/fa3419a2-d019-11e8-a9f2-7574db66bcd5",
+        "title": {
+          "title": "Decline of rural US businesses contrasts with prospering cities"
+        },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-15T12:04:21Z",
+          "lastPublishDateTime": "2018-10-15T12:04:21Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/fa3419a2-d019-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "A stark geographic dividein the US economy has been revealed by research that shows four-fifths of rural counties in..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "fa3419a2-d019-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": {
+          "subheading": "Research reveals geographic divide in economy that has become major force in politics",
+          "byline": "Sam Fleming in Washington"
+        },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": { "name": "US", "taxonomy": "sections" }
+          },
+          "primaryTheme": {
+            "term": { "name": "US economy", "taxonomy": "topics" }
+          },
+          "authors": [
+            { "term": { "name": "Sam Fleming", "taxonomy": "authors" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "people": [
+            { "term": { "name": "Hillary Clinton", "taxonomy": "people" } },
+            { "term": { "name": "Sam Fleming", "taxonomy": "people" } },
+            { "term": { "name": "Donald Trump", "taxonomy": "people" } }
+          ],
+          "regions": [{ "term": { "name": "US", "taxonomy": "regions" } }],
+          "sections": [
+            { "term": { "name": "Hillary Clinton", "taxonomy": "sections" } },
+            { "term": { "name": "US", "taxonomy": "sections" } },
+            { "term": { "name": "Donald Trump", "taxonomy": "sections" } },
+            {
+              "term": { "name": "US politics & policy", "taxonomy": "sections" }
+            },
+            { "term": { "name": "Economy", "taxonomy": "sections" } },
+            { "term": { "name": "US economy", "taxonomy": "sections" } },
+            { "term": { "name": "US society", "taxonomy": "sections" } },
+            { "term": { "name": "World", "taxonomy": "sections" } },
+            { "term": { "name": "US inequality", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } }
+          ],
+          "topics": [
+            { "term": { "name": "US society", "taxonomy": "topics" } },
+            { "term": { "name": "US inequality", "taxonomy": "topics" } },
+            { "term": { "name": "World", "taxonomy": "topics" } },
+            { "term": { "name": "US economy", "taxonomy": "topics" } },
+            { "term": { "name": "Economy", "taxonomy": "topics" } },
+            { "term": { "name": "US politics & policy", "taxonomy": "topics" } }
+          ]
+        },
+        "images": [
+          {
+            "url": "https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F472f698a-d06c-11e8-9a3c-5d5eac8f1ab4?source=search&fit=scale-down&width=167",
+            "type": "secondary"
+          }
+        ],
+        "metadataCsvs": []
+      }
+    ],
+    "metadata": [
+      { "name": "Hillary Clinton", "count": 1 },
+      { "name": "Sam Fleming", "count": 1 },
+      { "name": "Donald Trump", "count": 1 }
+    ]
+  },
+  {
+    "name": "Pound Sterling",
+    "size": "200px",
+    "score": 2,
+    "articles": [
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "c14072bc-d00f-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/c14072bc-d00f-11e8-a9f2-7574db66bcd5",
+        "title": { "title": "Pound weakens as Brexit talks stumble" },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-15T00:46:15Z",
+          "lastPublishDateTime": "2018-10-15T07:41:37Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/c14072bc-d00f-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "The pound weakened on Monday after Brexit talks reached a  stand-off in Brussels ahead of a summit on Wednesday. In..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "c14072bc-d00f-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": {
+          "byline": "Alice Woodhouse in Hong Kong and Federica Cocco in London"
+        },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": { "name": "Currencies", "taxonomy": "sections" }
+          },
+          "primaryTheme": {
+            "term": { "name": "Pound Sterling", "taxonomy": "topics" }
+          },
+          "authors": [
+            { "term": { "name": "Federica Cocco", "taxonomy": "authors" } },
+            { "term": { "name": "Alice Woodhouse", "taxonomy": "authors" } }
+          ],
+          "brand": [
+            { "term": { "name": "fastFT", "taxonomy": "brand" } },
+            { "term": { "name": "Financial Times", "taxonomy": "brand" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "sections": [
+            { "term": { "name": "fastFT", "taxonomy": "sections" } },
+            { "term": { "name": "Foreign exchange", "taxonomy": "sections" } },
+            { "term": { "name": "Pound Sterling", "taxonomy": "sections" } },
+            { "term": { "name": "Currencies", "taxonomy": "sections" } },
+            { "term": { "name": "Markets", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } },
+            { "term": { "name": "Financial Times", "taxonomy": "sections" } }
+          ],
+          "topics": [
+            { "term": { "name": "Markets", "taxonomy": "topics" } },
+            { "term": { "name": "Currencies", "taxonomy": "topics" } },
+            { "term": { "name": "Foreign exchange", "taxonomy": "topics" } },
+            { "term": { "name": "Pound Sterling", "taxonomy": "topics" } }
+          ]
+        },
+        "images": [],
+        "metadataCsvs": []
+      },
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "4ed93de4-d032-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/4ed93de4-d032-11e8-a9f2-7574db66bcd5",
+        "title": {
+          "title": "Pound weakens on Brexit stalemate, oil rises as Saudi Arabia hits back"
+        },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-15T04:58:29Z",
+          "lastPublishDateTime": "2018-10-15T04:58:29Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/4ed93de4-d032-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "Asia stocks resumed declines on Monday as concerns over US rateslingered, while the pound fell following a Brexit..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "4ed93de4-d032-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": { "byline": "Alice Woodhouse in Hong Kong" },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": { "name": "Markets", "taxonomy": "sections" }
+          },
+          "primaryTheme": {
+            "term": { "name": "Pound Sterling", "taxonomy": "topics" }
+          },
+          "authors": [
+            { "term": { "name": "Alice Woodhouse", "taxonomy": "authors" } }
+          ],
+          "brand": [
+            { "term": { "name": "fastFT", "taxonomy": "brand" } },
+            { "term": { "name": "Financial Times", "taxonomy": "brand" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "sections": [
+            { "term": { "name": "Oil", "taxonomy": "sections" } },
+            { "term": { "name": "fastFT", "taxonomy": "sections" } },
+            { "term": { "name": "Foreign exchange", "taxonomy": "sections" } },
+            { "term": { "name": "Commodities", "taxonomy": "sections" } },
+            { "term": { "name": "Pound Sterling", "taxonomy": "sections" } },
+            { "term": { "name": "Currencies", "taxonomy": "sections" } },
+            { "term": { "name": "Markets", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } },
+            { "term": { "name": "Financial Times", "taxonomy": "sections" } }
+          ],
+          "topics": [
+            { "term": { "name": "Commodities", "taxonomy": "topics" } },
+            { "term": { "name": "Markets", "taxonomy": "topics" } },
+            { "term": { "name": "Currencies", "taxonomy": "topics" } },
+            { "term": { "name": "Foreign exchange", "taxonomy": "topics" } },
+            { "term": { "name": "Pound Sterling", "taxonomy": "topics" } },
+            { "term": { "name": "Oil", "taxonomy": "topics" } }
+          ]
+        },
+        "images": [],
+        "metadataCsvs": []
+      }
+    ],
+    "metadata": []
+  },
+  {
+    "name": "Saudi Arabia",
+    "size": "200px",
+    "score": 2,
+    "articles": [
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "0651e208-d067-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/0651e208-d067-11e8-a9f2-7574db66bcd5",
+        "title": {
+          "title": "Schwarzman and Fink latest executives to ditch Saudi conference"
+        },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-15T11:07:11Z",
+          "lastPublishDateTime": "2018-10-15T11:07:11Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/0651e208-d067-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "Blackstone’s Stephen Schwarzman and BlackRock’s Larry Fink have become the latest US executives to withdraw from a high..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "0651e208-d067-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": {
+          "subheading": "Saudi Arabia has faced mounting pressure after disappearance of Jamal Khashoggi",
+          "byline": "Arash Massoudi"
+        },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": {
+              "name": "MiddleEast & North Africa",
+              "taxonomy": "sections"
+            }
+          },
+          "primaryTheme": {
+            "term": { "name": "Saudi Arabia", "taxonomy": "regions" }
+          },
+          "authors": [
+            { "term": { "name": "Arash Massoudi", "taxonomy": "authors" } }
+          ],
+          "brand": [
+            { "term": { "name": "fastFT", "taxonomy": "brand" } },
+            { "term": { "name": "Financial Times", "taxonomy": "brand" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "people": [
+            { "term": { "name": "Larry Fink", "taxonomy": "people" } },
+            { "term": { "name": "Jamal Khashoggi", "taxonomy": "people" } },
+            { "term": { "name": "Stephen Schwarzman", "taxonomy": "people" } }
+          ],
+          "regions": [
+            { "term": { "name": "Saudi Arabia", "taxonomy": "regions" } },
+            {
+              "term": {
+                "name": "Middle East & North Africa",
+                "taxonomy": "regions"
+              }
+            },
+            { "term": { "name": "US", "taxonomy": "regions" } }
+          ],
+          "sections": [
+            { "term": { "name": "US", "taxonomy": "sections" } },
+            { "term": { "name": "fastFT", "taxonomy": "sections" } },
+            { "term": { "name": "Jamal Khashoggi", "taxonomy": "sections" } },
+            {
+              "term": { "name": "Stephen Schwarzman", "taxonomy": "sections" }
+            },
+            { "term": { "name": "Saudi Arabia", "taxonomy": "sections" } },
+            { "term": { "name": "Larry Fink", "taxonomy": "sections" } },
+            {
+              "term": {
+                "name": "Middle East & North Africa",
+                "taxonomy": "sections"
+              }
+            },
+            { "term": { "name": "World", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } },
+            { "term": { "name": "Financial Times", "taxonomy": "sections" } }
+          ],
+          "topics": [{ "term": { "name": "World", "taxonomy": "topics" } }]
+        },
+        "images": [
+          {
+            "url": "https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F6b71bb02-d069-11e8-a9f2-7574db66bcd5?source=search&fit=scale-down&width=167",
+            "type": "secondary"
+          }
+        ],
+        "metadataCsvs": []
+      },
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "d3eb2392-cfad-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/d3eb2392-cfad-11e8-a9f2-7574db66bcd5",
+        "title": {
+          "title": "Saudi Arabia hits back at Trump’s ‘punishment’ warning"
+        },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-14T13:29:59Z",
+          "lastPublishDateTime": "2018-10-15T04:59:49Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/d3eb2392-cfad-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "Saudi Arabia has threatened to use its economic muscle to respond to any punitive measure taken against the kingdom in..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "d3eb2392-cfad-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": {
+          "subheading": "Kingdom vows to use its economic muscle to counter Khashoggi backlash",
+          "byline": "Andrew England in London and Demetri Sevastopulo in Washington"
+        },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": {
+              "name": "Middle East & North Africa",
+              "taxonomy": "sections"
+            }
+          },
+          "primaryTheme": {
+            "term": { "name": "Saudi Arabia", "taxonomy": "regions" }
+          },
+          "authors": [
+            { "term": { "name": "Andrew England", "taxonomy": "authors" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "people": [
+            { "term": { "name": "Mohammed bin Salman", "taxonomy": "people" } },
+            { "term": { "name": "Donald Trump", "taxonomy": "people" } },
+            { "term": { "name": "Jamal Khashoggi", "taxonomy": "people" } }
+          ],
+          "regions": [
+            { "term": { "name": "Saudi Arabia", "taxonomy": "regions" } },
+            {
+              "term": {
+                "name": "Middle East & North Africa",
+                "taxonomy": "regions"
+              }
+            },
+            { "term": { "name": "US", "taxonomy": "regions" } }
+          ],
+          "sections": [
+            { "term": { "name": "Emerging markets", "taxonomy": "sections" } },
+            { "term": { "name": "Jamal Khashoggi", "taxonomy": "sections" } },
+            {
+              "term": { "name": "Mohammed bin Salman", "taxonomy": "sections" }
+            },
+            {
+              "term": { "name": "US politics & policy", "taxonomy": "sections" }
+            },
+            { "term": { "name": "Donald Trump", "taxonomy": "sections" } },
+            { "term": { "name": "New Issues", "taxonomy": "sections" } },
+            { "term": { "name": "Share Structure", "taxonomy": "sections" } },
+            {
+              "term": {
+                "name": "Middle East &North Africa",
+                "taxonomy": "sections"
+              }
+            },
+            { "term": { "name": "US", "taxonomy": "sections" } },
+            { "term": { "name": "US foreign policy", "taxonomy": "sections" } },
+            { "term": { "name": "Human Rights", "taxonomy": "sections" } },
+            { "term": { "name": "Saudi Arabia", "taxonomy": "sections" } },
+            { "term": { "name": "General News", "taxonomy": "sections" } },
+            { "term": { "name": "Rights Issues", "taxonomy": "sections" } },
+            { "term": { "name": "World", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } }
+          ],
+          "topics": [
+            { "term": { "name": "US foreign policy", "taxonomy": "topics" } },
+            { "term": { "name": "Emerging markets", "taxonomy": "topics" } },
+            { "term": { "name": "World", "taxonomy": "topics" } },
+            { "term": { "name": "US politics & policy", "taxonomy": "topics" } }
+          ]
+        },
+        "images": [
+          {
+            "url": "https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F441bf172-cfb4-11e8-9a3c-5d5eac8f1ab4?source=search&fit=scale-down&width=167",
+            "type": "secondary"
+          }
+        ],
+        "metadataCsvs": []
+      }
+    ],
+    "metadata": [
+      { "name": "Larry Fink", "count": 1 },
+      { "name": "Jamal Khashoggi", "count": 2 },
+      { "name": "Stephen Schwarzman", "count": 1 },
+      { "name": "Mohammed bin Salman", "count": 1 },
+      { "name": "Donald Trump", "count": 1 }
+    ]
+  },
+  {
+    "name": "Asia",
+    "size": "200px",
+    "score": 2,
+    "articles": [
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "3ad24c76-d020-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/3ad24c76-d020-11e8-a9f2-7574db66bcd5",
+        "title": {
+          "title": "Asian equities markets slip on lingering rate and tradeworries"
+        },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-15T02:21:03Z",
+          "lastPublishDateTime": "2018-10-15T06:48:18Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/3ad24c76-d020-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "Asia-Pacific equities markets fell on Monday as concerns over rising interest rates and global trade jitters lingered..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "3ad24c76-d020-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": {
+          "subheading": "Declines follow turbulence across global stock markets last week",
+          "byline": "Alice Woodhouse in Hong Kong and Federica Cocco in London"
+        },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": { "name": "Markets", "taxonomy": "sections" }
+          },
+          "primaryTheme": { "term": { "name": "Asia", "taxonomy": "regions" } },
+          "authors": [
+            { "term": { "name": "Federica Cocco", "taxonomy": "authors" } },
+            { "term": { "name": "Alice Woodhouse", "taxonomy": "authors" } }
+          ],
+          "brand": [
+            { "term": { "name": "fastFT", "taxonomy": "brand" } },
+            { "term": { "name": "Financial Times", "taxonomy": "brand" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "regions": [{ "term": { "name": "Asia", "taxonomy": "regions" } }],
+          "sections": [
+            { "term": { "name": "fastFT", "taxonomy": "sections" } },
+            { "term": { "name": "Asia", "taxonomy": "sections" } },
+            { "term": { "name": "Markets", "taxonomy": "sections" } },
+            { "term": { "name": "US equities", "taxonomy": "sections" } },
+            { "term": { "name": "News", "taxonomy": "sections" } },
+            { "term": { "name": "Financial Times", "taxonomy": "sections" } }
+          ],
+          "topics": [
+            { "term": { "name": "Markets", "taxonomy": "topics" } },
+            { "term": { "name": "US equities", "taxonomy": "topics" } }
+          ]
+        },
+        "images": [
+          {
+            "url": "https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fprod-upp-image-read.ft.com%2F8de70e4e-d046-11e8-a9f2-7574db66bcd5?source=search&fit=scale-down&width=167",
+            "type": "secondary"
+          }
+        ],
+        "metadataCsvs": []
+      },
+      {
+        "aspectSet": "article",
+        "modelVersion": "1",
+        "id": "10382be6-d009-11e8-a9f2-7574db66bcd5",
+        "apiUrl": "https://api.ft.com/content/10382be6-d009-11e8-a9f2-7574db66bcd5",
+        "title": { "title": "Fast Asia Open: Indonesia trade, Indiainflation" },
+        "lifecycle": {
+          "initialPublishDateTime": "2018-10-14T23:41:09Z",
+          "lastPublishDateTime": "2018-10-14T23:41:09Z"
+        },
+        "nature": { "category": "article" },
+        "location": {
+          "uri": "https://www.ft.com/content/10382be6-d009-11e8-a9f2-7574db66bcd5"
+        },
+        "summary": {
+          "excerpt": "The US economy faces a looming deceleration as tighter monetary policy starts to weigh on activity and ratchets up..."
+        },
+        "master": {
+          "masterSource": "Methode",
+          "masterEntityId": "10382be6-d009-11e8-a9f2-7574db66bcd5"
+        },
+        "editorial": { "byline": "Edward White" },
+        "provenance": {},
+        "metadata": {
+          "primarySection": {
+            "term": { "name": "Markets", "taxonomy": "sections" }
+          },
+          "primaryTheme": { "term": { "name": "Asia", "taxonomy": "regions" } },
+          "brand": [
+            { "term": { "name": "fastFT", "taxonomy": "brand" } },
+            { "term": { "name": "Financial Times", "taxonomy": "brand" } }
+          ],
+          "genre": [{ "term": { "name": "News", "taxonomy": "genre" } }],
+          "regions": [{ "term": { "name": "Asia", "taxonomy": "regions" } }],
+          "sections": [
+            { "term": { "name": "fastFT", "taxonomy": "sections" } },
+            {
+              "term": { "name": "Economic Indicators", "taxonomy": "sections" }
+            },
+            { "term": { "name": "GDP & GNP", "taxonomy": "sections" } },
+            { "term": { "name": "Asia", "taxonomy": "sections" } },
+            { "term": { "name": "Markets", "taxonomy": "sections" } },
+            {
+              "term": {
+                "name": "Industrial Production",
+                "taxonomy": "sections"
+              }
+            },
+            { "term": { "name": "News", "taxonomy": "sections" } },
+            { "term": { "name": "Financial Times", "taxonomy": "sections" } }
+          ],
+          "topics": [{ "term": { "name": "Markets", "taxonomy": "topics" } }]
+        },
+        "images": [],
+        "metadataCsvs": []
+      }
+    ],
+    "metadata": []
+  }
+]

@@ -6,23 +6,16 @@ router.get("/", async (req, res, next) => {
   res.render("aggregatedMetadataExperiments/index");
 });
 
-router.get("/basic", async (req, res, next) => {
+router.get("/simple", async (req, res, next) => {
   const content = await structureData(req);
-  res.render("aggregatedMetadataExperiments/index", {
+  res.render("aggregatedMetadataExperiments/simple", {
     content
   });
 });
 
-router.get("/particle", async (req, res, next) => {
+router.get("/grid", async (req, res, next) => {
   const content = await structureData(req);
-  res.render("aggregatedMetadataExperiments/particle", {
-    content
-  });
-});
-
-router.get("/hexagon", async (req, res, next) => {
-  const content = await structureData(req);
-  res.render("aggregatedMetadataExperiments/hexagon", {
+  res.render("aggregatedMetadataExperiments/simple", {
     content
   });
 });
@@ -65,7 +58,6 @@ async function structureData(req) {
     });
   });
 
-  console.log(JSON.stringify(content));
   return content;
 }
 
