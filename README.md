@@ -197,6 +197,38 @@ Returns a json reponse with a array of articles, similar to a SAPI request
 
 ---
 
+### /facetsWithArticles/articlesAggregation?days=10&timeslip=100&minCorrelation=3
+
+*Search for all articles in a date range, extract the metadata, group by genre, look for correlations, identify candidate newsworthy topics*
+
+**Params**
+
++ **days** (integer) *default = 1*
++ **facet** (comma-separated string) *default = 'topics'*
++ **timeslip** (integer) *default = 0*, number of days ago
++ **minCorrelation** (integer) *default = 1*, threshold for correlationAnalysis
++ **genres** (comma-separated string) *default = all genres*
++ **payloads** (comma-separated string) *default = all payloads*
+
+```
+{
+...
+aggregationsByGenre : {
+  ...,
+  "genre:genre:News" : {
+    ...,
+    correlationAnalysis : {},
+    articlesByMetadataCsv : {},
+    facetCorrelationsCsv: {},
+    facetCorrelations: {},
+    articlesByMetadataCsv: {},
+    articlesByUuid: {},
+  }
+ }
+}
+```
+---
+
 ## Other APIs to investigate
 
 + UPP (credential request required)
@@ -209,4 +241,3 @@ Returns a json reponse with a array of articles, similar to a SAPI request
 
 + Hyperbolic geometry
 + Relationship trees
-

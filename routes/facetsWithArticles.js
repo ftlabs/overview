@@ -59,13 +59,35 @@ router.get('/relatedContent', async (req, res, next) => {
 });
 
 router.get('/articlesAggregation', async (req, res, next) => {
-	const days = ( req.query.days ) ? req.query.days : 1;
-	const facet = ( req.query.facet ) ? req.query.facet : 'topics';
-	let aspects = ( req.query.aspects ) ? req.query.aspects : undefined;
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	let   aspects        = ( req.query.aspects         ) ? req.query.aspects.split(',')     : undefined;
+	let   facets         = ( req.query.facets          ) ? req.query.facets.split(',')      : undefined;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 2;
+	const payloads       = ( req.query.payloads        ) ? req.query.payloads.split(',')    : []; // default is all
+	const genres         = ( req.query.genres          ) ? req.query.genres.split(',')      : []; // default is all
 
-	if(aspects){ aspects = aspects.split(',') }
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
 
-	const results = await article.getArticlesAggregation( days );
+	if (genres.length > 0) {
+		const aggregationsByGenre = {};
+		genres.forEach( genre => {
+			const genreCsv = `genre:genre:${genre}`;
+			aggregationsByGenre[genreCsv] = results.aggregationsByGenre[genreCsv];
+		});
+		results.aggregationsByGenre = aggregationsByGenre;
+	}
+
+	if (payloads.length > 0) {
+		Object.keys(results.aggregationsByGenre).forEach( genreCsv => {
+			const genreData = {};
+			payloads.forEach( payload => {
+				genreData[payload] = results.aggregationsByGenre[genreCsv][payload];
+			});
+			results.aggregationsByGenre[genreCsv] = genreData;
+		});
+	}
+
 	res.json( results );
 });
 
