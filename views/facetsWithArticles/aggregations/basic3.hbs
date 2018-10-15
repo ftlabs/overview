@@ -12,15 +12,24 @@
 						<tr>
 							<td>
 								{{ this.[0] }}({{this.[1]}})
-						</td>
-						<td>
-							<ul>
-							{{#each this.[2]}}
-								<li>{{title}}</li>
-							{{/each}}
-							</ul>
-						</td>
+							</td>
+							<td>
+								<ul>
+								{{#each this.[2]}}
+									<li>{{title}}</li>
+								{{/each}}
+								</ul>
+							</td>
+						</tr>
 				  {{/each}}
+					<tr>
+						<td>... bubbling under</td>
+						<td>
+							{{#each namesBubblingUnder}}
+							{{this}},
+							{{/each}}
+						</td>
+					</tr>
 				{{/each}}
 			</table>
 

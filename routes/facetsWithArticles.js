@@ -104,6 +104,7 @@ router.get('/aggregations/:template', async (req, res, next) => {
 	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
 	const genreNewsStuff = results.aggregationsByGenre['genre:genre:News'];
 	const correlationAnalysis = genreNewsStuff.correlationAnalysis;
+	const correlationAnalysisBubblingUnder = genreNewsStuff.correlationAnalysisBubblingUnder;
 
 	const metadataKeyPairsForCorrelationAnalysis = [ // lifted from fetchContent:aggregateArticles
 		['primaryTheme', 'topics'],
@@ -150,6 +151,7 @@ router.get('/aggregations/:template', async (req, res, next) => {
 			metadataKey,
 			taxonomy,
 			'topNames' : correlationAnalysis[metadataKey][taxonomy],
+			'namesBubblingUnder' : correlationAnalysisBubblingUnder[metadataKey][taxonomy],
 		} );
 	})
 
