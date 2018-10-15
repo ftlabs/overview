@@ -13,6 +13,9 @@
 			.name {
 				font-size: 120%;
 			}
+			.articles {
+				width: 60%;
+			}
 
 		</style>
 
@@ -24,30 +27,30 @@
 			<table>
 				{{#each groupings}}
 					<tr>
-						<td class="grouping" colspan="2">{{ this.metadataKey }}.{{ this.taxonomy }}</td>
+						<td class="grouping" colspan="3">{{ this.metadataKey }}.{{ this.taxonomy }}</td>
 					</tr>
 					{{#each topNames}}
 						<tr>
 							<td class="name">
 								{{ this.[0] }}
 							</td>
-							<td>
+							<td class="articles">
 								<ul>
 								{{#each this.[2]}}
 									<li>{{title}}</li>
 								{{/each}}
 								</ul>
 							</td>
+							{{#if @first}}
+							<td rowspan="{{../topNames.length}}">
+								... bubbling under<br><br>
+								{{#each ../namesBubblingUnder}}
+								{{{this}}}<br>
+								{{/each}}
+							</td>
+							{{/if}}
 						</tr>
 				  {{/each}}
-					<tr>
-						<td>... bubbling under</td>
-						<td>
-							{{#each namesBubblingUnder}}
-							{{this}},
-							{{/each}}
-						</td>
-					</tr>
 					<tr class="blank_row"></tr>
 				{{/each}}
 			</table>

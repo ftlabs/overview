@@ -147,11 +147,15 @@ router.get('/aggregations/:template', async (req, res, next) => {
 			nameAndCount.push(articlesDetails);
 		})
 
+		const bubblingsNbsp = correlationAnalysisBubblingUnder[metadataKey][taxonomy].map( name => {
+			return name.replace(/\s+/, '&nbsp;');
+		});
+
 		groupings.push( {
 			metadataKey,
 			taxonomy,
 			'topNames' : correlationAnalysis[metadataKey][taxonomy],
-			'namesBubblingUnder' : correlationAnalysisBubblingUnder[metadataKey][taxonomy],
+			'namesBubblingUnder' : bubblingsNbsp,
 		} );
 	})
 
