@@ -16,7 +16,11 @@
 			{{#each data}}
 			<div class="circle">
 				<div class="circleContents">
-					<p class="name">{{name}}</p>
+					<p class="name">
+						<a href="https://www.ft.com/search?q={{safename}}" target="_blank">
+							{{name}}
+						</a>
+					</p>
 					<div class="articles">
 						{{#each articles}}
 						<a href="{{location.uri}}" target="_blank">

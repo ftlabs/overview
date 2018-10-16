@@ -157,10 +157,17 @@ function topTopicFilter(results, topicLimit = 3, articleLimit = 2){
 		});
 
 		topic['articles'] = topic['articles'].splice(0, articleLimit);
+
+		topic['safename'] = urlSafeName(topic.name);
 	});
 
 	return data.splice(0, topicLimit);
 }
+
+function urlSafeName(s){
+	return s.toLowerCase().replace("& ", "").replace(" ", "-");
+}
+
 
 
 function topPeopleFilter(results, peopleLimit = 3, articleLimit = 2){
@@ -245,11 +252,11 @@ function topPeopleFilter(results, peopleLimit = 3, articleLimit = 2){
 				people['image'] = article.images[0].url;
 			}
 		});
+
 	});
 
 	return data.splice(0, peopleLimit);
 }
-
 
 
 module.exports = router;
