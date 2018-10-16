@@ -147,6 +147,14 @@ router.get('/aggregations/:template', async (req, res, next) => {
 				};
 			});
 
+			articlesDetails.sort( (a,b) => {
+				const aPub = a.article.lifecycle.initialPublishDateTime;
+				const bPub = b.article.lifecycle.initialPublishDateTime;
+				if (aPub < bPub) { return 1; }
+				else if (aPub > bPub) { return -1; }
+				else { return 0; }
+			});
+
 			nameAndCount.push(articlesDetails);
 		})
 
