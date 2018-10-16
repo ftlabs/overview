@@ -22,7 +22,14 @@
 	</head>
 	<body>
 		<h1>Article Aggregations: Basic 4: tweaking display of groupings, with bubbling under</h1>
-		<h3>params: days={{params.days}}, minCorrelation={{params.minCorrelation}}, timeslip={{params.timeslip}}</h3>
+		<p>
+			<form action="" method="get" class="form-example">
+				<label>days</label>=<input type="text" name="days" id="days" value="{{params.days}}" size="3" required>
+				<label>timeslip</label>=<input type="text" name="timeslip" id="timeslip"  value="{{params.timeslip}}" size="3" required>
+				<label>minCorrelation</label>=<input type="text" name="minCorrelation" id="minCorrelation"  value="{{params.minCorrelation}}" size="1" required>
+				<input type="submit" value="SUMMARISE!">
+			</form>
+		</p>
 		<main class="centerPos">
 			<table>
 				{{#each groupings}}
@@ -42,12 +49,14 @@
 								</ul>
 							</td>
 							{{#if @first}}
-							<td rowspan="{{../topNames.length}}">
-								... bubbling under<br><br>
-								{{#each ../namesBubblingUnder}}
-								{{{this}}}<br>
-								{{/each}}
-							</td>
+								{{#if ../namesBubblingUnder.length}}
+								<td rowspan="{{../topNames.length}}">
+									... bubbling under<br><br>
+									{{#each ../namesBubblingUnder}}
+									{{{this}}}<br>
+									{{/each}}
+								</td>
+								{{/if}}
 							{{/if}}
 						</tr>
 				  {{/each}}
