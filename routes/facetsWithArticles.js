@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const article = require('../modules/article');
 const debug = require('debug')('views:facetsWithArticles');
-
+const listService = require('../lib/listService');
 
 // paths
 router.get('/', async (req, res, next) => {
@@ -70,6 +70,12 @@ router.get('/articlesAggregation', async (req, res, next) => {
 
 	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
 
+	const listName = 'uk-homepage-top-stories';
+	const daysAgoFrom = timeslip + days;
+	const daysAgoTo   = timeslip;
+	const listDeets = await listService.overRange(listName, daysAgoFrom, daysAgoTo);
+	results.listDeets = listDeets;
+	
 	if (genres.length > 0) {
 		const aggregationsByGenre = {};
 		genres.forEach( genre => {
