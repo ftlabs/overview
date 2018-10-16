@@ -56,8 +56,8 @@ function getArticleRelations(days = 1, facets = defaultFacets, aspects = default
 	return fetchContent.getArticleRelations(days, facets, aspects);
 }
 
-function getArticlesAggregation(days = 1, facets = defaultFacets, aspects = defaultAspects){
-	return fetchContent.getArticlesAggregation(days, facets, aspects);
+function getArticlesAggregation(days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip=0){
+	return fetchContent.getArticlesAggregation(days, facets, aspects, minCorrelation, timeslip);
 }
 
 

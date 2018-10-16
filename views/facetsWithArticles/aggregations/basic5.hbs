@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style>
+			.grouping {
+				font-weight:bold;
+				background-color: coral;
+			}
+			.blank_row {
+			    height: 30px !important; /* overwrites any other rules */
+			    background-color: #FFFFFF;
+			}
+			.name {
+				font-size: 150%;
+			}
+			.articles {
+				width: 60%;
+			}
+			.thumbnail {
+				width: 30%;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<h1>Article Aggregations: Basic 4: tweaking display of groupings, with bubbling under</h1>
+		<p>
+			<form action="" method="get" class="form-example">
+				<label>days</label>=<input type="text" name="days" id="days" value="{{params.days}}" size="3" required>
+				<label>timeslip</label>=<input type="text" name="timeslip" id="timeslip"  value="{{params.timeslip}}" size="3" required>
+				<label>minCorrelation</label>=<input type="text" name="minCorrelation" id="minCorrelation"  value="{{params.minCorrelation}}" size="1" required>
+				<input type="submit" value="SUMMARISE!">
+			</form>
+		</p>
+		<main class="centerPos">
+			<table>
+				{{#each groupings}}
+					<tr>
+						<td class="grouping" colspan="3">{{ this.metadataKey }}.{{ this.taxonomy }}</td>
+					</tr>
+					{{#each topNames}}
+						<tr>
+							<td class="name">
+								{{ this.[0] }}<br>
+								{{#each this.[2]}}
+									{{#if imageUrl}}
+										<img class="thumbnail" src="{{imageUrl}}">
+									{{/if}}
+								{{/each}}
+							</td>
+							<td class="articles">
+								<ul>
+								{{#each this.[2]}}
+									<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
+								{{/each}}
+								</ul>
+							</td>
+							{{#if @first}}
+								{{#if ../namesBubblingUnder.length}}
+								<td rowspan="{{../topNames.length}}">
+									... bubbling under<br><br>
+									{{#each ../namesBubblingUnder}}
+									{{{this}}}<br>
+									{{/each}}
+								</td>
+								{{/if}}
+							{{/if}}
+						</tr>
+				  {{/each}}
+					<tr class="blank_row"></tr>
+				{{/each}}
+			</table>
+
+		</main>
+	</body>
+</html>
