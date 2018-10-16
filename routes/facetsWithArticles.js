@@ -79,6 +79,7 @@ router.get('/articlesAggregation/visual_2', async (req, res, next) => {
 router.get('/articlesAggregation/visual_3', async (req, res, next) => {
 	const days = ( req.query.days ) ? req.query.days : 1;
 	const results = await article.getArticlesAggregation( days );
+	
 	res.render("facetsWithArticles/articlesAggregation/visual_3", {
 		data: topPeopleFilter(results, 3)
 	} );
@@ -87,6 +88,7 @@ router.get('/articlesAggregation/visual_3', async (req, res, next) => {
 router.get('/articlesAggregation/visual_4', async (req, res, next) => {
 	const days = ( req.query.days ) ? req.query.days : 1;
 	const results = await article.getArticlesAggregation( days );
+
 	res.render("facetsWithArticles/articlesAggregation/visual_4", {
 		data: topPeopleFilter(results, 3, 1),
 		days: days
