@@ -12,19 +12,33 @@
 			}
 			.name {
 				font-size: 150%;
+				/* white-space: nowrap; */
 			}
 			.articles {
 				width: 60%;
+				padding: 0;
+				margin: 0;
+				list-style: none;
+			}
+			.articles65 {
+				width: 65%;
 			}
 			.thumbnail {
 				width: 30%;
+			}
+			.thumbnails {
+				width: 25%;
+			}
+			.pubdate {
+				font-size: 75%;
+				font-style: italic;
 			}
 
 		</style>
 
 	</head>
 	<body>
-		<h1>Article Aggregations: Basic List 1: adding list history</h1>
+		<h1>Article Aggregations: Basic List 2: adding list history, grouped</h1>
 		<p>
 			<form action="" method="get" class="form-example">
 				<label>days</label>=<input type="text" name="days" id="days" value="{{params.days}}" size="3" required>
@@ -34,13 +48,23 @@
 			</form>
 		</p>
 		<main class="centerPos">
-			<h3>List history: primaryThemes</h3>
+			<h3>List history: primaryThemes, grouped</h3>
 			<table>
-				{{#each listStuff.newsArticles}}
+				{{#each listStuff.articlesByPrimaryThemeNames}}
 				<tr>
-					<td>{{primaryThemeName}}</td>
-					<td><img class="thumbnail" src="{{imageUrl}}"></td>
-					<td><ul><li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li></ul></td>
+					<td class="name">{{name}}</td>
+					<td class="thumbnails">
+						{{#each articles}}
+						<img class="thumbnail" src="{{imageUrl}}">
+						{{/each}}
+					</td>
+					<td class="articles">
+						<ul>
+							{{#each articles}}
+							<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a> <span class="pubdate">({{initialPublishDateTime}})</span></li>
+							{{/each}}
+						</ul>
+					</td>
 				</tr>
 				{{/each}}
 			</table>
