@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<body>
+		<h1>Article Aggregations: Basic 1: bare-bones table</h1>
+		<main class="centerPos">
+			<table>
+				<tr><td>metadataKey</td><td>taxonomies (article count)</td></tr>
+				<tr>
+					<td>primaryTheme.topics</td>
+			{{#each data.primaryTheme.topics}}
+					<td>{{ this.[0] }}({{ this.[1] }})</td>
+			{{/each}}
+				</tr>
+				<tr>
+					<td>primaryTheme.regions</td>
+			{{#each data.primaryTheme.regions}}
+					<td>{{ this.[0] }}({{ this.[1] }})</td>
+			{{/each}}
+				</tr>
+				<tr>
+					<td>people</td>
+			{{#each data.people.people}}
+					<td>{{ this.[0] }}({{ this.[1] }})</td>
+			{{/each}}
+				</tr>
+				<tr>
+					<td>organisations</td>
+			{{#each data.organisations.organisations}}
+					<td>{{ this.[0] }}({{ this.[1] }})</td>
+			{{/each}}
+				</tr>
+			</table>
+
+		</main>
+	</body>
+</html>
