@@ -1,0 +1,59 @@
+.o-grid-row {
+  width: 300%;
+  overflow-x: scroll;
+}
+.circle {
+  background: #f2dfce;
+  text-align: center;
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  margin-right: 5px;
+  margin-top: 50px;
+}
+.circle .circleContents {
+  margin-top: 30px;
+}
+.circle .circleContents .name {
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-family: "FinancierDisplayWeb", serif;
+  text-transform: capitalize;
+}
+.circle:first-child {
+  height: 200px;
+  width: 200px;
+  margin-top: 0;
+}
+.circle:first-child .circleContents {
+  margin-top: 35px;
+}
+.circle:first-child .circleContents .name {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+.circle:first-child .square {
+  width: 25px;
+  height: 25px;
+}
+.circle:first-child {
+  background: #99c6fb;
+}
+.circle .articles {
+  margin: 0 auto;
+  width: 75%;
+}
+.circle .articles a {
+  text-decoration: none;
+}
+.square {
+  background: grey;
+  border: 1px solid #666;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin: 1px;
+}
+.square a {
+  text-decoration: none;
+}
