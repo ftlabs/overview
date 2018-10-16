@@ -68,14 +68,18 @@ router.get('/articlesAggregation', async (req, res, next) => {
 	const payloads       = ( req.query.payloads        ) ? req.query.payloads.split(',')    : []; // default is all
 	const genres         = ( req.query.genres          ) ? req.query.genres.split(',')      : []; // default is all
 
-	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
-
 	const listName = 'uk-homepage-top-stories';
 	const daysAgoFrom = timeslip + days;
 	const daysAgoTo   = timeslip;
-	const listDeets = await listService.overRange(listName, daysAgoFrom, daysAgoTo);
-	results.listDeets = listDeets;
-	
+
+	// get data in parallel
+	const [results, listHistory] = await Promise.all([
+		article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip ), // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
+		listService.overRange(listName, daysAgoFrom, daysAgoTo),
+	]);
+
+	results.listHistory = listHistory;
+
 	if (genres.length > 0) {
 		const aggregationsByGenre = {};
 		genres.forEach( genre => {
