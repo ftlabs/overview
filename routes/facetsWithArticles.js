@@ -106,9 +106,47 @@ router.get('/articlesAggregation/visual_5', async (req, res, next) => {
 router.get('/articlesAggregation/visual_6', async (req, res, next) => {
 	const days = ( req.query.days ) ? req.query.days : 1;
 	const results = await article.getArticlesAggregation( days );
+	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+
+	let flatArr = [];
+
+	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
+	topics.forEach(topic => {
+		flatArr.push({
+			title: topic[0],
+			count: topic[1],
+			type: 'topic'
+		});
+	});
+
+	const people = genreNews.correlationAnalysis.people.people;
+	people.forEach(person => {
+		flatArr.push({
+			title: person[0],
+			count: person[1],
+			type: 'people'
+		});
+	});
+
+	const organisations = genreNews.correlationAnalysis.organisations.organisations;
+	organisations.forEach(orgs => {
+		flatArr.push({
+			title: orgs[0],
+			count: orgs[1],
+			type: 'organisation'
+		});
+	});
+
+	flatArr = arrs.sortArray(flatArr, 'count');
+	flatArr = flatArr.splice(0, 5);
+
+	flatArr.forEach((item, i) => {
+		item['link'] = urlSafeName(item['title']);
+		item['position'] = i + 1;
+	});
 
 	res.render("facetsWithArticles/articlesAggregation/visual_6", {
-		data: results,
+		data: { items: flatArr },
 		days: days
 	} );
 });
@@ -167,8 +205,6 @@ function topTopicFilter(results, topicLimit = 3, articleLimit = 2){
 function urlSafeName(s){
 	return s.toLowerCase().replace("& ", "").replace(" ", "-");
 }
-
-
 
 function topPeopleFilter(results, peopleLimit = 3, articleLimit = 2){
 	const genreNews = results.aggregationsByGenre['genre:genre:News'];
