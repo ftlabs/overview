@@ -116,7 +116,7 @@ router.get('/aggregations/:template', async (req, res, next) => {
 
 	const groupings = [];
 
-	// ensure we have placeholders for al the expected groupings
+	// ensure we have placeholders for all the expected groupings
 	// and flesh out any items that have been found (by adding an item to the pair)
 	metadataKeyPairsForCorrelationAnalysis.forEach( metadataKeyAndTaxonomy => {
 		const metadataKey = metadataKeyAndTaxonomy[0];
@@ -137,10 +137,13 @@ router.get('/aggregations/:template', async (req, res, next) => {
 			// debug(`facetsWithArticles: /aggregations/:template csv=${csv}`);
 			const articlesDetails = genreNewsStuff.articlesByMetadataCsv[csv].map(uuid => {
 				const article = genreNewsStuff.articlesByUuid[uuid];
+				const images = article.images;
+				const imageUrl = (images.length > 0)? images[0].url : null;
 				return {
 					uuid,
 					article,
 					title : article.title.title,
+					imageUrl
 				};
 			});
 
