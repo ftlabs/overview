@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const article = require('../modules/article');
 const debug = require('debug')('views:facetsWithArticles');
-const listService = require('../lib/listService');
 
 // paths
 router.get('/', async (req, res, next) => {
@@ -68,17 +67,8 @@ router.get('/articlesAggregation', async (req, res, next) => {
 	const payloads       = ( req.query.payloads        ) ? req.query.payloads.split(',')    : []; // default is all
 	const genres         = ( req.query.genres          ) ? req.query.genres.split(',')      : []; // default is all
 
-	const listName = 'uk-homepage-top-stories';
-	const daysAgoFrom = timeslip + days;
-	const daysAgoTo   = timeslip;
-
 	// get data in parallel
-	const [results, listHistory] = await Promise.all([
-		article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip ), // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
-		listService.overRange(listName, daysAgoFrom, daysAgoTo),
-	]);
-
-	results.listHistory = listHistory;
+	const results = await article.getArticlesAggregationWithListHistory( days, facets, aspects, minCorrelation, timeslip ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
 
 	if (genres.length > 0) {
 		const aggregationsByGenre = {};
