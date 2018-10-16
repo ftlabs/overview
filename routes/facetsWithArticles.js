@@ -151,6 +151,38 @@ router.get('/articlesAggregation/visual_6', async (req, res, next) => {
 	} );
 });
 
+router.get('/articlesAggregation/visual_7', async (req, res, next) => {
+	const days = ( req.query.days ) ? req.query.days : 1;
+	const results = await article.getArticlesAggregation( days );
+	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+
+	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
+	let left = topics.map((topic, i) => {
+		return {
+			title: topic[0],
+			count: topic[1],
+			index: i + 1
+		};
+	});
+
+	const people = genreNews.correlationAnalysis.people.people;
+	let right = people.map((person, i) => {
+		return {
+			title: person[0],
+			count: person[1],
+			index: i + 1
+		};
+	});
+	right = right.splice(0, left.length);
+
+	res.render("facetsWithArticles/articlesAggregation/visual_7", {
+		left: left,
+		right: right,
+		days: days
+	} );
+});
+
+
 /*
  * Endpoints
  */
@@ -180,8 +212,12 @@ router.get('/articlesAggregation', async (req, res, next) => {
 
 
 /*
- * Shared filters
+ * Shared functions
  */
+function urlSafeName(s){
+	return s.toLowerCase().replace("& ", "").replace(" ", "-");
+}
+
 function topTopicFilter(results, topicLimit = 3, articleLimit = 2){
 	const genreNews = results.aggregationsByGenre['genre:genre:News'];
 	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
@@ -200,10 +236,6 @@ function topTopicFilter(results, topicLimit = 3, articleLimit = 2){
 	});
 
 	return data.splice(0, topicLimit);
-}
-
-function urlSafeName(s){
-	return s.toLowerCase().replace("& ", "").replace(" ", "-");
 }
 
 function topPeopleFilter(results, peopleLimit = 3, articleLimit = 2){
