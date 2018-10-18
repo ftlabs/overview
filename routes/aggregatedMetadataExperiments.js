@@ -15,7 +15,14 @@ router.get("/simple", async (req, res, next) => {
 
 router.get("/grid", async (req, res, next) => {
   const content = await structureData(req);
-  res.render("aggregatedMetadataExperiments/simple", {
+  res.render("aggregatedMetadataExperiments/grid", {
+    content
+  });
+});
+
+router.get("/particle", async (req, res, next) => {
+  const content = await structureData(req);
+  res.render("aggregatedMetadataExperiments/particle", {
     content
   });
 });
@@ -44,15 +51,17 @@ async function structureData(req) {
       );
 
       const metadata = metadataCount(articles);
-
+      const metadataCloud = getMetadataCloud(metadata);
       content = [
         ...content,
         {
           name: theme[0],
+          nameNoSpaces: theme[0].replace(" ", "-").replace("&", "and"),
           size: `${theme[1] * 100}px`,
           score: theme[1],
           articles,
-          metadata
+          metadata,
+          metadataCloud
         }
       ];
     });
@@ -83,13 +92,26 @@ function metadataCount(articles) {
               }
             });
           } else {
-            count = [...count, { name: newTag, count: 1 }];
+            count = [...count, { name: newTag, count: 1, text: newTag }];
           }
         });
       }
     });
   });
+  count = count.map(element => {
+    element.count = String(element.count);
+    return element;
+  });
+  console.log(count);
   return count;
 }
-
+function getMetadataCloud(metadata) {
+  return metadata.reduce((accumulator, currentValue) => {
+    let newValue = "";
+    for (let i = 0; i < currentValue.count; i++) {
+      newValue = newValue + ` ${currentValue.name}`;
+    }
+    return accumulator + ` ${newValue}`;
+  }, "");
+}
 module.exports = router;

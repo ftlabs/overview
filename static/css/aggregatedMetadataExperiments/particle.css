@@ -11,5 +11,10 @@
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-gap: 4px;
-  /* grid-auto-flow: column; */
+}
+
+.title {
+  text-align: center;
+  margin-top: 45%;
+  font-size: 19px;
 }

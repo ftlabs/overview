@@ -6,7 +6,9 @@
 <body>
     <div class="particle-container">
         {{#each content}}
-        <div class="particle" style="height: {{size}}; width: {{size}}">{{name}}</div>
+        <div class="particle" style="height: {{size}}; width: {{size}}">
+            <p class="title">{{name}}</p>
+        </div>
         {{/each}}
     </div>
 
