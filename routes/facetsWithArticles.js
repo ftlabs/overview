@@ -48,19 +48,29 @@ router.get('/charts/:template/:facet/:days', async (req, res, next) => {
 });
 
 router.get('/articlesAggregation/visual_1', async (req, res, next) => {
-	const days = ( req.query.days ) ? req.query.days : 1;
-	const results = await article.getArticlesAggregation( days );
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
 
 	res.render("facetsWithArticles/articlesAggregation/visual_1", {
 		data: topTopicFilter(results),
-		days: days
+		days: days,
+		timeslip: timeslip
 	} );
 });
 
 router.get('/articlesAggregation/visual_2', async (req, res, next) => {
-	const days = ( req.query.days ) ? req.query.days : 1;
-	const results = await article.getArticlesAggregation( days );
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
 
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
 	const genreNews = results.aggregationsByGenre['genre:genre:News'];
 	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
 	const reversedTopics = topics.reverse();
@@ -73,22 +83,36 @@ router.get('/articlesAggregation/visual_2', async (req, res, next) => {
 	});
 
 	res.render("facetsWithArticles/articlesAggregation/visual_2", {
-		data: data.reverse()
+		data: data.reverse(),
+		days: days,
+		timeslip: timeslip
 	} );
 });
 
 router.get('/articlesAggregation/visual_3', async (req, res, next) => {
-	const days = ( req.query.days ) ? req.query.days : 1;
-	const results = await article.getArticlesAggregation( days );
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
 	
 	res.render("facetsWithArticles/articlesAggregation/visual_3", {
-		data: topPeopleFilter(results, 3)
+		data: topPeopleFilter(results, 3),
+		days: days,
+		timeslip: timeslip
 	} );
 });
 
 router.get('/articlesAggregation/visual_4', async (req, res, next) => {
-	const days = ( req.query.days ) ? req.query.days : 1;
-	const results = await article.getArticlesAggregation( days );
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
 
 	res.render("facetsWithArticles/articlesAggregation/visual_4", {
 		data: topPeopleFilter(results, 3, 1),
@@ -97,18 +121,29 @@ router.get('/articlesAggregation/visual_4', async (req, res, next) => {
 });
 
 router.get('/articlesAggregation/visual_5', async (req, res, next) => {
-	const days = ( req.query.days ) ? req.query.days : 1;
-	const results = await article.getArticlesAggregation( days );
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
 
 	res.render("facetsWithArticles/articlesAggregation/visual_5", {
 		data: topTopicFilter(results, 10, 10),
-		days: days
+		days: days,
+		timeslip: timeslip
 	} );
 });
 
 router.get('/articlesAggregation/visual_6', async (req, res, next) => {
-	const days = ( req.query.days ) ? req.query.days : 1;
-	const results = await article.getArticlesAggregation( days );
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
 	const genreNews = results.aggregationsByGenre['genre:genre:News'];
 
 	let flatArr = [];
@@ -150,13 +185,19 @@ router.get('/articlesAggregation/visual_6', async (req, res, next) => {
 
 	res.render("facetsWithArticles/articlesAggregation/visual_6", {
 		data: { items: flatArr },
-		days: days
+		days: days,
+		timeslip: timeslip
 	} );
 });
 
 router.get('/articlesAggregation/visual_7', async (req, res, next) => {
-	const days = ( req.query.days ) ? req.query.days : 1;
-	const results = await article.getArticlesAggregation( days );
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
 	const genreNews = results.aggregationsByGenre['genre:genre:News'];
 
 	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
@@ -181,7 +222,8 @@ router.get('/articlesAggregation/visual_7', async (req, res, next) => {
 	res.render("facetsWithArticles/articlesAggregation/visual_7", {
 		left: left,
 		right: right,
-		days: days
+		days: days,
+		timeslip: timeslip
 	} );
 });
 
