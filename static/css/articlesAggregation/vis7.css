@@ -33,3 +33,14 @@ h2 {
 .ranking {
 	color: #00994D;
 }
+
+.seven_a .right ul li {
+	grid-template-columns: 100%;
+}
+.seven_a .sub-container {
+	margin-top: -5px;
+}
+.seven_a ul {
+	list-style: none;
+	padding: 0;
+}

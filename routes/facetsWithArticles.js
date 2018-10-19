@@ -227,6 +227,63 @@ router.get('/articlesAggregation/visual_7', async (req, res, next) => {
 	} );
 });
 
+router.get('/articlesAggregation/visual_7a', async (req, res, next) => {
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
+	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+
+	// find primary themes
+	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
+	let left = topics.map((topic, i) => {
+		return {
+			title: topic[0],
+			count: topic[1],
+			index: i + 1
+		};
+	});
+
+	// get the title's for the primary theme topics
+	let titles = [];
+	const articlesByMetadataCsv = Object.keys(genreNews.articlesByMetadataCsv);
+
+	articlesByMetadataCsv.forEach(title => {
+		const titleSplit = title.split(':');
+		left.forEach(item => {
+			if(item.title === titleSplit[2]){
+				item['longTitle'] = title;
+			}
+
+			// get the related people
+			item['relatedPeople'] = [];
+			const relatedFacets = Object.keys(genreNews.facetCorrelationsCsv);
+			relatedFacets.forEach(facet => {
+				if( facet === item['longTitle'] ){
+					const facetItem = genreNews.facetCorrelationsCsv[facet];
+					Object.keys(facetItem).forEach(i => {
+						if(i.indexOf('people:people:') >= 0){
+							const facetSplit = i.split(':');
+							item['relatedPeople'].push( { name: facetSplit[2] } );
+						}
+					});
+				}
+			});
+		});
+	});
+
+	console.log(left);
+
+	res.render("facetsWithArticles/articlesAggregation/visual_7a", {
+		left: left,
+		days: days,
+		timeslip: timeslip
+	} );
+});
+
 
 /*
  * Endpoints
