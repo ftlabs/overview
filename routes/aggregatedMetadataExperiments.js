@@ -54,8 +54,6 @@ async function structureData(req) {
 
   results = results.aggregationsByGenre["genre:genre:News"];
 
-  console.log("results", results);
-
   //   maybe add people
   const correlationAnalysis = results.correlationAnalysis.primaryTheme;
   let content = [];
