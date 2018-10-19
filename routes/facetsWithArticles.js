@@ -3,7 +3,6 @@ const router = express.Router();
 const article = require('../modules/article');
 const debug = require('debug')('views:facetsWithArticles');
 
-
 // paths
 router.get('/', async (req, res, next) => {
 	res.render("facetsWithArticles");
@@ -68,7 +67,8 @@ router.get('/articlesAggregation', async (req, res, next) => {
 	const payloads       = ( req.query.payloads        ) ? req.query.payloads.split(',')    : []; // default is all
 	const genres         = ( req.query.genres          ) ? req.query.genres.split(',')      : []; // default is all
 
-	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
+	// get data in parallel
+	const results = await article.getArticlesAggregationWithListHistory( days, facets, aspects, minCorrelation, timeslip ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
 
 	if (genres.length > 0) {
 		const aggregationsByGenre = {};
@@ -101,10 +101,11 @@ router.get('/aggregations/:template', async (req, res, next) => {
 	let   aspects        = undefined;
 	let   facets         = undefined;
 
-	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
+	const results = await article.getArticlesAggregationWithListHistory( days, facets, aspects, minCorrelation, timeslip ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
 	const genreNewsStuff = results.aggregationsByGenre['genre:genre:News'];
 	const correlationAnalysis = genreNewsStuff.correlationAnalysis;
 	const correlationAnalysisBubblingUnder = genreNewsStuff.correlationAnalysisBubblingUnder;
+	const listHistoryProcessed = results.listHistoryProcessed;
 
 	const metadataKeyPairsForCorrelationAnalysis = [ // lifted from fetchContent:aggregateArticles
 		['primaryTheme', 'topics'],
@@ -177,7 +178,8 @@ router.get('/aggregations/:template', async (req, res, next) => {
 			days,
 			minCorrelation,
 			timeslip,
-		}
+		},
+		listStuff: listHistoryProcessed,
 	});
 });
 

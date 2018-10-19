@@ -80,13 +80,19 @@ function getArticlesAggregation(
   );
 }
 
+function getArticlesAggregationWithListHistory(days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip=0, listName='uk-homepage-top-stories'){
+	return fetchContent.getArticlesAggregationWithListHistory(days, facets, aspects, minCorrelation, timeslip, listName);
+}
+
+
 module.exports = {
-  searchByParams,
-  searchByParamsDeep,
-  searchByTerm,
-  searchBySequence,
-  getByUuid,
-  getDaysOfRecentArticles,
-  getArticleRelations,
-  getArticlesAggregation
+	searchByParams,
+	searchByParamsDeep,
+	searchByTerm,
+	searchBySequence,
+	getByUuid,
+	getDaysOfRecentArticles,
+	getArticleRelations,
+	getArticlesAggregation,
+	getArticlesAggregationWithListHistory,
 };

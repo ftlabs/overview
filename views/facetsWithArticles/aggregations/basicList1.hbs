@@ -24,7 +24,7 @@
 
 	</head>
 	<body>
-		<h1>Article Aggregations: Basic 5: tweaking display of groupings, with bubbling under and form</h1>
+		<h1>Article Aggregations: Basic List 1: adding list history</h1>
 		<p>
 			<form action="" method="get" class="form-example">
 				<label>days</label>=<input type="text" name="days" id="days" value="{{params.days}}" size="3" required>
@@ -34,6 +34,19 @@
 			</form>
 		</p>
 		<main class="centerPos">
+			<h3>List history: primaryThemes</h3>
+			<table>
+				{{#each listStuff.newsArticles}}
+				<tr>
+					<td>{{primaryThemeName}}</td>
+					<td><img class="thumbnail" src="{{imageUrl}}"></td>
+					<td><ul><li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li></ul></td>
+				</tr>
+				{{/each}}
+			</table>
+
+			<h3>Correlations in primaryTheme</h3>
+
 			<table>
 				{{#each groupings}}
 					<tr>
