@@ -16,8 +16,7 @@ router.get("/simple", async (req, res, next) => {
 router.get("/grid", async (req, res, next) => {
   const content = await structureData(req);
   res.render("aggregatedMetadataExperiments/grid", {
-    content,
-    zingChartKeys
+    content
   });
 });
 
