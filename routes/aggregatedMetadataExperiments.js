@@ -28,17 +28,31 @@ router.get("/particle", async (req, res, next) => {
 });
 
 async function structureData(req) {
-  const days = req.query.days ? req.query.days : 1;
-  const facet = req.query.facet ? req.query.facet : "topics";
-  let aspects = req.query.aspects ? req.query.aspects : undefined;
+  const days = req.query.days ? Number(req.query.days) : 1;
+  let aspects = req.query.aspects ? req.query.aspects.split(",") : undefined;
+  let facets = req.query.facets ? req.query.facets.split(",") : undefined;
+  const minCorrelation = req.query.minCorrelation
+    ? Number(req.query.minCorrelation)
+    : 2;
+  const timeslip = req.query.timeslip ? Number(req.query.timeslip) : 2;
+  const payloads = req.query.payloads ? req.query.payloads.split(",") : []; // default is all
+  const genres = req.query.genres ? req.query.genres.split(",") : []; // default is all
 
   if (aspects) {
     aspects = aspects.split(",");
   }
 
-  let results = await article.getArticlesAggregation(days);
+  let results = await article.getArticlesAggregation(
+    days,
+    facets,
+    aspects,
+    minCorundefinedrelation,
+    timeslip
+  ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
 
   results = results.aggregationsByGenre["genre:genre:News"];
+
+  console.log("results", results);
 
   //   maybe add people
   const correlationAnalysis = results.correlationAnalysis.primaryTheme;
