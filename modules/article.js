@@ -60,6 +60,10 @@ function getArticlesAggregation(days = 1, facets = defaultFacets, aspects = defa
 	return fetchContent.getArticlesAggregation(days, facets, aspects, minCorrelation, timeslip);
 }
 
+function getArticlesAggregationWithListHistory(days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip=0, listName='uk-homepage-top-stories'){
+	return fetchContent.getArticlesAggregationWithListHistory(days, facets, aspects, minCorrelation, timeslip, listName);
+}
+
 
 module.exports = {
 	searchByParams,
@@ -70,4 +74,5 @@ module.exports = {
 	getDaysOfRecentArticles,
 	getArticleRelations,
 	getArticlesAggregation,
+	getArticlesAggregationWithListHistory,
 };
