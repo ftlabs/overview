@@ -15,6 +15,8 @@ router.get("/simple", async (req, res, next) => {
 
 router.get("/grid", async (req, res, next) => {
   const content = await structureData(req);
+  const zingChartKeys = process.env.ZING_CHART_KEY.split(",");
+  console.log(zingChartKeys);
   res.render("aggregatedMetadataExperiments/grid", {
     content
   });
@@ -46,7 +48,7 @@ async function structureData(req) {
     days,
     facets,
     aspects,
-    minCorundefinedrelation,
+    minCorrelation,
     timeslip
   ); // days = 1, facets = defaultFacets, aspects = defaultAspects, minCorrelation=2, timeslip
 
