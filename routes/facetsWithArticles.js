@@ -140,51 +140,20 @@ router.get('/articlesAggregation/visual_6', async (req, res, next) => {
 	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
 	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
 	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
-	let   aspects        = undefined;
-	let   facets         = undefined;
+	const aspects        = undefined;
+	const facets         = undefined;
 
-	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
-	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+	const resultsPrimary = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
+	const resultsSecondary = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, (timeslip + days) );
 
-	let flatArr = [];
+	const primary = getTickerInfo( resultsPrimary );
+	const secondary = getTickerInfo( resultsSecondary );
 
-	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
-	topics.forEach(topic => {
-		flatArr.push({
-			title: topic[0],
-			count: topic[1],
-			type: 'topic'
-		});
-	});
-
-	const people = genreNews.correlationAnalysis.people.people;
-	people.forEach(person => {
-		flatArr.push({
-			title: person[0],
-			count: person[1],
-			type: 'people'
-		});
-	});
-
-	const organisations = genreNews.correlationAnalysis.organisations.organisations;
-	organisations.forEach(orgs => {
-		flatArr.push({
-			title: orgs[0],
-			count: orgs[1],
-			type: 'organisation'
-		});
-	});
-
-	flatArr = arrs.sortArray(flatArr, 'count');
-	flatArr = flatArr.splice(0, 5);
-
-	flatArr.forEach((item, i) => {
-		item['link'] = urlSafeName(item['title']);
-		item['position'] = i + 1;
-	});
+	let comparison = compareTickerSelections( primary, secondary );
+	comparison = comparison.splice(0, 5);
 
 	res.render("facetsWithArticles/articlesAggregation/visual_6", {
-		data: { items: flatArr },
+		data: { items: comparison },
 		days: days,
 		timeslip: timeslip
 	} );
@@ -274,8 +243,6 @@ router.get('/articlesAggregation/visual_7a', async (req, res, next) => {
 			});
 		});
 	});
-
-	console.log(left);
 
 	res.render("facetsWithArticles/articlesAggregation/visual_7a", {
 		left: left,
@@ -427,6 +394,78 @@ router.get('/aggregations/:template', async (req, res, next) => {
 /*
  * Shared functions
  */
+
+function getTickerInfo(results){
+
+	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+
+	let flatArr = [];
+
+	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
+	topics.forEach(topic => {
+		flatArr.push({
+			title: topic[0],
+			count: topic[1],
+			type: 'topic'
+		});
+	});
+
+	const people = genreNews.correlationAnalysis.people.people;
+	people.forEach(person => {
+		flatArr.push({
+			title: person[0],
+			count: person[1],
+			type: 'people'
+		});
+	});
+
+	const organisations = genreNews.correlationAnalysis.organisations.organisations;
+	organisations.forEach(orgs => {
+		flatArr.push({
+			title: orgs[0],
+			count: orgs[1],
+			type: 'organisation'
+		});
+	});
+
+	flatArr = arrs.sortArray(flatArr, 'count');
+
+	flatArr.forEach((item, i) => {
+		item['link'] = urlSafeName(item['title']);
+		item['position'] = i + 1;
+	});
+
+	return flatArr;
+}
+
+function compareTickerSelections(primary, secondary){
+	const maxReturn = 5;
+	let compare = [];
+	
+	primary.forEach(i => {
+		let compareObj = i;
+		compareObj['countNext'] = 0;
+		compareObj['countDifference'] = 0;
+		compareObj['countDifferenceType'] = '';
+
+		secondary.forEach(j => {
+			if(j.title === i.title){
+				compareObj['countNext'] = j.count;
+				compareObj['countDifference'] = ( parseInt( i.count ) - parseInt( j.count ) );
+
+				if(compareObj['countDifference'] < 0){
+					compareObj['countDifferenceType'] = 'negative';
+				} else {
+					compareObj['countDifferenceType'] = 'positive';
+				}
+			} 
+		});
+		compare.push(compareObj);
+	});
+
+	return compare;
+}
+
 function urlSafeName(s){
 	return s.toLowerCase().replace("& ", "").replace(" ", "-");
 }

@@ -1,3 +1,6 @@
+
+
+
 .fast-ft-bg {
 	background-color: #fff9f5;
 }
@@ -83,14 +86,21 @@
 }
 .fast-ft--horizontal .ranking {
 	display: block;
-	color: #00994D;
+	color: #33302e;
 	position: absolute;
 	right: 15px;
     top: 15px;
 }
+.fast-ft--horizontal .positive {
+    color: #00994D;
+}
+.fast-ft--horizontal .positive::before {
+    content: "+";
+}
+.fast-ft--horizontal .negative {
+    color: #990F3D;
+}
 
 @media (min-width: 46.25em) {
-	.fast-ft {
-		margin-top: 0;
-	}
+	
 }
