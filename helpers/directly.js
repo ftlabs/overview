@@ -1,6 +1,20 @@
 'use strict';
 // copied from Rhys' https://github.com/wheresrhys/directly, with a small fix in the run() fn.
 
+// To use:
+// - include the lib
+// const directly = require('helpers/directly');
+// - create a list of fns which will each return a promise when called, e.g.
+// const articlePromisers = uuids.map( uuid => {
+//         return function () {
+//                 return fetch(uuid); // a fn which returns a promise
+//         };
+// });
+// - invoke directly, with a concurrency param for how many threads to run in parallel, e.g.
+// const CAPI_CONCURRENCE=2;
+// directly(CAPI_CONCURRENCE, articlePromisers);
+//
+
 function getRemover (arr, target) {
 	return () => {
 		arr.splice(arr.indexOf(target), 1);
