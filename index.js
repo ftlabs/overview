@@ -12,6 +12,10 @@ const app = express();
 const helmet = require("helmet");
 const express_enforces_ssl = require("express-enforces-ssl");
 
+const bodyParser = require('body-parser');
+// support parsing of application/json type post data
+app.use(bodyParser.json());
+
 if (process.env.NODE_ENV === "production") {
   app.use(helmet());
   app.enable("trust proxy");
@@ -35,6 +39,7 @@ const tinder = require("./routes/tinder");
 const spaceUtilisation = require("./routes/spaceUtilisation");
 const ftMaps = require("./routes/ftMaps");
 const ftabulous = require("./routes/ftabulous");
+const sapiV1CapiV2 = require("./routes/sapiV1CapiV2");
 
 const hbs = require("hbs");
 
@@ -69,6 +74,7 @@ if (process.env.BYPASS_TOKEN !== "true") {
   app.use(validateRequest);
 }
 
+app.use("/sapiV1CapiV2", sapiV1CapiV2); // temporarily outside s3o
 //Core Routes
 app.use(s3o);
 app.use("/articles", articles);
