@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+{{#> head title='Index' subtitle='Demo Index Page' }}{{/head}}
+<link rel="stylesheet" type="text/css" href="/static/css/aggregatedMetadataExperiments/simple.css">
+<link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+
+<body>
+    <div class="container">
+        {{#each content}}
+        <div class="item">
+            <h1>{{name}}</h1>
+            <ul>
+                {{#each metadata}}
+                <li>{{ name }}</li>
+                {{/each}}
+            </ul>
+
+            <ul>
+                {{#each articles}}
+                <li>{{ title.title }}</li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/each}}
+    </div>
+
+</body>
+
+</html>

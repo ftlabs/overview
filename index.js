@@ -35,6 +35,7 @@ const tinder = require("./routes/tinder");
 const spaceUtilisation = require("./routes/spaceUtilisation");
 const ftMaps = require("./routes/ftMaps");
 const ftabulous = require("./routes/ftabulous");
+const ame = require("./routes/aggregatedMetadataExperiments");
 
 const hbs = require("hbs");
 
@@ -42,6 +43,10 @@ hbs.registerPartials(__dirname + "/views/partials/");
 
 hbs.registerHelper("imgPath", function(path) {
   return path.split("?")[0] + "?source=search";
+});
+
+hbs.registerHelper("json", function(context) {
+  return JSON.stringify(context);
 });
 
 // view engine setup
@@ -84,6 +89,7 @@ app.use("/tinder", tinder);
 app.use("/space", spaceUtilisation);
 app.use("/ftMaps", ftMaps);
 app.use("/ftabulous", ftabulous);
+app.use("/ame", ame);
 
 // ---
 
