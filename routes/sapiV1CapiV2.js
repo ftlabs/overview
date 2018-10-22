@@ -12,8 +12,8 @@ router.post('/search', async (req, res, next) => {
 	const postParams = req.body;
 	// debug(`route:sapiV1CapiV2: req.body: ${JSON.stringify(req.body, null, 2)}`)
 	const apiKey = (req.query.apiKey) ? req.query.apiKey : undefined;
-	if (apiKey === undefined) {
-		throw new Error('ERROR: must specify ?apiKey for sapi request');
+	if (apiKey !== undefined) {
+		postParams['apiKey'] = apiKey;
 	}
 	const searchResponse = await sapiV1CapiV2.search( postParams );
 
@@ -24,9 +24,8 @@ router.post('/search/deeper', async (req, res, next) => {
 	const postParams = req.body;
 	const apiKey = (req.query.apiKey) ? req.query.apiKey : undefined;
 	const maxDepth = (req.query.maxDepth)? Number(req.query.maxDepth) : 2;
-
-	if (apiKey === undefined) {
-		throw new Error('ERROR: must specify ?apiKey for sapi request');
+	if (apiKey !== undefined) {
+		postParams['apiKey'] = apiKey;
 	}
 	const searchResponse = await sapiV1CapiV2.searchDeeper( postParams, maxDepth );
 
