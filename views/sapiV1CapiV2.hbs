@@ -25,14 +25,54 @@
 		<p>
 			Some endpoints combining SAPI v1 and CAPI v2
 		</p>
-		<h2>Endpoints</h2>
-		<h3>Basic SAPI with added CAPI</h3>
+		<h2>GET Endpoints</h2>
 		<ul>
 			<li>
 				<a target="_blank" href="/sapiV1CapiV2/search">latest SAPI results with added CAPI</a>
 			</li>
 			<li>
-				<a target="_blank" href="/sapiV1CapiV2/search/deeper?maxDepth=2">latest SAPI results (iterating twice) with added CAPI</a>
+				<a target="_blank" href="/sapiV1CapiV2/search/deeper?maxDepth=2">latest SAPI results (deeper: iterating twice) with added CAPI</a>
+			</li>
+		</ul>
+		<h2>POST Endpoints</h2>
+		<ul>
+			<li>
+			  <h3>simple search</h3>
+				<form action="/sapiV1CapiV2/search" method="post">
+					<div>
+					  <label for="name">queryString:</label>
+					  <input type="text" name="queryString">
+					</div>
+					<div>
+					  <label for="maxResults">maxResults:</label>
+					  <input type="maxResults" name="maxResults" value="10">
+					</div>
+					<div class="button">
+					  <button type="submit">POST search request</button>
+					</div>
+
+				</form>
+			</li>
+			<li>
+				<h3>simple search, iterating deeper</h3>
+				<form action="/sapiV1CapiV2/search/deeper" method="post">
+					<div>
+					  <label for="name">queryString:</label>
+					  <input type="text" name="queryString">
+					</div>
+					<div>
+					  <label for="maxResults">maxResults:</label>
+					  <input type="maxResults" name="maxResults" value="10">
+					</div>
+					<div>
+					  <label for="maxDepth">maxDepth:</label>
+					  <input type="maxDepth" name="maxDepth" value="10">
+					</div>
+					<div class="button">
+					  <button type="submit">POST search request</button>
+					</div>
+
+				</form>
 			</li>
 		</ul>
 	</body>

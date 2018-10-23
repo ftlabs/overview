@@ -14,19 +14,19 @@ function constructSearchParamsFromRequest( reqParams ){
 	const params = {};
 	// string params
 	['queryString', 'apiKey'].forEach( name => {
-		if (reqParams.hasOwnProperty(name)) {
+		if (reqParams.hasOwnProperty(name) && reqParams[name] !== "") {
 			params[name] = reqParams[name];
 		}
 	});
 	// int params
 	['maxResults', 'offset', 'maxDepth'].forEach( name => {
-		if (reqParams.hasOwnProperty(name)) {
+		if (reqParams.hasOwnProperty(name) && reqParams[name] !== "") {
 			params[name] = Number( reqParams[name] );
 		}
 	});
 	// boolean params
 	['includeCapi'].forEach( name => {
-		if (reqParams.hasOwnProperty(name)) {
+		if (reqParams.hasOwnProperty(name) && reqParams[name] !== "") {
 			params[name] = Boolean( reqParams[name] );
 		}
 	});
@@ -35,13 +35,15 @@ function constructSearchParamsFromRequest( reqParams ){
 
 // paths
 router.post('/search', async (req, res, next) => {
-	const params = constructSearchParamsFromRequest( req.body );
+	const objectifiedBody = Object.assign({}, req.body); // because body-parser creates req.body which does not have hasOwnProperty()... yes, really
+	const params = constructSearchParamsFromRequest( objectifiedBody );
 	const searchResponse = await sapiV1CapiV2.search( params );
 	res.json( searchResponse );
 });
 
 router.post('/search/deeper', async (req, res, next) => {
-	const params = constructSearchParamsFromRequest( req.body );
+	const objectifiedBody = Object.assign({}, req.body);
+	const params = constructSearchParamsFromRequest( objectifiedBody );
 	const searchResponse = await sapiV1CapiV2.searchDeeper( params );
 	res.json( searchResponse );
 });

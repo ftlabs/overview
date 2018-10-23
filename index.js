@@ -14,7 +14,9 @@ const express_enforces_ssl = require("express-enforces-ssl");
 
 const bodyParser = require('body-parser');
 // support parsing of application/json type post data
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 
 if (process.env.NODE_ENV === "production") {
   app.use(helmet());
