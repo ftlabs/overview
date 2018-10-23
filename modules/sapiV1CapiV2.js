@@ -26,13 +26,19 @@ const defaultFacets = [
 	"genreId"
 ];
 
-function search(params){
+function search(params={}){
 	params['includeCapi'] = true;
+	if (! params.hasOwnProperty('capiUnaspects')) {
+		params['capiUnaspects'] = ['bodyXML'];
+	}
 	return fetchContent.search(params);
 }
 
-function searchDeeper(params){
+function searchDeeper(params={}){
 	params['includeCapi'] = true;
+	if (! params.hasOwnProperty('capiUnaspects')) {
+		params['capiUnaspects'] = ['bodyXML'];
+	}
 	const maxDepth = (params.hasOwnProperty('maxDepth')) ? params['maxDepth'] : 2;
 	return fetchContent.searchDeeper(params,maxDepth);
 }
