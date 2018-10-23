@@ -31,8 +31,9 @@ function search(params){
 	return fetchContent.search(params);
 }
 
-function searchDeeper(params, maxDepth=1){
+function searchDeeper(params){
 	params['includeCapi'] = true;
+	const maxDepth = (params.hasOwnProperty('maxDepth')) ? params['maxDepth'] : 2;
 	return fetchContent.searchDeeper(params,maxDepth);
 }
 

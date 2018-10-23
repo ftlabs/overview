@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	{{#> head title='' subtitle='' }}
+		<style>
+			span, select {
+				vertical-align: top;
+			}
+			#aspects {
+				height: 180px;
+			}
+			form {
+				margin-bottom: 25px;
+			}
+			form a {
+				display: block;
+				margin: 15px 0;
+			}
+			h2 {
+				margin-top: 25px;
+			}
+		</style>
+	{{/head}}
+	<body>
+		<h1>Demo SapiV1CapiV2 Page</h1>
+		<p>
+			Some endpoints combining SAPI v1 and CAPI v2
+		</p>
+		<h2>Endpoints</h2>
+		<h3>Basic SAPI with added CAPI</h3>
+		<ul>
+			<li>
+				<a target="_blank" href="/sapiV1CapiV2/search">latest SAPI results with added CAPI</a>
+			</li>
+			<li>
+				<a target="_blank" href="/sapiV1CapiV2/search/deeper?maxDepth=2">latest SAPI results (iterating twice) with added CAPI</a>
+			</li>
+		</ul>
+	</body>
+</html>
