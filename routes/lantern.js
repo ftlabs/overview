@@ -83,7 +83,6 @@ router.get("/pageViews", async (req, res, next) => {
   const results = await lanternApiRequest(
     "articles/ranking",
     queryString,
-    cbCall(res),
     "POST"
   );
 

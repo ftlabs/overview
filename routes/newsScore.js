@@ -9,7 +9,7 @@ router.get("/", async (req, res, next) => {
     undefined,
     undefined,
     undefined,
-    50
+    30
   );
 
   const aggregationsByGenre = results.aggregationsByGenre["genre:genre:News"];
@@ -55,23 +55,29 @@ router.get("/", async (req, res, next) => {
       timespan: "4320h"
     };
 
-    const articleRankings = await lanternApiRequest(
+    let articleRankings = await lanternApiRequest(
       "articles/ranking",
       queryStringEarly,
       "POST"
     );
 
-    themeObject.articles.map(article => {
+    articleRankings = JSON.parse(articleRankings);
+
+    themeObject.articles = themeObject.articles.map(article => {
       let newArticleObject = {};
-      articleRankings.articles_ranking.forEach(articleRanking => {
+      articleRankings["articles_ranking"].forEach(articleRanking => {
         if (articleRanking.article_uuid === article.uuid) {
-          newArticleObject = { ...article, pageViews: 0 };
+          newArticleObject = {
+            ...article,
+            pageViews: articleRanking.page_view_count
+          };
         }
       });
+      return newArticleObject;
     });
+    content = { ...content, themeObject };
   });
-
-  res.json(pageViews);
+  res.json(content);
 });
 
 module.exports = router;
