@@ -62,8 +62,10 @@ router.get("/", async (req, res, next) => {
     );
 
     themeObject.articles.map(article => {
+      let newArticleObject = {};
       articleRankings.articles_ranking.forEach(articleRanking => {
         if (articleRanking.article_uuid === article.uuid) {
+          newArticleObject = { ...article, pageViews: 0 };
         }
       });
     });
