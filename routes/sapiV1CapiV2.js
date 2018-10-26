@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const sapiV1CapiV2 = require('../modules/sapiV1CapiV2');
+const sapiV1CapiV2 = require('../lib/sapiV1CapiV2');
 const debug = require('debug')('views:sapiV1CapiV2');
 const bodyParser = require('body-parser');
 // support parsing of application/json type post data
