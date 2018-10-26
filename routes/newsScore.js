@@ -5,6 +5,16 @@ const { lanternApiRequest } = require("../lib/lanternService");
 
 router.get("/firstIteration", async (req, res, next) => {
   getData(results => {
+    results.forEach(themeObject => {
+      let sum = 0;
+      themeObject.articles.forEach(article => {
+        positions = [];
+        article.listData.sort(position => {
+          position.position;
+        });
+      });
+    });
+
     res.json(results);
   });
 });
