@@ -8,9 +8,18 @@
 		</header>
 		<div id="venn_one"></div>
 		{{> ftabulous/vennScripts}}
+		<span id="dataHolder" style="visibility: hidden; height: 0; overflow: hidden;">{{data}}</span>
+		<span id="facetHolder" style="visibility: hidden; height: 0; overflow: hidden;">{{facetHistory}}</span>
 		<script src="/static/js/ftabulous/people_venn_moardata.js"></script>
 		<script>
-			init('{{data}}', '{{facetHistory}}');
+			var dataHolder = document.getElementById('dataHolder');
+			var facetHolder = document.getElementById('facetHolder');
+			var data = dataHolder.textContent;
+			var facets = facetHolder.textContent;
+			dataHolder.parentNode.removeChild(dataHolder);
+			facetHolder.parentNode.removeChild(facetHolder);
+
+			init(JSON.parse(data), JSON.parse(facets));
 		</script>
 	</body>
 </html>
