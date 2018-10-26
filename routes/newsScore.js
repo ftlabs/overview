@@ -3,7 +3,17 @@ const article = require("../modules/article");
 const router = express.Router();
 const { lanternApiRequest } = require("../lib/lanternService");
 
-router.get("/", async (req, res, next) => {
+router.get("/firstIteration", async (req, res, next) => {
+  getData(results => {
+    res.json(results);
+  });
+});
+
+router.get("/secondIteration", async (req, res, next) => {
+  getData(results => res.json(results));
+});
+
+async function getData(cb) {
   let results = await article.getArticlesAggregationWithListHistory(
     1,
     undefined,
@@ -45,39 +55,40 @@ router.get("/", async (req, res, next) => {
     });
   });
 
-  content.forEach(async themeObject => {
-    const uuidList = themeObject.articles.map(articleData => {
-      return articleData.uuid;
-    });
-
-    const queryStringEarly = {
-      uuids: uuidList,
-      timespan: "4320h"
-    };
-
-    let articleRankings = await lanternApiRequest(
-      "articles/ranking",
-      queryStringEarly,
-      "POST"
-    );
-
-    articleRankings = JSON.parse(articleRankings);
-
-    themeObject.articles = themeObject.articles.map(article => {
-      let newArticleObject = {};
-      articleRankings["articles_ranking"].forEach(articleRanking => {
-        if (articleRanking.article_uuid === article.uuid) {
-          newArticleObject = {
-            ...article,
-            pageViews: articleRanking.page_view_count
-          };
-        }
+  Promise.all(
+    content.map(async themeObject => {
+      const uuidList = themeObject.articles.map(articleData => {
+        return articleData.uuid;
       });
-      return newArticleObject;
-    });
-    content = { ...content, themeObject };
-  });
-  res.json(content);
-});
+
+      const queryStringEarly = {
+        uuids: uuidList,
+        timespan: "4320h"
+      };
+
+      let articleRankings = await lanternApiRequest(
+        "articles/ranking",
+        queryStringEarly,
+        "POST"
+      );
+
+      articleRankings = JSON.parse(articleRankings);
+
+      themeObject.articles = themeObject.articles.map(article => {
+        let newArticleObject = {};
+        articleRankings["articles_ranking"].forEach(articleRanking => {
+          if (articleRanking.article_uuid === article.uuid) {
+            newArticleObject = {
+              ...article,
+              pageViews: articleRanking.page_view_count
+            };
+          }
+        });
+        return newArticleObject;
+      });
+      return themeObject;
+    })
+  ).then(cb);
+}
 
 module.exports = router;
