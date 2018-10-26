@@ -1,10 +1,8 @@
 const express = require("express");
 const request = require("request");
+const { lanternApiRequest } = require("../lib/lanternService");
+
 const router = express.Router();
-
-const LANTERN_API_URL = "https://api-lantern.ft.com";
-
-const LANTERN_API_KEY = process.env.LANTERN_API_KEY;
 
 router.get("/", (req, res, next) => {
   res.render("lantern");
@@ -21,7 +19,9 @@ router.get("/top-articles/:days", async (req, res, next) => {
     size: "100"
   };
 
-  lanternApiRequest("topArticles", queryString, res);
+  const results = await lanternApiRequest("topArticles", queryString, res);
+
+  res.json(JSON.parse(results));
 });
 
 router.get("/article-metadata/:uuid", async (req, res, next) => {
@@ -29,7 +29,9 @@ router.get("/article-metadata/:uuid", async (req, res, next) => {
     uuid: req.params.uuid
   };
 
-  lanternApiRequest("metadata/article", queryString, res);
+  const results = await lanternApiRequest("metadata/article", queryString);
+
+  res.json(JSON.parse(results));
 });
 
 router.get("/search/:term", async (req, res, next) => {
@@ -47,7 +49,9 @@ router.get("/search/:term", async (req, res, next) => {
     term: req.params.term
   };
 
-  lanternApiRequest("search", queryString, res);
+  const results = await lanternApiRequest("search", queryString);
+
+  res.json(JSON.parse(results));
 });
 
 router.get("/section-or-topic/:sectionOrTopic", async (req, res, next) => {
@@ -65,7 +69,24 @@ router.get("/section-or-topic/:sectionOrTopic", async (req, res, next) => {
     section: req.params.sectionOrTopic
   };
 
-  lanternApiRequest("realtime", queryString, res);
+  const results = await lanternApiRequest("realtime", queryString);
+
+  res.json(JSON.parse(results));
+});
+
+router.get("/pageViews", async (req, res, next) => {
+  const queryString = {
+    uuids: req.query.uuids.split(","),
+    timespan: "3h"
+  };
+
+  const results = await lanternApiRequest(
+    "articles/ranking",
+    queryString,
+    "POST"
+  );
+
+  res.json(JSON.parse(results));
 });
 
 router.get("/top-views/:days", async (req, res, next) => {
@@ -82,25 +103,9 @@ router.get("/top-views/:days", async (req, res, next) => {
     size: req.query.size ? req.query.size : 5
   };
 
-  lanternApiRequest("topViews", queryString, res);
+  const results = await lanternApiRequest("topViews", queryString);
+
+  res.json(JSON.parse(results));
 });
-
-function lanternApiRequest(apiMethod, queryString, res) {
-  const options = {
-    method: "GET",
-    url: `${LANTERN_API_URL}/${apiMethod}`,
-    qs: queryString,
-    headers: {
-      "x-api-key": LANTERN_API_KEY
-    }
-  };
-
-  request(options, function(error, response, body) {
-    if (error) throw new Error(error);
-
-    res.setHeader("Content-Type", "application/json");
-    res.json(JSON.parse(body));
-  });
-}
 
 module.exports = router;

@@ -36,6 +36,7 @@ const spaceUtilisation = require("./routes/spaceUtilisation");
 const ftMaps = require("./routes/ftMaps");
 const ftabulous = require("./routes/ftabulous");
 const ame = require("./routes/aggregatedMetadataExperiments");
+const newsScore = require("./routes/newsScore");
 
 const hbs = require("hbs");
 
@@ -90,6 +91,7 @@ app.use("/space", spaceUtilisation);
 app.use("/ftMaps", ftMaps);
 app.use("/ftabulous", ftabulous);
 app.use("/ame", ame);
+app.use("/newsScore", newsScore);
 
 // ---
 
