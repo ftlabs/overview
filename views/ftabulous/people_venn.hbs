@@ -7,10 +7,9 @@
 			<p>Venn diagram of how the top 5 tagged people in FT articles (in the last 24 hours) relate to other people tagged in the same articles</p>
 		</header>
 		<div id="venn_one"></div>
+		{{> ftabulous/vennData}}
 		{{> ftabulous/vennScripts}}
 		<script src="/static/js/ftabulous/people_venn.js"></script>
-		<script>
-			init('{{data}}', '{{facetHistory}}');
-		</script>
+		{{> ftabulous/vennDataHandler}}
 	</body>
 </html>
