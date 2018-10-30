@@ -15,9 +15,14 @@ router.get("/firstIteration", async (req, res, next) => {
             return 1;
           return 0;
         };
-        console.log(article.listData.sort(compare));
-        // this now needs to be stored in themeObject.articles
-        // if there is no list data, assign the info that article.listData.position = 19
+        if(article.listData === []){
+          article.listData = { "position" : 19 }
+          console.log(article)
+        };
+        // console.log(article.listData[0])
+        
+        article.listData = article.listData.sort(compare);
+        // console.log(article.listData);
         // listPos = themeObject.articles[0].position gets the top position it has ever been in 
         // lpScore = 100 - (100 * listPos/19)
         // viewCount = article.pageViews
@@ -44,7 +49,7 @@ async function getData(cb) {
     undefined,
     undefined,
     undefined,
-    50
+    33
   );
 
   const aggregationsByGenre = results.aggregationsByGenre["genre:genre:News"];
