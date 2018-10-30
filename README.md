@@ -229,6 +229,28 @@ aggregationsByGenre : {
 ```
 ---
 
+### /sapiV1CapiV2 - combining SAPI with followup CAPI calls
+
+* /sapiV1CapiV2/search
+   * full results incl all of SAPI and all of the CAPIs
+* /sapiV1CapiV2/search/deeper
+   * full results of multiple searches
+* /sapiV1CapiV2/search/deeper/articles
+   * just the articles from multiple searches
+* /sapiV1CapiV2/search/deeper/articles/capi
+   * just the capi part of the articles from multiple searches
+
+All of the above endpoints are POSTs and GETs.
+
+The POSTs can take the standard SAPI query body (if encoded as application/json).
+
+POSTs and GETs can support query params to override any defaults or what is set in the POST body, e.g.
+
+* &maxResults=10
+* &queryString=lastPublishDateTime:<2015-08-21T16:18:00Z
+
+---
+
 ## Other APIs to investigate
 
 + UPP (credential request required)
