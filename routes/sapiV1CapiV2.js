@@ -62,6 +62,17 @@ router.post('/search/deeper', async (req, res, next) => {
   }
 });
 
+router.post('/search/deeper/articles', async (req, res, next) => {
+  try {
+  	const queryParams = constructSearchParamsFromRequest( req.query );
+    const combinedParams = Object.assign( {}, req.body, queryParams );
+  	const searchResponse = await sapiV1CapiV2.searchDeeperArticles( combinedParams );
+  	res.json( searchResponse );
+  } catch( err ){
+    res.json( { error: err.message, });
+  }
+});
+
 router.get('/search', async (req, res, next) => {
 	 try {
      const queryParams = constructSearchParamsFromRequest( req.query );
@@ -76,6 +87,16 @@ router.get('/search/deeper', async (req, res, next) => {
 	 try {
      const queryParams = constructSearchParamsFromRequest( req.query );
 	   const searchResponse = await sapiV1CapiV2.searchDeeper( queryParams );
+	   res.json( searchResponse );
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
+
+router.get('/search/deeper/articles', async (req, res, next) => {
+	 try {
+     const queryParams = constructSearchParamsFromRequest( req.query );
+	   const searchResponse = await sapiV1CapiV2.searchDeeperArticles( queryParams );
 	   res.json( searchResponse );
    } catch( err ){
      res.json( { error: err.message, });
