@@ -15,24 +15,26 @@ router.get("/firstIteration", async (req, res, next) => {
             return 1;
           return 0;
         };
-        if(article.listData === []){
-          article.listData = { "position" : 19 }
-          console.log(article)
+        // assigns positions to any that were not on homepage
+        if (article.listData.length === 0) {
+          article.listData = [ { "position" : 18 } ];
+        } else {
+          article.listData = article.listData.sort(compare);
         };
-        // console.log(article.listData[0])
-        
-        article.listData = article.listData.sort(compare);
-        // console.log(article.listData);
-        // listPos = themeObject.articles[0].position gets the top position it has ever been in 
-        // lpScore = 100 - (100 * listPos/19)
-        // viewCount = article.pageViews
-        // vScore = 100 * viewCount/500,000
-        // return totalArticleScore = vScore + lpScore
-      // themeSum += totalArticleScore
-
-      //then just needs an object { theme: blah, themeSum: 63 }
+        // applies score
+        listPos = article.listData[0].position
+        lpScore = 100 - (100 * listPos/20)
+        viewCount = article.pageViews
+        vScore = viewCount/500
+        totalArticleScore = vScore + lpScore
+        themeSum += totalArticleScore
       });
 
+      newsScore = {
+        theme: themeObject.theme,
+        newsScore: themeSum
+      };
+      console.log(newsScore)
     });
 
     res.json(results);
