@@ -6,13 +6,28 @@ const { lanternApiRequest } = require("../lib/lanternService");
 router.get("/firstIteration", async (req, res, next) => {
   getData(results => {
     results.forEach(themeObject => {
-      let sum = 0;
+      let themeSum = 0;
       themeObject.articles.forEach(article => {
-        positions = [];
-        article.listData.sort(position => {
-          position.position;
-        });
+        function compare(a,b) {
+          if (a.position < b.position)
+            return -1;
+          if (a.position > b.position)
+            return 1;
+          return 0;
+        }
+        console.log(article.listData.sort(compare))
+        // this now needs to be stored in themeObject.articles
+        // if there is no list data, assign the info that article.listData.position = 19
+        // listPos = themeObject.articles[0].position gets the top position it has ever been in 
+        // lpScore = 100 - (100 * listPos/19)
+        // viewCount = 
+        // vScore = 100 * viewCount/500,000
+        // return totalArticleScore = vScore + lpScore
+      // themeSum += totalArticleScore
+
+      //then just needs an object { theme: blah, themeSum: 63 }
       });
+
     });
 
     res.json(results);
