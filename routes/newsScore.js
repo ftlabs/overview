@@ -17,7 +17,16 @@ router.get("/firstIteration", async (req, res, next) => {
   }, daysAgo);
 });
 
-async function getData(cb, daysAgo = 40) {
+router.get("/secondIteration", async (req, res, next) => {
+  const daysAgo = req.query.daysAgo;
+  const results = await getData(daysAgo);
+  res.render("newsScore/secondIteration", {
+    results: calculateScore(results),
+    iteration: "secondIteration"
+  });
+});
+
+async function getData(daysAgo = 40) {
   let results = await article.getArticlesAggregationWithListHistory(
     1,
     undefined,
@@ -67,7 +76,7 @@ async function getData(cb, daysAgo = 40) {
     });
   });
 
-  Promise.all(
+  const result = await Promise.all(
     content.map(async themeObject => {
       const uuidList = themeObject.articles.map(articleData => {
         return articleData.uuid;
@@ -100,9 +109,8 @@ async function getData(cb, daysAgo = 40) {
       });
       return themeObject;
     })
-  ).then(results => {
-    cb(calculateScore(results));
-  });
+  );
+  return result;
 }
 
 function calculateScore(results) {
