@@ -10,40 +10,46 @@ router.get("/", async (req, res, next) => {
   res.render("sapiV1CapiV2");
 });
 
-function constructSearchParamsFromRequest( reqParams ){
+function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
 	const params = {};
 	// string params
 	['queryString', 'apiKey'].forEach( name => {
-		if (reqParams.hasOwnProperty(name) && reqParams[name] !== "") {
-			params[name] = reqParams[name];
+		if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
+			params[name] = urlParams[name];
 		}
 	});
 	// int params
 	['maxResults', 'offset', 'maxDepth'].forEach( name => {
-		if (reqParams.hasOwnProperty(name) && reqParams[name] !== "") {
-			params[name] = Number( reqParams[name] );
+		if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
+			params[name] = Number( urlParams[name] );
 		}
 	});
 	// boolean params
 	['includeCapi'].forEach( name => {
-		if (reqParams.hasOwnProperty(name) && reqParams[name] !== "") {
-			params[name] = Boolean( reqParams[name] );
+		if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
+			params[name] = Boolean( urlParams[name] );
 		}
 	});
 
-  // the invocation of this endpoint as a POST/GET must include a CAPI key
-  if (! params.hasOwnProperty('apiKey')) {
-    throw new Error("ERROR: apiKey not specified as a query param");
+  const combinedParams = Object.assign( {}, bodyParams, params ); // because body-parser creates req.body which does not have hasOwnProperty()... yes, really
+
+  debug(`constructSearchParamsFromRequest: combinedParams=${JSON.stringify(combinedParams)},
+  urlParams=${JSON.stringify(urlParams)},
+  bodyParams=${JSON.stringify(bodyParams)}`);
+
+  if(  !combinedParams.hasOwnProperty('apiKey')
+    || combinedParams['apiKey'] === ''
+  ) {
+    throw new Error("ERROR: apiKey not specified in the url param or the POST body"); // the invocation of this endpoint as a POST/GET must include a CAPI key
   }
 
-	return params;
+	return combinedParams;
 }
 
 // paths
 router.post('/search', async (req, res, next) => {
   try {
-  	const queryParams = constructSearchParamsFromRequest( req.query );
-    const combinedParams = Object.assign( {}, req.body, queryParams ); // because body-parser creates req.body which does not have hasOwnProperty()... yes, really
+  	const combinedParams = constructSearchParamsFromRequest( req.query, req.body );
   	const searchResponse = await sapiV1CapiV2.search( combinedParams );
   	res.json( searchResponse );
   } catch( err ){
@@ -53,8 +59,7 @@ router.post('/search', async (req, res, next) => {
 
 router.post('/search/deeper', async (req, res, next) => {
   try {
-  	const queryParams = constructSearchParamsFromRequest( req.query );
-    const combinedParams = Object.assign( {}, req.body, queryParams );
+    const combinedParams = constructSearchParamsFromRequest( req.query, req.body );
   	const searchResponse = await sapiV1CapiV2.searchDeeper( combinedParams );
   	res.json( searchResponse );
   } catch( err ){
@@ -64,8 +69,7 @@ router.post('/search/deeper', async (req, res, next) => {
 
 router.post('/search/deeper/articles', async (req, res, next) => {
   try {
-  	const queryParams = constructSearchParamsFromRequest( req.query );
-    const combinedParams = Object.assign( {}, req.body, queryParams );
+    const combinedParams = constructSearchParamsFromRequest( req.query, req.body );
   	const searchResponse = await sapiV1CapiV2.searchDeeperArticles( combinedParams );
   	res.json( searchResponse );
   } catch( err ){
@@ -75,8 +79,7 @@ router.post('/search/deeper/articles', async (req, res, next) => {
 
 router.post('/search/deeper/articles/capi', async (req, res, next) => {
   try {
-  	const queryParams = constructSearchParamsFromRequest( req.query );
-    const combinedParams = Object.assign( {}, req.body, queryParams );
+    const combinedParams = constructSearchParamsFromRequest( req.query, req.body );
   	const searchResponse = await sapiV1CapiV2.searchDeeperArticlesCapi( combinedParams );
   	res.json( searchResponse );
   } catch( err ){
@@ -87,8 +90,8 @@ router.post('/search/deeper/articles/capi', async (req, res, next) => {
 router.get('/search', async (req, res, next) => {
 	 try {
      const queryParams = constructSearchParamsFromRequest( req.query );
-	    const searchResponse = await sapiV1CapiV2.search( queryParams );
-	     res.json( searchResponse );
+     const searchResponse = await sapiV1CapiV2.search( queryParams );
+     res.json( searchResponse );
    } catch( err ){
      res.json( { error: err.message, });
    }
@@ -115,6 +118,16 @@ router.get('/search/deeper/articles', async (req, res, next) => {
 });
 
 router.get('/search/deeper/articles/capi', async (req, res, next) => {
+	 try {
+     const queryParams = constructSearchParamsFromRequest( req.query );
+	   const searchResponse = await sapiV1CapiV2.searchDeeperArticlesCapi( queryParams );
+	   res.json( searchResponse );
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
+
+router.get('/getArticle', async (req, res, next) => {
 	 try {
      const queryParams = constructSearchParamsFromRequest( req.query );
 	   const searchResponse = await sapiV1CapiV2.searchDeeperArticlesCapi( queryParams );
