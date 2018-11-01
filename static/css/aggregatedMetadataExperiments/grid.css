@@ -1,0 +1,50 @@
+body {
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+  background-color: #fff1e5;
+}
+
+h1 {
+  font-family: "Raleway", sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.topic-title {
+  text-align: center;
+  font-size: 50px;
+  margin-top: 17px;
+  margin-bottom: 17px;
+  font-weight: 800;
+}
+
+.title-container {
+  min-height: 177px;
+}
+
+.item {
+  margin: 10px;
+  min-width: 10%;
+  max-width: 20%;
+}
+
+.headline {
+  text-align: center;
+}
+
+.article-images {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.article-image {
+  width: 50%;
+  height: 50%;
+}
+
+.article-details {
+  min-height: 340px;
+}

@@ -8,21 +8,9 @@ var currentDay = 1;
 var initiated = false;
 
 function init(dataStr, historyStr){
-	data = prepData(dataStr);
+	data = dataStr;
 	addListeners();
 	start();
-}
-
-function prepData(data){
-	return JSON.parse(formatStr(data));
-}
-
-function formatStr(str){
-	return str.replace(/&quot;&gt;/g, '>')
-		.replace(/&lt;/g, '<')
-		.replace(/&gt;/g, '>')
-		.replace(/&quot;/g, '"')
-		.replace(/&amp;/g, '&');
 }
 
 function addListeners(){

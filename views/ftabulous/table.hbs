@@ -33,10 +33,10 @@
 			<label for="pulselinesFilter" class="o-forms__label">Show pulse lines</label>
 		</fieldset>
 		<main id="main"></main>
+
+		{{> ftabulous/vennData}}
 		<script src="/static/js/libs/d3.v5.js"></script>
 		<script src="/static/js/ftabulous/table.js"></script>
-		<script>
-			init('{{data}}', '{{facetHistory}}');
-		</script>
+		{{> ftabulous/vennDataHandler}}
 	</body>
 </html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+{{#> head title='Index' subtitle='Demo Index Page' }}{{/head}}
+<link rel="stylesheet" type="text/css" href="/static/css/aggregatedMetadataExperiments/particle.css">
+
+<body>
+    <div class="particle-container">
+        {{#each content}}
+        <div class="particle" style="height: {{size}}; width: {{size}}">{{name}}</div>
+        {{/each}}
+    </div>
+
+</body>
+
+</html>
