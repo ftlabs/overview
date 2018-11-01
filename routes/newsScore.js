@@ -3,78 +3,58 @@ const article = require("../modules/article");
 const router = express.Router();
 const { lanternApiRequest } = require("../lib/lanternService");
 
-router.get("/firstIteration", async (req, res, next) => {
+router.get("/data", async (req, res, next) => {
+  const daysAgo = req.query.daysAgo;
   getData(results => {
-    results.forEach(themeObject => {
-      let themeSum = 0;
-      themeObject.articles.forEach(article => {
-        function compare(a,b) {
-          if (a.position < b.position)
-            return -1;
-          if (a.position > b.position)
-            return 1;
-          return 0;
-        };
-        // assigns positions to any that were not on homepage
-        if (article.listData.length === 0) {
-          article.listData = [ { "position" : 18 } ];
-        } else {
-          article.listData = article.listData.sort(compare);
-        };
-        // applies score
-        listPos = article.listData[0].position
-        lpScore = 100 - (100 * listPos/20)
-        viewCount = article.pageViews
-        vScore = viewCount/500
-        totalArticleScore = vScore + lpScore
-        themeSum += totalArticleScore
-      });
-
-      newsScore = {
-        theme: themeObject.theme,
-        newsScore: themeSum
-      };
-      console.log(newsScore)
-    });
-
     res.json(results);
-  });
+  }, daysAgo);
 });
 
-router.get("/secondIteration", async (req, res, next) => {
-  getData(results => res.json(results));
+router.get("/firstIteration", async (req, res, next) => {
+  const daysAgo = req.query.daysAgo;
+  getData(results => {
+    res.render("newsScore/firstIteration", { results });
+  }, daysAgo);
 });
 
-async function getData(cb) {
+async function getData(cb, daysAgo = 40) {
   let results = await article.getArticlesAggregationWithListHistory(
     1,
     undefined,
     undefined,
     undefined,
-    33
+    daysAgo
   );
 
   const aggregationsByGenre = results.aggregationsByGenre["genre:genre:News"];
 
-  const correlationAnalysis =
-    aggregationsByGenre.correlationAnalysis.primaryTheme;
+  const primaryTheme = aggregationsByGenre.correlationAnalysis.primaryTheme;
+
+  const people = aggregationsByGenre.correlationAnalysis.people;
+
+  const regions = aggregationsByGenre.correlationAnalysis.regions;
+
+  const organisations = aggregationsByGenre.correlationAnalysis.organisations;
+
+  const themes = { primaryTheme, people, regions, organisations };
 
   let content = [];
-
-  Object.keys(correlationAnalysis).forEach(facet => {
-    correlationAnalysis[facet].forEach(theme => {
-      const articles =
-        aggregationsByGenre.articlesByMetadataCsv[
-          `primaryTheme:${facet}:${theme[0]}`
+  Object.keys(themes).forEach(topTheme => {
+    Object.keys(themes[topTheme]).forEach(facet => {
+      themes[topTheme][facet].forEach(theme => {
+        const articles =
+          aggregationsByGenre.articlesByMetadataCsv[
+            `${topTheme}:${facet}:${theme[0]}`
+          ];
+        content = [
+          ...content,
+          {
+            theme: theme[0],
+            articles,
+            score: theme[1]
+          }
         ];
-      content = [
-        ...content,
-        {
-          theme: theme[0],
-          articles,
-          score: theme[1]
-        }
-      ];
+      });
     });
   });
 
@@ -120,7 +100,43 @@ async function getData(cb) {
       });
       return themeObject;
     })
-  ).then(cb);
+  ).then(results => {
+    cb(calculateScore(results));
+  });
+}
+
+function calculateScore(results) {
+  return results
+    .map(themeObject => {
+      let themeSum = 0;
+      themeObject.articles.forEach(article => {
+        function compare(a, b) {
+          if (a.position < b.position) return -1;
+          if (a.position > b.position) return 1;
+          return 0;
+        }
+        // assigns positions to any that were not on homepage
+        if (article.listData.length === 0) {
+          article.listData = [{ position: 18 }];
+        } else {
+          article.listData = article.listData.sort(compare);
+        }
+        // applies score
+        listPos = article.listData[0].position;
+        lpScore = 100 - (100 * listPos) / 20;
+        viewCount = article.pageViews;
+        vScore = viewCount / 500;
+        totalArticleScore = vScore + lpScore;
+        themeSum += totalArticleScore;
+      });
+
+      newsScore = {
+        theme: themeObject.theme,
+        newsScore: themeSum
+      };
+      return newsScore;
+    })
+    .filter(score => score.theme !== "UK" && score.theme !== "US");
 }
 
 module.exports = router;
