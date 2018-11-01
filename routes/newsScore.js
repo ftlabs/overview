@@ -12,9 +12,10 @@ router.get("/data", async (req, res, next) => {
 
 router.get("/firstIteration", async (req, res, next) => {
   const daysAgo = req.query.daysAgo;
-  getData(results => {
-    res.render("newsScore/firstIteration", { results });
-  }, daysAgo);
+  const results = await getData(daysAgo);
+  res.render("newsScore/firstIteration", {
+    results: calculateScore(results)
+  });
 });
 
 router.get("/secondIteration", async (req, res, next) => {
