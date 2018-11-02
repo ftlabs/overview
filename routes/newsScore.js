@@ -13,8 +13,16 @@ router.get("/data", async (req, res, next) => {
 router.get("/firstIteration", async (req, res, next) => {
   const daysAgo = req.query.daysAgo;
   const results = await getData(daysAgo);
+  const scoredResults = calculateScore(results);
+  function compare(a, b) {
+    if (a.newsScore > b.newsScore) return -1;
+    if (a.newsScore < b.newsScore) return 1;
+    return 0;
+  }
+  let orderedResults = scoredResults.sort(compare)
+  console.log(orderedResults)
   res.render("newsScore/firstIteration", {
-    results: calculateScore(results)
+    results: orderedResults
   });
 });
 
