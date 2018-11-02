@@ -4,10 +4,11 @@ body {
   background-color: #fff1e5;
 }
 
-theme {
+.theme {
+  font-weight: bold;
   color: black
 }
 
-score {
+.score {
   color: blue
 }
