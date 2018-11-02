@@ -137,6 +137,16 @@ router.get('/getArticle', async (req, res, next) => {
    }
 });
 
+router.get('/summariseFetchTimings', async (req, res, next) => {
+	 try {
+     const lastFew = (req.query.hasOwnProperty('lastFew'))? Number(req.query['lastfew']) : 0;
+	   const summary = sapiV1CapiV2.summariseFetchTimings( lastFew );
+	   res.json( summary );
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
+
 router.get('/test', async (req, res, next) => {
 	res.json({
 		test: true,
