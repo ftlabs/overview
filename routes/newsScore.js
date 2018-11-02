@@ -35,7 +35,7 @@ router.get("/secondIteration", async (req, res, next) => {
   });
 });
 
-async function getData(daysAgo = 40) {
+async function getData(daysAgo = 34) {
   let results = await article.getArticlesAggregationWithListHistory(
     1,
     undefined,
