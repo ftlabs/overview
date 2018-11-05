@@ -81,7 +81,6 @@ if (process.env.BYPASS_TOKEN !== "true") {
   app.use(validateRequest);
 }
 
-app.use("/sapiV1CapiV2", sapiV1CapiV2); // temporarily outside s3o
 //Core Routes
 app.use(s3o);
 app.use("/articles", articles);
@@ -98,6 +97,7 @@ app.use("/space", spaceUtilisation);
 app.use("/ftMaps", ftMaps);
 app.use("/ftabulous", ftabulous);
 app.use("/ame", ame);
+app.use("/sapiV1CapiV2", sapiV1CapiV2); // temporarily outside s3o
 
 // ---
 
