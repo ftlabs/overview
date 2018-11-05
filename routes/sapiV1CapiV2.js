@@ -16,7 +16,8 @@ router.get("/", (req, res, next) => {
 function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
 	const params = {};
 	// string params
-	['queryString', 'apiKey'].forEach( name => {
+  // ['queryString', 'apiKey'].forEach( name => {
+  ['queryString'].forEach( name => {
 		if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
 			params[name] = urlParams[name];
 		}
@@ -40,11 +41,11 @@ function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
   urlParams=${JSON.stringify(urlParams)},
   bodyParams=${JSON.stringify(bodyParams)}`);
 
-  if(  !combinedParams.hasOwnProperty('apiKey')
-    || combinedParams['apiKey'] === ''
-  ) {
-    throw new Error("ERROR: apiKey not specified in the url param or the POST body"); // the invocation of this endpoint as a POST/GET must include a CAPI key
-  }
+  // if(  !combinedParams.hasOwnProperty('apiKey')
+  //   || combinedParams['apiKey'] === ''
+  // ) {
+  //   throw new Error("ERROR: apiKey not specified in the url param or the POST body"); // the invocation of this endpoint as a POST/GET must include a CAPI key
+  // }
 
 	return combinedParams;
 }
