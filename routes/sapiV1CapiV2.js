@@ -164,6 +164,17 @@ router.get('/summariseFetchTimings', async (req, res, next) => {
    }
 });
 
+router.post('/correlateDammit', async (req, res, next) => {
+	 try {
+     const queryParams = constructSearchParamsFromRequest( req.query );
+	   const searchResponse = await sapiV1CapiV2.correlateDammit( queryParams );
+	   res.json( searchResponse );
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
+
+
 router.get('/test', async (req, res, next) => {
 	res.json({
 		test: true,
