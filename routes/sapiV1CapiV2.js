@@ -2,11 +2,14 @@ const express = require('express');
 const router = express.Router();
 const sapiV1CapiV2 = require('../lib/sapiV1CapiV2');
 const debug = require('debug')('views:sapiV1CapiV2');
-const bodyParser = require('body-parser');
-// support parsing of application/json type post data
-router.use(bodyParser.json());
 
-router.get("/", async (req, res, next) => {
+// set up in index.js, so not needed here
+// const bodyParser = require('body-parser');
+// // support parsing of application/json type post data
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+
+router.get("/", (req, res, next) => {
   res.render("sapiV1CapiV2");
 });
 
