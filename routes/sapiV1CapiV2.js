@@ -127,10 +127,23 @@ router.get('/search/deeper/articles/capi', async (req, res, next) => {
    }
 });
 
+router.get('/getArticle/uuid', async (req, res, next) => {
+	 try {
+     const uuid = req.params.uuid;
+	   const searchResponse = await sapiV1CapiV2.getArticle( uuid );
+	   res.json( searchResponse );
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
+
 router.get('/getArticle', async (req, res, next) => {
 	 try {
-     const queryParams = constructSearchParamsFromRequest( req.query );
-	   const searchResponse = await sapiV1CapiV2.searchDeeperArticlesCapi( queryParams );
+     const uuid = req.query.uuid;
+     if (! uuid) {
+       throw new Error( '/getArticle: must specify a uuid, as either a query param (?uuid=...) or a path param (/getArticle/...)');
+     }
+	   const searchResponse = await sapiV1CapiV2.getArticle( uuid );
 	   res.json( searchResponse );
    } catch( err ){
      res.json( { error: err.message, });

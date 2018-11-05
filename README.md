@@ -249,6 +249,11 @@ POSTs and GETs can support query params to override any defaults or what is set 
 * &maxResults=10
 * &queryString=lastPublishDateTime:<2015-08-21T16:18:00Z
 
+* /getArticle/uuid
+   * or /article?uuid=...
+* /summariseFetchTimings
+   * optional: ?lastFew=10
+
 ---
 
 ## Other APIs to investigate

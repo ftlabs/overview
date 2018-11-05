@@ -75,6 +75,30 @@
 					</div>
 				</form>
 			</li>
+			<li>
+				<h3>latest CAPI for UUID </h3>
+				<form action="/sapiV1CapiV2/getArticle" method="get">
+					<div>
+					  <label for="uuid">uuid:</label>
+					  <input type="text" name="uuid">
+					</div>
+					<div class="button">
+					  <button type="submit">GET search request</button>
+					</div>
+				</form>
+			</li>
+			<li>
+				<h3>summary of recent SAPI and CAPI call timings</h3>
+				<form action="/sapiV1CapiV2/summariseFetchTimings" method="get">
+					<div>
+					  <label for="lastFew">lastFew:</label>
+					  <input type="text" name="lastFew">
+					</div>
+					<div class="button">
+					  <button type="submit">GET call summary</button>
+					</div>
+				</form>
+			</li>
 		</ul>
 		<h2>POST Endpoints</h2>
 		<ul>
