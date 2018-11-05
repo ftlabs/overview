@@ -26,9 +26,10 @@
 			Some endpoints combining SAPI v1 and CAPI v2
 		</p>
 		<h2>GET Endpoints</h2>
+		<p>Can specify any of the standard SAPI POST body params as query params, along with other params such as maxDepth.</p>
 		<ul>
 			<li>
-				<h3>simple search, iterating deeper, articles only, capi only</h3>
+				<h3>simple search (one SAPI call), with added CAPI calls to flesh out article details</h3>
 				<form action="/sapiV1CapiV2/search" method="get">
 					<div>
 					  <label for="name">queryString:</label>
@@ -38,17 +39,13 @@
 					  <label for="maxResults">maxResults:</label>
 					  <input type="maxResults" name="maxResults" value="10">
 					</div>
-					<div>
-					  <label for="maxDepth">maxDepth:</label>
-					  <input type="maxDepth" name="maxDepth" value="10">
-					</div>
 					<div class="button">
 					  <button type="submit">GET search request</button>
 					</div>
 				</form>
 			</li>
 			<li>
-				<h3>latest SAPI results (iterating SAPI calls) with added CAPI</h3>
+				<h3>iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details</h3>
 				<form action="/sapiV1CapiV2/search/deeper" method="get">
 					<div>
 					  <label for="name">queryString:</label>
@@ -68,8 +65,48 @@
 				</form>
 			</li>
 			<li>
+				<h3>iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details, returning just the article data</h3>
+				<form action="/sapiV1CapiV2/search/deeper/articles" method="get">
+					<div>
+					  <label for="name">queryString:</label>
+					  <input type="text" name="queryString">
+					</div>
+					<div>
+					  <label for="maxResults">maxResults:</label>
+					  <input type="maxResults" name="maxResults" value="10">
+					</div>
+					<div>
+					  <label for="maxDepth">maxDepth:</label>
+					  <input type="maxDepth" name="maxDepth" value="10">
+					</div>
+					<div class="button">
+					  <button type="submit">GET search request</button>
+					</div>
+				</form>
+			</li>
+			<li>
+				<h3>iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details, returning just the reduced CAPI aspect of the article data with added mergedAnnotations</h3>
+				<form action="/sapiV1CapiV2/search/deeper/articles/capi" method="get">
+					<div>
+					  <label for="name">queryString:</label>
+					  <input type="text" name="queryString">
+					</div>
+					<div>
+					  <label for="maxResults">maxResults:</label>
+					  <input type="maxResults" name="maxResults" value="10">
+					</div>
+					<div>
+					  <label for="maxDepth">maxDepth:</label>
+					  <input type="maxDepth" name="maxDepth" value="10">
+					</div>
+					<div class="button">
+					  <button type="submit">GET search request</button>
+					</div>
+				</form>
+			</li>
+			<li>
 				<h3>latest CAPI for UUID </h3>
-				<form action="/sapiV1CapiV2/getArticle" method="get">
+			<form action="/sapiV1CapiV2/getArticle" method="get">
 					<div>
 					  <label for="uuid">uuid:</label>
 					  <input type="text" name="uuid" value="0ed17006-ba37-11e8-8274-55b72926558f">
@@ -93,9 +130,10 @@
 			</li>
 		</ul>
 		<h2>POST Endpoints</h2>
+		<p>Can specify any of the standard SAPI POST body params as query params *or* as POST body params (if encoded as application/json), along with other params such as maxDepth.</p>
 		<ul>
 			<li>
-			  <h3>simple search</h3>
+			  <h3>simple search (one SAPI call), with added CAPI calls to flesh out article details</h3>
 				<form action="/sapiV1CapiV2/search" method="post">
 					<div>
 					  <label for="name">queryString:</label>
@@ -111,7 +149,7 @@
 				</form>
 			</li>
 			<li>
-				<h3>simple search, iterating deeper</h3>
+				<h3>iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details</h3>
 				<form action="/sapiV1CapiV2/search/deeper" method="post">
 					<div>
 					  <label for="name">queryString:</label>
@@ -131,7 +169,7 @@
 				</form>
 			</li>
 			<li>
-				<h3>simple search, iterating deeper, articles only</h3>
+				<h3>iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details, returning just the article data</h3>
 				<form action="/sapiV1CapiV2/search/deeper/articles" method="post">
 					<div>
 					  <label for="name">queryString:</label>
@@ -151,7 +189,7 @@
 				</form>
 			</li>
 			<li>
-				<h3>simple search, iterating deeper, articles only, capi only</h3>
+				<h3>iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details, returning just the reduced CAPI aspect of the article data with added mergedAnnotations</h3>
 				<form action="/sapiV1CapiV2/search/deeper/articles/capi" method="post">
 					<div>
 					  <label for="name">queryString:</label>
