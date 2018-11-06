@@ -208,6 +208,38 @@
 					</div>
 				</form>
 			</li>
+			<li>
+				<h3>correlations based on iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details, returning just the reduced CAPI aspect of the article data with added mergedAnnotations</h3>
+				<form action="/sapiV1CapiV2/correlateDammit" method="post">
+					<div>
+					  <label for="name">queryString:</label>
+					  <input type="text" name="queryString">
+					</div>
+					<div>
+					  <label for="maxResults">maxResults:</label>
+					  <input type="maxResults" name="maxResults" value="10">
+					</div>
+					<div>
+					  <label for="maxDepth">maxDepth:</label>
+					  <input type="maxDepth" name="maxDepth" value="10">
+					</div>
+					<div>
+					  <label for="maxDurationMs">maxDurationMs:</label>
+					  <input type="maxDurationMs" name="maxDurationMs" value="5000">
+					</div>
+					<div>
+					  <label for="genres">genres:</label>
+					  <input type="genres" name="genres" value="News,Opinion">
+					</div>
+					<div>
+					  <label for="groups">groups:</label>
+					  <input type="groups" name="groups" value="primaryThemes,abouts">
+					</div>
+					<div class="button">
+					  <button type="submit">POST search request</button>
+					</div>
+				</form>
+			</li>
 		</ul>
 	</body>
 </html>
