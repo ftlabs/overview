@@ -13,7 +13,9 @@ router.get("/", (req, res, next) => {
   res.render("sapiV1CapiV2");
 });
 
-function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
+function constructSearchParamsFromRequest( urlParams={}, bodyParamsMaybe={} ){
+  // NB, bodyParamsMaybe might not be a proper object, hence port it into a proper obj by default
+  const bodyParams = Object.assign({}, bodyParamsMaybe);
 	const params = {};
 	// string params
   // ['queryString', 'apiKey'].forEach( name => {
@@ -27,6 +29,10 @@ function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
 		if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
 			params[name] = Number( urlParams[name] );
 		}
+
+    if (bodyParams.hasOwnProperty(name) && typeof bodyParams[name] !== 'number') {
+      bodyParams[name] = Number(bodyParams[name]);
+    }
 	});
 	// boolean params
 	['includeCapi'].forEach( name => {
@@ -34,6 +40,15 @@ function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
 			params[name] = Boolean( urlParams[name] );
 		}
 	});
+  // string list params
+  ['genres', 'groups'].forEach( name => {
+    if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
+      params[name] = urlParams[name].split(',');
+    }
+    if (bodyParams.hasOwnProperty(name) && typeof bodyParams[name] == 'string') {
+      bodyParams[name] = bodyParams[name].split(',');
+    }
+  });
 
   const combinedParams = Object.assign( {}, bodyParams, params ); // because body-parser creates req.body which does not have hasOwnProperty()... yes, really
 
