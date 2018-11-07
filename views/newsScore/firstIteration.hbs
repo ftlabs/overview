@@ -10,10 +10,22 @@
 </head>
 
 <body>
-    {{#each results}}
-    <span class="theme">{{theme}}: </span> <span class="score"> {{newsScore}}</span>
-    <br>
-    {{/each}}
+    <div class="overall-page">
+        <div class="yesterday">
+            {{#each results1}}
+            <span class="eachone">
+            <span class="theme"> {{theme}}:   </span> <span class="score"> {{newsScore}}<br></span>
+            </span>
+            {{/each}}
+        </div>
+        <div class="today">
+            {{#each results2}}
+            <span class="eachone">
+            <span class="theme"> {{theme}}:   </span> <span class="score"> {{newsScore}}<br></span>
+            </span>
+            {{/each}}
+        </div>
+    </div>
 </body>
 
 </html>

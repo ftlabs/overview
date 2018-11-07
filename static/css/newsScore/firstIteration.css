@@ -12,3 +12,34 @@ body {
 .score {
   color: blue
 }
+
+.overall-page {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start
+}
+
+.yesterday {
+  display: flex;
+  flex-direction: column;
+}
+
+.today {
+  display: flex;
+  flex-direction: column;
+}
+
+.eachone {
+  display: flex;
+  justify-content: space-between;
+}
+
+.theme {
+  font-family: "Montserrat", sans-serif;
+  justify-content: flex-start;
+}
+
+.score {
+  justify-content: flex-start;
+}
+
