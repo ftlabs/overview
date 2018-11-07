@@ -229,6 +229,48 @@ aggregationsByGenre : {
 ```
 ---
 
+### /sapiV1CapiV2 - combining SAPI with followup CAPI calls
+
+All of the following endpoints are POSTs and GETs.
+
+The POSTs can take the standard SAPI query body (if encoded as application/json).
+
+POSTs and GETs can support query params to override any defaults or what is set in the POST body, e.g.
+* &maxResults=10
+* &queryString=lastPublishDateTime:<2015-08-21T16:18:00Z
+
+and for the \*deeper endpoints involving multiple searches
+* maxDepth
+* maxDurationMs
+
+NB, each call will return with whatever data has been gathered by the time it reaches the time threshold. Since the SAPI and CAPI calls are cached, re-invoking the same call will most likely lead to further SAPI+CAPI calls and thus return a bigger dataset until the full response has been achieved.
+
+#### Main endpoints
+
+* /sapiV1CapiV2/search
+   * full results incl all of SAPI and all of the CAPIs
+* /sapiV1CapiV2/search/deeper
+   * full results of multiple searches
+* /sapiV1CapiV2/search/deeper/articles
+   * just the articles from multiple searches
+* /sapiV1CapiV2/search/deeper/articles/capi
+   * just the capi part of the articles from multiple searches
+
+* /sapiV1CapiV2/correlateDammit
+   * the main focal point of this code, including the derived correlation info
+   * with additional optional params:
+      * genres: which genres to include in the correlations, default="News,Opinion"
+      * groups: which subsets of metadata to include in the correlations, default="primaryThemes,abouts"
+
+#### other endpoints
+
+* /getArticle/uuid
+   * or /article?uuid=...
+* /summariseFetchTimings
+   * optional: ?lastFew=10
+
+---
+
 ## Other APIs to investigate
 
 + UPP (credential request required)
