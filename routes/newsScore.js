@@ -131,6 +131,9 @@ function calculateScore(results) {
   return results
     .map(themeObject => {
       let themeSum = 0;
+      if (!themeObject.articles) {
+        themeObject.articles = [];
+      }
       themeObject.articles.forEach(article => {
         function compare(a, b) {
           if (a.position < b.position) return -1;
