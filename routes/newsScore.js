@@ -157,7 +157,7 @@ function calculateScore(results) {
 
       newsScore = {
         theme: themeObject.theme,
-        newsScore: themeSum
+        newsScore: Math.round(themeSum * 100) / 100
       };
       return newsScore;
     })
