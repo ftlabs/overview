@@ -129,4 +129,73 @@ router.get('/test', async (req, res, next) => {
 	});
 });
 
+function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchResponse ){
+  const group = {
+    name : groupName,
+    byCount : {
+      topAnnotations : [],
+      annotationsBubblingUnder : [],
+    },
+  };
+
+  group.byCount.topAnnotations = annoPairs
+  .filter( pair => { return pair[1] > 1; }) // just those with count > 1
+  .map( pair => { // bring together details, incl list of articles
+    const annotation = pair[0];
+    const count      = pair[1];
+    const uuids      = groupDetails.uuidsGroupedByItem[annotation];
+    const articles   = uuids.map( uuid => { return searchResponse.articlesByUuid[uuid]; });
+
+    return {
+      annotation,
+      count,
+      uuids,
+      articles,
+    }
+  })
+  ;
+
+  group.byCount.annotationsBubblingUnder = annoPairs
+  .filter( pair => { return pair[1] == 1; })
+  .map( pair => { return pair[0]; })
+  ;
+
+  return group;
+}
+
+function prepDisplayData( searchResponse ){
+  const groupName = 'abouts';
+  const groupDetails = searchResponse.correlations.groups[groupName];
+
+  const data = {
+    groups : [],
+    searchResponse,
+  };
+
+  const mainGroup = prepAnnotationsGroup( groupName, groupDetails.sortedByCount, groupDetails, searchResponse );
+  data.groups.push( mainGroup );
+
+  const taxonomies = Object.keys( groupDetails.sortedByCountGroupedByTaxonomy );
+  taxonomies.forEach( taxonomy => {
+    const annoPairs = groupDetails.sortedByCountGroupedByTaxonomy[taxonomy];
+    const taxonomyGroupName = `${groupName}: ${taxonomy}`;
+    const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annoPairs, groupDetails, searchResponse );
+    data.groups.push( taxonomyGroup );
+  });
+
+  return data;
+}
+
+router.get('/display', async (req, res, next) => {
+	 try {
+     const combinedParams = constructSearchParamsFromRequest( req.query );
+     const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
+     const data = prepDisplayData( searchResponse );
+	   res.json( data );
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
+
+
 module.exports = router;
