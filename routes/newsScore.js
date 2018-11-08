@@ -12,19 +12,30 @@ router.get("/data", async (req, res, next) => {
 
 router.get("/firstIteration", async (req, res, next) => {
   // let daysAgo = req.query.daysAgo;
-  const resultsday2 = await getData(32);
+  console.log('day 2')
+  const resultsday2 = await getData(34);
   const scoredResultsday2 = calculateScore(resultsday2);
   function compare(a, b) {
     if (a.newsScore > b.newsScore) return -1;
     if (a.newsScore < b.newsScore) return 1;
     return 0;
   }
-  const orderedResultsday2 = scoredResultsday2.sort(compare)
+  let orderedResultsday2 = scoredResultsday2.sort(compare)
+  orderedResultsday2.forEach(result => {
+    result.newsScore = Number.parseFloat(result.newsScore).toFixed(2)
+  });
 
   // let daysAgo = req.query.daysAgo;
-  const resultsday1 = await getData(31);
+  console.log('day 1')
+
+  const resultsday1 = await getData(35);
   const scoredResultsday1 = calculateScore(resultsday1);
-  const orderedResultsday1 = scoredResultsday1.sort(compare)
+  let orderedResultsday1 = scoredResultsday1.sort(compare)
+  orderedResultsday1.forEach(result => {
+    result.newsScore = Number.parseFloat(result.newsScore).toFixed(2)
+  });
+
+
   res.render("newsScore/firstIteration", {
     results2: orderedResultsday2,
     results1: orderedResultsday1
