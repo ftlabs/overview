@@ -47,11 +47,19 @@
 				<input type="submit" value="SUMMARISE!">
 			</form> -->
 		</p>
+		<div>
+			<ul>
+				{{#each data.groups}}
+				<li><a href="#{{this.name}}">{{ this.name }}</a></li>
+				{{/each}}
+			</ul>
+		</div>
+
 		<main class="centerPos">
-			<h3>Correlations in primaryTheme</h3>
+			<h3>Correlations in article annotations</h3>
 			<table>
 				{{#each data.groups}}
-					<tr>
+					<tr id="{{this.name}}">
 						<td class="grouping" colspan="3">{{ this.name }}</td>
 					</tr>
 					{{#each this.byCount.topAnnotations }}

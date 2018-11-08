@@ -172,23 +172,27 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
 }
 
 function prepDisplayData( searchResponse ){
-  const groupName = 'abouts';
-  const groupDetails = searchResponse.correlations.groups[groupName];
-
   const data = {
     groups : [],
     searchResponse,
   };
 
-  const mainGroup = prepAnnotationsGroup( groupName, groupDetails.sortedByCount, groupDetails, searchResponse );
-  data.groups.push( mainGroup );
+  const groupNames = ['primaryThemes', 'abouts'];
 
-  const taxonomies = Object.keys( groupDetails.sortedByCountGroupedByTaxonomy );
-  taxonomies.forEach( taxonomy => {
-    const annoPairs = groupDetails.sortedByCountGroupedByTaxonomy[taxonomy];
-    const taxonomyGroupName = `${groupName}: ${taxonomy}`;
-    const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annoPairs, groupDetails, searchResponse );
-    data.groups.push( taxonomyGroup );
+  groupNames.forEach( groupName => {
+    const groupDetails = searchResponse.correlations.groups[groupName];
+
+
+    const mainGroup = prepAnnotationsGroup( groupName, groupDetails.sortedByCount, groupDetails, searchResponse );
+    data.groups.push( mainGroup );
+
+    const taxonomies = Object.keys( groupDetails.sortedByCountGroupedByTaxonomy );
+    taxonomies.forEach( taxonomy => {
+      const annoPairs = groupDetails.sortedByCountGroupedByTaxonomy[taxonomy];
+      const taxonomyGroupName = `${groupName}-${taxonomy}`;
+      const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annoPairs, groupDetails, searchResponse );
+      data.groups.push( taxonomyGroup );
+    });
   });
 
   return data;
