@@ -216,9 +216,19 @@ router.get('/display/:template', async (req, res, next) => {
      const defaultParams = {
        maxResults  : 100,
        maxDepth    : 3,
+       maxDurationMs : 5000,
        queryString : 'lastPublishDateTime:>2018-11-07T00:00:00Z and lastPublishDateTime:<2018-11-08T00:00:00Z',
+       genres      : "News,Opinion"
      }
-     const combinedParams = constructSearchParamsFromRequest( req.query );
+     const copyQueryParams = Object.assign(req.query);
+     Object.keys(defaultParams).forEach( param => {
+       if (copyQueryParams.hasOwnProperty(param)
+        && copyQueryParams[param] == "") {
+         delete copyQueryParams[param];
+       }
+     });
+
+     const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
      const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
      const data = prepDisplayData( searchResponse );
      res.render(`sapiV1CapiV2Experiments/${template}`, {
@@ -226,8 +236,15 @@ router.get('/display/:template', async (req, res, next) => {
    		params: {
         maxResults  : combinedParams['maxResults'],
         maxDepth    : combinedParams['maxDepth'],
+        maxDurationMs : combinedParams['maxDurationMs'],
         queryString : combinedParams['queryString'],
+        genres      : combinedParams['genres'],
    		},
+      context : {
+        numArticles        : searchResponse.numArticles,
+        numArticlesInGenres: searchResponse.correlations.numArticlesInGenres,
+        genresString       : searchResponse.correlations.genres.join(','),
+      }
    	});
 
    } catch( err ){
