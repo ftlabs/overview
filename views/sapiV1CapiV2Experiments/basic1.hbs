@@ -58,11 +58,11 @@
 						<tr>
 							<td class="name">
 								{{ this.name }}<br>
-								<!-- {{#each this.[2]}}
-									{{#if imageUrl}}
-										<img class="thumbnail" src="{{imageUrl}}">
+								{{#each this.articles}}
+									{{#if mainImage.thumbnailUrl}}
+										<img class="thumbnail" src="{{mainImage.thumbnailUrl}}">
 									{{/if}}
-								{{/each}} -->
+								{{/each}}
 							</td>
 							<td class="articles">
 								<ul>

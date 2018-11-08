@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const sapiV1CapiV2 = require('../lib/sapiV1CapiV2');
 const debug = require('debug')('views:sapiV1CapiV2');
+const image = require('../helpers/image');
 
 // set up in index.js, so not needed here
 // const bodyParser = require('body-parser');
@@ -145,6 +146,13 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
     const count     = pair[1];
     const uuids     = groupDetails.uuidsGroupedByItem[name];
     const articles  = uuids.map( uuid => { return searchResponse.articlesByUuid[uuid]; });
+    articles.forEach( article => {
+      if (article.mainImage
+        && article.mainImage.members
+        && article.mainImage.members.length > 0 ) {
+          article.mainImage.thumbnailUrl = image.formatImageUrl(article.mainImage.members[0], 200);
+      }
+    });
 
     return {
       name,
