@@ -141,13 +141,13 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
   group.byCount.topAnnotations = annoPairs
   .filter( pair => { return pair[1] > 1; }) // just those with count > 1
   .map( pair => { // bring together details, incl list of articles
-    const annotation = pair[0];
-    const count      = pair[1];
-    const uuids      = groupDetails.uuidsGroupedByItem[annotation];
-    const articles   = uuids.map( uuid => { return searchResponse.articlesByUuid[uuid]; });
+    const name      = pair[0];
+    const count     = pair[1];
+    const uuids     = groupDetails.uuidsGroupedByItem[name];
+    const articles  = uuids.map( uuid => { return searchResponse.articlesByUuid[uuid]; });
 
     return {
-      annotation,
+      name,
       count,
       uuids,
       articles,
@@ -192,6 +192,27 @@ router.get('/display', async (req, res, next) => {
      const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
      const data = prepDisplayData( searchResponse );
 	   res.json( data );
+
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
+
+router.get('/display/:template', async (req, res, next) => {
+	 try {
+     const template = req.params.template;
+     const combinedParams = constructSearchParamsFromRequest( req.query );
+     const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
+     const data = prepDisplayData( searchResponse );
+     res.render(`sapiV1CapiV2Experiments/${template}`, {
+   		data,
+   		params: {
+   			// days,
+   			// minCorrelation,
+   			// timeslip,
+   		},
+   	});
+
    } catch( err ){
      res.json( { error: err.message, });
    }
