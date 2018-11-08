@@ -31,7 +31,6 @@ router.get("/firstIteration", async (req, res, next) => {
     result.newsScore = Number.parseFloat(result.newsScore).toFixed(2)
   });
 
-
   res.render("newsScore/firstIteration", {
     results2: orderedResultsday2,
     results1: orderedResultsday1
@@ -48,90 +47,102 @@ router.get("/secondIteration", async (req, res, next) => {
 });
 
 async function getData(daysAgo = 34) {
-  let results = await article.getArticlesAggregationWithListHistory(
-    1,
-    undefined,
-    undefined,
-    undefined,
-    daysAgo
-  );
+  try {
+    let results = await article.getArticlesAggregationWithListHistory(
+      1,
+      undefined,
+      undefined,
+      undefined,
+      daysAgo
+    );
+  
+    const aggregationsByGenre = results.aggregationsByGenre["genre:genre:News"];
+  
+    const primaryTheme = aggregationsByGenre.correlationAnalysis.primaryTheme;
+  
+    const people = aggregationsByGenre.correlationAnalysis.people;
+  
+    const regions = aggregationsByGenre.correlationAnalysis.regions;
+  
+    const organisations = aggregationsByGenre.correlationAnalysis.organisations;
+  
+    const themes = { primaryTheme, people, regions, organisations };
+  
+    let content = [];
 
-  const aggregationsByGenre = results.aggregationsByGenre["genre:genre:News"];
-
-  const primaryTheme = aggregationsByGenre.correlationAnalysis.primaryTheme;
-
-  const people = aggregationsByGenre.correlationAnalysis.people;
-
-  const regions = aggregationsByGenre.correlationAnalysis.regions;
-
-  const organisations = aggregationsByGenre.correlationAnalysis.organisations;
-
-  const themes = { primaryTheme, people, regions, organisations };
-
-  let content = [];
-  Object.keys(themes).forEach(topTheme => {
-    Object.keys(themes[topTheme]).forEach(facet => {
-      themes[topTheme][facet].forEach(theme => {
-        const articles =
-          aggregationsByGenre.articlesByMetadataCsv[
-            `${topTheme}:${facet}:${theme[0]}`
-          ];
-        content = [
-          ...content,
-          {
-            theme: theme[0],
-            articles,
-            score: theme[1]
-          }
-        ];
-      });
-    });
-  });
-
-  content.forEach(themeObject => {
-    themeObject.articles = themeObject.articles.map(uuid => {
-      const listData = results.listHistoryProcessed.listHistory[0].filter(
-        listHistory => listHistory.content_id === uuid
-      );
-      return { uuid, listData };
-    });
-  });
-
-  const result = await Promise.all(
-    content.map(async themeObject => {
-      const uuidList = themeObject.articles.map(articleData => {
-        return articleData.uuid;
-      });
-
-      const queryStringEarly = {
-        uuids: uuidList,
-        timespan: "4320h"
-      };
-
-      let articleRankings = await lanternApiRequest(
-        "articles/ranking",
-        queryStringEarly,
-        "POST"
-      );
-
-      articleRankings = JSON.parse(articleRankings);
-
-      themeObject.articles = themeObject.articles.map(article => {
-        let newArticleObject = {};
-        articleRankings["articles_ranking"].forEach(articleRanking => {
-          if (articleRanking.article_uuid === article.uuid) {
-            newArticleObject = {
-              ...article,
-              pageViews: articleRanking.page_view_count
-            };
+    Object.keys(themes).forEach(topTheme => {
+      Object.keys(themes[topTheme]).forEach(facet => {
+        if( isPlainObject(themes[topTheme][facet])) {
+          themes[topTheme][facet] = [] 
+        }
+        themes[topTheme][facet].forEach(theme => {
+          const articles =
+            aggregationsByGenre.articlesByMetadataCsv[
+              `${topTheme}:${facet}:${theme[0]}`
+            ];
+          if (content.find(item => item.theme === theme[0])){
+            console.log('already exists!', theme) 
+          } else {
+            content = [
+              ...content,
+              {
+                theme: theme[0],
+                articles,
+                score: theme[1]
+              }
+            ];
           }
         });
-        return newArticleObject;
       });
-      return themeObject;
-    })
-  );
-  return result;
+    });
+  
+    content.forEach(themeObject => {
+      themeObject.articles = themeObject.articles.map(uuid => {
+        const listData = results.listHistoryProcessed.listHistory[0].filter(
+          listHistory => listHistory.content_id === uuid
+        );
+        return { uuid, listData };
+      });
+    });
+  
+    const result = await Promise.all(
+      content.map(async themeObject => {
+        const uuidList = themeObject.articles.map(articleData => {
+          return articleData.uuid;
+        });
+  
+        const queryStringEarly = {
+          uuids: uuidList,
+          timespan: "4320h"
+        };
+  
+        let articleRankings = await lanternApiRequest(
+          "articles/ranking",
+          queryStringEarly,
+          "POST"
+        );
+  
+        articleRankings = JSON.parse(articleRankings);
+  
+        themeObject.articles = themeObject.articles.map(article => {
+          let newArticleObject = {};
+          articleRankings["articles_ranking"].forEach(articleRanking => {
+            if (articleRanking.article_uuid === article.uuid) {
+              newArticleObject = {
+                ...article,
+                pageViews: articleRanking.page_view_count
+              };
+            }
+          });
+          return newArticleObject;
+        });
+        return themeObject;
+      })
+    );
+    return result;
+  } catch(err){
+    throw err
+  }
 }
 
 function calculateScore(results) {
