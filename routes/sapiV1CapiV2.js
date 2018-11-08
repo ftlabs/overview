@@ -166,6 +166,8 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
   group.byCount.annotationsBubblingUnder = annoPairs
   .filter( pair => { return pair[1] == 1; })
   .map( pair => { return pair[0]; })
+  .sort()
+  .reverse()
   ;
 
   return group;
