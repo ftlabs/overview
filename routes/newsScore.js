@@ -12,7 +12,6 @@ router.get("/data", async (req, res, next) => {
 
 router.get("/firstIteration", async (req, res, next) => {
   // let daysAgo = req.query.daysAgo;
-  console.log('day 2')
   const resultsday2 = await getData(34);
   const scoredResultsday2 = calculateScore(resultsday2);
   function compare(a, b) {
@@ -24,10 +23,7 @@ router.get("/firstIteration", async (req, res, next) => {
   orderedResultsday2.forEach(result => {
     result.newsScore = Number.parseFloat(result.newsScore).toFixed(2)
   });
-
   // let daysAgo = req.query.daysAgo;
-  console.log('day 1')
-
   const resultsday1 = await getData(35);
   const scoredResultsday1 = calculateScore(resultsday1);
   let orderedResultsday1 = scoredResultsday1.sort(compare)
@@ -161,18 +157,22 @@ function calculateScore(results) {
         listPos = article.listData[0].position;
         lpScore = 100 - (100 * listPos) / 20;
         viewCount = article.pageViews;
-        vScore = viewCount / 500;
-        totalArticleScore = vScore + lpScore;
+        vScore = viewCount / 800;
+        totalArticleScore = 0.25 * vScore + 0.75 * lpScore;
         themeSum += totalArticleScore;
       });
 
       newsScore = {
         theme: themeObject.theme,
-        newsScore: Math.round(themeSum * 100) / 100
+        newsScore: themeSum
       };
       return newsScore;
     })
-    .filter(score => score.theme !== "UK" && score.theme !== "US");
+    .filter(score => score.theme !== "UK" && score.theme !== "US" && score.theme !== "Europe");
+}
+
+function isPlainObject(input){
+  return input && !Array.isArray(input) && typeof input === 'object';
 }
 
 module.exports = router;
