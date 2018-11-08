@@ -213,15 +213,20 @@ router.get('/display', async (req, res, next) => {
 router.get('/display/:template', async (req, res, next) => {
 	 try {
      const template = req.params.template;
+     const defaultParams = {
+       maxResults  : 100,
+       maxDepth    : 3,
+       queryString : 'lastPublishDateTime:>2018-11-07T00:00:00Z and lastPublishDateTime:<2018-11-08T00:00:00Z',
+     }
      const combinedParams = constructSearchParamsFromRequest( req.query );
      const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
      const data = prepDisplayData( searchResponse );
      res.render(`sapiV1CapiV2Experiments/${template}`, {
    		data,
    		params: {
-   			// days,
-   			// minCorrelation,
-   			// timeslip,
+        maxResults  : combinedParams['maxResults'],
+        maxDepth    : combinedParams['maxDepth'],
+        queryString : combinedParams['queryString'],
    		},
    	});
 

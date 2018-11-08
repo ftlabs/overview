@@ -38,14 +38,16 @@
 
 	</head>
 	<body>
-		<h1>SapiV1CapiV2 experiments</h1>
+		<h1>SapiV1CapiV2 experiments: correlations in article annotations</h1>
 		<p>
-			<!-- <form action="" method="get" class="form-example">
-				<label>days</label>=<input type="text" name="days" id="days" value="{{params.days}}" size="3" required>
-				<label>timeslip</label>=<input type="text" name="timeslip" id="timeslip"  value="{{params.timeslip}}" size="3" required>
-				<label>minCorrelation</label>=<input type="text" name="minCorrelation" id="minCorrelation"  value="{{params.minCorrelation}}" size="1" required>
+			<form action="" method="get" class="params">
+				<label>queryString</label>=
+				<textarea name="queryString" id="queryString" required rows="3" cols="45">{{params.queryString}}</textarea>
+				<BR>
+				<label>maxResults</label>=<input type="number" name="maxResults" id="maxResults" value="{{params.maxResults}}" size="3" required>
+				<label>maxDepth</label>=<input type="number" name="maxDepth" id="maxDepth" value="{{params.maxDepth}}" size="3" required>
 				<input type="submit" value="SUMMARISE!">
-			</form> -->
+			</form>
 		</p>
 		<div>
 			<ul>
@@ -56,7 +58,6 @@
 		</div>
 
 		<main class="centerPos">
-			<h3>Correlations in article annotations</h3>
 			<table>
 				{{#each data.groups}}
 					<tr id="{{this.name}}">
