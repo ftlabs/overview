@@ -156,6 +156,7 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
 
     return {
       name,
+      nameBR : name.split(' + ').join(' +<BR>'),
       count,
       uuids,
       articles,

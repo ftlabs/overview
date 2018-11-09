@@ -15,7 +15,7 @@
 				/* white-space: nowrap; */
 			}
 			.articles {
-				width: 60%;
+				width: 50%;
 				padding: 0;
 				margin: 0;
 				list-style: none;
@@ -70,7 +70,7 @@
 					{{#each this.byCount.topAnnotations }}
 						<tr>
 							<td class="name">
-								{{ this.name }}<br>
+								{{{ this.nameBR }}}<br>
 								{{#each this.articles}}
 									{{#if mainImage.thumbnailUrl}}
 										<img class="thumbnail" src="{{mainImage.thumbnailUrl}}">
