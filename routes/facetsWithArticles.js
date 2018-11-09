@@ -135,7 +135,6 @@ router.get('/aggregations/:template', async (req, res, next) => {
 		correlationAnalysis[metadataKey][taxonomy].forEach(nameAndCount => {
 			const name = nameAndCount[0];
 			const csv = [metadataKey,taxonomy,name].join(':');
-			// debug(`facetsWithArticles: /aggregations/:template csv=${csv}`);
 			const articlesDetails = genreNewsStuff.articlesByMetadataCsv[csv].map(uuid => {
 				const article = genreNewsStuff.articlesByUuid[uuid];
 				const images = article.images;

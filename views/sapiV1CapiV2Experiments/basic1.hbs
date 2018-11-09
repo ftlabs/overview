@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style>
+			.grouping {
+				font-weight:bold;
+				background-color: coral;
+			}
+			.blank_row {
+			    height: 30px !important; /* overwrites any other rules */
+			    background-color: #FFFFFF;
+			}
+			.name {
+				font-size: 150%;
+				/* white-space: nowrap; */
+			}
+			.articles {
+				width: 60%;
+				padding: 0;
+				margin: 0;
+				list-style: none;
+			}
+			.articles65 {
+				width: 65%;
+			}
+			.thumbnail {
+				width: 30%;
+			}
+			.thumbnails {
+				width: 25%;
+			}
+			.pubdate {
+				font-size: 75%;
+				font-style: italic;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<h1>SapiV1CapiV2 experiments: correlations in article annotations</h1>
+		<h2>based on {{context.numArticles}} articles, of which {{context.numArticlesInGenres}} articles in genres "{{context.genresString}}"</h2>
+		<p>
+			<form action="" method="get" class="params">
+				<label>queryString</label>=
+				<textarea name="queryString" id="queryString" rows="3" cols="45">{{params.queryString}}</textarea>
+				<BR>
+				<label>genres</label>=<input type="text" name="genres" id="genres" value="{{params.genres}}" size="20">
+				<label>maxResults</label>=<input type="number" name="maxResults" id="maxResults" value="{{params.maxResults}}" size="3">
+				<label>maxDepth</label>=<input type="number" name="maxDepth" id="maxDepth" value="{{params.maxDepth}}" size="3">
+				<label>maxDurationMs</label>=<input type="number" name="maxDurationMs" id="maxDurationMs" value="{{params.maxDurationMs}}" size="5">
+				<br>
+				<input type="submit" value="SEARCH and SUMMARISE!">
+			</form>
+		</p>
+		<div>
+			<ul>
+				{{#each data.groups}}
+				<li><a href="#{{this.name}}">{{ this.name }}</a></li>
+				{{/each}}
+			</ul>
+		</div>
+
+		<main class="centerPos">
+			<table>
+				{{#each data.groups}}
+					<tr id="{{this.name}}">
+						<td class="grouping" colspan="3">{{ this.name }}</td>
+					</tr>
+					{{#each this.byCount.topAnnotations }}
+						<tr>
+							<td class="name">
+								{{ this.name }}<br>
+								{{#each this.articles}}
+									{{#if mainImage.thumbnailUrl}}
+										<img class="thumbnail" src="{{mainImage.thumbnailUrl}}">
+									{{/if}}
+								{{/each}}
+							</td>
+							<td class="articles">
+								<ul>
+								{{#each this.articles}}
+									<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
+								{{/each}}
+								</ul>
+							</td>
+							{{#if @first}}
+								{{#if ../byCount.annotationsBubblingUnder.length}}
+								<td rowspan="{{../byCount.topAnnotations.length}}">
+									... bubbling under<br><br>
+									{{#each ../byCount.annotationsBubblingUnder}}
+									{{{this}}}<br>
+									{{/each}}
+								</td>
+								{{/if}}
+							{{/if}}
+						</tr>
+				  {{/each}}
+					<tr class="blank_row"></tr>
+				{{/each}}
+			</table>
+
+		</main>
+	</body>
+</html>

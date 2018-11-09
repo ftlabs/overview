@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const sapiV1CapiV2 = require('../lib/sapiV1CapiV2');
 const debug = require('debug')('views:sapiV1CapiV2');
+const image = require('../helpers/image');
 
 // set up in index.js, so not needed here
 // const bodyParser = require('body-parser');
@@ -128,5 +129,130 @@ router.get('/test', async (req, res, next) => {
 		test: true,
 	});
 });
+
+function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchResponse ){
+  const group = {
+    name : groupName,
+    byCount : {
+      topAnnotations : [],
+      annotationsBubblingUnder : [],
+    },
+  };
+
+  group.byCount.topAnnotations = annoPairs
+  .filter( pair => { return pair[1] > 1; }) // just those with count > 1
+  .map( pair => { // bring together details, incl list of articles
+    const name      = pair[0];
+    const count     = pair[1];
+    const uuids     = groupDetails.uuidsGroupedByItem[name];
+    const articles  = uuids.map( uuid => { return searchResponse.articlesByUuid[uuid]; });
+    articles.forEach( article => {
+      if (article.mainImage
+        && article.mainImage.members
+        && article.mainImage.members.length > 0 ) {
+          article.mainImage.thumbnailUrl = image.formatImageUrl(article.mainImage.members[0], 200);
+      }
+    });
+
+    return {
+      name,
+      count,
+      uuids,
+      articles,
+    }
+  })
+  ;
+
+  group.byCount.annotationsBubblingUnder = annoPairs
+  .filter( pair => { return pair[1] === 1; })
+  .map( pair => { return pair[0]; })
+  .sort()
+  .reverse()
+  ;
+
+  return group;
+}
+
+function prepDisplayData( searchResponse ){
+  const data = {
+    groups : [],
+    searchResponse,
+  };
+
+  const groupNames = ['primaryThemes', 'abouts'];
+
+  groupNames.forEach( groupName => {
+    const groupDetails = searchResponse.correlations.groups[groupName];
+
+
+    const mainGroup = prepAnnotationsGroup( groupName, groupDetails.sortedByCount, groupDetails, searchResponse );
+    data.groups.push( mainGroup );
+
+    const taxonomies = Object.keys( groupDetails.sortedByCountGroupedByTaxonomy );
+    taxonomies.forEach( taxonomy => {
+      const annoPairs = groupDetails.sortedByCountGroupedByTaxonomy[taxonomy];
+      const taxonomyGroupName = `${groupName}-${taxonomy}`;
+      const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annoPairs, groupDetails, searchResponse );
+      data.groups.push( taxonomyGroup );
+    });
+  });
+
+  return data;
+}
+
+router.get('/display', async (req, res, next) => {
+	 try {
+     const combinedParams = constructSearchParamsFromRequest( req.query );
+     const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
+     const data = prepDisplayData( searchResponse );
+	   res.json( data );
+
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
+
+router.get('/display/:template', async (req, res, next) => {
+	 try {
+     const template = req.params.template;
+     const defaultParams = {
+       maxResults  : 100,
+       maxDepth    : 3,
+       maxDurationMs : 5000,
+       queryString : 'lastPublishDateTime:>2018-11-07T00:00:00Z and lastPublishDateTime:<2018-11-08T00:00:00Z',
+       genres      : "News,Opinion"
+     }
+     const copyQueryParams = Object.assign(req.query);
+     Object.keys(defaultParams).forEach( param => {
+       if (copyQueryParams.hasOwnProperty(param)
+        && copyQueryParams[param] === "") {
+         delete copyQueryParams[param];
+       }
+     });
+
+     const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
+     const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
+     const data = prepDisplayData( searchResponse );
+     res.render(`sapiV1CapiV2Experiments/${template}`, {
+   		data,
+   		params: {
+        maxResults  : combinedParams['maxResults'],
+        maxDepth    : combinedParams['maxDepth'],
+        maxDurationMs : combinedParams['maxDurationMs'],
+        queryString : combinedParams['queryString'],
+        genres      : combinedParams['genres'],
+   		},
+      context : {
+        numArticles        : searchResponse.numArticles,
+        numArticlesInGenres: searchResponse.correlations.numArticlesInGenres,
+        genresString       : searchResponse.correlations.genres.join(','),
+      }
+   	});
+
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
+
 
 module.exports = router;

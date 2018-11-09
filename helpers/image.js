@@ -1,15 +1,17 @@
-function formatImageUrl(url, size) {
-  const isUPPImage = checkUrl(url.binaryUrl);
+// NB: takes image details in the form of the CAPI mainImage.members[0] obj
+
+function formatImageUrl(capiMainImageMember, size) {
+  const isUPPImage = checkUrl(capiMainImageMember.binaryUrl);
   let format;
 
   if (isUPPImage) {
-    const uuid = extractUUID(url);
+    const uuid = extractUUID(capiMainImageMember);
     format = `${process.env.IMAGE_SERVICE_URL}${
       process.env.REPLACE_IMG_URL
     }${uuid}`;
   } else {
     format = `${process.env.IMAGE_SERVICE_URL}${encodeURIComponent(
-      url.binaryUrl
+      capiMainImageMember.binaryUrl
     )}`;
   }
   return format.concat(`?source=ftlabs&width=${size}`);
@@ -25,9 +27,9 @@ function checkUrl(url) {
   return ftcmsImageRegex.test(url);
 }
 
-function extractUUID(link) {
-  if (link !== undefined) {
-    const linkWithoutHTTP = link.apiUrl.split("://")[1];
+function extractUUID(capiMainImageMember) {
+  if (capiMainImageMember !== undefined) {
+    const linkWithoutHTTP = capiMainImageMember.apiUrl.split("://")[1];
     return linkWithoutHTTP
       .replace("api.ft.com/content/", "")
       .replace("api.ft.com/things/", "");
