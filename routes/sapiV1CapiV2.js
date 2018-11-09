@@ -184,17 +184,28 @@ function prepDisplayData( searchResponse ){
   groupNames.forEach( groupName => {
     const groupDetails = searchResponse.correlations.groups[groupName];
 
+    ['main', 'concertinaed'].forEach( groupingType => {
+      let groupWithTypeName    = groupName;
+      let groupWithTypeDetails = groupDetails;
 
-    const mainGroup = prepAnnotationsGroup( groupName, groupDetails.sortedByCount, groupDetails, searchResponse );
-    data.groups.push( mainGroup );
+      if (groupingType === 'concertinaed') {
+        groupWithTypeName = `(concertinaed) ` + groupWithTypeName;
+        groupWithTypeDetails = groupDetails.concertinaedSortedLists;
+      }
 
-    const taxonomies = Object.keys( groupDetails.sortedByCountGroupedByTaxonomy );
-    taxonomies.forEach( taxonomy => {
-      const annoPairs = groupDetails.sortedByCountGroupedByTaxonomy[taxonomy];
-      const taxonomyGroupName = `${groupName}-${taxonomy}`;
-      const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annoPairs, groupDetails, searchResponse );
-      data.groups.push( taxonomyGroup );
-    });
+      const mainGroup = prepAnnotationsGroup( groupWithTypeName, groupWithTypeDetails.sortedByCount, groupDetails, searchResponse );
+      data.groups.push( mainGroup );
+
+      const taxonomies = Object.keys( groupWithTypeDetails.sortedByCountGroupedByTaxonomy );
+      taxonomies.forEach( taxonomy => {
+        const annoPairs = groupWithTypeDetails.sortedByCountGroupedByTaxonomy[taxonomy];
+        const taxonomyGroupName = `${groupWithTypeName}-${taxonomy}`;
+        const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annoPairs, groupDetails, searchResponse );
+        data.groups.push( taxonomyGroup );
+      });
+
+    })
+
   });
 
   return data;
