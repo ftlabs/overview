@@ -164,7 +164,7 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
   ;
 
   group.byCount.annotationsBubblingUnder = annoPairs
-  .filter( pair => { return pair[1] == 1; })
+  .filter( pair => { return pair[1] === 1; })
   .map( pair => { return pair[0]; })
   .sort()
   .reverse()
@@ -236,7 +236,7 @@ router.get('/display/:template', async (req, res, next) => {
      const copyQueryParams = Object.assign(req.query);
      Object.keys(defaultParams).forEach( param => {
        if (copyQueryParams.hasOwnProperty(param)
-        && copyQueryParams[param] == "") {
+        && copyQueryParams[param] === "") {
          delete copyQueryParams[param];
        }
      });
