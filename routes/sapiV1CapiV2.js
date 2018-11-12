@@ -144,6 +144,7 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
   .map( pair => { // bring together details, incl list of articles
     const name      = pair[0];
     const count     = pair[1];
+    const constituentNames = (pair.length > 2)? pair[2] : [name];
     const uuids     = groupDetails.uuidsGroupedByItem[name];
     const articles  = uuids.map( uuid => { return searchResponse.articlesByUuid[uuid]; });
     articles.forEach( article => {
@@ -154,9 +155,16 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
       }
     });
 
+    const nameWithSizesBR = constituentNames
+    .map( name => { return [name, groupDetails.uuidsGroupedByItem[name].length]; })
+    .sort( (a,b) => {  if(a[1]>b[1]){ return -1; } else if(a[1]<b[1]){ return 1; } else { return 0; } })
+    .map( pair => { return `${pair[0]} (${pair[1]})`; })
+    .join(' +<BR>');
+
     return {
       name,
       nameBR : name.split(' + ').join(' +<BR>'),
+      nameWithSizesBR,
       count,
       uuids,
       articles,
