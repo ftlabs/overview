@@ -130,7 +130,7 @@ router.get('/test', async (req, res, next) => {
 	});
 });
 
-function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchResponse ){
+function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResponse ){
   const group = {
     name : groupName,
     byCount : {
@@ -139,12 +139,12 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
     },
   };
 
-  group.byCount.topAnnotations = annoPairs
-  .filter( pair => { return pair[1] > 1; }) // just those with count > 1
-  .map( pair => { // bring together details, incl list of articles
-    const name      = pair[0];
-    const count     = pair[1];
-    const constituentNames = (pair.length > 2)? pair[2] : [name];
+  group.byCount.topAnnotations = annosDetails
+  .filter( anno => { return anno.count > 1; }) // just those with count > 1
+  .map( anno => { // bring together details, incl list of articles
+    const name      = anno.name;
+    const count     = anno.count;
+    const constituentNames = (anno.hasOwnProperty('constituentNames'))? anno.constituentNames : [name];
     const uuids     = groupDetails.uuidsGroupedByItem[name];
     const articles  = uuids.map( uuid => { return searchResponse.articlesByUuid[uuid]; });
     articles.forEach( article => {
@@ -172,9 +172,9 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
   })
   ;
 
-  group.byCount.annotationsBubblingUnder = annoPairs
-  .filter( pair => { return pair[1] === 1; })
-  .map( pair => { return pair[0]; })
+  group.byCount.annotationsBubblingUnder = annosDetails
+  .filter( anno => { return anno.count === 1; })
+  .map( anno => { return anno.name; })
   .sort()
   .reverse()
   ;
@@ -187,6 +187,14 @@ function prepDisplayData( searchResponse ){
     groups : [],
     searchResponse,
   };
+
+  if (!searchResponse.hasOwnProperty('correlations')) {
+    throw new Error(`prepDisplayData: was expecting searchResponse.correlations
+      keys=${JSON.stringify(Object.keys(searchResponse))}`);
+  }
+  if (!searchResponse.correlations.hasOwnProperty('groups')) {
+    throw new Error(`prepDisplayData: was expecting searchResponse.correlations.groups`);
+  }
 
   const groupNames = ['primaryThemes', 'abouts'];
 
@@ -207,9 +215,9 @@ function prepDisplayData( searchResponse ){
 
       const taxonomies = Object.keys( groupWithTypeDetails.sortedByCountGroupedByTaxonomy );
       taxonomies.forEach( taxonomy => {
-        const annoPairs = groupWithTypeDetails.sortedByCountGroupedByTaxonomy[taxonomy];
+        const annosDetails = groupWithTypeDetails.sortedByCountGroupedByTaxonomy[taxonomy];
         const taxonomyGroupName = `${groupWithTypeName}-${taxonomy}`;
-        const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annoPairs, groupDetails, searchResponse );
+        const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annosDetails, groupDetails, searchResponse );
         data.groups.push( taxonomyGroup );
       });
 
