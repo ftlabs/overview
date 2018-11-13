@@ -24,7 +24,7 @@ function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
 		}
 	});
 	// int params
-	['maxResults', 'offset', 'maxDepth'].forEach( name => {
+	['maxResults', 'offset', 'maxDepth', 'concertinaOverlapThreshold'].forEach( name => {
 		if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
 			params[name] = Number( urlParams[name] );
 		}
@@ -240,7 +240,8 @@ router.get('/display/:template', async (req, res, next) => {
        maxDepth    : 3,
        maxDurationMs : 5000,
        queryString : 'lastPublishDateTime:>2018-11-07T00:00:00Z and lastPublishDateTime:<2018-11-08T00:00:00Z',
-       genres      : "News,Opinion"
+       genres      : "News,Opinion",
+       concertinaOverlapThreshold : 0.66,
      }
      const copyQueryParams = Object.assign(req.query);
      Object.keys(defaultParams).forEach( param => {
@@ -255,13 +256,7 @@ router.get('/display/:template', async (req, res, next) => {
      const data = prepDisplayData( searchResponse );
      res.render(`sapiV1CapiV2Experiments/${template}`, {
    		data,
-   		params: {
-        maxResults  : combinedParams['maxResults'],
-        maxDepth    : combinedParams['maxDepth'],
-        maxDurationMs : combinedParams['maxDurationMs'],
-        queryString : combinedParams['queryString'],
-        genres      : combinedParams['genres'],
-   		},
+   		params: combinedParams,
       context : {
         numArticles        : searchResponse.numArticles,
         numArticlesInGenres: searchResponse.correlations.numArticlesInGenres,
