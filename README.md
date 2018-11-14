@@ -52,6 +52,7 @@ All demos are listed on the home page ('/') when running the project **and/or** 
 + [FT as Tinder](https://ftlabs-overview.herokuapp.com/tinder)
 + [FT Rainbow Maps](https://ftlabs-overview.herokuapp.com/ftMaps)
 + [FTabulous](https://ftlabs-overview.herokuapp.com/ftabulous)
++ [sapiV1CapiV2 summary](https://ftlabs-overview.herokuapp.com/display/basic1)
 
 
 ## Endpoints

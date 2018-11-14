@@ -24,7 +24,7 @@ function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
 		}
 	});
 	// int params
-	['maxResults', 'offset', 'maxDepth'].forEach( name => {
+	['maxResults', 'offset', 'maxDepth', 'concertinaOverlapThreshold'].forEach( name => {
 		if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
 			params[name] = Number( urlParams[name] );
 		}
@@ -130,7 +130,7 @@ router.get('/test', async (req, res, next) => {
 	});
 });
 
-function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchResponse ){
+function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResponse ){
   const group = {
     name : groupName,
     byCount : {
@@ -139,11 +139,12 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
     },
   };
 
-  group.byCount.topAnnotations = annoPairs
-  .filter( pair => { return pair[1] > 1; }) // just those with count > 1
-  .map( pair => { // bring together details, incl list of articles
-    const name      = pair[0];
-    const count     = pair[1];
+  group.byCount.topAnnotations = annosDetails
+  .filter( anno => { return anno.count > 1; }) // just those with count > 1
+  .map( anno => { // bring together details, incl list of articles
+    const name      = anno.name;
+    const count     = anno.count;
+    const constituentNames = (anno.hasOwnProperty('constituentNames'))? anno.constituentNames : [name];
     const uuids     = groupDetails.uuidsGroupedByItem[name];
     const articles  = uuids.map( uuid => { return searchResponse.articlesByUuid[uuid]; });
     articles.forEach( article => {
@@ -154,8 +155,16 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
       }
     });
 
+    const nameWithSizesBR = constituentNames
+    .map( name => { return [name, groupDetails.uuidsGroupedByItem[name].length]; })
+    .sort( (a,b) => {  if(a[1]>b[1]){ return -1; } else if(a[1]<b[1]){ return 1; } else { return 0; } })
+    .map( pair => { return `${pair[0]} (${pair[1]})`; })
+    .join(' +<BR>');
+
     return {
       name,
+      nameBR : name.split(' + ').join(' +<BR>'),
+      nameWithSizesBR,
       count,
       uuids,
       articles,
@@ -163,9 +172,9 @@ function prepAnnotationsGroup( groupName, annoPairs, groupDetails, searchRespons
   })
   ;
 
-  group.byCount.annotationsBubblingUnder = annoPairs
-  .filter( pair => { return pair[1] === 1; })
-  .map( pair => { return pair[0]; })
+  group.byCount.annotationsBubblingUnder = annosDetails
+  .filter( anno => { return anno.count === 1; })
+  .map( anno => { return anno.name; })
   .sort()
   .reverse()
   ;
@@ -179,22 +188,41 @@ function prepDisplayData( searchResponse ){
     searchResponse,
   };
 
+  if (!searchResponse.hasOwnProperty('correlations')) {
+    throw new Error(`prepDisplayData: was expecting searchResponse.correlations
+      keys=${JSON.stringify(Object.keys(searchResponse))}`);
+  }
+  if (!searchResponse.correlations.hasOwnProperty('groups')) {
+    throw new Error(`prepDisplayData: was expecting searchResponse.correlations.groups`);
+  }
+
   const groupNames = ['primaryThemes', 'abouts'];
 
   groupNames.forEach( groupName => {
     const groupDetails = searchResponse.correlations.groups[groupName];
 
+    ['main', 'concertinaed'].forEach( groupingType => {
+      let groupWithTypeName    = groupName;
+      let groupWithTypeDetails = groupDetails;
 
-    const mainGroup = prepAnnotationsGroup( groupName, groupDetails.sortedByCount, groupDetails, searchResponse );
-    data.groups.push( mainGroup );
+      if (groupingType === 'concertinaed') {
+        groupWithTypeName = `(concertinaed) ` + groupWithTypeName;
+        groupWithTypeDetails = groupDetails.concertinaedSortedLists;
+      }
 
-    const taxonomies = Object.keys( groupDetails.sortedByCountGroupedByTaxonomy );
-    taxonomies.forEach( taxonomy => {
-      const annoPairs = groupDetails.sortedByCountGroupedByTaxonomy[taxonomy];
-      const taxonomyGroupName = `${groupName}-${taxonomy}`;
-      const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annoPairs, groupDetails, searchResponse );
-      data.groups.push( taxonomyGroup );
-    });
+      const mainGroup = prepAnnotationsGroup( groupWithTypeName, groupWithTypeDetails.sortedByCount, groupDetails, searchResponse );
+      data.groups.push( mainGroup );
+
+      const taxonomies = Object.keys( groupWithTypeDetails.sortedByCountGroupedByTaxonomy );
+      taxonomies.forEach( taxonomy => {
+        const annosDetails = groupWithTypeDetails.sortedByCountGroupedByTaxonomy[taxonomy];
+        const taxonomyGroupName = `${groupWithTypeName}-${taxonomy}`;
+        const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annosDetails, groupDetails, searchResponse );
+        data.groups.push( taxonomyGroup );
+      });
+
+    })
+
   });
 
   return data;
@@ -220,7 +248,8 @@ router.get('/display/:template', async (req, res, next) => {
        maxDepth    : 3,
        maxDurationMs : 5000,
        queryString : 'lastPublishDateTime:>2018-11-07T00:00:00Z and lastPublishDateTime:<2018-11-08T00:00:00Z',
-       genres      : "News,Opinion"
+       genres      : "News,Opinion",
+       concertinaOverlapThreshold : 0.66,
      }
      const copyQueryParams = Object.assign(req.query);
      Object.keys(defaultParams).forEach( param => {
@@ -235,13 +264,7 @@ router.get('/display/:template', async (req, res, next) => {
      const data = prepDisplayData( searchResponse );
      res.render(`sapiV1CapiV2Experiments/${template}`, {
    		data,
-   		params: {
-        maxResults  : combinedParams['maxResults'],
-        maxDepth    : combinedParams['maxDepth'],
-        maxDurationMs : combinedParams['maxDurationMs'],
-        queryString : combinedParams['queryString'],
-        genres      : combinedParams['genres'],
-   		},
+   		params: combinedParams,
       context : {
         numArticles        : searchResponse.numArticles,
         numArticlesInGenres: searchResponse.correlations.numArticlesInGenres,

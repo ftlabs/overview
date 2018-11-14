@@ -11,11 +11,14 @@
 			    background-color: #FFFFFF;
 			}
 			.name {
-				font-size: 150%;
+				font-size: 100%;
 				/* white-space: nowrap; */
 			}
+			.nowrap {
+				white-space: nowrap;
+			}
 			.articles {
-				width: 60%;
+				width: 50%;
 				padding: 0;
 				margin: 0;
 				list-style: none;
@@ -42,13 +45,13 @@
 		<h2>based on {{context.numArticles}} articles, of which {{context.numArticlesInGenres}} articles in genres "{{context.genresString}}"</h2>
 		<p>
 			<form action="" method="get" class="params">
-				<label>queryString</label>=
-				<textarea name="queryString" id="queryString" rows="3" cols="45">{{params.queryString}}</textarea>
+				<label>queryString</label>=<textarea name="queryString" id="queryString" rows="3" cols="45">{{params.queryString}}</textarea>
 				<BR>
-				<label>genres</label>=<input type="text" name="genres" id="genres" value="{{params.genres}}" size="20">
-				<label>maxResults</label>=<input type="number" name="maxResults" id="maxResults" value="{{params.maxResults}}" size="3">
-				<label>maxDepth</label>=<input type="number" name="maxDepth" id="maxDepth" value="{{params.maxDepth}}" size="3">
-				<label>maxDurationMs</label>=<input type="number" name="maxDurationMs" id="maxDurationMs" value="{{params.maxDurationMs}}" size="5">
+				<span class="nowrap"><label>genres</label> = <input type="text" name="genres" id="genres" value="{{params.genres}}" size="20"></span>
+				<span class="nowrap"><label>maxResults</label> = <input type="number" name="maxResults" id="maxResults" value="{{params.maxResults}}" size="3"></span>
+				<span class="nowrap"><label>maxDepth</label> = <input type="number" name="maxDepth" id="maxDepth" value="{{params.maxDepth}}" size="3"></span>
+				<span class="nowrap"><label>maxDurationMs</label> = <input type="number" name="maxDurationMs" id="maxDurationMs" value="{{params.maxDurationMs}}" size="5"></span>
+				<span class="nowrap"><label>concertinaOverlapThreshold</label> = <input type="number" name="concertinaOverlapThreshold" id="concertinaOverlapThreshold" value="{{params.concertinaOverlapThreshold}}" size="4" min="0" max="1.0" step="0.01"></span>
 				<br>
 				<input type="submit" value="SEARCH and SUMMARISE!">
 			</form>
@@ -70,7 +73,7 @@
 					{{#each this.byCount.topAnnotations }}
 						<tr>
 							<td class="name">
-								{{ this.name }}<br>
+								{{{ this.nameWithSizesBR }}}<br>
 								{{#each this.articles}}
 									{{#if mainImage.thumbnailUrl}}
 										<img class="thumbnail" src="{{mainImage.thumbnailUrl}}">
