@@ -156,7 +156,10 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
     });
 
     const nameWithSizesBR = constituentNames
-    .map( name => { return [name, groupDetails.uuidsGroupedByItem[name].length]; })
+    .map( name => { return [
+      name.split(':')[1],
+      groupDetails.uuidsGroupedByItem[name].length
+    ]; })
     .sort( (a,b) => {  if(a[1]>b[1]){ return -1; } else if(a[1]<b[1]){ return 1; } else { return 0; } })
     .map( pair => { return `${pair[0]} (${pair[1]})`; })
     .join(' +<BR>');
@@ -174,7 +177,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
 
   group.byCount.annotationsBubblingUnder = annosDetails
   .filter( anno => { return anno.count === 1; })
-  .map( anno => { return anno.name; })
+  .map( anno => { return anno.name.split(':')[1]; })
   .sort()
   .reverse()
   ;
