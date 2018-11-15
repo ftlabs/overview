@@ -155,22 +155,26 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
       }
     });
 
-    const nameWithSizesBR = constituentNames
-    .map( name => { return [
-      name.split(':')[1],
-      groupDetails.uuidsGroupedByItem[name].length
-    ]; })
-    .sort( (a,b) => {  if(a[1]>b[1]){ return -1; } else if(a[1]<b[1]){ return 1; } else { return 0; } })
-    .map( pair => { return `${pair[0]} (${pair[1]})`; })
+    const namesWithCounts = constituentNames
+    .map( name => { return {
+      name: name.split(':')[1],
+      count: groupDetails.uuidsGroupedByItem[name].length
+    }; })
+    .sort( (a,b) => {  if(a.count>b.count){ return -1; } else if(a.count<b.count){ return 1; } else { return 0; } })
+    ;
+
+    const nameWithCountsBR = namesWithCounts
+    .map( nws => { return `${nws.name} (${nws.count})`; })
     .join(' +<BR>');
 
     return {
       name,
       nameBR : name.split(' + ').join(' +<BR>'),
-      nameWithSizesBR,
+      nameWithCountsBR,
       count,
       uuids,
       articles,
+      namesWithCounts,
     }
   })
   ;
