@@ -157,6 +157,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
 
     const namesWithCounts = constituentNames
     .map( name => { return {
+      nameWithTaxonomy: name,
       name: name.split(':')[1],
       count: groupDetails.uuidsGroupedByItem[name].length
     }; })
@@ -167,6 +168,134 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
     .map( nws => { return `${nws.name} (${nws.count})`; })
     .join(' +<BR>');
 
+    // scan down sorted list of namesWithCounts
+    // if 2nd item's count is > 5 (param) and >= 1/3 (param) of 1st and <= 2/3 of 1st (param)
+    // - split UUIDs into 2 groups
+    // - then distribute remaining names into either of the 2 groups
+    // - until we find one that has UUIDs in both groups (in which case, abort this split)
+    //   or we find that we have created two cliques
+
+    const min2ndCliqueCount = 5;
+    const min2ndCliqueProportion = 0.33;
+    const max2ndCliqueProportion = 0.67;
+
+    const cliques = [];
+    if (namesWithCounts.length > 1
+     && namesWithCounts[1].count > min2ndCliqueCount
+     && (namesWithCounts[1].count / namesWithCounts[0].count) >= min2ndCliqueProportion
+     && (namesWithCounts[1].count / namesWithCounts[0].count) <= max2ndCliqueProportion
+    ){
+      const clique0Name = namesWithCounts[0].nameWithTaxonomy;
+      const clique1Name = namesWithCounts[1].nameWithTaxonomy;
+      const clique1Names = [clique0Name, clique1Name];
+      const clique1KnownUuids = {};
+
+      // debug(`prepAnnotationsGroup: clique1Name=${clique1Name}, uuids=${JSON.stringify(groupDetails.uuidsGroupedByItem[clique1Name])}`);
+
+      groupDetails.uuidsGroupedByItem[clique1Name]
+      .forEach( uuid => { clique1KnownUuids[uuid] = true; })
+      ;
+
+      const clique0Names = [clique0Name];
+      const clique0KnownUuids = {};
+
+      groupDetails.uuidsGroupedByItem[clique0Name]
+      .filter( uuid => { return !clique1KnownUuids.hasOwnProperty(uuid); })
+      .forEach( uuid => { clique0KnownUuids[uuid] = true; })
+      ;
+
+      // debug(`prepAnnotationsGroup: clique0Name=${clique0Name}, uuids=${JSON.stringify(groupDetails.uuidsGroupedByItem[clique0Name])}`);
+
+      // loop over remaining names
+      // looking for (and bailing if found) any name whose uuids are in both clique0 and clique1
+
+      let foundAStraddler = false;
+      for (var i = 2; i < namesWithCounts.length; i++) {
+        const name = namesWithCounts[i].nameWithTaxonomy;
+        const uuidsOfName = groupDetails.uuidsGroupedByItem[name];
+
+        const uuidsInClique0 = uuidsOfName
+        .filter(uuid => { return clique0KnownUuids.hasOwnProperty(uuid); })
+        ;
+        const uuidsInClique1 = uuidsOfName
+        .filter(uuid => { return clique1KnownUuids.hasOwnProperty(uuid); })
+        ;
+
+        // debug(`prepAnnotationsGroup: i=${i}, name=${name}, uuidsOfName=${JSON.stringify(uuidsOfName)},
+        // uuidsInClique0=${JSON.stringify(uuidsInClique0)},
+        // uuidsInClique1=${JSON.stringify(uuidsInClique1)},
+        // Object.keys(clique0KnownUuids)=${JSON.stringify(Object.keys(clique0KnownUuids))},
+        // Object.keys(clique1KnownUuids)=${JSON.stringify(Object.keys(clique1KnownUuids))},
+        // `);
+
+        if (uuidsInClique0.length > 0 && uuidsInClique1.length > 0) {
+          foundAStraddler = true;
+          break;
+        } else if (uuidsInClique0.length > 0) {
+          uuidsOfName.forEach(uuid => { clique0KnownUuids[uuid] = true; });
+          clique0Names.push(name);
+        } else if (uuidsInClique1.length > 0) {
+          uuidsOfName.forEach(uuid => { clique1KnownUuids[uuid] = true; });
+          clique1Names.push(name);
+        } else {
+          throw new Error( `prepAnnotationsGroup: should never experience this situation where the name (${name}) has no uuids in both clique0 (${clique0Name}) and clique1 (${clique1Name})`);
+        }
+      }
+
+      if (! foundAStraddler) {
+        debug( `prepAnnotationsGroup: found a clique: clique0Name=${clique0Name}, clique1Name=${clique1Name}` );
+        const clique0NamesWithoutTaxonomy = clique0Names.map( name => { return name.split(':')[1]; });
+        const clique0Uuids = Object.keys(clique0KnownUuids);
+        const clique0NamesWithCountsBR = clique0Names
+        .map( name => {
+          const groupCount = groupDetails.uuidsGroupedByItem[name].length;
+          const cliqueCount = (name === clique0Name)? `${clique0Uuids.length} / ${groupCount}` : `${groupCount}`;
+          return {
+            name : name.split(':')[1],
+            groupCount,
+            cliqueCount,
+          }; })
+        .map( details => { return `${details.name} (${details.cliqueCount})`; })
+        ;
+        const clique0 = {
+          nameWithTaxonomy: clique0Name,
+          name : clique0Name.split(':')[1],
+          namesWithTaxonomy: clique0Names,
+          names : clique0NamesWithoutTaxonomy,
+          namesBR : clique0NamesWithoutTaxonomy.join( ' +<BR>'),
+          namesWithCountsBR : clique0NamesWithCountsBR.join(' +<BR>'),
+          uuids : clique0Uuids,
+        };
+        const clique1NamesWithoutTaxonomy = clique1Names.map( name => { return name.split(':')[1]; });
+        const clique1Uuids = Object.keys(clique1KnownUuids);
+        const mainNameUuidsInClique1 = groupDetails.uuidsGroupedByItem[clique0Name]
+        .filter( uuid => { return clique1KnownUuids.hasOwnProperty(uuid)})
+        ;
+        const clique1NamesWithCountsBR = clique1Names
+        .map( name => {
+          const groupCount = groupDetails.uuidsGroupedByItem[name].length;
+          const cliqueCount = (name === clique0Name)? `${mainNameUuidsInClique1.length} / ${groupCount}` : `${groupCount}`;
+          return {
+            name: name.split(':')[1],
+            groupCount,
+            cliqueCount,
+          }; })
+        .map( details => { return `${details.name} (${details.cliqueCount})`; })
+        ;
+        const clique1 = {
+          nameWithTaxonomy: clique1Name,
+          name: clique1Name.split(':')[1],
+          namesWithTaxonomy: clique1Names,
+          names : clique1NamesWithoutTaxonomy,
+          namesBR: clique1NamesWithoutTaxonomy.join(' +<BR>'),
+          namesWithCountsBR : clique1NamesWithCountsBR.join(' +<BR>'),
+          uuids : clique1Uuids,
+        }
+        cliques.push(clique0);
+        cliques.push(clique1);
+      }
+    }
+
     return {
       name,
       nameBR : name.split(' + ').join(' +<BR>'),
@@ -175,6 +304,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
       uuids,
       articles,
       namesWithCounts,
+      cliques,
     }
   })
   ;

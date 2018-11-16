@@ -91,7 +91,14 @@
 					{{#each this.byCount.topAnnotations }}
 						<tr>
 							<td class="names">
+								{{#if this.cliques.length}}
+								{{#each this.cliques}}
+									[ {{name}} ]<BR>{{{ namesWithCountsBR }}}<BR>
+								{{/each}}
+								{{else}}
 								{{{ this.nameWithCountsBR }}}<br>
+								{{/if}}
+
 							</td>
 							<td class="thumbnails">
 								{{#each this.articles}}
