@@ -23,8 +23,9 @@ function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
 			params[name] = urlParams[name];
 		}
 	});
-	// int params
-	['maxResults', 'offset', 'maxDepth', 'concertinaOverlapThreshold'].forEach( name => {
+	// numeric params
+	['maxResults', 'offset', 'maxDepth', 'concertinaOverlapThreshold',
+  'min2ndCliqueCount', 'min2ndCliqueProportion', 'max2ndCliqueProportion'].forEach( name => {
 		if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
 			params[name] = Number( urlParams[name] );
 		}
@@ -130,7 +131,16 @@ router.get('/test', async (req, res, next) => {
 	});
 });
 
-function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResponse ){
+function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResponse, params={} ){
+
+  const defaultParams = {
+    min2ndCliqueCount      : 5,
+    min2ndCliqueProportion : 0.33,
+    max2ndCliqueProportion : 0.67
+  };
+
+  const combinedParams = Object.assign({}, defaultParams, params);
+
   const group = {
     name : groupName,
     byCount : {
@@ -175,9 +185,9 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
     // - until we find one that has UUIDs in both groups (in which case, abort this split)
     //   or we find that we have created two cliques
 
-    const min2ndCliqueCount = 5;
-    const min2ndCliqueProportion = 0.33;
-    const max2ndCliqueProportion = 0.67;
+    const min2ndCliqueCount      = combinedParams.min2ndCliqueCount;
+    const min2ndCliqueProportion = combinedParams.min2ndCliqueProportion;
+    const max2ndCliqueProportion = combinedParams.max2ndCliqueProportion;
 
     const cliques = [];
     if (namesWithCounts.length > 1
@@ -190,8 +200,6 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
       const clique1Names = [clique0Name, clique1Name];
       const clique1KnownUuids = {};
 
-      // debug(`prepAnnotationsGroup: clique1Name=${clique1Name}, uuids=${JSON.stringify(groupDetails.uuidsGroupedByItem[clique1Name])}`);
-
       groupDetails.uuidsGroupedByItem[clique1Name]
       .forEach( uuid => { clique1KnownUuids[uuid] = true; })
       ;
@@ -203,8 +211,6 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
       .filter( uuid => { return !clique1KnownUuids.hasOwnProperty(uuid); })
       .forEach( uuid => { clique0KnownUuids[uuid] = true; })
       ;
-
-      // debug(`prepAnnotationsGroup: clique0Name=${clique0Name}, uuids=${JSON.stringify(groupDetails.uuidsGroupedByItem[clique0Name])}`);
 
       // loop over remaining names
       // looking for (and bailing if found) any name whose uuids are in both clique0 and clique1
@@ -220,13 +226,6 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
         const uuidsInClique1 = uuidsOfName
         .filter(uuid => { return clique1KnownUuids.hasOwnProperty(uuid); })
         ;
-
-        // debug(`prepAnnotationsGroup: i=${i}, name=${name}, uuidsOfName=${JSON.stringify(uuidsOfName)},
-        // uuidsInClique0=${JSON.stringify(uuidsInClique0)},
-        // uuidsInClique1=${JSON.stringify(uuidsInClique1)},
-        // Object.keys(clique0KnownUuids)=${JSON.stringify(Object.keys(clique0KnownUuids))},
-        // Object.keys(clique1KnownUuids)=${JSON.stringify(Object.keys(clique1KnownUuids))},
-        // `);
 
         if (uuidsInClique0.length > 0 && uuidsInClique1.length > 0) {
           foundAStraddler = true;
@@ -311,7 +310,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
 
   group.byCount.annotationsBubblingUnder = annosDetails
   .filter( anno => { return anno.count === 1; })
-  .map( anno => { return anno.name.split(':')[1]; })
+  .map( anno => { return anno.name.split(' + ').map( name => { return name.split(':')[1]; }).join(' + '); })
   .sort()
   .reverse()
   ;
@@ -319,7 +318,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
   return group;
 }
 
-function prepDisplayData( searchResponse ){
+function prepDisplayData( searchResponse, params={} ){
   const data = {
     groups : [],
     searchResponse,
@@ -347,14 +346,14 @@ function prepDisplayData( searchResponse ){
         groupWithTypeDetails = groupDetails.concertinaedSortedLists;
       }
 
-      const mainGroup = prepAnnotationsGroup( groupWithTypeName, groupWithTypeDetails.sortedByCount, groupDetails, searchResponse );
+      const mainGroup = prepAnnotationsGroup( groupWithTypeName, groupWithTypeDetails.sortedByCount, groupDetails, searchResponse, params );
       data.groups.push( mainGroup );
 
       const taxonomies = Object.keys( groupWithTypeDetails.sortedByCountGroupedByTaxonomy );
       taxonomies.forEach( taxonomy => {
         const annosDetails = groupWithTypeDetails.sortedByCountGroupedByTaxonomy[taxonomy];
         const taxonomyGroupName = `${groupWithTypeName}-${taxonomy}`;
-        const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annosDetails, groupDetails, searchResponse );
+        const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annosDetails, groupDetails, searchResponse, params );
         data.groups.push( taxonomyGroup );
       });
 
@@ -369,7 +368,7 @@ router.get('/display', async (req, res, next) => {
 	 try {
      const combinedParams = constructSearchParamsFromRequest( req.query );
      const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
-     const data = prepDisplayData( searchResponse );
+     const data = prepDisplayData( searchResponse, combinedParams );
 	   res.json( data );
 
    } catch( err ){
@@ -398,7 +397,7 @@ router.get('/display/:template', async (req, res, next) => {
 
      const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
      const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
-     const data = prepDisplayData( searchResponse );
+     const data = prepDisplayData( searchResponse, combinedParams );
      res.render(`sapiV1CapiV2Experiments/${template}`, {
    		data,
    		params: combinedParams,
