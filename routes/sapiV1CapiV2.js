@@ -24,7 +24,7 @@ function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
 		}
 	});
 	// numeric params
-	['maxResults', 'offset', 'maxDepth', 'concertinaOverlapThreshold',
+	['maxResults', 'offset', 'maxDepth', 'maxDurationMs', 'concertinaOverlapThreshold',
   'min2ndCliqueCount', 'min2ndCliqueProportion', 'max2ndCliqueProportion'].forEach( name => {
 		if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
 			params[name] = Number( urlParams[name] );
