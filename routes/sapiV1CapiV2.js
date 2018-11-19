@@ -332,7 +332,11 @@ function prepDisplayData( searchResponse, params={} ){
     throw new Error(`prepDisplayData: was expecting searchResponse.correlations.groups`);
   }
 
-  const groupNames = ['primaryThemes', 'abouts'];
+  const defaultGroupNames = ['primaryThemes', 'abouts'];
+  let groupNames = defaultGroupNames;
+  if (params.hasOwnProperty('groups') ) {
+    groupNames = params['groups'];
+  }
 
   groupNames.forEach( groupName => {
     const groupDetails = searchResponse.correlations.groups[groupName];
@@ -386,6 +390,7 @@ router.get('/display/:template', async (req, res, next) => {
        queryString : 'lastPublishDateTime:>2018-11-07T00:00:00Z and lastPublishDateTime:<2018-11-08T00:00:00Z',
        genres      : "News,Opinion",
        concertinaOverlapThreshold : 0.66,
+       groups      : 'primaryThemes,abouts',
      }
      const copyQueryParams = Object.assign(req.query);
      Object.keys(defaultParams).forEach( param => {
