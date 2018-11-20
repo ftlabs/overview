@@ -131,6 +131,8 @@ router.get('/test', async (req, res, next) => {
 	});
 });
 
+const plusBR = ' +<br>';
+
 function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResponse, params={} ){
 
   const defaultParams = {
@@ -171,12 +173,11 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
       name: name.split(':')[1],
       count: groupDetails.uuidsGroupedByItem[name].length
     }; })
-    .sort( (a,b) => {  if(a.count>b.count){ return -1; } else if(a.count<b.count){ return 1; } else { return 0; } })
-    ;
+    .sort( (a,b) => {  if(a.count>b.count){ return -1; } else if(a.count<b.count){ return 1; } else { return 0; } });
 
     const nameWithCountsBR = namesWithCounts
     .map( nws => { return `${nws.name} (${nws.count})`; })
-    .join(' +<BR>');
+    .join(plusBR);
 
     // scan down sorted list of namesWithCounts
     // if 2nd item's count is > 5 (param) and >= 1/3 (param) of 1st and <= 2/3 of 1st (param)
@@ -201,31 +202,28 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
       const clique1KnownUuids = {};
 
       groupDetails.uuidsGroupedByItem[clique1Name]
-      .forEach( uuid => { clique1KnownUuids[uuid] = true; })
-      ;
+      .forEach( uuid => { clique1KnownUuids[uuid] = true; });
 
       const clique0Names = [clique0Name];
       const clique0KnownUuids = {};
 
       groupDetails.uuidsGroupedByItem[clique0Name]
       .filter( uuid => { return !clique1KnownUuids.hasOwnProperty(uuid); })
-      .forEach( uuid => { clique0KnownUuids[uuid] = true; })
-      ;
+      .forEach( uuid => { clique0KnownUuids[uuid] = true; });
 
       // loop over remaining names
       // looking for (and bailing if found) any name whose uuids are in both clique0 and clique1
 
       let foundAStraddler = false;
-      for (var i = 2; i < namesWithCounts.length; i++) {
+      for (let i = 2; i < namesWithCounts.length; i++) {
         const name = namesWithCounts[i].nameWithTaxonomy;
         const uuidsOfName = groupDetails.uuidsGroupedByItem[name];
 
         const uuidsInClique0 = uuidsOfName
-        .filter(uuid => { return clique0KnownUuids.hasOwnProperty(uuid); })
-        ;
+        .filter(uuid => { return clique0KnownUuids.hasOwnProperty(uuid); });
+
         const uuidsInClique1 = uuidsOfName
-        .filter(uuid => { return clique1KnownUuids.hasOwnProperty(uuid); })
-        ;
+        .filter(uuid => { return clique1KnownUuids.hasOwnProperty(uuid); });
 
         if (uuidsInClique0.length > 0 && uuidsInClique1.length > 0) {
           foundAStraddler = true;
@@ -254,22 +252,22 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
             groupCount,
             cliqueCount,
           }; })
-        .map( details => { return `${details.name} (${details.cliqueCount})`; })
-        ;
+        .map( details => { return `${details.name} (${details.cliqueCount})`; });
+
         const clique0 = {
           nameWithTaxonomy: clique0Name,
           name : clique0Name.split(':')[1],
           namesWithTaxonomy: clique0Names,
           names : clique0NamesWithoutTaxonomy,
-          namesBR : clique0NamesWithoutTaxonomy.join( ' +<BR>'),
-          namesWithCountsBR : clique0NamesWithCountsBR.join(' +<BR>'),
+          namesBR : clique0NamesWithoutTaxonomy.join( plusBR),
+          namesWithCountsBR : clique0NamesWithCountsBR.join(plusBR),
           uuids : clique0Uuids,
         };
         const clique1NamesWithoutTaxonomy = clique1Names.map( name => { return name.split(':')[1]; });
         const clique1Uuids = Object.keys(clique1KnownUuids);
         const mainNameUuidsInClique1 = groupDetails.uuidsGroupedByItem[clique0Name]
-        .filter( uuid => { return clique1KnownUuids.hasOwnProperty(uuid)})
-        ;
+        .filter( uuid => { return clique1KnownUuids.hasOwnProperty(uuid)});
+
         const clique1NamesWithCountsBR = clique1Names
         .map( name => {
           const groupCount = groupDetails.uuidsGroupedByItem[name].length;
@@ -279,15 +277,15 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
             groupCount,
             cliqueCount,
           }; })
-        .map( details => { return `${details.name} (${details.cliqueCount})`; })
-        ;
+        .map( details => { return `${details.name} (${details.cliqueCount})`; });
+
         const clique1 = {
           nameWithTaxonomy: clique1Name,
           name: clique1Name.split(':')[1],
           namesWithTaxonomy: clique1Names,
           names : clique1NamesWithoutTaxonomy,
-          namesBR: clique1NamesWithoutTaxonomy.join(' +<BR>'),
-          namesWithCountsBR : clique1NamesWithCountsBR.join(' +<BR>'),
+          namesBR: clique1NamesWithoutTaxonomy.join(plusBR),
+          namesWithCountsBR : clique1NamesWithCountsBR.join(plusBR),
           uuids : clique1Uuids,
         }
         cliques.push(clique0);
@@ -297,7 +295,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
 
     return {
       name,
-      nameBR : name.split(' + ').join(' +<BR>'),
+      nameBR : name.split(' + ').join(plusBR),
       nameWithCountsBR,
       count,
       uuids,
@@ -305,15 +303,13 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
       namesWithCounts,
       cliques,
     }
-  })
-  ;
+  });
 
   group.byCount.annotationsBubblingUnder = annosDetails
   .filter( anno => { return anno.count === 1; })
   .map( anno => { return anno.name.split(' + ').map( name => { return name.split(':')[1]; }).join(' + '); })
   .sort()
-  .reverse()
-  ;
+  .reverse();
 
   return group;
 }
