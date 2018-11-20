@@ -390,7 +390,7 @@ router.get('/display/:template', async (req, res, next) => {
        queryString : 'lastPublishDateTime:>2018-11-07T00:00:00Z and lastPublishDateTime:<2018-11-08T00:00:00Z',
        genres      : "News,Opinion",
        concertinaOverlapThreshold : 0.66,
-       groups      : 'primaryThemes,abouts',
+       groups      : 'primaryThemes,abouts', // also mentions,aboutsAndMentions
      }
      const copyQueryParams = Object.assign(req.query);
      Object.keys(defaultParams).forEach( param => {
