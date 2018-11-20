@@ -64,7 +64,7 @@ const pathsFns = [
   ['/search/deeper'               , sapiV1CapiV2.searchDeeper            ],
   ['/search/deeper/articles'      , sapiV1CapiV2.searchDeeperArticles    ],
   ['/search/deeper/articles/capi' , sapiV1CapiV2.searchDeeperArticlesCapi],
-  ['/correlateDammit'             , sapiV1CapiV2.correlateDammit         ],
+  ['/correlateDammit'             , sapiV1CapiV2.correlateDammit         ]
 ];
 
 // unpack all the combinations of get/post for each of the main routes
@@ -147,7 +147,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
     name : groupName,
     byCount : {
       topAnnotations : [],
-      annotationsBubblingUnder : [],
+      annotationsBubblingUnder : []
     },
   };
 
@@ -250,7 +250,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
           return {
             name : name.split(':')[1],
             groupCount,
-            cliqueCount,
+            cliqueCount
           }; })
         .map( details => { return `${details.name} (${details.cliqueCount})`; });
 
@@ -261,7 +261,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
           names : clique0NamesWithoutTaxonomy,
           namesBR : clique0NamesWithoutTaxonomy.join( plusBR),
           namesWithCountsBR : clique0NamesWithCountsBR.join(plusBR),
-          uuids : clique0Uuids,
+          uuids : clique0Uuids
         };
         const clique1NamesWithoutTaxonomy = clique1Names.map( name => { return name.split(':')[1]; });
         const clique1Uuids = Object.keys(clique1KnownUuids);
@@ -286,7 +286,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
           names : clique1NamesWithoutTaxonomy,
           namesBR: clique1NamesWithoutTaxonomy.join(plusBR),
           namesWithCountsBR : clique1NamesWithCountsBR.join(plusBR),
-          uuids : clique1Uuids,
+          uuids : clique1Uuids
         }
         cliques.push(clique0);
         cliques.push(clique1);
@@ -301,7 +301,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
       uuids,
       articles,
       namesWithCounts,
-      cliques,
+      cliques
     }
   });
 
@@ -386,7 +386,7 @@ router.get('/display/:template', async (req, res, next) => {
        queryString : 'lastPublishDateTime:>2018-11-07T00:00:00Z and lastPublishDateTime:<2018-11-08T00:00:00Z',
        genres      : "News,Opinion",
        concertinaOverlapThreshold : 0.66,
-       groups      : 'primaryThemes,abouts', // also mentions,aboutsAndMentions
+       groups      : 'primaryThemes,abouts' // also mentions,aboutsAndMentions
      }
      const copyQueryParams = Object.assign(req.query);
      Object.keys(defaultParams).forEach( param => {
@@ -405,7 +405,7 @@ router.get('/display/:template', async (req, res, next) => {
       context : {
         numArticles        : searchResponse.numArticles,
         numArticlesInGenres: searchResponse.correlations.numArticlesInGenres,
-        genresString       : searchResponse.correlations.genres.join(','),
+        genresString       : searchResponse.correlations.genres.join(',')
       }
    	});
 
