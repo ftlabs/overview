@@ -275,7 +275,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
           return {
             name: name.split(':')[1],
             groupCount,
-            cliqueCount,
+            cliqueCount
           }; })
         .map( details => { return `${details.name} (${details.cliqueCount})`; });
 
