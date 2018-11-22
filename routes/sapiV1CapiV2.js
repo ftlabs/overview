@@ -342,6 +342,9 @@ function prepDisplayData( searchResponse, params={} ){
       let groupWithTypeDetails = groupDetails;
 
       if (groupingType === 'concertinaed') {
+        if (groupWithTypeName === 'primaryThemes') {
+          return; // no point in displaying concertina for primaryThemes since they are always unique per article
+        }
         groupWithTypeName = `(concertinaed) ` + groupWithTypeName;
         groupWithTypeDetails = groupDetails.concertinaedSortedLists;
       }
