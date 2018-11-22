@@ -11,14 +11,19 @@
 			    background-color: #FFFFFF;
 			}
 			.name {
-				font-size: 100%;
+				font-size: 130%;
 				/* white-space: nowrap; */
+			}
+			.names {
+				font-size: 150%;
+				/* white-space: nowrap; */
+				width: 40%;
 			}
 			.nowrap {
 				white-space: nowrap;
 			}
 			.articles {
-				width: 50%;
+				width: 60%;
 				padding: 0;
 				margin: 0;
 				list-style: none;
@@ -29,12 +34,25 @@
 			.thumbnail {
 				width: 30%;
 			}
+			.thumbnail100 {
+				width: 100%;
+			}
+			.thumbnailcol {
+				width: 45%;
+			}
 			.thumbnails {
-				width: 25%;
+				width: 10%;
 			}
 			.pubdate {
 				font-size: 75%;
 				font-style: italic;
+			}
+			table {
+			    border-collapse: collapse;
+			    width: 100%;
+			}
+			tr {
+			    border-bottom: 1px solid #ccc;
 			}
 
 		</style>
@@ -52,6 +70,11 @@
 				<span class="nowrap"><label>maxDepth</label> = <input type="number" name="maxDepth" id="maxDepth" value="{{params.maxDepth}}" size="3"></span>
 				<span class="nowrap"><label>maxDurationMs</label> = <input type="number" name="maxDurationMs" id="maxDurationMs" value="{{params.maxDurationMs}}" size="5"></span>
 				<span class="nowrap"><label>concertinaOverlapThreshold</label> = <input type="number" name="concertinaOverlapThreshold" id="concertinaOverlapThreshold" value="{{params.concertinaOverlapThreshold}}" size="4" min="0" max="1.0" step="0.01"></span>
+				<span class="nowrap"><label>min2ndCliqueCount</label> = <input type="number" name="min2ndCliqueCount" id="min2ndCliqueCount" value="{{params.min2ndCliqueCount}}" size="4" min="1" max="100" step="1"></span>
+				<span class="nowrap"><label>min2ndCliqueProportion</label> = <input type="number" name="min2ndCliqueProportion" id="min2ndCliqueProportion" value="{{params.min2ndCliqueProportion}}" size="4" min="0" max="1.0" step="0.01"></span>
+				<span class="nowrap"><label>max2ndCliqueProportion</label> = <input type="number" name="max2ndCliqueProportion" id="max2ndCliqueProportion" value="{{params.max2ndCliqueProportion}}" size="4" min="0" max="1.0" step="0.01"></span>
+				<br>
+				<span class="nowrap"><label>groups</label> = <input type="text" name="groups" id="groups" value="{{params.groups}}" size="30"></span>
 				<br>
 				<input type="submit" value="SEARCH and SUMMARISE!">
 			</form>
@@ -72,36 +95,48 @@
 					</tr>
 					{{#each this.byCount.topAnnotations }}
 						<tr>
-							<td class="name">
+							<td class="names">
+								{{#if this.cliques.length}}
+								{{#each this.cliques}}
+									[ {{name}} ]<BR>{{{ namesWithCountsBR }}}<BR><BR>
+								{{/each}}
+								{{else}}
 								{{{ this.nameWithCountsBR }}}<br>
+								{{/if}}
+
+							</td>
+							<td class="thumbnails">
 								{{#each this.articles}}
 									{{#if mainImage.thumbnailUrl}}
-										<img class="thumbnail" src="{{mainImage.thumbnailUrl}}">
+										<img class="thumbnailcol" src="{{mainImage.thumbnailUrl}}">
 									{{/if}}
 								{{/each}}
 							</td>
 							<td class="articles">
+								<span class="articlecount">{{this.articles.length}}<span>
 								<ul>
 								{{#each this.articles}}
 									<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
 								{{/each}}
 								</ul>
 							</td>
-							{{#if @first}}
-								{{#if ../byCount.annotationsBubblingUnder.length}}
-								<td rowspan="{{../byCount.topAnnotations.length}}">
-									... bubbling under<br><br>
-									{{#each ../byCount.annotationsBubblingUnder}}
-									{{{this}}}<br>
-									{{/each}}
-								</td>
-								{{/if}}
-							{{/if}}
 						</tr>
 				  {{/each}}
+					{{#if byCount.annotationsBubblingUnder.length}}
+					<tr>
+					<td colspan="3">
+						<br>... bubbling under<br>
+						{{#each byCount.annotationsBubblingUnder}}
+						{{{this}}},
+						{{/each}}
+					</td>
+				</tr>
+					{{/if}}
+
 					<tr class="blank_row"></tr>
 				{{/each}}
 			</table>
+
 
 		</main>
 	</body>
