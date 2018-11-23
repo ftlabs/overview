@@ -133,6 +133,46 @@ router.get('/test', async (req, res, next) => {
 
 const plusBR = ' +<br>';
 
+function aggregateAboutsAnnosByTaxonomyFromUuids(uuids, articlesByUuid){
+  const annosByTaxonomy = {};
+
+  uuids.forEach(uuid => {
+    const article = articlesByUuid[uuid];
+    if (article
+    && article['mergedAnnotations']
+    && article['mergedAnnotations']['abouts']) {
+      article['mergedAnnotations']['abouts'].forEach(anno => {
+        const annoParts = anno.split(':');
+        const taxonomy = annoParts[0];
+        const annoName = annoParts[1];
+        if (!annosByTaxonomy.hasOwnProperty(taxonomy)) {
+          annosByTaxonomy[taxonomy] = {};
+        }
+        if (!annosByTaxonomy[taxonomy].hasOwnProperty(annoName)) {
+          annosByTaxonomy[taxonomy][annoName] = 0;
+        }
+        annosByTaxonomy[taxonomy][annoName] += 1;
+      });
+    }
+  });
+
+  const annosByTaxonomyWithCounts = {
+    'PERSON' : [],
+    'ORGANISATION': [],
+    'LOCATION': [],
+    'TOPIC' : []
+  };
+  Object.keys(annosByTaxonomy).forEach(taxonomy => {
+    const annoNames = Object.keys(annosByTaxonomy[taxonomy]);
+    annosByTaxonomyWithCounts[taxonomy] = annoNames.map(name => {
+      return { name, count: annosByTaxonomy[taxonomy][name] };
+    })
+    .sort( (a,b) => { if (a.count<b.count){return 1;} else if(a.count>b.count){ return -1;} else {return 0;} });
+  });
+
+  return annosByTaxonomyWithCounts;
+}
+
 function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResponse, params={} ){
 
   const defaultParams = {
@@ -261,7 +301,8 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
           names : clique0NamesWithoutTaxonomy,
           namesBR : clique0NamesWithoutTaxonomy.join( plusBR),
           namesWithCountsBR : clique0NamesWithCountsBR.join(plusBR),
-          uuids : clique0Uuids
+          uuids : clique0Uuids,
+          annosByTaxonomy: aggregateAboutsAnnosByTaxonomyFromUuids(clique0Uuids, searchResponse.articlesByUuid)
         };
         const clique1NamesWithoutTaxonomy = clique1Names.map( name => { return name.split(':')[1]; });
         const clique1Uuids = Object.keys(clique1KnownUuids);
@@ -286,7 +327,8 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
           names : clique1NamesWithoutTaxonomy,
           namesBR: clique1NamesWithoutTaxonomy.join(plusBR),
           namesWithCountsBR : clique1NamesWithCountsBR.join(plusBR),
-          uuids : clique1Uuids
+          uuids : clique1Uuids,
+          annosByTaxonomy: aggregateAboutsAnnosByTaxonomyFromUuids(clique1Uuids, searchResponse.articlesByUuid)
         }
         cliques.push(clique0);
         cliques.push(clique1);
@@ -301,7 +343,8 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
       uuids,
       articles,
       namesWithCounts,
-      cliques
+      cliques,
+      annosByTaxonomy: aggregateAboutsAnnosByTaxonomyFromUuids(uuids, searchResponse.articlesByUuid)
     }
   });
 

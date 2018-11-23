@@ -47,6 +47,13 @@
 				font-size: 75%;
 				font-style: italic;
 			}
+			.subannos {
+			  display: flex;
+			}
+			.subannos > div {
+			  flex: 1; /*grow*/
+			}
+
 			table {
 			    border-collapse: collapse;
 			    width: 100%;
@@ -121,6 +128,47 @@
 								</ul>
 							</td>
 						</tr>
+						{{#if cliques.length}}
+							{{#each cliques}}
+							<tr>
+								<td colspan="3">
+									<div class="subannos">
+										[{{name}}]
+									</div>
+									<div class="subannos">
+										{{#each annosByTaxonomy}}
+											<div>
+											{{@key}}<br>
+											<ul>
+												{{#each this}}
+													<li>{{name}} ({{count}})</li>
+												{{/each}}
+											</ul>
+										</div>
+										{{/each}}
+									</div>
+								</td>
+							</tr>
+
+							{{/each}}
+						{{else}}
+							<tr>
+								<td colspan="3">
+									<div class="subannos">
+										{{#each this.annosByTaxonomy}}
+											<div>
+											{{@key}}<br>
+											<ul>
+												{{#each this}}
+													<li>{{name}} ({{count}})</li>
+												{{/each}}
+											</ul>
+										</div>
+										{{/each}}
+									</div>
+								</td>
+							</tr>
+						{{/if}}
 				  {{/each}}
 					{{#if byCount.annotationsBubblingUnder.length}}
 					<tr>
