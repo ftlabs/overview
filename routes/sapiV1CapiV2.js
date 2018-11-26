@@ -302,7 +302,8 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
           namesBR : clique0NamesWithoutTaxonomy.join( plusBR),
           namesWithCountsBR : clique0NamesWithCountsBR.join(plusBR),
           uuids : clique0Uuids,
-          annosByTaxonomy: aggregateAboutsAnnosByTaxonomyFromUuids(clique0Uuids, searchResponse.articlesByUuid)
+          annosByTaxonomy: aggregateAboutsAnnosByTaxonomyFromUuids(clique0Uuids, searchResponse.articlesByUuid),
+          articles: clique0Uuids.map( uuid => { return searchResponse.articlesByUuid[uuid]; })
         };
         const clique1NamesWithoutTaxonomy = clique1Names.map( name => { return name.split(':')[1]; });
         const clique1Uuids = Object.keys(clique1KnownUuids);
@@ -322,13 +323,14 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
 
         const clique1 = {
           nameWithTaxonomy: clique1Name,
-          name: clique1Name.split(':')[1],
+          name: `${clique0Name.split(':')[1]} / ${clique1Name.split(':')[1]}`,
           namesWithTaxonomy: clique1Names,
           names : clique1NamesWithoutTaxonomy,
           namesBR: clique1NamesWithoutTaxonomy.join(plusBR),
           namesWithCountsBR : clique1NamesWithCountsBR.join(plusBR),
           uuids : clique1Uuids,
-          annosByTaxonomy: aggregateAboutsAnnosByTaxonomyFromUuids(clique1Uuids, searchResponse.articlesByUuid)
+          annosByTaxonomy: aggregateAboutsAnnosByTaxonomyFromUuids(clique1Uuids, searchResponse.articlesByUuid),
+          articles: clique1Uuids.map( uuid => { return searchResponse.articlesByUuid[uuid]; })
         }
         cliques.push(clique0);
         cliques.push(clique1);

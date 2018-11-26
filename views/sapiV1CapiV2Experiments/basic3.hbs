@@ -101,57 +101,66 @@
 						<td class="grouping" colspan="3">{{ this.name }}</td>
 					</tr>
 					{{#each this.byCount.topAnnotations }}
-						<tr>
-							<td class="names">
-								{{#if this.cliques.length}}
-								{{#each this.cliques}}
-									[ {{name}} ]<BR>{{{ namesWithCountsBR }}}<BR><BR>
-								{{/each}}
-								{{else}}
-								{{{ this.nameWithCountsBR }}}<br>
-								{{/if}}
-
-							</td>
-							<td class="thumbnails">
-								{{#each this.articles}}
-									{{#if mainImage.thumbnailUrl}}
-										<img class="thumbnailcol" src="{{mainImage.thumbnailUrl}}">
-									{{/if}}
-								{{/each}}
-							</td>
-							<td class="articles">
-								<span class="articlecount">{{this.articles.length}}<span>
-								<ul>
-								{{#each this.articles}}
-									<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
-								{{/each}}
-								</ul>
-							</td>
-						</tr>
-						{{#if cliques.length}}
-							{{#each cliques}}
-							<tr>
-								<td colspan="3">
-									<div class="subannos">
-										[{{name}}]
-									</div>
-									<div class="subannos">
-										{{#each annosByTaxonomy}}
-											<div>
-											{{@key}}<br>
-											<ul>
-												{{#each this}}
-													<li>{{name}} ({{count}})</li>
-												{{/each}}
-											</ul>
-										</div>
+						{{#if this.cliques.length}}
+							{{#each this.cliques}}
+								<tr>
+									<td class="names">
+										[ {{name}} ]<BR><br>{{{ namesWithCountsBR }}}<BR><BR>
+									</td>
+									<td class="thumbnails">
+										{{#each this.articles}}
+											{{#if mainImage.thumbnailUrl}}
+												<img class="thumbnailcol" src="{{mainImage.thumbnailUrl}}">
+											{{/if}}
 										{{/each}}
-									</div>
-								</td>
-							</tr>
-
+									</td>
+									<td class="articles">
+										<span class="articlecount">{{this.articles.length}}<span>
+										<ul>
+										{{#each this.articles}}
+											<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
+										{{/each}}
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3">
+										<div class="subannos">
+											{{#each annosByTaxonomy}}
+												<div>
+												{{@key}}<br>
+												<ul>
+													{{#each this}}
+														<li>{{name}} ({{count}})</li>
+													{{/each}}
+												</ul>
+											</div>
+											{{/each}}
+										</div>
+									</td>
+								</tr>
 							{{/each}}
 						{{else}}
+							<tr>
+								<td class="names">
+									{{{ this.nameWithCountsBR }}}<br>
+								</td>
+								<td class="thumbnails">
+									{{#each this.articles}}
+										{{#if mainImage.thumbnailUrl}}
+											<img class="thumbnailcol" src="{{mainImage.thumbnailUrl}}">
+										{{/if}}
+									{{/each}}
+								</td>
+								<td class="articles">
+									<span class="articlecount">{{this.articles.length}}<span>
+									<ul>
+									{{#each this.articles}}
+										<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
+									{{/each}}
+									</ul>
+								</td>
+							</tr>
 							<tr>
 								<td colspan="3">
 									<div class="subannos">
