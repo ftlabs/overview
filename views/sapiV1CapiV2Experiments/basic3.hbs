@@ -47,6 +47,13 @@
 				font-size: 75%;
 				font-style: italic;
 			}
+			.subannos {
+			  display: flex;
+			}
+			.subannos > div {
+			  flex: 1; /*grow*/
+			}
+
 			table {
 			    border-collapse: collapse;
 			    width: 100%;
@@ -59,7 +66,7 @@
 
 	</head>
 	<body>
-		<h1>SapiV1CapiV2 experiments: correlations in article annotations</h1>
+		<h1>SapiV1CapiV2 experiments: correlations in article annotations, with overlaps, cliques, and context</h1>
 		<h2>based on {{context.numArticles}} articles, of which {{context.numArticlesInGenres}} articles in genres "{{context.genresString}}"</h2>
 		<p>
 			<form action="" method="get" class="params">
@@ -94,38 +101,88 @@
 						<td class="grouping" colspan="3">{{ this.name }}</td>
 					</tr>
 					{{#each this.byCount.topAnnotations }}
-						<tr>
-							<td class="names">
-								{{#if this.cliques.length}}
-								{{#each this.cliques}}
-									[ {{name}} ]<br>{{{ namesWithCountsBR }}}<br><br>
-								{{/each}}
-								{{else}}
-								{{{ this.nameWithCountsBR }}}<br>
-								{{/if}}
-
-							</td>
-							<td class="thumbnails">
-								{{#each this.articles}}
-									{{#if mainImage.thumbnailUrl}}
-										<img class="thumbnailcol" src="{{mainImage.thumbnailUrl}}">
-									{{/if}}
-								{{/each}}
-							</td>
-							<td class="articles">
-								<span class="articlecount">{{this.articles.length}}<span>
-								<ul>
-								{{#each this.articles}}
-									<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
-								{{/each}}
-								</ul>
-							</td>
-						</tr>
+						{{#if this.cliques.length}}
+							{{#each this.cliques}}
+								<tr>
+									<td class="names">
+										[ {{name}} ]<br><br>{{{ namesWithCountsBR }}}<br><br>
+									</td>
+									<td class="thumbnails">
+										{{#each this.articles}}
+											{{#if mainImage.thumbnailUrl}}
+												<img class="thumbnailcol" src="{{mainImage.thumbnailUrl}}">
+											{{/if}}
+										{{/each}}
+									</td>
+									<td class="articles">
+										<span class="articlecount">{{this.articles.length}}<span>
+										<ul>
+										{{#each this.articles}}
+											<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
+										{{/each}}
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3">
+										<div class="subannos">
+											{{#each annosByTaxonomy}}
+												<div>
+												{{@key}}<br>
+												<ul>
+													{{#each this}}
+														<li>{{name}} ({{count}})</li>
+													{{/each}}
+												</ul>
+											</div>
+											{{/each}}
+										</div>
+									</td>
+								</tr>
+							{{/each}}
+						{{else}}
+							<tr>
+								<td class="names">
+									{{{ this.nameWithCountsBR }}}<br>
+								</td>
+								<td class="thumbnails">
+									{{#each this.articles}}
+										{{#if mainImage.thumbnailUrl}}
+											<img class="thumbnailcol" src="{{mainImage.thumbnailUrl}}">
+										{{/if}}
+									{{/each}}
+								</td>
+								<td class="articles">
+									<span class="articlecount">{{this.articles.length}}<span>
+									<ul>
+									{{#each this.articles}}
+										<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
+									{{/each}}
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<div class="subannos">
+										{{#each this.annosByTaxonomy}}
+											<div>
+											{{@key}}<br>
+											<ul>
+												{{#each this}}
+													<li>{{name}} ({{count}})</li>
+												{{/each}}
+											</ul>
+										</div>
+										{{/each}}
+									</div>
+								</td>
+							</tr>
+						{{/if}}
 				  {{/each}}
 					{{#if byCount.annotationsBubblingUnder.length}}
 					<tr>
 					<td colspan="3">
-						<br>... bubbling under<br>
+						<br>... bubbling under (with just one article each)<br>
 						{{#each byCount.annotationsBubblingUnder}}
 						{{{this}}},
 						{{/each}}
