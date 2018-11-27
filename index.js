@@ -83,21 +83,21 @@ if (process.env.BYPASS_TOKEN !== "true") {
 
 //Core Routes
 app.use(s3o);
-app.use("/articles", articles);
-app.use("/24hrs", twentyfourhrs);
-app.use("/facethistory", facetHistory);
-app.use("/lantern", lantern);
-app.use("/list", list);
-app.use("/timeline", timeline);
-app.use("/facetsWithArticles", facetsWithArticles);
-app.use("/heartbeat", heartbeat);
-app.use("/hierarchicalEdgeBundling", hierarchicalEdgeBundling);
-app.use("/tinder", tinder);
-app.use("/space", spaceUtilisation);
-app.use("/ftMaps", ftMaps);
-app.use("/ftabulous", ftabulous);
-app.use("/ame", ame);
-app.use("/sapiV1CapiV2", sapiV1CapiV2); // temporarily outside s3o
+app.use("/articles/", articles);
+app.use("/24hrs/", twentyfourhrs);
+app.use("/facethistory/", facetHistory);
+app.use("/lantern/", lantern);
+app.use("/list/", list);
+app.use("/timeline/", timeline);
+app.use("/facetsWithArticles/", facetsWithArticles);
+app.use("/heartbeat/", heartbeat);
+app.use("/hierarchicalEdgeBundling/", hierarchicalEdgeBundling);
+app.use("/tinder/", tinder);
+app.use("/space/", spaceUtilisation);
+app.use("/ftMaps/", ftMaps);
+app.use("/ftabulous/", ftabulous);
+app.use("/ame/", ame);
+app.use("/sapiV1CapiV2/", sapiV1CapiV2);
 
 // ---
 
