@@ -99,7 +99,7 @@ app.use("/ftMaps/", ftMaps);
 app.use("/ftabulous/", ftabulous);
 app.use("/ame/", ame);
 app.use("/sapiV1CapiV2/", sapiV1CapiV2);
-app.use("/testRoute/", testRoute);
+app.use("/testRoute/", sapiV1CapiV2);
 
 // ---
 
