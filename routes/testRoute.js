@@ -5,3 +5,5 @@ router.get('/', (req, res, next) => {
   console.log('PATH:: testRoute root');
   res.render("testRoute");
 });
+
+module.exports = router;
