@@ -442,7 +442,7 @@ router.get('/display/:template', async (req, res, next) => {
      const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
      const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
      const data = prepDisplayData( searchResponse, combinedParams );
-     res.render(`/searchAndContentExperiments/${template}`, {
+     res.render(`searchAndContentExperiments/${template}`, {
    		data,
    		params: combinedParams,
       context : {
@@ -453,7 +453,6 @@ router.get('/display/:template', async (req, res, next) => {
    	});
 
    } catch( err ){
-    console.log('ERROR:', err);
      res.json( { error: err.message, });
    }
 });
