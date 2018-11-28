@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 // const path = require('path');
-// const sapiV1CapiV2 = require('../lib/sapiV1CapiV2');
-// const debug = require('debug')('views:sapiV1CapiV2');
-// const image = require('../helpers/image');
+const sapiV1CapiV2 = require('../lib/sapiV1CapiV2');
+const debug = require('debug')('views:sapiV1CapiV2');
+const image = require('../helpers/image');
 
 
 router.get("/", (req, res, next) => {
