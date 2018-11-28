@@ -444,7 +444,7 @@ router.get('/display/:template', async (req, res, next) => {
      const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
      const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
      const data = prepDisplayData( searchResponse, combinedParams );
-     res.render(path.resolve(__dirname + `/sapiV1CapiV2Experiments/${template}`), {
+     res.render(path.resolve(__dirname + `../sapiV1CapiV2Experiments/${template}`), {
    		data,
    		params: combinedParams,
       context : {
