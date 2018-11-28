@@ -7,6 +7,7 @@ const image = require('../helpers/image');
 
 
 router.get("/", (req, res, next) => {
+  console.log('PATH:: sapiV1CapiV2 root');
   res.render("sapiV1CapiV2");
 });
 
