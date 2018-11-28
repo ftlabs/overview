@@ -4,13 +4,8 @@ const sapiV1CapiV2 = require('../lib/sapiV1CapiV2');
 const debug = require('debug')('views:sapiV1CapiV2');
 const image = require('../helpers/image');
 
-// set up in index.js, so not needed here
-// const bodyParser = require('body-parser');
-// // support parsing of application/json type post data
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
 
-router.get("/", (req, res, next) => {
+router.get('/', (req, res, next) => {
   res.render("sapiV1CapiV2");
 });
 
@@ -447,7 +442,7 @@ router.get('/display/:template', async (req, res, next) => {
      const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
      const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
      const data = prepDisplayData( searchResponse, combinedParams );
-     res.render(`sapiV1CapiV2Experiments/${template}`, {
+     res.render(`searchAndContentExperiments/${template}`, {
    		data,
    		params: combinedParams,
       context : {
