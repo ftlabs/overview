@@ -43,7 +43,7 @@ const ftMaps = require("./routes/ftMaps");
 const ftabulous = require("./routes/ftabulous");
 const sapiV1CapiV2 = require("./routes/sapiV1CapiV2");
 const ame = require("./routes/aggregatedMetadataExperiments");
-const testRoute = require("./routes/testRoute");
+const testRoute = require("./routes/sapiV1CapiV2");
 
 const hbs = require("hbs");
 

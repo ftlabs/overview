@@ -6,9 +6,9 @@ const router = express.Router();
 // const image = require('../helpers/image');
 
 
-router.get('/', async (req, res, next) => {
-  console.log('PATH:: sapiV1CapiV2 root');
-  res.render("sapiV1CapiV2");
+router.get('/', (req, res, next) => {
+  console.log('PATH:: sapi route with test root');
+  res.render("testRoute");
 });
 
 // function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
