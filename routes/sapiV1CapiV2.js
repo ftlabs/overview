@@ -421,6 +421,7 @@ router.get('/display', async (req, res, next) => {
 });
 
 router.get('/display/:template', async (req, res, next) => {
+  console.log('PATH CALLED:: /display/template');
 	 try {
      const template = req.params.template;
      const defaultParams = {
