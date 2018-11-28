@@ -46,7 +46,7 @@ const ame = require("./routes/aggregatedMetadataExperiments");
 
 const hbs = require("hbs");
 
-hbs.registerPartials(__dirname + "/views/partials/");
+hbs.registerPartials(path.resolve(__dirname + '/views/partials/'));
 
 hbs.registerHelper("imgPath", function(path) {
   return path.split("?")[0] + "?source=search";
@@ -57,7 +57,7 @@ hbs.registerHelper("json", function(context) {
 });
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.resolve(path.join(__dirname, 'views')));
 app.set("view engine", "hbs");
 
 let requestLogger = function(req, res, next) {
@@ -68,7 +68,7 @@ let requestLogger = function(req, res, next) {
 app.use(requestLogger);
 
 // these routes do *not* have s3o
-app.use("/static", express.static("static"));
+app.use("/static", express.static((path.resolve(__dirname + '/static'))));
 
 const TOKEN = process.env.TOKEN;
 if (!TOKEN) {
