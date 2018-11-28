@@ -97,7 +97,7 @@ app.use("/space/", spaceUtilisation);
 app.use("/ftMaps/", ftMaps);
 app.use("/ftabulous/", ftabulous);
 app.use("/ame/", ame);
-app.use("/newSapiCapi/", sapiV1CapiV2);
+app.use("/newRoute/", sapiV1CapiV2);
 
 // ---
 
