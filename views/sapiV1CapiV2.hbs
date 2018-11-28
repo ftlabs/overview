@@ -21,16 +21,16 @@
 		</style>
 	{{/head}}
 	<body>
-		<h1>Demo SapiV1CapiV2 Page</h1>
+		<h1>Demo searchAndContent Page</h1>
 
 		<h2>Displays</h2>
 		<p>
 			Summary views of articles over a date range. Warning, tables *were* harmed in the making of this page.
 		</p>
 		<ul>
-			<li><a href="/sapiV1CapiV2/display/basic1">/sapiV1CapiV2/display/basic1</a></li>
-			<li><a href="/sapiV1CapiV2/display/basic2">/sapiV1CapiV2/display/basic2</a> (with added cliques and config params)</li>
-			<li><a href="/sapiV1CapiV2/display/basic3">/sapiV1CapiV2/display/basic3</a> (with added cliques and config params and context - way too much info to display neatly, but ...)</li>
+			<li><a href="/searchAndContent/display/basic1">/searchAndContent/display/basic1</a></li>
+			<li><a href="/searchAndContent/display/basic2">/searchAndContent/display/basic2</a> (with added cliques and config params)</li>
+			<li><a href="/searchAndContent/display/basic3">/searchAndContent/display/basic3</a> (with added cliques and config params and context - way too much info to display neatly, but ...)</li>
 		</ul>
 
 		<h2>Some data endpoints combining SAPI v1 and CAPI v2, and summarising</h2>
@@ -39,7 +39,7 @@
 		<ul>
 			<li>
 				<h3>simple search (one SAPI call), with added CAPI calls to flesh out article details</h3>
-				<form action="/sapiV1CapiV2/search" method="get">
+				<form action="/searchAndContent/search" method="get">
 					<div>
 					  <label for="name">queryString:</label>
 					  <input type="text" name="queryString">
@@ -55,7 +55,7 @@
 			</li>
 			<li>
 				<h3>iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details</h3>
-				<form action="/sapiV1CapiV2/search/deeper" method="get">
+				<form action="/searchAndContent/search/deeper" method="get">
 					<div>
 					  <label for="name">queryString:</label>
 					  <input type="text" name="queryString">
@@ -75,7 +75,7 @@
 			</li>
 			<li>
 				<h3>iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details, returning just the article data</h3>
-				<form action="/sapiV1CapiV2/search/deeper/articles" method="get">
+				<form action="/searchAndContent/search/deeper/articles" method="get">
 					<div>
 					  <label for="name">queryString:</label>
 					  <input type="text" name="queryString">
@@ -95,7 +95,7 @@
 			</li>
 			<li>
 				<h3>iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details, returning just the reduced CAPI aspect of the article data with added mergedAnnotations</h3>
-				<form action="/sapiV1CapiV2/search/deeper/articles/capi" method="get">
+				<form action="/searchAndContent/search/deeper/articles/capi" method="get">
 					<div>
 					  <label for="name">queryString:</label>
 					  <input type="text" name="queryString">
@@ -115,7 +115,7 @@
 			</li>
 			<li>
 				<h3>latest CAPI for UUID </h3>
-			<form action="/sapiV1CapiV2/getArticle" method="get">
+			<form action="/searchAndContent/getArticle" method="get">
 					<div>
 					  <label for="uuid">uuid:</label>
 					  <input type="text" name="uuid" value="0ed17006-ba37-11e8-8274-55b72926558f">
@@ -127,7 +127,7 @@
 			</li>
 			<li>
 				<h3>summary of recent SAPI and CAPI call timings</h3>
-				<form action="/sapiV1CapiV2/summariseFetchTimings" method="get">
+				<form action="/searchAndContent/summariseFetchTimings" method="get">
 					<div>
 					  <label for="lastFew">lastFew:</label>
 					  <input type="text" name="lastFew">
@@ -139,7 +139,7 @@
 			</li>
 			<li>
 				<h3>prepped data for display of correlations based on iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details, returning just the reduced CAPI aspect of the article data with added mergedAnnotations</h3>
-				<a href="/sapiV1CapiV2/display">/sapiV1CapiV2/display</a>
+				<a href="/searchAndContent/display">/searchAndContent/display</a>
 			</li>
 		</ul>
 		<h3>POST Endpoints</h3>
@@ -147,7 +147,7 @@
 		<ul>
 			<li>
 			  <h3>simple search (one SAPI call), with added CAPI calls to flesh out article details</h3>
-				<form action="/sapiV1CapiV2/search" method="post">
+				<form action="/searchAndContent/search" method="post">
 					<div>
 					  <label for="name">queryString:</label>
 					  <input type="text" name="queryString">
@@ -163,7 +163,7 @@
 			</li>
 			<li>
 				<h3>iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details</h3>
-				<form action="/sapiV1CapiV2/search/deeper" method="post">
+				<form action="/searchAndContent/search/deeper" method="post">
 					<div>
 					  <label for="name">queryString:</label>
 					  <input type="text" name="queryString">
@@ -183,7 +183,7 @@
 			</li>
 			<li>
 				<h3>iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details, returning just the article data</h3>
-				<form action="/sapiV1CapiV2/search/deeper/articles" method="post">
+				<form action="/searchAndContent/search/deeper/articles" method="post">
 					<div>
 					  <label for="name">queryString:</label>
 					  <input type="text" name="queryString">
@@ -203,7 +203,7 @@
 			</li>
 			<li>
 				<h3>iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details, returning just the reduced CAPI aspect of the article data with added mergedAnnotations</h3>
-				<form action="/sapiV1CapiV2/search/deeper/articles/capi" method="post">
+				<form action="/searchAndContent/search/deeper/articles/capi" method="post">
 					<div>
 					  <label for="name">queryString:</label>
 					  <input type="text" name="queryString">
@@ -223,7 +223,7 @@
 			</li>
 			<li>
 				<h3>correlations based on iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details, returning just the reduced CAPI aspect of the article data with added mergedAnnotations</h3>
-				<form action="/sapiV1CapiV2/correlateDammit" method="post">
+				<form action="/searchAndContent/correlateDammit" method="post">
 					<div>
 					  <label for="name">queryString:</label>
 					  <input type="text" name="queryString">
