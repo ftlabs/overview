@@ -81,8 +81,6 @@ if (process.env.BYPASS_TOKEN !== "true") {
   app.use(validateRequest);
 }
 
-console.log('::INDEX HAS DEFINED STATIC::');
-
 //Core Routes
 app.use(s3o);
 app.use("/articles/", articles);
