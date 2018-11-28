@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
 const sapiV1CapiV2 = require('../lib/sapiV1CapiV2');
 const debug = require('debug')('views:sapiV1CapiV2');
 const image = require('../helpers/image');
@@ -421,7 +420,6 @@ router.get('/display', async (req, res, next) => {
 });
 
 router.get('/display/:template', async (req, res, next) => {
-  console.log('PATH CALLED:: /display/template');
 	 try {
      const template = req.params.template;
      const defaultParams = {
@@ -444,7 +442,7 @@ router.get('/display/:template', async (req, res, next) => {
      const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
      const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
      const data = prepDisplayData( searchResponse, combinedParams );
-     res.render(`/sapiV1CapiV2Experiments/${template}`, {
+     res.render(`/searchAndContentExperiments/${template}`, {
    		data,
    		params: combinedParams,
       context : {
