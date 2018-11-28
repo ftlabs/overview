@@ -454,6 +454,7 @@ router.get('/display/:template', async (req, res, next) => {
    	});
 
    } catch( err ){
+    console.log('ERROR:', err);
      res.json( { error: err.message, });
    }
 });
