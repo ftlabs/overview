@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
   console.log('PATH:: sapi route with test root');
-  res.render("testRoute");
+  res.render("sapiV1CapiV2");
 });
 
 // function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
