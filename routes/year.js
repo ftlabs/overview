@@ -218,28 +218,92 @@ function classifyComparedTopics( comparedTopics ){
       'sorted by biggest proportional change'
     ],
     years : comparedTopics.years,
+    categories,
+    taxonomies,
     classificationsByTaxonomy,
     comparisonParams: defaultComparisonParams
   };
+}
+
+function getAndConstructClassifications( years ){
+  const searchPromises = years.map( year => { return fetchSapiTopicSummary(year); });
+  return Promise.all(searchPromises)
+  .then( searchResponses => {
+    return compareYearsTopics(searchResponses);
+  })
+  .then( comparisons => {
+    return classifyComparedTopics( comparisons );
+  })
+  .catch( err => {
+    throw err;
+  })
+  ;
 }
 
 router.get('/topics/classify/:year1/:year2', (req, res, next) => {
 	 try {
      const years = [ Number(req.params.year1), Number(req.params.year2) ].sort();
      const searchPromises = years.map( year => { return fetchSapiTopicSummary(year); });
-     Promise.all(searchPromises)
-     .then( searchResponses => {
-       return compareYearsTopics(searchResponses);
+     getAndConstructClassifications(years)
+     .then( data => {
+       res.json( data );
      })
-     .then( comparisons => {
-       return classifyComparedTopics( comparisons );
+     ;
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
+
+function prepDisplayData( year1, year2, classifications ){
+  const byTaxonomy = classifications.taxonomies.map( taxonomy => {
+    const byCategory = classifications.categories.map( category => {
+      return {
+        category,
+        items : classifications.classificationsByTaxonomy[taxonomy][category]
+      }
+    });
+    return {
+      taxonomy,
+      byCategory
+    };
+  });
+
+  return {
+    year1: year1,
+    year2: year2,
+    taxonomies: classifications.taxonomies,
+    categories: classifications.categories,
+    byTaxonomy
+  };
+}
+
+router.get('/topics/classify/display/:year1/:year2', (req, res, next) => {
+	 try {
+     const years = [ Number(req.params.year1), Number(req.params.year2) ].sort();
+     const searchPromises = years.map( year => { return fetchSapiTopicSummary(year); });
+     getAndConstructClassifications(years)
+     .then( classifications => {
+       return prepDisplayData( years[0], years[1], classifications);
      })
      .then( data => {
        res.json( data );
      })
-     .catch( err => {
-       throw err;
-     })
+     ;
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
+
+router.get('/display/:template', async (req, res, next) => {
+	 try {
+     const template = req.params.template;
+     const years = [ Number(req.query.year1), Number(req.query.year2) ].sort();
+     const classifications = await getAndConstructClassifications(years);
+     const data = prepDisplayData( years[0], years[1], classifications );
+     res.render(`yearViews/${template}`, {
+       data,
+     });
+
    } catch( err ){
      res.json( { error: err.message, });
    }
