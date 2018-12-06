@@ -53,6 +53,9 @@
 			.subannos > div {
 			  flex: 1; /*grow*/
 			}
+			.tdtop {
+				vertical-align:top
+			}
 
 			table {
 			    border-collapse: collapse;
@@ -66,8 +69,36 @@
 
 	</head>
 	<body>
-		<h1>year summary experiments </h1>
+		<h1>year comparison experiments </h1>
 		<h2>based on years {{ data.year1 }} and {{ data.year2 }}</h2>
+
+		<main>
+			<table>
+				{{#each data.byTaxonomy}}
+				<tr>
+					<td colspan="5" class="grouping">{{taxonomy}}</td>
+				</tr>
+				<tr>
+					{{#each byCategory}}
+					<td>
+						{{ category }}
+					</td>
+					{{/each}}
+				</tr>
+				<tr>
+					{{#each byCategory}}
+					<td class="tdtop">
+						{{#each items}}
+						<br><span>{{ name }}</span>
+						{{/each}}
+					</td>
+					{{/each}}
+				</tr>
+				{{/each}}
+
+			</table>
+		</main>
+
 		<!-- <p>
 			<form action="" method="get" class="params">
 				<label>queryString</label>=<textarea name="queryString" id="queryString" rows="3" cols="45">{{params.queryString}}</textarea>
