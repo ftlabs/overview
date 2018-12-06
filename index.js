@@ -44,6 +44,7 @@ const ftabulous = require("./routes/ftabulous");
 const sapiV1CapiV2 = require("./routes/sapiV1CapiV2");
 const ame = require("./routes/aggregatedMetadataExperiments");
 const hbs = require("hbs");
+const year = require("./routes/year");
 
 hbs.registerPartials(path.resolve(__dirname + '/views/partials/'));
 
@@ -97,6 +98,7 @@ app.use("/ftMaps/", ftMaps);
 app.use("/ftabulous/", ftabulous);
 app.use("/ame/", ame);
 app.use("/searchAndContent/", sapiV1CapiV2);
+app.use("/year/", year);
 
 // ---
 
