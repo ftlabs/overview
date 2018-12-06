@@ -185,9 +185,17 @@ function classifyComparedTopics( comparedTopics ){
 
     ['increasing', 'decreasing', 'littleChange'].forEach( category => {
       classificationsByTaxonomy[taxonomy][category].sort( (a,b) => {
-        if( a.absFractionDelta > b.absFractionDelta ){ return -1; }
-        else if( a.absFractionDelta < b.absFractionDelta ){ return +1; }
-        else { return 0; };
+        if( a.absFractionDelta > b.absFractionDelta ){
+          return -1;
+        }
+        else if( a.absFractionDelta < b.absFractionDelta ){
+          return +1;
+        }
+        else {
+          if( a.maxCount > b.maxCount ){ return -1; }
+          else if( a.maxCount < b.maxCount ){ return +1; }
+          else { return 0; }
+       };
       });
     });
 
