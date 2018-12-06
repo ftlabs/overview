@@ -115,10 +115,12 @@ function compareYearsTopics( searchResponses ){
       names.forEach( name => {
         const anno = taxonomyAnnos[name];
         const maxCount = Math.max( ...anno.counts );
+        const minCount = Math.min( ...anno.counts );
         const delta = anno.counts[1] - anno.counts[0];
         const fractionDelta = delta / maxCount;
 
         anno.maxCount = maxCount;
+        anno.minCount = minCount;
         anno.delta = delta;
         anno.fractionDelta = fractionDelta;
         anno.absFractionDelta = Math.abs( fractionDelta );
@@ -159,31 +161,38 @@ const defaultComparisonParams = {
 function classifyComparedTopics( comparedTopics ){
   const classificationsByTaxonomy = {};
   const taxonomies = Object.keys( comparedTopics.combinedByTaxonomy );
+  const categories = ['newKids','increasing','decreasing','deadToUs','littleChange'];
   taxonomies.forEach( taxonomy => {
-    classificationsByTaxonomy[taxonomy] = {
-      increasing : [],
-      decreasing : [],
-      littleChange: []
-    };
+    classificationsByTaxonomy[taxonomy] = {};
+    categories.forEach( category => { classificationsByTaxonomy[taxonomy][category] = []; });
     const annoNames = Object.keys( comparedTopics.combinedByTaxonomy[taxonomy] );
     annoNames.forEach( name => {
       const anno = comparedTopics.combinedByTaxonomy[taxonomy][name];
       const maxCount         = anno.maxCount;
+      const minCount         = anno.minCount;
       const delta            = anno.delta;
       const fractionDelta    = anno.fractionDelta;
 
       if (maxCount >= defaultComparisonParams.minCount){
         if (fractionDelta <= - defaultComparisonParams.minFractionDelta) {
-          classificationsByTaxonomy[taxonomy].decreasing.push(anno);
+          if( minCount === 0 ){
+            classificationsByTaxonomy[taxonomy].deadToUs.push(anno);
+          } else {
+            classificationsByTaxonomy[taxonomy].decreasing.push(anno);
+          }
         } else if (fractionDelta >= defaultComparisonParams.minFractionDelta) {
-          classificationsByTaxonomy[taxonomy].increasing.push(anno);
+          if (minCount === 0) {
+            classificationsByTaxonomy[taxonomy].newKids.push(anno);
+          } else {
+            classificationsByTaxonomy[taxonomy].increasing.push(anno);
+          }
         } else {
           classificationsByTaxonomy[taxonomy].littleChange.push(anno);
         }
       }
     });
 
-    ['increasing', 'decreasing', 'littleChange'].forEach( category => {
+    categories.forEach( category => {
       classificationsByTaxonomy[taxonomy][category].sort( (a,b) => {
         if( a.absFractionDelta > b.absFractionDelta ){
           return -1;
@@ -204,7 +213,7 @@ function classifyComparedTopics( comparedTopics ){
   return {
     description: [
       'comparing topic counts across two years, grouped by taxonomy',
-      'classifying into increasing, decreasing, and little change',
+      `classifying into ${categories.join(', ')}`,
       'ignoring small topics',
       'sorted by biggest proportional change'
     ],
