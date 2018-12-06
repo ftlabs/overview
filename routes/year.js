@@ -111,7 +111,18 @@ function compareYearsTopics( searchResponses ){
         taxonomyAnnos[name].counts[responseIndex] = anno.count;
       });
 
-      
+      const names = Object.keys(taxonomyAnnos);
+      names.forEach( name => {
+        const anno = taxonomyAnnos[name];
+        const maxCount = Math.max( ...anno.counts );
+        const delta = anno.counts[1] - anno.counts[0];
+        const fractionDelta = delta / maxCount;
+
+        anno.maxCount = maxCount;
+        anno.delta = delta;
+        anno.fractionDelta = fractionDelta;
+        anno.absFractionDelta = Math.abs( fractionDelta );
+      })
     });
   });
 
@@ -157,14 +168,9 @@ function classifyComparedTopics( comparedTopics ){
     const annoNames = Object.keys( comparedTopics.combinedByTaxonomy[taxonomy] );
     annoNames.forEach( name => {
       const anno = comparedTopics.combinedByTaxonomy[taxonomy][name];
-      const maxCount = Math.max( ...anno.counts );
-      const delta = anno.counts[1] - anno.counts[0];
-      const fractionDelta = delta / maxCount;
-
-      anno.maxCount = maxCount;
-      anno.delta = delta;
-      anno.fractionDelta = fractionDelta;
-      anno.absFractionDelta = Math.abs( fractionDelta );
+      const maxCount         = anno.maxCount;
+      const delta            = anno.delta;
+      const fractionDelta    = anno.fractionDelta;
 
       if (maxCount >= defaultComparisonParams.minCount){
         if (fractionDelta <= - defaultComparisonParams.minFractionDelta) {
