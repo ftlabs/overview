@@ -279,7 +279,7 @@ function prepDisplayData( year1, year2, classifications ){
       `Comparing the number of occurrences of topics in each of the two years, grouped by taxonomy, segmenting them into groups based on those counts.`,
       `Topics with a maxCount<${classifications.comparisonParams.minCount} are ignored, and topics whose counts ratio changes by less than ${classifications.comparisonParams.minFractionDelta} are considered to have not really changed.`,
       `newKids are topics with zero count in the first year, and deadToUs are topics with zero count in the second year.`,
-      `Caveats include: this uses SAPI, so the coverage of topics will not be complete.`
+      `Caveats include: this uses SAPI, so the coverage of topics will not be complete; the people taxonomy includes FT authors; the topics are v1 names so may not map directly to the on-site v2 version; the v1 topics are ropey anyway.`
     ],
     taxonomies: classifications.taxonomies,
     categories: classifications.categories,
