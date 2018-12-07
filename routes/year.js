@@ -74,21 +74,26 @@ router.get('/topics/:year', async (req, res, next) => {
 
 // could possibly have two sources of params, req.query and req.params
 function calcParams( params1={}, params2={} ){
-  let year1 = (params1.hasOwnProperty('year1'))? params1.year1 : 2017;
-  year1 = (params2.hasOwnProperty('year1'))? params1.year1 : year1;
-  let year2 = (params1.hasOwnProperty('year2'))? params1.year2 : 2018;
-  year2 = (params2.hasOwnProperty('year2'))? params1.year2 : year2;
+  // get value from source2 or source1 or defaultValue
+  function calcParam( name, defaultValue, source1, source2){
+    if(source2.hasOwnProperty(name)){ return source2[name]; }
+    if(source1.hasOwnProperty(name)){ return source1[name]; }
+    return defaultValue;
+  }
+
+  let year1 = calcParam('year1', 2017, params1, params2);
+  let year2 = calcParam('year2', 2018, params1, params2);
+
   const params = {
     years: [ Number(year1), Number(year2) ].sort()
   }
 
+  // only pass through on these params if they were specified
   const knownParams = ['minCount', 'minFractionDelta'];
-  knownParams.forEach( param => {
-    if(params1.hasOwnProperty(param)){
-      params[param] = Number(params1[param]);
-    }
-    if(params2.hasOwnProperty(param)){
-      params[param] = Number(params2[param]);
+  knownParams.forEach( name => {
+    const value = calcParam( name, undefined, params1, params2);
+    if ( value !== undefined) {
+      params[name] = Number(value);
     }
   })
 
