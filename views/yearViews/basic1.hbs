@@ -72,6 +72,10 @@
 		<h1>year comparison experiments </h1>
 		<h2>based on years {{ data.year1 }} and {{ data.year2 }}</h2>
 
+		{{#each data.description}}
+		<p>{{ this }}</p>
+		{{/each}}
+
 		<main>
 			<table>
 				{{#each data.byTaxonomy}}

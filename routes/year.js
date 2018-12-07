@@ -243,7 +243,6 @@ function getAndConstructClassifications( years ){
 router.get('/topics/classify/:year1/:year2', (req, res, next) => {
 	 try {
      const years = [ Number(req.params.year1), Number(req.params.year2) ].sort();
-     const searchPromises = years.map( year => { return fetchSapiTopicSummary(year); });
      getAndConstructClassifications(years)
      .then( data => {
        res.json( data );
@@ -271,6 +270,12 @@ function prepDisplayData( year1, year2, classifications ){
   return {
     year1: year1,
     year2: year2,
+    description: [
+      `Comparing the number of occurrences of topics in each of the two years, grouped by taxonomy, segmenting them into groups based on those counts.`,
+      `Topics with a maxCount<${defaultComparisonParams.minCount} are ignored, and topics whose counts ratio changes by less than ${defaultComparisonParams.minFractionDelta} are considered to have not really changed.`,
+      `newKids are topics with zero count in the first year, and deadToUs are topics with zero count in the second year.`,
+      `Caveats include: this uses SAPI, so the coverage of topics will not be complete.`
+    ],
     taxonomies: classifications.taxonomies,
     categories: classifications.categories,
     byTaxonomy
@@ -280,7 +285,6 @@ function prepDisplayData( year1, year2, classifications ){
 router.get('/topics/classify/display/:year1/:year2', (req, res, next) => {
 	 try {
      const years = [ Number(req.params.year1), Number(req.params.year2) ].sort();
-     const searchPromises = years.map( year => { return fetchSapiTopicSummary(year); });
      getAndConstructClassifications(years)
      .then( classifications => {
        return prepDisplayData( years[0], years[1], classifications);
