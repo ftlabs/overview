@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const sapiV1CapiV2 = require('../lib/sapiV1CapiV2');
-const debug = require('debug')('views:sapiV1CapiV2');
+const searchAndContent = require('../lib/searchAndContent');
+const debug = require('debug')('views:searchAndContent');
 const image = require('../helpers/image');
 
 
 router.get('/', (req, res, next) => {
-  res.render("sapiV1CapiV2");
+  res.render("searchAndContent");
 });
 
 function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
@@ -55,11 +55,11 @@ function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
 }
 
 const pathsFns = [
-  ['/search'                      , sapiV1CapiV2.search                  ],
-  ['/search/deeper'               , sapiV1CapiV2.searchDeeper            ],
-  ['/search/deeper/articles'      , sapiV1CapiV2.searchDeeperArticles    ],
-  ['/search/deeper/articles/capi' , sapiV1CapiV2.searchDeeperArticlesCapi],
-  ['/correlateDammit'             , sapiV1CapiV2.correlateDammit         ]
+  ['/search'                      , searchAndContent.search                  ],
+  ['/search/deeper'               , searchAndContent.searchDeeper            ],
+  ['/search/deeper/articles'      , searchAndContent.searchDeeperArticles    ],
+  ['/search/deeper/articles/capi' , searchAndContent.searchDeeperArticlesCapi],
+  ['/correlateDammit'             , searchAndContent.correlateDammit         ]
 ];
 
 // unpack all the combinations of get/post for each of the main routes
@@ -68,7 +68,7 @@ const pathsFns = [
     const path = pathFnPair[0];
     const fn   = pathFnPair[1];
 
-    debug(`sapiV1CapiV2:routes: method=${method}, path=${path}, fn=${fn.name}`);
+    debug(`searchAndContent:routes: method=${method}, path=${path}, fn=${fn.name}`);
 
     router[method](path, async (req, res, next) => {
       try {
@@ -90,7 +90,7 @@ const pathsFns = [
 router.get('/getArticle/uuid', async (req, res, next) => {
 	 try {
      const uuid = req.params.uuid;
-	   const searchResponse = await sapiV1CapiV2.getArticle( uuid );
+	   const searchResponse = await searchAndContent.getArticle( uuid );
 	   res.json( searchResponse );
    } catch( err ){
      res.json( { error: err.message, });
@@ -103,7 +103,7 @@ router.get('/getArticle', async (req, res, next) => {
      if (! uuid) {
        throw new Error( '/getArticle: must specify a uuid, as either a query param (?uuid=...) or a path param (/getArticle/...)');
      }
-	   const searchResponse = await sapiV1CapiV2.getArticle( uuid );
+	   const searchResponse = await searchAndContent.getArticle( uuid );
 	   res.json( searchResponse );
    } catch( err ){
      res.json( { error: err.message, });
@@ -113,7 +113,7 @@ router.get('/getArticle', async (req, res, next) => {
 router.get('/summariseFetchTimings', async (req, res, next) => {
 	 try {
      const lastFew = (req.query.hasOwnProperty('lastFew'))? Number(req.query['lastfew']) : 0;
-	   const summary = sapiV1CapiV2.summariseFetchTimings( lastFew );
+	   const summary = searchAndContent.summariseFetchTimings( lastFew );
 	   res.json( summary );
    } catch( err ){
      res.json( { error: err.message, });
@@ -410,7 +410,7 @@ function prepDisplayData( searchResponse, params={} ){
 router.get('/display', async (req, res, next) => {
 	 try {
      const combinedParams = constructSearchParamsFromRequest( req.query );
-     const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
+     const searchResponse = await searchAndContent.correlateDammit( combinedParams );
      const data = prepDisplayData( searchResponse, combinedParams );
 	   res.json( data );
 
@@ -440,7 +440,7 @@ router.get('/display/:template', async (req, res, next) => {
      });
 
      const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
-     const searchResponse = await sapiV1CapiV2.correlateDammit( combinedParams );
+     const searchResponse = await searchAndContent.correlateDammit( combinedParams );
      const data = prepDisplayData( searchResponse, combinedParams );
      res.render(`searchAndContentExperiments/${template}`, {
    		data,

@@ -41,7 +41,7 @@ const tinder = require("./routes/tinder");
 const spaceUtilisation = require("./routes/spaceUtilisation");
 const ftMaps = require("./routes/ftMaps");
 const ftabulous = require("./routes/ftabulous");
-const sapiV1CapiV2 = require("./routes/sapiV1CapiV2");
+const searchAndContent = require("./routes/searchAndContent");
 const ame = require("./routes/aggregatedMetadataExperiments");
 const hbs = require("hbs");
 
@@ -96,7 +96,7 @@ app.use("/space/", spaceUtilisation);
 app.use("/ftMaps/", ftMaps);
 app.use("/ftabulous/", ftabulous);
 app.use("/ame/", ame);
-app.use("/searchAndContent/", sapiV1CapiV2);
+app.use("/searchAndContent/", searchAndContent);
 
 // ---
 

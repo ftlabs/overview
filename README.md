@@ -52,7 +52,7 @@ All demos are listed on the home page ('/') when running the project **and/or** 
 + [FT as Tinder](https://ftlabs-overview.herokuapp.com/tinder)
 + [FT Rainbow Maps](https://ftlabs-overview.herokuapp.com/ftMaps)
 + [FTabulous](https://ftlabs-overview.herokuapp.com/ftabulous)
-+ [sapiV1CapiV2 summary](https://ftlabs-overview.herokuapp.com/display/basic1)
++ [searchAndContent summary](https://ftlabs-overview.herokuapp.com/searchAndContent/display/basic1)
 
 
 ## Endpoints
@@ -230,7 +230,7 @@ aggregationsByGenre : {
 ```
 ---
 
-### /sapiV1CapiV2 - combining SAPI with followup CAPI calls
+### /searchAndContent - combining SAPI with followup CAPI calls
 
 All of the following endpoints are POSTs and GETs.
 
@@ -260,16 +260,16 @@ which annotation groups to compute
 
 #### Main endpoints
 
-* /sapiV1CapiV2/search
+* /searchAndContent/search
    * full results incl all of SAPI and all of the CAPIs
-* /sapiV1CapiV2/search/deeper
+* /searchAndContent/search/deeper
    * full results of multiple searches
-* /sapiV1CapiV2/search/deeper/articles
+* /searchAndContent/search/deeper/articles
    * just the articles from multiple searches
-* /sapiV1CapiV2/search/deeper/articles/capi
+* /searchAndContent/search/deeper/articles/capi
    * just the capi part of the articles from multiple searches
 
-* /sapiV1CapiV2/correlateDammit
+* /searchAndContent/correlateDammit
    * the main focal point of this code, including the derived correlation info
    * with additional optional params:
       * genres: which genres to include in the correlations, default="News,Opinion"
