@@ -72,9 +72,13 @@ router.get('/topics/:year', async (req, res, next) => {
    }
 });
 
+function calcYears( year1, year2 ){
+  return [ Number(year1), Number(year2) ].sort();
+}
+
 router.get('/topics/:year1/:year2', (req, res, next) => {
 	 try {
-     const years = [ Number(req.params.year1), Number(req.params.year2) ].sort();
+     const years = calcYears(req.params.year1,req.params.year2);
      const searchPromises = years.map( year => { return fetchSapiTopicSummary(year); });
      Promise.all(searchPromises)
      .then( data => {
@@ -136,7 +140,7 @@ function compareYearsTopics( searchResponses ){
 
 router.get('/topics/compare/:year1/:year2', (req, res, next) => {
 	 try {
-     const years = [ Number(req.params.year1), Number(req.params.year2) ].sort();
+     const years = calcYears(req.params.year1,req.params.year2);
      const searchPromises = years.map( year => { return fetchSapiTopicSummary(year); });
      Promise.all(searchPromises)
      .then( searchResponses => {
@@ -242,7 +246,7 @@ function getAndConstructClassifications( years ){
 
 router.get('/topics/classify/:year1/:year2', (req, res, next) => {
 	 try {
-     const years = [ Number(req.params.year1), Number(req.params.year2) ].sort();
+     const years = calcYears(req.params.year1,req.params.year2);
      getAndConstructClassifications(years)
      .then( data => {
        res.json( data );
@@ -284,7 +288,7 @@ function prepDisplayData( year1, year2, classifications ){
 
 router.get('/topics/classify/display/:year1/:year2', (req, res, next) => {
 	 try {
-     const years = [ Number(req.params.year1), Number(req.params.year2) ].sort();
+     const years = calcYears(req.params.year1,req.params.year2);
      getAndConstructClassifications(years)
      .then( classifications => {
        return prepDisplayData( years[0], years[1], classifications);
@@ -301,7 +305,7 @@ router.get('/topics/classify/display/:year1/:year2', (req, res, next) => {
 router.get('/display/:template', async (req, res, next) => {
 	 try {
      const template = req.params.template;
-     const years = [ Number(req.query.year1), Number(req.query.year2) ].sort();
+     const years = calcYears(req.query.year1,req.query.year2);
      const classifications = await getAndConstructClassifications(years);
      const data = prepDisplayData( years[0], years[1], classifications );
      res.render(`yearViews/${template}`, {
