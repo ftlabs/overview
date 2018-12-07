@@ -44,6 +44,7 @@ const ftabulous = require("./routes/ftabulous");
 const searchAndContent = require("./routes/searchAndContent");
 const ame = require("./routes/aggregatedMetadataExperiments");
 const hbs = require("hbs");
+const year = require("./routes/year");
 
 hbs.registerPartials(path.resolve(__dirname + '/views/partials/'));
 
@@ -97,6 +98,7 @@ app.use("/ftMaps/", ftMaps);
 app.use("/ftabulous/", ftabulous);
 app.use("/ame/", ame);
 app.use("/searchAndContent/", searchAndContent);
+app.use("/year/", year);
 
 // ---
 

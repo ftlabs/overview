@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style>
+			.grouping {
+				font-weight:bold;
+				background-color: coral;
+			}
+			.blank_row {
+			    height: 30px !important; /* overwrites any other rules */
+			    background-color: #FFFFFF;
+			}
+			.name {
+				font-size: 130%;
+				/* white-space: nowrap; */
+			}
+			.names {
+				font-size: 150%;
+				/* white-space: nowrap; */
+				width: 40%;
+			}
+			.nowrap {
+				white-space: nowrap;
+			}
+			.articles {
+				width: 60%;
+				padding: 0;
+				margin: 0;
+				list-style: none;
+			}
+			.articles65 {
+				width: 65%;
+			}
+			.thumbnail {
+				width: 30%;
+			}
+			.thumbnail100 {
+				width: 100%;
+			}
+			.thumbnailcol {
+				width: 45%;
+			}
+			.thumbnails {
+				width: 10%;
+			}
+			.pubdate {
+				font-size: 75%;
+				font-style: italic;
+			}
+			.subannos {
+			  display: flex;
+			}
+			.subannos > div {
+			  flex: 1; /*grow*/
+			}
+			.tdtop {
+				vertical-align:top
+			}
+
+			table {
+			    border-collapse: collapse;
+			    width: 100%;
+			}
+			tr {
+			    border-bottom: 1px solid #ccc;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<h1>year comparison experiments </h1>
+		<h2>based on years {{ data.year1 }} and {{ data.year2 }}</h2>
+
+		{{#each data.description}}
+		<p>{{ this }}</p>
+		{{/each}}
+
+		<p>
+			Taxonomies:
+			{{#each data.byTaxonomy}}
+			<a href="#{{taxonomy}}">{{taxonomy}}</a>
+			{{/each}}
+		<p>
+
+		<main>
+			<table>
+				{{#each data.byTaxonomy}}
+				<tr>
+					<td colspan="5" class="grouping" id="{{taxonomy}}">{{taxonomy}}</td>
+				</tr>
+				<tr>
+					{{#each byCategory}}
+					<td>
+						{{ category }}
+					</td>
+					{{/each}}
+				</tr>
+				<tr>
+					{{#each byCategory}}
+					<td class="tdtop">
+						{{#each items}}
+						<br><span>{{ name }}</span>
+						{{/each}}
+					</td>
+					{{/each}}
+				</tr>
+				{{/each}}
+
+			</table>
+		</main>
+	</body>
+</html>

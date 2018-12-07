@@ -53,6 +53,7 @@ All demos are listed on the home page ('/') when running the project **and/or** 
 + [FT Rainbow Maps](https://ftlabs-overview.herokuapp.com/ftMaps)
 + [FTabulous](https://ftlabs-overview.herokuapp.com/ftabulous)
 + [searchAndContent summary](https://ftlabs-overview.herokuapp.com/searchAndContent/display/basic1)
++ [year summary](https://ftlabs-overview.herokuapp.com/year/display/basic1?year1=2017&year2=2018)
 
 
 ## Endpoints
@@ -281,6 +282,21 @@ which annotation groups to compute
    * or /article?uuid=...
 * /summariseFetchTimings
    * optional: ?lastFew=10
+
+---
+
+### /year - counting and comparing topics between years
+
+#### endpoints
+
+* /year/topics/:year
+* /year/topics/:year1/:year2
+* /year/topics/compare/:year1/:year2
+* /year/topics/classify/:year1/:year2
+
+#### display
+
+* /year/display/basic1?year1=...&year2=...
 
 ---
 
