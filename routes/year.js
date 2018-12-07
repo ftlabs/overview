@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const sapiV1CapiV2 = require('../lib/sapiV1CapiV2');
+const searchAndContent = require('../lib/searchAndContent');
 const debug = require('debug')('routes:year');
 const image = require('../helpers/image');
 
@@ -26,8 +26,8 @@ function constructQueryParamsForYearTopicCounts( year=2018 ){
 
 function fetchSapiTopicSummary( year ){
   const queryParams = constructQueryParamsForYearTopicCounts( year );
-  sapiV1CapiV2.search
-  return sapiV1CapiV2.search( queryParams )
+  searchAndContent.search
+  return searchAndContent.search( queryParams )
   .then( sapiResult => {
     const v1AnnosByTaxonomy = {};
 
