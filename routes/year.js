@@ -162,7 +162,8 @@ const defaultComparisonParams = {
   minFractionDelta : 0.2
 };
 
-function classifyComparedTopics( comparedTopics ){
+function classifyComparedTopics( comparedTopics, params = {} ){
+  const combinedParams = Object.assign({}, defaultComparisonParams, params);
   const classificationsByTaxonomy = {};
   const taxonomies = Object.keys( comparedTopics.combinedByTaxonomy );
   const categories = ['newKids','increasing','decreasing','deadToUs','littleChange'];
@@ -177,14 +178,14 @@ function classifyComparedTopics( comparedTopics ){
       const delta            = anno.delta;
       const fractionDelta    = anno.fractionDelta;
 
-      if (maxCount >= defaultComparisonParams.minCount){
-        if (fractionDelta <= - defaultComparisonParams.minFractionDelta) {
+      if (maxCount >= combinedParams.minCount){
+        if (fractionDelta <= - combinedParams.minFractionDelta) {
           if( minCount === 0 ){
             classificationsByTaxonomy[taxonomy].deadToUs.push(anno);
           } else {
             classificationsByTaxonomy[taxonomy].decreasing.push(anno);
           }
-        } else if (fractionDelta >= defaultComparisonParams.minFractionDelta) {
+        } else if (fractionDelta >= combinedParams.minFractionDelta) {
           if (minCount === 0) {
             classificationsByTaxonomy[taxonomy].newKids.push(anno);
           } else {
@@ -225,7 +226,7 @@ function classifyComparedTopics( comparedTopics ){
     categories,
     taxonomies,
     classificationsByTaxonomy,
-    comparisonParams: defaultComparisonParams
+    comparisonParams: combinedParams
   };
 }
 
@@ -276,7 +277,7 @@ function prepDisplayData( year1, year2, classifications ){
     year2: year2,
     description: [
       `Comparing the number of occurrences of topics in each of the two years, grouped by taxonomy, segmenting them into groups based on those counts.`,
-      `Topics with a maxCount<${defaultComparisonParams.minCount} are ignored, and topics whose counts ratio changes by less than ${defaultComparisonParams.minFractionDelta} are considered to have not really changed.`,
+      `Topics with a maxCount<${classifications.comparisonParams.minCount} are ignored, and topics whose counts ratio changes by less than ${classifications.comparisonParams.minFractionDelta} are considered to have not really changed.`,
       `newKids are topics with zero count in the first year, and deadToUs are topics with zero count in the second year.`,
       `Caveats include: this uses SAPI, so the coverage of topics will not be complete.`
     ],
