@@ -76,11 +76,18 @@
 		<p>{{ this }}</p>
 		{{/each}}
 
+		<p>
+			Taxonomies:
+			{{#each data.byTaxonomy}}
+			<a href="#{{taxonomy}}">{{taxonomy}}</a>
+			{{/each}}
+		<p>
+
 		<main>
 			<table>
 				{{#each data.byTaxonomy}}
 				<tr>
-					<td colspan="5" class="grouping">{{taxonomy}}</td>
+					<td colspan="5" class="grouping" id="{{taxonomy}}">{{taxonomy}}</td>
 				</tr>
 				<tr>
 					{{#each byCategory}}
