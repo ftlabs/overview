@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const sapiV1CapiV2 = require('../lib/sapiV1CapiV2');
-const debug = require('debug')('views:year');
+const debug = require('debug')('routes:year');
 const image = require('../helpers/image');
 
 
@@ -72,13 +72,32 @@ router.get('/topics/:year', async (req, res, next) => {
    }
 });
 
-function calcYears( year1, year2 ){
-  return [ Number(year1), Number(year2) ].sort();
+// could possibly have two sources of params, req.query and req.params
+function calcParams( params1={}, params2={} ){
+  let year1 = (params1.hasOwnProperty('year1'))? params1.year1 : 2017;
+  year1 = (params2.hasOwnProperty('year1'))? params1.year1 : year1;
+  let year2 = (params1.hasOwnProperty('year2'))? params1.year2 : 2018;
+  year2 = (params2.hasOwnProperty('year2'))? params1.year2 : year2;
+  const params = {
+    years: [ Number(year1), Number(year2) ].sort()
+  }
+
+  const knownParams = ['minCount', 'minFractionDelta'];
+  knownParams.forEach( param => {
+    if(params1.hasOwnProperty(param)){
+      params[param] = Number(params1[param]);
+    }
+    if(params2.hasOwnProperty(param)){
+      params[param] = Number(params2[param]);
+    }
+  })
+
+  return params;
 }
 
 router.get('/topics/:year1/:year2', (req, res, next) => {
 	 try {
-     const years = calcYears(req.params.year1,req.params.year2);
+     const years = calcParams(req.params).years;
      const searchPromises = years.map( year => { return fetchSapiTopicSummary(year); });
      Promise.all(searchPromises)
      .then( data => {
@@ -140,7 +159,7 @@ function compareYearsTopics( searchResponses ){
 
 router.get('/topics/compare/:year1/:year2', (req, res, next) => {
 	 try {
-     const years = calcYears(req.params.year1,req.params.year2);
+     const years = calcParams(req.params).years;
      const searchPromises = years.map( year => { return fetchSapiTopicSummary(year); });
      Promise.all(searchPromises)
      .then( searchResponses => {
@@ -230,14 +249,14 @@ function classifyComparedTopics( comparedTopics, params = {} ){
   };
 }
 
-function getAndConstructClassifications( years ){
+function getAndConstructClassifications( years, params={} ){
   const searchPromises = years.map( year => { return fetchSapiTopicSummary(year); });
   return Promise.all(searchPromises)
   .then( searchResponses => {
     return compareYearsTopics(searchResponses);
   })
   .then( comparisons => {
-    return classifyComparedTopics( comparisons );
+    return classifyComparedTopics( comparisons, params );
   })
   .catch( err => {
     throw err;
@@ -247,8 +266,8 @@ function getAndConstructClassifications( years ){
 
 router.get('/topics/classify/:year1/:year2', (req, res, next) => {
 	 try {
-     const years = calcYears(req.params.year1,req.params.year2);
-     getAndConstructClassifications(years)
+     const params = calcParams(req.params, req.query);
+     getAndConstructClassifications(params.years, params)
      .then( data => {
        res.json( data );
      })
@@ -289,8 +308,9 @@ function prepDisplayData( year1, year2, classifications ){
 
 router.get('/topics/classify/display/:year1/:year2', (req, res, next) => {
 	 try {
-     const years = calcYears(req.params.year1,req.params.year2);
-     getAndConstructClassifications(years)
+     const params = calcParams(req.params, req.query);
+     const years = params.years;
+     getAndConstructClassifications(years, params)
      .then( classifications => {
        return prepDisplayData( years[0], years[1], classifications);
      })
@@ -306,14 +326,16 @@ router.get('/topics/classify/display/:year1/:year2', (req, res, next) => {
 router.get('/display/:template', async (req, res, next) => {
 	 try {
      const template = req.params.template;
-     const years = calcYears(req.query.year1,req.query.year2);
-     const classifications = await getAndConstructClassifications(years);
+     const params = calcParams(req.query);
+     const years = params.years;
+     const classifications = await getAndConstructClassifications(years, params);
      const data = prepDisplayData( years[0], years[1], classifications );
      res.render(`yearViews/${template}`, {
        data,
      });
 
    } catch( err ){
+     console.log( `ERROR: ${err.message}`)
      res.json( { error: err.message, });
    }
 });
