@@ -5,24 +5,11 @@
 	background-color: #fff9f5;
 }
 .fast-ft--horizontal {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-flow: row nowrap;
-    -ms-flex-flow: row nowrap;
-    flex-flow: row nowrap;
     position: relative;
     margin: 0 0 1px;
 }
 .fast-ft {
     background-color: #fff9f5;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
     margin: 0;
 }
 .fast-ft--horizontal .fast-ft__logo-outer {
@@ -37,25 +24,24 @@
 }
 .fast-ft--horizontal .fast-ft__stories {
     width: 100%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-flow: row nowrap;
-    -ms-flex-flow: row nowrap;
-    flex-flow: row nowrap;
     margin: 0;
     padding: 0;
     list-style: none;
+}
+.fast-ft__stories {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.fast-ft__stories > div {
+    flex: 1 1 180px
 }
 .fast-ft--horizontal .fast-ft__story {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     border-left: 1px solid #ccc1b7;
     padding: 5px 10px 10px;
-    width: 33.33%;
+    
 }
 .fast-ft--horizontal .story__link {
 	border-bottom-width: 0;
