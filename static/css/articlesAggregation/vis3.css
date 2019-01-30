@@ -1,16 +1,13 @@
+.o-grid-row {
+  margin: 0;
+}
+
 .header {
   display: grid;
   grid-template-columns: 20% 70%;
   grid-template-rows: 50%;
   grid-template-areas: "image name";
   margin-bottom: 15px;
-}
-@media only screen and (max-width: 768px) {
-  .header {
-    grid-template-columns: 50% 50%;
-    grid-template-areas: "image" "name";
-    padding-bottom: 25px;
-  }
 }
 
 .header .image {
