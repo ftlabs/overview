@@ -78,7 +78,7 @@ router.get('/articlesAggregation/visual_2', async (req, res, next) => {
 	let data = reversedTopics.map((topic, index) => {
 		return {
 			name: topic[0],
-			count: Math.log10((index + 1)) * 2,
+			count: Math.log10((index + 1)) * 20,
 		};
 	});
 
