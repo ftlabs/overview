@@ -57,3 +57,15 @@
 .square a {
   text-decoration: none;
 }
+
+.articles a {
+  display: none;
+}
+
+.articles a:nth-child(-n+3) {
+  display: inline-block;
+}
+
+.circle:first-child .circleContents .articles a:nth-child(-n+11) {
+  display: inline-block;
+}
