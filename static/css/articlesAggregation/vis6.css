@@ -1,0 +1,92 @@
+
+
+
+.fast-ft-bg {
+	background-color: #fff9f5;
+}
+.fast-ft--horizontal {
+    position: relative;
+    margin: 0 0 1px;
+}
+.fast-ft {
+    background-color: #fff9f5;
+    margin: 0;
+}
+.fast-ft--horizontal .fast-ft__logo-outer {
+    background: transparent;
+    padding-left: 0;
+}
+.fast-ft__logo-outer {
+    background-color: #f5dfd9;
+    margin: 0;
+    line-height: 17px;
+    padding: 10px;
+}
+.fast-ft--horizontal .fast-ft__stories {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.fast-ft__stories {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.fast-ft__stories > div {
+    flex: 1 1 180px
+}
+.fast-ft--horizontal .fast-ft__story {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-left: 1px solid #ccc1b7;
+    padding: 5px 10px 10px;
+    
+}
+.fast-ft--horizontal .story__link {
+	border-bottom-width: 0;
+	color: #0a5e66;
+    text-decoration: none;
+    cursor: pointer;
+}
+.fast-ft--horizontal .story__time {
+    font-family: MetricWeb, sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    color: #66605c;
+    text-transform: uppercase;
+	white-space: nowrap;
+	display: inherit;
+}
+.fast-ft--horizontal .story__title {
+    font-family: MetricWeb, sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 600;
+    display: inline;
+    color: #33302e;
+    margin-right: 5px;
+}
+.fast-ft--horizontal .story {
+	position: relative;
+}
+.fast-ft--horizontal .ranking {
+	display: block;
+	color: #33302e;
+	position: absolute;
+	right: 15px;
+    top: 15px;
+}
+.fast-ft--horizontal .positive {
+    color: #00994D;
+}
+.fast-ft--horizontal .positive::before {
+    content: "+";
+}
+.fast-ft--horizontal .negative {
+    color: #990F3D;
+}
+
+@media (min-width: 46.25em) {
+	
+}

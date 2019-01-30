@@ -1,0 +1,28 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #fff1e5;
+  font-family: "MetricWeb", sans-serif;
+}
+
+h1 {
+  font-family: "FinancierDisplayWeb", serif;
+  text-transform: capitalize;
+}
+
+h2 {
+  font-family: "FinancierDisplayWeb", serif;
+  text-transform: capitalize;
+  font-size: 24px;
+}
+
+.explaination {
+	background-color: #f2dfce;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-bottom: 1px solid #ccc1b7;
+}

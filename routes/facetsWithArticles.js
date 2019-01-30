@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const article = require('../modules/article');
+const arrs = require('../helpers/array');
 const debug = require('debug')('views:facetsWithArticles');
 
-// paths
+
+/*
+ * Paths
+ */
 router.get('/', async (req, res, next) => {
 	res.render("facetsWithArticles");
 });
@@ -43,8 +47,214 @@ router.get('/charts/:template/:facet/:days', async (req, res, next) => {
 	});
 });
 
+router.get('/articlesAggregation/visual_1', async (req, res, next) => {
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
 
-// endpoints
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
+
+	res.render("facetsWithArticles/articlesAggregation/visual_1", {
+		data: topTopicFilter(results),
+		days: days,
+		timeslip: timeslip
+	} );
+});
+
+router.get('/articlesAggregation/visual_2', async (req, res, next) => {
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
+	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
+	const reversedTopics = topics.reverse();
+
+	let data = reversedTopics.map((topic, index) => {
+		return {
+			name: topic[0],
+			count: Math.log10((index + 1)) * 20,
+		};
+	});
+
+	res.render("facetsWithArticles/articlesAggregation/visual_2", {
+		data: data.reverse(),
+		days: days,
+		timeslip: timeslip
+	} );
+});
+
+router.get('/articlesAggregation/visual_3', async (req, res, next) => {
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
+	
+	res.render("facetsWithArticles/articlesAggregation/visual_3", {
+		data: topPeopleFilter(results, 3),
+		days: days,
+		timeslip: timeslip
+	} );
+});
+
+router.get('/articlesAggregation/visual_4', async (req, res, next) => {
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
+
+	res.render("facetsWithArticles/articlesAggregation/visual_4", {
+		data: topPeopleFilter(results, 3, 1),
+		days: days
+	} );
+});
+
+router.get('/articlesAggregation/visual_5', async (req, res, next) => {
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
+
+	res.render("facetsWithArticles/articlesAggregation/visual_5", {
+		data: topTopicFilter(results, 10, 10),
+		days: days,
+		timeslip: timeslip
+	} );
+});
+
+router.get('/articlesAggregation/visual_6', async (req, res, next) => {
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	const aspects        = undefined;
+	const facets         = undefined;
+
+	const resultsPrimary = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
+	const resultsSecondary = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, (timeslip + days) );
+
+	const primary = getTickerInfo( resultsPrimary );
+	const secondary = getTickerInfo( resultsSecondary );
+
+	let comparison = compareTickerSelections( primary, secondary );
+	comparison = comparison.splice(0, 5);
+
+	res.render("facetsWithArticles/articlesAggregation/visual_6", {
+		data: { items: comparison },
+		days: days,
+		timeslip: timeslip
+	} );
+});
+
+router.get('/articlesAggregation/visual_7', async (req, res, next) => {
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
+	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+
+	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
+	let left = topics.map((topic, i) => {
+		return {
+			title: topic[0],
+			count: topic[1],
+			index: i + 1
+		};
+	});
+
+	const people = genreNews.correlationAnalysis.people.people;
+	let right = people.map((person, i) => {
+		return {
+			title: person[0],
+			count: person[1],
+			index: i + 1
+		};
+	});
+	right = right.splice(0, left.length);
+
+	res.render("facetsWithArticles/articlesAggregation/visual_7", {
+		left: left,
+		right: right,
+		days: days,
+		timeslip: timeslip
+	} );
+});
+
+router.get('/articlesAggregation/visual_7a', async (req, res, next) => {
+	const days           = ( req.query.days            ) ? Number(req.query.days)           : 1;
+	const minCorrelation = ( req.query.minCorrelation  ) ? Number(req.query.minCorrelation) : 2;
+	const timeslip       = ( req.query.timeslip        ) ? Number(req.query.timeslip)       : 0;
+	let   aspects        = undefined;
+	let   facets         = undefined;
+
+	const results = await article.getArticlesAggregation( days, facets, aspects, minCorrelation, timeslip );
+	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+
+	// find primary themes
+	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
+	let left = topics.map((topic, i) => {
+		return {
+			title: topic[0],
+			count: topic[1],
+			index: i + 1
+		};
+	});
+
+	// get the title's for the primary theme topics
+	let titles = [];
+	const articlesByMetadataCsv = Object.keys(genreNews.articlesByMetadataCsv);
+
+	articlesByMetadataCsv.forEach(title => {
+		const titleSplit = title.split(':');
+		left.forEach(item => {
+			if(item.title === titleSplit[2]){
+				item['longTitle'] = title;
+			}
+
+			// get the related people
+			item['relatedPeople'] = [];
+			const relatedFacets = Object.keys(genreNews.facetCorrelationsCsv);
+			relatedFacets.forEach(facet => {
+				if( facet === item['longTitle'] ){
+					const facetItem = genreNews.facetCorrelationsCsv[facet];
+					Object.keys(facetItem).forEach(i => {
+						if(i.indexOf('people:people:') >= 0){
+							const facetSplit = i.split(':');
+							item['relatedPeople'].push( { name: facetSplit[2] } );
+						}
+					});
+				}
+			});
+		});
+	});
+
+	res.render("facetsWithArticles/articlesAggregation/visual_7a", {
+		left: left,
+		days: days,
+		timeslip: timeslip
+	} );
+});
+
+
+/*
+ * Endpoints
+ */
 router.get('/relatedContent', async (req, res, next) => {
 	const days = ( req.query.days ) ? req.query.days : 1;
 	const facet = ( req.query.facet ) ? req.query.facet : 'topics';
@@ -182,6 +392,193 @@ router.get('/aggregations/:template', async (req, res, next) => {
 	});
 });
 
+
+/*
+ * Shared functions
+ */
+
+function getTickerInfo(results){
+
+	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+
+	let flatArr = [];
+
+	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
+	topics.forEach(topic => {
+		flatArr.push({
+			title: topic[0],
+			count: topic[1],
+			type: 'topic'
+		});
+	});
+
+	const people = genreNews.correlationAnalysis.people.people;
+	people.forEach(person => {
+		flatArr.push({
+			title: person[0],
+			count: person[1],
+			type: 'people'
+		});
+	});
+
+	const organisations = genreNews.correlationAnalysis.organisations.organisations;
+	organisations.forEach(orgs => {
+		flatArr.push({
+			title: orgs[0],
+			count: orgs[1],
+			type: 'organisation'
+		});
+	});
+
+	flatArr = arrs.sortArray(flatArr, 'count');
+
+	flatArr.forEach((item, i) => {
+		item['link'] = urlSafeName(item['title']);
+		item['position'] = i + 1;
+	});
+
+	return flatArr;
+}
+
+function compareTickerSelections(primary, secondary){
+	const maxReturn = 5;
+	let compare = [];
+	
+	primary.forEach(i => {
+		let compareObj = i;
+		compareObj['countNext'] = 0;
+		compareObj['countDifference'] = 0;
+		compareObj['countDifferenceType'] = '';
+
+		secondary.forEach(j => {
+			if(j.title === i.title){
+				compareObj['countNext'] = j.count;
+				compareObj['countDifference'] = ( parseInt( i.count ) - parseInt( j.count ) );
+
+				if(compareObj['countDifference'] < 0){
+					compareObj['countDifferenceType'] = 'negative';
+				} else {
+					compareObj['countDifferenceType'] = 'positive';
+				}
+			} 
+		});
+		compare.push(compareObj);
+	});
+
+	return compare;
+}
+
+function urlSafeName(s){
+	return s.toLowerCase().replace("& ", "").replace(" ", "-");
+}
+
+function topTopicFilter(results, topicLimit = 3, articleLimit = 2){
+	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+	const topics = genreNews.correlationAnalysis.primaryTheme.topics;
+	let data = topics.map(topic => { return { name: topic[0] }; } );
+
+	data.forEach(topic => {
+		const articlesIDs = genreNews.articlesByMetadataCsv[`primaryTheme:topics:${topic.name}`];
+
+		topic['articles'] = articlesIDs.map(article => {
+			return genreNews.articlesByUuid[article];
+		});
+
+		topic['articles'] = topic['articles'].splice(0, articleLimit);
+
+		topic['safename'] = urlSafeName(topic.name);
+	});
+
+	return data.splice(0, topicLimit);
+}
+
+function topPeopleFilter(results, peopleLimit = 3, articleLimit = 2){
+	const genreNews = results.aggregationsByGenre['genre:genre:News'];
+
+	let people = genreNews.correlationAnalysis.people.people;
+	let data = people.map(person => { return { name: person[0] }; } );
+
+	data.forEach(people => {
+		/*
+		 * Get articles
+		 */
+		const articlesIDs = genreNews.articlesByMetadataCsv[`people:people:${people.name}`];
+
+		people['articles'] = articlesIDs.map(article => {
+			return genreNews.articlesByUuid[article];
+		});
+
+		people['articles'] = people['articles'].splice(0, articleLimit);
+
+
+		/*
+		 * Get and rank related facets
+		 */
+		const facetCorrelationsCsv = genreNews.facetCorrelationsCsv;
+		const entries = Object.entries(facetCorrelationsCsv);
+		let peopleFacets = [];
+
+		entries.forEach(facet => {
+			Object.entries(facet[1]).forEach(f => {
+				const facetSplit = f[0].split(':');
+				const name = facetSplit[facetSplit.length -1];
+				if( name === people.name && ( facet[0].indexOf(people.name) <= 0 ) ){
+					peopleFacets.push({
+						name: facet[0],
+						count: f[1],
+					});
+				}
+			});
+		});
+
+		people['facets'] = arrs.sortArray(peopleFacets, 'count');
+
+		/*
+		 * Custom selection of top ranked facets
+		 */
+		let topPerson = "";
+		let topSection = "";
+		let topTopic = "";
+
+		people['facets'].forEach(facet => {
+			let facetSplit = facet.name.split(':');
+			if( facetSplit[1] === 'people' && topPerson === "" ){
+				topPerson = facetSplit[2]; 
+			}
+			if( facetSplit[1] === 'sections' && topSection === "" ){
+				topSection = facetSplit[2]; 
+			}
+			if( facetSplit[1] === 'topics' && topTopic === "" ){
+				topTopic = facetSplit[2]; 
+			}
+		});
+
+		people['selectedFacets'] = {
+			person: topPerson,
+			section: topSection,
+			topic: topTopic
+		}
+
+		/*
+		* Set spot data
+		*/
+		const matches = people['name'].match(/\b(\w)/g);
+		people['spotData'] = matches.join('');
+
+		/*
+		* Set image - from first article
+		*/
+		people['image'] = '';
+		people['articles'].forEach(article => {
+			if(article.images[0] !== undefined && people['image'] === ""){
+				people['image'] = article.images[0].url;
+			}
+		});
+
+	});
+
+	return data.splice(0, peopleLimit);
+}
 
 
 module.exports = router;

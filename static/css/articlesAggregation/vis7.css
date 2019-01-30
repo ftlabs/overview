@@ -1,0 +1,46 @@
+.container {
+	display: grid;
+	grid-template-columns: 50% 50%;
+}
+h2 {
+	margin: 5px 0 0 0;
+}
+.left {
+	text-align: right;
+	border-right: 1px solid #66605c;
+	padding-right: 5px;
+}
+.right {
+	text-align: left;
+	border-left: 1px solid #66605c;
+	padding-left: 5px;
+}
+.left ul,
+.right ul {
+	list-style: none;
+	padding: 0;
+}
+.left ul li,
+.right ul li  {
+	display: grid;
+}
+.left ul li {
+	grid-template-columns: 84% 8% 8%;
+}
+.right ul li {
+	grid-template-columns: 8% 8% 84%;
+}
+.ranking {
+	color: #00994D;
+}
+
+.seven_a .right ul li {
+	grid-template-columns: 100%;
+}
+.seven_a .sub-container {
+	margin-top: -5px;
+}
+.seven_a ul {
+	list-style: none;
+	padding: 0;
+}
