@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+{{#> head title='Index' subtitle='Demo Index Page' }}{{/head}}
+<link rel="stylesheet" type="text/css" href="/static/css/aggregatedMetadataExperiments/grid.css">
+<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+<script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";</script>
+
+<body>
+    <div class="container">
+        {{#each content}}
+        <div class="item">
+            <div id="myChart-{{nameNoSpaces}}"></div>
+            <div class="title-container">
+                <h1 class="topic-title">{{name}}</h1>
+            </div>
+            <div class="articles">
+                <div class="article-details">
+                    {{#each articles}}
+                    <img class="article-image" src="{{image}}" alt="" />
+                    <div class="image-overlay"></div>
+                    <div class="contents">
+                        <p class="headline">{{ title.title }}</p>
+                    </div>
+                    {{/each}}
+                </div>
+                <div class="article-images">
+                    {{#each articles}}
+                    {{#each images}}
+                    <img class="article-image" src="{{url}}" alt="" />
+                    {{/each}}
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    {{#each content}}
+    <script>
+        var myConfig = {
+            type: 'wordcloud',
+            options: {
+                text: '{{ metadataCloud }}',
+            }
+        };
+
+        zingchart.render({
+            id: "myChart-{{nameNoSpaces}}",
+            data: myConfig,
+            height: 300,
+            width: '100%'
+        });
+    </script>
+    {{/each}}
+</body>
+
+</html>

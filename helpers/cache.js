@@ -7,19 +7,33 @@ function clearAll() {
 	debug(`cache.clearAll`);
 }
 
-function get(key, valueFn) {
+function clear(key) {
+	debug(`cache.clear: key`);
+	return delete CACHE[key];
+}
+
+function set(key, value) {
 	if (!CACHE.hasOwnProperty(key)) {
-		debug(`cache.get: miss: key=${key}`);
-		const value = valueFn();
 		CACHE[key] = value;
-	} else {
-		debug(`cache.get: hit: key=${key}`);
-	}
+	} 
 
 	return CACHE[key];
 }
 
+function get(key) {
+	let value = undefined;
+	if (!CACHE.hasOwnProperty(key)) {
+		debug(`cache.get: miss: key=${key}`);
+	} else {
+		value = CACHE[key];
+	}
+
+	return value;
+}
+
 module.exports = {
+	set,
 	get,
-	clearAll
+	clearAll,
+	clear
 };

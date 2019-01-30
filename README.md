@@ -52,6 +52,8 @@ All demos are listed on the home page ('/') when running the project **and/or** 
 + [FT as Tinder](https://ftlabs-overview.herokuapp.com/tinder)
 + [FT Rainbow Maps](https://ftlabs-overview.herokuapp.com/ftMaps)
 + [FTabulous](https://ftlabs-overview.herokuapp.com/ftabulous)
++ [searchAndContent summary](https://ftlabs-overview.herokuapp.com/searchAndContent/display/basic1)
++ [year summary](https://ftlabs-overview.herokuapp.com/year/display/basic1?year1=2017&year2=2018)
 
 
 ## Endpoints
@@ -227,6 +229,75 @@ aggregationsByGenre : {
  }
 }
 ```
+---
+
+### /searchAndContent - combining SAPI with followup CAPI calls
+
+All of the following endpoints are POSTs and GETs.
+
+The POSTs can take the standard SAPI query body (if encoded as application/json).
+
+POSTs and GETs can support query params to override any defaults or what is set in the POST body, e.g.
+* &maxResults=10
+* &queryString=lastPublishDateTime:<2015-08-21T16:18:00Z
+
+and for the \*deeper endpoints involving multiple searches
+* maxDepth
+* maxDurationMs
+
+NB, each call will return with whatever data has been gathered by the time it reaches the time threshold. Since the SAPI and CAPI calls are cached, re-invoking the same call will most likely lead to further SAPI+CAPI calls and thus return a bigger dataset until the full response has been achieved.
+
+and for doing the concertina step
+* concertinaOverlapThreshold (what proportion of the smaller list needs to be in the larger list for the smaller list to be merged with the larger list)
+
+and for splitting concertinaed lists into cliques
+* min2ndCliqueCount (min size for the next smallest subset/clique)
+* min2ndCliqueProportion
+* max2ndCliqueProportion
+
+which annotation groups to compute
+* groups (a comma-separated list, e.g. primaryThemes,abouts (default), and mentions,aboutsAndMentions)
+   * NB, including any of the mentions groups adds considerably to the processing time and data size
+
+#### Main endpoints
+
+* /searchAndContent/search
+   * full results incl all of SAPI and all of the CAPIs
+* /searchAndContent/search/deeper
+   * full results of multiple searches
+* /searchAndContent/search/deeper/articles
+   * just the articles from multiple searches
+* /searchAndContent/search/deeper/articles/capi
+   * just the capi part of the articles from multiple searches
+
+* /searchAndContent/correlateDammit
+   * the main focal point of this code, including the derived correlation info
+   * with additional optional params:
+      * genres: which genres to include in the correlations, default="News,Opinion"
+      * groups: which subsets of metadata to include in the correlations, default="primaryThemes,abouts" (also mentions, aboutsAndMentions)
+
+#### other endpoints
+
+* /getArticle/uuid
+   * or /article?uuid=...
+* /summariseFetchTimings
+   * optional: ?lastFew=10
+
+---
+
+### /year - counting and comparing topics between years
+
+#### endpoints
+
+* /year/topics/:year
+* /year/topics/:year1/:year2
+* /year/topics/compare/:year1/:year2
+* /year/topics/classify/:year1/:year2
+
+#### display
+
+* /year/display/basic1?year1=...&year2=...
+
 ---
 
 ## Other APIs to investigate

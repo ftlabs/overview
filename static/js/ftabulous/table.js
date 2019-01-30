@@ -14,24 +14,12 @@ var filters = [];
 
 
 function init(dataStr, historyStr){
-	data = prepData(dataStr);
-	facetHistory = prepData(historyStr);
+	data = dataStr;
+	facetHistory = historyStr;
 
 	addListeners();
 	generateTable();
 	generatePulseLines();
-}
-
-function prepData(data){
-	return JSON.parse(formatStr(data));
-}
-
-function formatStr(str){
-	return str.replace(/&quot;&gt;/g, '>')
-		.replace(/&lt;/g, '<')
-		.replace(/&gt;/g, '>')
-		.replace(/&quot;/g, '"')
-		.replace(/&amp;/g, '&');
 }
 
 function addListeners(){

@@ -12,6 +12,12 @@ const app = express();
 const helmet = require("helmet");
 const express_enforces_ssl = require("express-enforces-ssl");
 
+const bodyParser = require('body-parser');
+// support parsing of application/json type post data
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
 if (process.env.NODE_ENV === "production") {
   app.use(helmet());
   app.enable("trust proxy");
@@ -35,17 +41,23 @@ const tinder = require("./routes/tinder");
 const spaceUtilisation = require("./routes/spaceUtilisation");
 const ftMaps = require("./routes/ftMaps");
 const ftabulous = require("./routes/ftabulous");
-
+const searchAndContent = require("./routes/searchAndContent");
+const ame = require("./routes/aggregatedMetadataExperiments");
 const hbs = require("hbs");
+const year = require("./routes/year");
 
-hbs.registerPartials(__dirname + "/views/partials/");
+hbs.registerPartials(path.resolve(__dirname + '/views/partials/'));
 
 hbs.registerHelper("imgPath", function(path) {
   return path.split("?")[0] + "?source=search";
 });
 
+hbs.registerHelper("json", function(context) {
+  return JSON.stringify(context);
+});
+
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.resolve(path.join(__dirname, 'views')));
 app.set("view engine", "hbs");
 
 let requestLogger = function(req, res, next) {
@@ -56,7 +68,7 @@ let requestLogger = function(req, res, next) {
 app.use(requestLogger);
 
 // these routes do *not* have s3o
-app.use("/static", express.static("static"));
+app.use("/static", express.static((path.resolve(__dirname + '/static'))));
 
 const TOKEN = process.env.TOKEN;
 if (!TOKEN) {
@@ -71,19 +83,22 @@ if (process.env.BYPASS_TOKEN !== "true") {
 
 //Core Routes
 app.use(s3o);
-app.use("/articles", articles);
-app.use("/24hrs", twentyfourhrs);
-app.use("/facethistory", facetHistory);
-app.use("/lantern", lantern);
-app.use("/list", list);
-app.use("/timeline", timeline);
-app.use("/facetsWithArticles", facetsWithArticles);
-app.use("/heartbeat", heartbeat);
-app.use("/hierarchicalEdgeBundling", hierarchicalEdgeBundling);
-app.use("/tinder", tinder);
-app.use("/space", spaceUtilisation);
-app.use("/ftMaps", ftMaps);
-app.use("/ftabulous", ftabulous);
+app.use("/articles/", articles);
+app.use("/24hrs/", twentyfourhrs);
+app.use("/facethistory/", facetHistory);
+app.use("/lantern/", lantern);
+app.use("/list/", list);
+app.use("/timeline/", timeline);
+app.use("/facetsWithArticles/", facetsWithArticles);
+app.use("/heartbeat/", heartbeat);
+app.use("/hierarchicalEdgeBundling/", hierarchicalEdgeBundling);
+app.use("/tinder/", tinder);
+app.use("/space/", spaceUtilisation);
+app.use("/ftMaps/", ftMaps);
+app.use("/ftabulous/", ftabulous);
+app.use("/ame/", ame);
+app.use("/searchAndContent/", searchAndContent);
+app.use("/year/", year);
 
 // ---
 

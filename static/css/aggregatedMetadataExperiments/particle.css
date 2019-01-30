@@ -1,0 +1,20 @@
+.particle {
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.particle-container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 4px;
+}
+
+.title {
+  text-align: center;
+  margin-top: 45%;
+  font-size: 19px;
+}

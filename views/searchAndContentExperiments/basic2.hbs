@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style>
+			.grouping {
+				font-weight:bold;
+				background-color: coral;
+			}
+			.blank_row {
+			    height: 30px !important; /* overwrites any other rules */
+			    background-color: #FFFFFF;
+			}
+			.name {
+				font-size: 130%;
+				/* white-space: nowrap; */
+			}
+			.names {
+				font-size: 150%;
+				/* white-space: nowrap; */
+				width: 40%;
+			}
+			.nowrap {
+				white-space: nowrap;
+			}
+			.articles {
+				width: 60%;
+				padding: 0;
+				margin: 0;
+				list-style: none;
+			}
+			.articles65 {
+				width: 65%;
+			}
+			.thumbnail {
+				width: 30%;
+			}
+			.thumbnail100 {
+				width: 100%;
+			}
+			.thumbnailcol {
+				width: 45%;
+			}
+			.thumbnails {
+				width: 10%;
+			}
+			.pubdate {
+				font-size: 75%;
+				font-style: italic;
+			}
+			table {
+			    border-collapse: collapse;
+			    width: 100%;
+			}
+			tr {
+			    border-bottom: 1px solid #ccc;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<h1>searchAndContent experiments: correlations in article annotations</h1>
+		<h2>based on {{context.numArticles}} articles, of which {{context.numArticlesInGenres}} articles in genres "{{context.genresString}}"</h2>
+		<p>
+			<form action="" method="get" class="params">
+				<label>queryString</label>=<textarea name="queryString" id="queryString" rows="3" cols="45">{{params.queryString}}</textarea>
+				<br>
+				<span class="nowrap"><label>genres</label> = <input type="text" name="genres" id="genres" value="{{params.genres}}" size="20"></span>
+				<span class="nowrap"><label>maxResults</label> = <input type="number" name="maxResults" id="maxResults" value="{{params.maxResults}}" size="3"></span>
+				<span class="nowrap"><label>maxDepth</label> = <input type="number" name="maxDepth" id="maxDepth" value="{{params.maxDepth}}" size="3"></span>
+				<span class="nowrap"><label>maxDurationMs</label> = <input type="number" name="maxDurationMs" id="maxDurationMs" value="{{params.maxDurationMs}}" size="5"></span>
+				<span class="nowrap"><label>concertinaOverlapThreshold</label> = <input type="number" name="concertinaOverlapThreshold" id="concertinaOverlapThreshold" value="{{params.concertinaOverlapThreshold}}" size="4" min="0" max="1.0" step="0.01"></span>
+				<span class="nowrap"><label>min2ndCliqueCount</label> = <input type="number" name="min2ndCliqueCount" id="min2ndCliqueCount" value="{{params.min2ndCliqueCount}}" size="4" min="1" max="100" step="1"></span>
+				<span class="nowrap"><label>min2ndCliqueProportion</label> = <input type="number" name="min2ndCliqueProportion" id="min2ndCliqueProportion" value="{{params.min2ndCliqueProportion}}" size="4" min="0" max="1.0" step="0.01"></span>
+				<span class="nowrap"><label>max2ndCliqueProportion</label> = <input type="number" name="max2ndCliqueProportion" id="max2ndCliqueProportion" value="{{params.max2ndCliqueProportion}}" size="4" min="0" max="1.0" step="0.01"></span>
+				<br>
+				<span class="nowrap"><label>groups</label> = <input type="text" name="groups" id="groups" value="{{params.groups}}" size="30"></span>
+				<br>
+				<input type="submit" value="SEARCH and SUMMARISE!">
+			</form>
+		</p>
+		<div>
+			<ul>
+				{{#each data.groups}}
+				<li><a href="#{{this.name}}">{{ this.name }}</a></li>
+				{{/each}}
+			</ul>
+		</div>
+
+		<main class="centerPos">
+			<table>
+				{{#each data.groups}}
+					<tr id="{{this.name}}">
+						<td class="grouping" colspan="3">{{ this.name }}</td>
+					</tr>
+					{{#each this.byCount.topAnnotations }}
+						<tr>
+							<td class="names">
+								{{#if this.cliques.length}}
+								{{#each this.cliques}}
+									[ {{name}} ]<br>{{{ namesWithCountsBR }}}<br><br>
+								{{/each}}
+								{{else}}
+								{{{ this.nameWithCountsBR }}}<br>
+								{{/if}}
+
+							</td>
+							<td class="thumbnails">
+								{{#each this.articles}}
+									{{#if mainImage.thumbnailUrl}}
+										<img class="thumbnailcol" src="{{mainImage.thumbnailUrl}}">
+									{{/if}}
+								{{/each}}
+							</td>
+							<td class="articles">
+								<span class="articlecount">{{this.articles.length}}<span>
+								<ul>
+								{{#each this.articles}}
+									<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
+								{{/each}}
+								</ul>
+							</td>
+						</tr>
+				  {{/each}}
+					{{#if byCount.annotationsBubblingUnder.length}}
+					<tr>
+					<td colspan="3">
+						<br>... bubbling under<br>
+						{{#each byCount.annotationsBubblingUnder}}
+						{{{this}}},
+						{{/each}}
+					</td>
+				</tr>
+					{{/if}}
+
+					<tr class="blank_row"></tr>
+				{{/each}}
+			</table>
+
+
+		</main>
+	</body>
+</html>

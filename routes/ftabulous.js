@@ -30,44 +30,30 @@ router.get('/searchForFacetHistory', async (req, res, next) => {
 	res.json(results);
 });
 
-router.get('/table', async (req, res, next) => {
+async function renderRoute(routeName, res) {
 	const results = await article.getArticleRelations(1);
 	const history = await facet.searchForFacetHistory(facetPrams);
 
-	res.render("ftabulous/table", {
+	res.render(`ftabulous/${routeName}`, {
 		data: JSON.stringify(results),
 		facetHistory: JSON.stringify(history)
 	});
+}
+
+router.get('/table', (req, res, next) => {
+	renderRoute("table", res);
 });
 
-router.get('/people_text', async (req, res, next) => {
-	const results = await article.getArticleRelations(1);
-	const history = await facet.searchForFacetHistory(facetPrams);
-
-	res.render("ftabulous/people_text", {
-		data: JSON.stringify(results),
-		facetHistory: JSON.stringify(history)
-	});
+router.get('/people_text', (req, res, next) => {
+	renderRoute("people_text", res);
 });
 
-router.get('/people_venn', async (req, res, next) => {
-	const results = await article.getArticleRelations(1);
-	const history = await facet.searchForFacetHistory(facetPrams);
-
-	res.render("ftabulous/people_venn", {
-		data: JSON.stringify(results),
-		facetHistory: JSON.stringify(history)
-	});
+router.get('/people_venn', (req, res, next) => {
+	renderRoute("people_venn", res);
 });
 
-router.get('/people_venn_moardata', async (req, res, next) => {
-	const results = await article.getArticleRelations(1);
-	const history = await facet.searchForFacetHistory(facetPrams);
-
-	res.render("ftabulous/people_venn_moardata", {
-		data: JSON.stringify(results),
-		facetHistory: JSON.stringify(history)
-	});
+router.get('/people_venn_moardata', (req, res, next) => {
+	renderRoute("people_venn_moardata", res);
 });
 
 router.get('/people_venn_timeselect', async (req, res, next) => {

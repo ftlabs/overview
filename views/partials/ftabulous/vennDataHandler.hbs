@@ -1,0 +1,14 @@
+<script>
+	var dataHolder = document.getElementById('dataHolder');
+	var facetHolder = document.getElementById('facetHolder');
+	var data = dataHolder.textContent;
+	var facets = facetHolder.textContent;
+	dataHolder.parentNode.removeChild(dataHolder);
+	facetHolder.parentNode.removeChild(facetHolder);
+	
+	if(facets === '') {
+		init(JSON.parse(data));
+	} else {
+		init(JSON.parse(data), JSON.parse(facets));
+	}
+</script>

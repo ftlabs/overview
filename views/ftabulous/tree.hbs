@@ -13,9 +13,9 @@
 				{{/each}}
 			</div>
 		</main>
+
+		{{> ftabulous/vennData}}
 		<script src="/static/js/ftabulous/tree.js"></script>
-		<script>
-			init('{{data}}', '{{facetHistory}}');
-		</script>
+		{{> ftabulous/vennDataHandler}}
 	</body>
 </html>

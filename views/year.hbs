@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	{{#> head title='' subtitle='' }}
+		<style>
+			span, select {
+				vertical-align: top;
+			}
+			#aspects {
+				height: 180px;
+			}
+			form {
+				margin-bottom: 25px;
+			}
+			form a {
+				display: block;
+				margin: 15px 0;
+			}
+			h2 {
+				margin-top: 25px;
+			}
+		</style>
+	{{/head}}
+	<body>
+		<h1>Summarise/compare years' topics</h1>
+		<h2>endpoints</h2>
+		<ul>
+			<li><a href="/year/topics/2018">/year/topics/:year</a></li>
+			<li><a href="/year/topics/2017/2018">/year/topics/:year1/:year2</a></li>
+			<li><a href="/year/topics/compare/2017/2018">/year/topics/compare/:year1/:year2</a></li>
+			<li><a href="/year/topics/classify/2017/2018">/year/topics/classify/:year1/:year2</a></li>
+			<li><a href="/year/topics/classify/2017/2018?minCount=100&minFractionDelta=0.5">/year/topics/classify/:year1/:year2?minCount=...&minFractionDelta=...</a></li>
+			<li><a href="/year/topics/classify/display/2017/2018?minCount=100&minFractionDelta=0.5">/year/topics/classify/dsplay/:year1/:year2?minCount=...&minFractionDelta=... (showing data prepped for display in a page)</a></li>
+		</ul>
+
+		<h2>display</h2>
+		<ul>
+			<li><a href="/year/display/basic1?year1=2017&year2=2018">/year/display/basic1?year1=...&year2=...</a></li>
+			<li><a href="/year/display/basic1?year1=2017&year2=2018&minCount=100&minFractionDelta=0.5">/year/display/basic1?year1=...&year2=...&minCount=...&minFractionDelta=...</a></li>
+		</ul>
+	</body>
+</html>

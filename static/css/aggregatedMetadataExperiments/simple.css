@@ -1,0 +1,14 @@
+body {
+  font-family: "Raleway", sans-serif;
+  margin: 0;
+  background-color: #fff1e5;
+}
+
+h1 {
+  font-family: "Raleway", sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+}
