@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<style>
+			.grouping {
+				font-weight:bold;
+				background-color: coral;
+			}
+			.blank_row {
+			    height: 30px !important; /* overwrites any other rules */
+			    background-color: #FFFFFF;
+			}
+			.name {
+				font-size: 130%;
+				/* white-space: nowrap; */
+			}
+			.names {
+				font-size: 150%;
+				/* white-space: nowrap; */
+				width: 40%;
+			}
+			.nowrap {
+				white-space: nowrap;
+			}
+			.articles {
+				width: 60%;
+				padding: 0;
+				margin: 0;
+				list-style: none;
+			}
+			.articles65 {
+				width: 65%;
+			}
+			.thumbnail {
+				width: 30%;
+			}
+			.thumbnail100 {
+				width: 100%;
+			}
+			.thumbnailcol {
+				width: 45%;
+			}
+			.thumbnails {
+				width: 10%;
+			}
+			.pubdate {
+				font-size: 75%;
+				font-style: italic;
+			}
+			.subannos {
+			  display: flex;
+			}
+			.subannos > div {
+			  flex: 1; /*grow*/
+			}
+
+			table {
+			    border-collapse: collapse;
+			    width: 100%;
+			}
+			tr {
+			    border-bottom: 1px solid #ccc;
+			}
+
+		</style>
+
+	</head>
+	<body>
+		<h1>searchAndContent experiments: correlations in article annotations, with overlaps, cliques, and context</h1>
+		<h2>based on {{context.numArticles}} articles, of which {{context.numArticlesInGenres}} articles in genres "{{context.genresString}}"</h2>
+		<p>
+			<form action="" method="get" class="params">
+				<label>queryString</label>=<textarea name="queryString" id="queryString" rows="3" cols="45">{{params.queryString}}</textarea>
+				<br>
+				<span class="nowrap"><label>genres</label> = <input type="text" name="genres" id="genres" value="{{params.genres}}" size="20"></span>
+				<span class="nowrap"><label>maxResults</label> = <input type="number" name="maxResults" id="maxResults" value="{{params.maxResults}}" size="3"></span>
+				<span class="nowrap"><label>maxDepth</label> = <input type="number" name="maxDepth" id="maxDepth" value="{{params.maxDepth}}" size="3"></span>
+				<span class="nowrap"><label>maxDurationMs</label> = <input type="number" name="maxDurationMs" id="maxDurationMs" value="{{params.maxDurationMs}}" size="5"></span>
+				<span class="nowrap"><label>concertinaOverlapThreshold</label> = <input type="number" name="concertinaOverlapThreshold" id="concertinaOverlapThreshold" value="{{params.concertinaOverlapThreshold}}" size="4" min="0" max="1.0" step="0.01"></span>
+				<span class="nowrap"><label>min2ndCliqueCount</label> = <input type="number" name="min2ndCliqueCount" id="min2ndCliqueCount" value="{{params.min2ndCliqueCount}}" size="4" min="1" max="100" step="1"></span>
+				<span class="nowrap"><label>min2ndCliqueProportion</label> = <input type="number" name="min2ndCliqueProportion" id="min2ndCliqueProportion" value="{{params.min2ndCliqueProportion}}" size="4" min="0" max="1.0" step="0.01"></span>
+				<span class="nowrap"><label>max2ndCliqueProportion</label> = <input type="number" name="max2ndCliqueProportion" id="max2ndCliqueProportion" value="{{params.max2ndCliqueProportion}}" size="4" min="0" max="1.0" step="0.01"></span>
+				<br>
+				<span class="nowrap"><label>groups</label> = <input type="text" name="groups" id="groups" value="{{params.groups}}" size="30"></span>
+				<br>
+				<span class="nowrap"><label>ignoreItemList</label> = <input type="text" name="ignoreItemList" id="ignoreItemList" value="{{params.ignoreItemList}}" size="50"></span>
+				<br>
+				<p>
+					Notes on the clumsy specification (and ignoring) of specific entities
+					<ul>
+						<li>
+							you can append a constraint in the <b>queryString</b> to reduce the number of matching articles.
+							<br>NB, you specify additional entities to match as follows, <i>using the plural ontology name, with the value in speech marks</i>
+							<ul>
+								<li>and <b>people</b>:<b>"</b>Donald Trump<b>"</b></li>
+								<li>and <b>topics</b>:<b>"</b>US midterm elections<b>"</b></li>
+								<li>and <b>organisations</b>:<b>"</b>Goldman Sachs Group<b>"</b></li>
+								<li>and <b>regions</b>:<b>"</b>UK<b>"</b> (NB, regions not locations)</li>
+							</ul>
+						</li>
+						<li>
+							you can ignore specific items in the aggregated views in the field, <b>ignoreItemList</b>,
+							<br>NB, you specify entities to ignore from the display as a CSV as follows, <i>using the singular ontology name, with no speech marks around the value</i>
+							<ul>
+								<li><b>person</b>:Donald Trump</li>
+								<li><b>topic</b>:US midterm elections</li>
+								<li><b>organisation</b>:Goldman Sachs Group</li>
+								<li><b>location</b>:UK</li>
+							</ul>
+						</li>
+					</ul>
+				</p>
+				<input type="submit" value="SEARCH and SUMMARISE!">
+			</form>
+		</p>
+		<div>
+			<ul>
+				{{#each data.groups}}
+				<li><a href="#{{this.name}}">{{ this.name }}</a></li>
+				{{/each}}
+			</ul>
+		</div>
+
+		<main class="centerPos">
+			<table>
+				{{#each data.groups}}
+					<tr id="{{this.name}}">
+						<td class="grouping" colspan="3">{{ this.name }}</td>
+					</tr>
+					{{#each this.byCount.topAnnotations }}
+						{{#if this.cliques.length}}
+							{{#each this.cliques}}
+								<tr>
+									<td class="names">
+										[ {{name}} ]<br><br>{{{ namesWithCountsBR }}}<br><br>
+									</td>
+									<td class="thumbnails">
+										{{#each this.articles}}
+											{{#if mainImage.thumbnailUrl}}
+												<img class="thumbnailcol" src="{{mainImage.thumbnailUrl}}">
+											{{/if}}
+										{{/each}}
+									</td>
+									<td class="articles">
+										<span class="articlecount">{{this.articles.length}}<span>
+										<ul>
+										{{#each this.articles}}
+											<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
+										{{/each}}
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3">
+										<div class="subannos">
+											{{#each annosByTaxonomy}}
+												<div>
+												{{@key}}<br>
+												<ul>
+													{{#each this}}
+														<li>{{name}} ({{count}})</li>
+													{{/each}}
+												</ul>
+											</div>
+											{{/each}}
+										</div>
+									</td>
+								</tr>
+							{{/each}}
+						{{else}}
+							<tr>
+								<td class="names">
+									{{{ this.nameWithCountsBR }}}<br>
+								</td>
+								<td class="thumbnails">
+									{{#each this.articles}}
+										{{#if mainImage.thumbnailUrl}}
+											<img class="thumbnailcol" src="{{mainImage.thumbnailUrl}}">
+										{{/if}}
+									{{/each}}
+								</td>
+								<td class="articles">
+									<span class="articlecount">{{this.articles.length}}<span>
+									<ul>
+									{{#each this.articles}}
+										<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
+									{{/each}}
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<div class="subannos">
+										{{#each this.annosByTaxonomy}}
+											<div>
+											{{@key}}<br>
+											<ul>
+												{{#each this}}
+													<li>{{name}} ({{count}})</li>
+												{{/each}}
+											</ul>
+										</div>
+										{{/each}}
+									</div>
+								</td>
+							</tr>
+						{{/if}}
+				  {{/each}}
+					{{#if byCount.annotationsBubblingUnder.length}}
+					<tr>
+					<td colspan="3">
+						<br>... bubbling under (with just one article each)<br>
+						{{#each byCount.annotationsBubblingUnder}}
+						{{{this}}},
+						{{/each}}
+					</td>
+				</tr>
+					{{/if}}
+
+					<tr class="blank_row"></tr>
+				{{/each}}
+			</table>
+
+
+		</main>
+	</body>
+</html>
