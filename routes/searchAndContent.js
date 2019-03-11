@@ -36,7 +36,7 @@ function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
 		}
 	});
   // string list params
-  ['genres', 'groups'].forEach( name => {
+  ['genres', 'groups', 'ignoreItemList'].forEach( name => {
     if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
       params[name] = urlParams[name].split(',');
     }
@@ -429,7 +429,8 @@ router.get('/display/:template', async (req, res, next) => {
        queryString : 'lastPublishDateTime:>2018-11-07T00:00:00Z and lastPublishDateTime:<2018-11-08T00:00:00Z',
        genres      : "News,Opinion",
        concertinaOverlapThreshold : 0.66,
-       groups      : 'primaryThemes,abouts' // also mentions,aboutsAndMentions
+       groups      : 'primaryThemes,abouts', // also mentions,aboutsAndMentions
+       ignoreItemList : '',
      }
      const copyQueryParams = Object.assign(req.query);
      Object.keys(defaultParams).forEach( param => {
@@ -440,6 +441,7 @@ router.get('/display/:template', async (req, res, next) => {
      });
 
      const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
+     // debug(`/display/:template : combinedParams=${JSON.stringify(combinedParams)}`);
      const searchResponse = await searchAndContent.correlateDammit( combinedParams );
      const data = prepDisplayData( searchResponse, combinedParams );
      res.render(`searchAndContentExperiments/${template}`, {
