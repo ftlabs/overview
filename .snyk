@@ -6,7 +6,29 @@ patch:
   SNYK-JS-LODASH-450202:
     - '@google-cloud/bigquery > @google-cloud/common > google-auto-auth > async > lodash':
         patched: '2019-07-04T12:22:46.859Z'
+      snyk > lodash:
+        patched: '2019-07-04T12:30:22.044Z'
     - '@google-cloud/bigquery > @google-cloud/common > split-array-stream > async > lodash':
         patched: '2019-07-04T12:22:46.859Z'
+      snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-04T12:30:22.044Z'
     - hbs > handlebars > async > lodash:
         patched: '2019-07-04T12:22:46.859Z'
+      snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-04T12:30:22.044Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-04T12:30:22.044Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-04T12:30:22.044Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-04T12:30:22.044Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-04T12:30:22.044Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-04T12:30:22.044Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-04T12:30:22.044Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2019-07-04T12:30:22.044Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-04T12:30:22.044Z'
