@@ -505,6 +505,7 @@ router.get('/displayOrg/:template', async (req, res, next) => {
 
      // debug(`/display/:template : combinedParams=${JSON.stringify(combinedParams)}`);
      const searchResponse = await searchAndContent.correlateDammit( combinedParams );
+     debug(`/displayOrg/:template: searchResponse.searchStats=${JSON.stringify(searchResponse.searchStats,null,2)}`);
      const data = prepDisplayData( searchResponse, combinedParams );
      res.render(`searchAndContentExperiments/${template}`, {
    		data,
@@ -512,7 +513,9 @@ router.get('/displayOrg/:template', async (req, res, next) => {
       context : {
         numArticles        : searchResponse.numArticles,
         numArticlesInGenres: searchResponse.correlations.numArticlesInGenres,
-        genresString       : searchResponse.correlations.genres.join(',')
+        genresString       : searchResponse.correlations.genres.join(','),
+        indexCount         : searchResponse.searchStats.indexCount,
+        numSearches        : searchResponse.searchStats.numSearches,
       }
    	});
 
