@@ -61,6 +61,7 @@ const pathsFns = [
   ['/search/deeper/articles/capi' , searchAndContent.searchDeeperArticlesCapi],
   ['/correlateDammit'             , searchAndContent.correlateDammit         ],
   ['/allFacets'                   , searchAndContent.allFacets               ],
+  ['/allFacetsByYear'             , searchAndContent.allFacetsByYear         ],
 ];
 
 // unpack all the combinations of get/post for each of the main routes
