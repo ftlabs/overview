@@ -17,7 +17,7 @@
 			.names {
 				font-size: 150%;
 				/* white-space: nowrap; */
-				width: 40%;
+				width: 20%;
 			}
 			.nowrap {
 				white-space: nowrap;
@@ -87,14 +87,7 @@
 					Notes on the clumsy specification (and ignoring) of specific entities
 					<ul>
 						<li>
-							you can append a constraint in the <b>queryString</b> to reduce the number of matching articles.
-							<br>NB, you specify additional entities to match as follows, <i>using the plural ontology name, with the value in speech marks</i>
-							<ul>
-								<li>and <b>people</b>:<b>"</b>Donald Trump<b>"</b></li>
-								<li>and <b>topics</b>:<b>"</b>US midterm elections<b>"</b></li>
-								<li>and <b>organisations</b>:<b>"</b>Goldman Sachs Group<b>"</b></li>
-								<li>and <b>regions</b>:<b>"</b>UK<b>"</b> (NB, regions not locations)</li>
-							</ul>
+							you can specify a specific organisation via focusOrg.
 						</li>
 						<li>
 							you can ignore specific items in the aggregated views in the field, <b>ignoreItemList</b>,
@@ -143,7 +136,7 @@
 										<span class="articlecount">{{this.articles.length}}<span>
 										<ul>
 										{{#each this.articles}}
-											<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
+											<li>{{yyyy_mm_dd}} <a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
 										{{/each}}
 										</ul>
 									</td>
@@ -181,7 +174,7 @@
 									<span class="articlecount">{{this.articles.length}}<span>
 									<ul>
 									{{#each this.articles}}
-										<li><a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
+										<li>{{yyyy_mm_dd}} <a href="https://www.ft.com/content/{{uuid}}" target="_blank">{{title}}</a></li>
 									{{/each}}
 									</ul>
 								</td>
@@ -202,6 +195,22 @@
 									</div>
 								</td>
 							</tr>
+							<tr>
+								<td colspan="3">
+									<div class="subannos">
+											<div>
+											<p>article counts of the related orgs</p>
+											<ul>
+												{{#each this.annosByTaxonomy.ORGANISATION}}
+													<li>{{name}} (article overlap={{count}}, tot={{totArticles}})
+														<ul><li>{{yearCountPairsString}}</li></ul>
+													</li>
+												{{/each}}
+											</ul>
+										</div>
+									</div>
+								</td>
+							</tr>
 						{{/if}}
 				  {{/each}}
 					{{#if byCount.annotationsBubblingUnder.length}}
@@ -212,7 +221,7 @@
 						{{{this}}},
 						{{/each}}
 					</td>
-				</tr>
+				  </tr>
 					{{/if}}
 
 					<tr class="blank_row"></tr>

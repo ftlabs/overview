@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const searchAndContent = require('../lib/searchAndContent');
-const debug = require('debug')('views:searchAndContent');
+const debug = require('debug')('routes:searchAndContent');
 const image = require('../helpers/image');
 
 
@@ -208,7 +208,10 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
         && article.mainImage.members.length > 0 ) {
           article.mainImage.thumbnailUrl = image.formatImageUrl(article.mainImage.members[0], 200);
       }
+
+      article.yyyy_mm_dd = article.publishedDate.split('T')[0];
     });
+    debug( `prepAnnotationsGroup: articles[0]=${JSON.stringify(articles[0],null,2)}`);
 
     const namesWithCounts = constituentNames
     .map( name => { return {
@@ -234,7 +237,8 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
     const max2ndCliqueProportion = combinedParams.max2ndCliqueProportion;
 
     const cliques = [];
-    if (namesWithCounts.length > 1
+    if (!params.focusOrg
+     && namesWithCounts.length > 1
      && namesWithCounts[1].count > min2ndCliqueCount
      && (namesWithCounts[1].count / namesWithCounts[0].count) >= min2ndCliqueProportion
      && (namesWithCounts[1].count / namesWithCounts[0].count) <= max2ndCliqueProportion
@@ -473,8 +477,31 @@ router.get('/display/:template', async (req, res, next) => {
    }
 });
 
-// fail:    queryString":"\"lastPublishDateTime:>2010-01-01T00:00:00Z and lastPublishDateTime:<2019-07-30T23:00:00Z\" and organisations:\"Goldman Sachs Group\"
-// succeed: queryString":"lastPublishDateTime:>2018-11-07T00:00:00Z and lastPublishDateTime:<2018-11-08T00:00:00Z and organisations:\"Goldman Sachs Group\"
+// get each topAnnotation, lookup it's orgs details from facets, create a display from the numbers
+function embellishDataWithOrgContextData( data, allFacets, allFacetsByYear){
+  data.groups.forEach( group => {
+    debug( `embellishDataWithOrgContextData: group.name=${group.name}`);
+    group.byCount.topAnnotations.forEach( topAnotation => {
+      topAnotation.annosByTaxonomy.ORGANISATION.forEach( org => {
+        const totArticles = (allFacets.ontologies.organisations.hasOwnProperty(org.name))? allFacets.ontologies.organisations[org.name] : 0;
+        org.totArticles = totArticles;
+
+        const yearCountPairs = [];
+        if (totArticles) {
+          const byYear = allFacetsByYear.ontologiesNamesByYear.organisations[org.name];
+          allFacetsByYear.years.forEach( year => {
+            const count = (byYear.hasOwnProperty(year))? byYear[year] : 0;
+            yearCountPairs.push([year, count]);
+          })
+        }
+        org.yearCountPairs = yearCountPairs;
+        org.yearCountPairsString = JSON.stringify(yearCountPairs);
+
+        // debug( `embellishDataWithOrgContextData: org=${JSON.stringify(org)}`);
+      })
+    })
+  })
+}
 
 router.get('/displayOrg/:template', async (req, res, next) => {
 	 try {
@@ -505,8 +532,13 @@ router.get('/displayOrg/:template', async (req, res, next) => {
 
      // debug(`/display/:template : combinedParams=${JSON.stringify(combinedParams)}`);
      const searchResponse = await searchAndContent.correlateDammit( combinedParams );
-     debug(`/displayOrg/:template: searchResponse.searchStats=${JSON.stringify(searchResponse.searchStats,null,2)}`);
      const data = prepDisplayData( searchResponse, combinedParams );
+     // debug(`/displayOrg/:template: data.groups[0]=${JSON.stringify(data.groups[0],null,2)}`);
+
+     const allFacets = await searchAndContent.allFacets();
+     const allFacetsByYear = await searchAndContent.allFacetsByYear();
+     embellishDataWithOrgContextData( data, allFacets, allFacetsByYear );
+
      res.render(`searchAndContentExperiments/${template}`, {
    		data,
    		params: combinedParams,
