@@ -82,7 +82,11 @@ if (process.env.BYPASS_TOKEN !== "true") {
 }
 
 //Core Routes
-app.use(s3o);
+if (process.env.BYPASS_TOKEN == "true") {
+  console.log('BYPASS_TOKEN set, so no s3o checks');
+} else {
+  app.use(s3o);
+}
 app.use("/articles/", articles);
 app.use("/24hrs/", twentyfourhrs);
 app.use("/facethistory/", facetHistory);
