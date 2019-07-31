@@ -13,7 +13,7 @@ function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
 	const params = {};
 	// string params
   // ['queryString', 'apiKey'].forEach( name => {
-  ['queryString'].forEach( name => {
+  ['queryString', 'focusOrg'].forEach( name => {
 		if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
 			params[name] = urlParams[name];
 		}
@@ -190,8 +190,14 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
 
   group.byCount.topAnnotations = annosDetails
   .filter( anno => { return anno.count > 1; }) // just those with count > 1
+  .filter( anno => {
+    const annoNameMinusTaxonomy = anno.name.split(':')[1];
+    return (!params.focusOrg || params.focusOrg.includes(annoNameMinusTaxonomy) || annoNameMinusTaxonomy.includes(params.focusOrg));
+  }) // only those matching focusOrg if specified
   .map( anno => { // bring together details, incl list of articles
     const name      = anno.name;
+    // debug(`prepAnnotationsGroup: anno.name=${anno.name},
+    //   anno=${JSON.stringify(anno,null,2)}`);
     const count     = anno.count;
     const constituentNames = (anno.hasOwnProperty('constituentNames'))? anno.constituentNames : [name];
     const uuids     = groupDetails.uuidsGroupedByItem[name];
@@ -376,10 +382,12 @@ function prepDisplayData( searchResponse, params={} ){
     groupNames = params['groups'];
   }
 
+  const groupingtypes = (params.focusOrg)? ['main'] : ['main', 'concertinaed'];
+
   groupNames.forEach( groupName => {
     const groupDetails = searchResponse.correlations.groups[groupName];
 
-    ['main', 'concertinaed'].forEach( groupingType => {
+    groupingtypes.forEach( groupingType => {
       let groupWithTypeName    = groupName;
       let groupWithTypeDetails = groupDetails;
 
@@ -394,13 +402,17 @@ function prepDisplayData( searchResponse, params={} ){
       const mainGroup = prepAnnotationsGroup( groupWithTypeName, groupWithTypeDetails.sortedByCount, groupDetails, searchResponse, params );
       data.groups.push( mainGroup );
 
-      const taxonomies = Object.keys( groupWithTypeDetails.sortedByCountGroupedByTaxonomy );
-      taxonomies.forEach( taxonomy => {
-        const annosDetails = groupWithTypeDetails.sortedByCountGroupedByTaxonomy[taxonomy];
-        const taxonomyGroupName = `${groupWithTypeName}-${taxonomy}`;
-        const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annosDetails, groupDetails, searchResponse, params );
-        data.groups.push( taxonomyGroup );
-      });
+      if (params.focusOrg) {
+        // skip taxonomies
+        } else {
+        const taxonomies = Object.keys( groupWithTypeDetails.sortedByCountGroupedByTaxonomy );
+        taxonomies.forEach( taxonomy => {
+          const annosDetails = groupWithTypeDetails.sortedByCountGroupedByTaxonomy[taxonomy];
+          const taxonomyGroupName = `${groupWithTypeName}-${taxonomy}`;
+          const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annosDetails, groupDetails, searchResponse, params );
+          data.groups.push( taxonomyGroup );
+        });
+      }
 
     })
 
@@ -461,5 +473,52 @@ router.get('/display/:template', async (req, res, next) => {
    }
 });
 
+// fail:    queryString":"\"lastPublishDateTime:>2010-01-01T00:00:00Z and lastPublishDateTime:<2019-07-30T23:00:00Z\" and organisations:\"Goldman Sachs Group\"
+// succeed: queryString":"lastPublishDateTime:>2018-11-07T00:00:00Z and lastPublishDateTime:<2018-11-08T00:00:00Z and organisations:\"Goldman Sachs Group\"
+
+router.get('/displayOrg/:template', async (req, res, next) => {
+	 try {
+     const fulldateRange = searchAndContent.calcFullDateRange();
+     const template = req.params.template;
+     const defaultFocusOrg = 'Goldman Sachs Group';
+     const defaultParams = {
+       maxResults  : 100,
+       maxDepth    : 3,
+       maxDurationMs : 5000,
+       queryString : fulldateRange.queryString,
+       genres      : "News,Opinion",
+       concertinaOverlapThreshold : 0.66,
+       groups      : 'primaryThemes,abouts', // also mentions,aboutsAndMentions
+       ignoreItemList : '',
+       focusOrg    : defaultFocusOrg,
+     }
+     const copyQueryParams = Object.assign(req.query);
+     Object.keys(defaultParams).forEach( param => {
+       if (copyQueryParams.hasOwnProperty(param)
+        && copyQueryParams[param] === "") {
+         delete copyQueryParams[param];
+       }
+     });
+
+     const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
+     combinedParams.constraints = [`organisations:${combinedParams.focusOrg}`];
+
+     // debug(`/display/:template : combinedParams=${JSON.stringify(combinedParams)}`);
+     const searchResponse = await searchAndContent.correlateDammit( combinedParams );
+     const data = prepDisplayData( searchResponse, combinedParams );
+     res.render(`searchAndContentExperiments/${template}`, {
+   		data,
+   		params: combinedParams,
+      context : {
+        numArticles        : searchResponse.numArticles,
+        numArticlesInGenres: searchResponse.correlations.numArticlesInGenres,
+        genresString       : searchResponse.correlations.genres.join(',')
+      }
+   	});
+
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
 
 module.exports = router;
