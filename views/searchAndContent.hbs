@@ -142,6 +142,14 @@
 				<h3>prepped data for display of correlations based on iterated searches (multiple SAPI calls to get more results), with added CAPI calls to flesh out article details, returning just the reduced CAPI aspect of the article data with added mergedAnnotations</h3>
 				<a href="/searchAndContent/display">/searchAndContent/display</a>
 			</li>
+			<li>
+				<h3>allFacets for the default date range</h3>
+				<form action="/searchAndContent/allFacets" method="get">
+					<div class="button">
+					  <button type="submit">GET allFacets</button>
+					</div>
+				</form>
+			</li>
 		</ul>
 		<h3>POST Endpoints</h3>
 		<p>Can specify any of the standard SAPI POST body params as query params *or* as POST body params (if encoded as application/json), along with other params such as maxDepth.</p>
