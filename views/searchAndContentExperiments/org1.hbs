@@ -203,7 +203,11 @@
 											<ul>
 												{{#each this.annosByTaxonomy.ORGANISATION}}
 													<li>{{name}} (article overlap={{count}}, tot={{totArticles}})
-														<ul><li>{{yearCountPairsString}}</li></ul>
+														<dl>
+															<dd>yearCountPairsString</dd><dt>{{yearCountPairsString}}</dt>
+															<dd>yearCorrelationCountPairsString</dd><dt>{{yearCorrelationCountPairsString}}</dt>
+															<dd>monthCorrelationCountPairsString</dd><dt>{{monthCorrelationCountPairsString}}</dt>
+														</dl>
 													</li>
 												{{/each}}
 											</ul>
