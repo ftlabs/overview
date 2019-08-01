@@ -657,54 +657,87 @@ function embellishDataWithOrgContextData( data, allFacets, allFacetsByYear){
   })
 }
 
+function generateDisplayOrgCombinedParamsFromReq( req ){
+  const fulldateRange = searchAndContent.calcFullDateRange();
+  const defaultFocusOrg = 'Goldman Sachs Group';
+  const defaultParams = {
+    maxResults  : 100,
+    maxDepth    : 3,
+    maxDurationMs : 5000,
+    queryString : fulldateRange.queryString,
+    genres      : "News,Opinion",
+    concertinaOverlapThreshold : 0.66,
+    groups      : 'primaryThemes,abouts', // also mentions,aboutsAndMentions
+    ignoreItemList : '',
+    focusOrg    : defaultFocusOrg,
+  }
+  const copyQueryParams = Object.assign(req.query);
+  Object.keys(defaultParams).forEach( param => {
+    if (copyQueryParams.hasOwnProperty(param)
+     && copyQueryParams[param] === "") {
+      delete copyQueryParams[param];
+    }
+  });
+
+  const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
+  combinedParams.constraints = [`organisations:${combinedParams.focusOrg}`];
+
+  return combinedParams;
+}
+
+async function generateAllDataForDisplayOrg( combinedParams ) {
+  const searchResponse = await searchAndContent.correlateDammit( combinedParams );
+  const data = prepDisplayData( searchResponse, combinedParams );
+  // debug(`/displayOrg/:template: data.groups[0]=${JSON.stringify(data.groups[0],null,2)}`);
+
+  const allFacets = await searchAndContent.allFacets();
+  const allFacetsByYear = await searchAndContent.allFacetsByYear();
+  embellishDataWithOrgContextData( data, allFacets, allFacetsByYear );
+
+  return {
+    description: 'This data is formatted to supply the page /searchAndContent/displayOrg/org1, rather than being a generic data resource, and is a tad messy',
+    params: combinedParams,
+    data,
+    context : {
+     numArticles        : searchResponse.numArticles,
+     numArticlesInGenres: searchResponse.correlations.numArticlesInGenres,
+     genresString       : searchResponse.correlations.genres.join(','),
+     indexCount         : searchResponse.searchStats.indexCount,
+     numSearches        : searchResponse.searchStats.numSearches,
+   }
+ }
+}
+
+const DISPLAY_ORG_CACHE = {};
+
+async function cachedGenerateAllDataForDisplayOrg( combinedParams ) {
+  const cacheKey = JSON.stringify(combinedParams);
+  let allData;
+  if (DISPLAY_ORG_CACHE.hasOwnProperty(cacheKey)) {
+    debug(`cachedGenerateAllDataForDisplayOrg: cache HIT: cacheKey=${cacheKey}`);
+    allData = DISPLAY_ORG_CACHE[cacheKey];
+  } else {
+    debug(`cachedGenerateAllDataForDisplayOrg: cache MISS: cacheKey=${cacheKey}`);
+    allData = await generateAllDataForDisplayOrg( combinedParams );
+    DISPLAY_ORG_CACHE[cacheKey] = allData;
+  }
+
+  return allData;
+}
+
 router.get('/displayOrg/:template', async (req, res, next) => {
 	 try {
-     const fulldateRange = searchAndContent.calcFullDateRange();
      const template = req.params.template;
-     const defaultFocusOrg = 'Goldman Sachs Group';
-     const defaultParams = {
-       maxResults  : 100,
-       maxDepth    : 3,
-       maxDurationMs : 5000,
-       queryString : fulldateRange.queryString,
-       genres      : "News,Opinion",
-       concertinaOverlapThreshold : 0.66,
-       groups      : 'primaryThemes,abouts', // also mentions,aboutsAndMentions
-       ignoreItemList : '',
-       focusOrg    : defaultFocusOrg,
+     const returnRaw = (req.query.raw && req.query.raw === 'true');
+     const combinedParams = generateDisplayOrgCombinedParamsFromReq( req );
+     debug(`/displayOrg/:template : combinedParams=${JSON.stringify(combinedParams)}`);
+
+     const allData = await cachedGenerateAllDataForDisplayOrg( combinedParams );
+     if (returnRaw) {
+       res.json( allData );
+     } else {
+       res.render(`searchAndContentExperiments/${template}`, allData );
      }
-     const copyQueryParams = Object.assign(req.query);
-     Object.keys(defaultParams).forEach( param => {
-       if (copyQueryParams.hasOwnProperty(param)
-        && copyQueryParams[param] === "") {
-         delete copyQueryParams[param];
-       }
-     });
-
-     const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
-     combinedParams.constraints = [`organisations:${combinedParams.focusOrg}`];
-
-     // debug(`/display/:template : combinedParams=${JSON.stringify(combinedParams)}`);
-     const searchResponse = await searchAndContent.correlateDammit( combinedParams );
-     const data = prepDisplayData( searchResponse, combinedParams );
-     // debug(`/displayOrg/:template: data.groups[0]=${JSON.stringify(data.groups[0],null,2)}`);
-
-     const allFacets = await searchAndContent.allFacets();
-     const allFacetsByYear = await searchAndContent.allFacetsByYear();
-     embellishDataWithOrgContextData( data, allFacets, allFacetsByYear );
-
-     res.render(`searchAndContentExperiments/${template}`, {
-   		data,
-   		params: combinedParams,
-      context : {
-        numArticles        : searchResponse.numArticles,
-        numArticlesInGenres: searchResponse.correlations.numArticlesInGenres,
-        genresString       : searchResponse.correlations.genres.join(','),
-        indexCount         : searchResponse.searchStats.indexCount,
-        numSearches        : searchResponse.searchStats.numSearches,
-      }
-   	});
-
    } catch( err ){
      res.json( { error: err.message, });
    }
