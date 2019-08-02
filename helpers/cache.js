@@ -15,7 +15,7 @@ function clear(key) {
 function set(key, value) {
 	if (!CACHE.hasOwnProperty(key)) {
 		CACHE[key] = value;
-	} 
+	}
 
 	return CACHE[key];
 }
@@ -25,6 +25,7 @@ function get(key) {
 	if (!CACHE.hasOwnProperty(key)) {
 		debug(`cache.get: miss: key=${key}`);
 	} else {
+		debug(`cache.get: HIT: key=${key}`);
 		value = CACHE[key];
 	}
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const searchAndContent = require('../lib/searchAndContent');
-const debug = require('debug')('views:searchAndContent');
+const debug = require('debug')('routes:searchAndContent');
 const image = require('../helpers/image');
 
 
@@ -13,7 +13,7 @@ function constructSearchParamsFromRequest( urlParams={}, bodyParams={} ){
 	const params = {};
 	// string params
   // ['queryString', 'apiKey'].forEach( name => {
-  ['queryString'].forEach( name => {
+  ['queryString', 'focusOrg'].forEach( name => {
 		if (urlParams.hasOwnProperty(name) && urlParams[name] !== "") {
 			params[name] = urlParams[name];
 		}
@@ -59,7 +59,9 @@ const pathsFns = [
   ['/search/deeper'               , searchAndContent.searchDeeper            ],
   ['/search/deeper/articles'      , searchAndContent.searchDeeperArticles    ],
   ['/search/deeper/articles/capi' , searchAndContent.searchDeeperArticlesCapi],
-  ['/correlateDammit'             , searchAndContent.correlateDammit         ]
+  ['/correlateDammit'             , searchAndContent.correlateDammit         ],
+  ['/allFacets'                   , searchAndContent.allFacets               ],
+  ['/allFacetsByYear'             , searchAndContent.allFacetsByYear         ],
 ];
 
 // unpack all the combinations of get/post for each of the main routes
@@ -188,8 +190,14 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
 
   group.byCount.topAnnotations = annosDetails
   .filter( anno => { return anno.count > 1; }) // just those with count > 1
+  .filter( anno => {
+    const annoNameMinusTaxonomy = anno.name.split(':')[1];
+    return (!params.focusOrg || params.focusOrg.includes(annoNameMinusTaxonomy) || annoNameMinusTaxonomy.includes(params.focusOrg));
+  }) // only those matching focusOrg if specified
   .map( anno => { // bring together details, incl list of articles
     const name      = anno.name;
+    // debug(`prepAnnotationsGroup: anno.name=${anno.name},
+    //   anno=${JSON.stringify(anno,null,2)}`);
     const count     = anno.count;
     const constituentNames = (anno.hasOwnProperty('constituentNames'))? anno.constituentNames : [name];
     const uuids     = groupDetails.uuidsGroupedByItem[name];
@@ -199,8 +207,12 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
         && article.mainImage.members
         && article.mainImage.members.length > 0 ) {
           article.mainImage.thumbnailUrl = image.formatImageUrl(article.mainImage.members[0], 200);
+          article.mainImage.binaryUrl = article.mainImage.members[0].binaryUrl;
       }
+
+      article.yyyy_mm_dd = article.publishedDate.split('T')[0];
     });
+    // debug( `prepAnnotationsGroup: articles[0]=${JSON.stringify(articles[0],null,2)}`);
 
     const namesWithCounts = constituentNames
     .map( name => { return {
@@ -226,7 +238,8 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
     const max2ndCliqueProportion = combinedParams.max2ndCliqueProportion;
 
     const cliques = [];
-    if (namesWithCounts.length > 1
+    if (!params.focusOrg
+     && namesWithCounts.length > 1
      && namesWithCounts[1].count > min2ndCliqueCount
      && (namesWithCounts[1].count / namesWithCounts[0].count) >= min2ndCliqueProportion
      && (namesWithCounts[1].count / namesWithCounts[0].count) <= max2ndCliqueProportion
@@ -374,10 +387,12 @@ function prepDisplayData( searchResponse, params={} ){
     groupNames = params['groups'];
   }
 
+  const groupingtypes = (params.focusOrg)? ['main'] : ['main', 'concertinaed'];
+
   groupNames.forEach( groupName => {
     const groupDetails = searchResponse.correlations.groups[groupName];
 
-    ['main', 'concertinaed'].forEach( groupingType => {
+    groupingtypes.forEach( groupingType => {
       let groupWithTypeName    = groupName;
       let groupWithTypeDetails = groupDetails;
 
@@ -392,13 +407,17 @@ function prepDisplayData( searchResponse, params={} ){
       const mainGroup = prepAnnotationsGroup( groupWithTypeName, groupWithTypeDetails.sortedByCount, groupDetails, searchResponse, params );
       data.groups.push( mainGroup );
 
-      const taxonomies = Object.keys( groupWithTypeDetails.sortedByCountGroupedByTaxonomy );
-      taxonomies.forEach( taxonomy => {
-        const annosDetails = groupWithTypeDetails.sortedByCountGroupedByTaxonomy[taxonomy];
-        const taxonomyGroupName = `${groupWithTypeName}-${taxonomy}`;
-        const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annosDetails, groupDetails, searchResponse, params );
-        data.groups.push( taxonomyGroup );
-      });
+      if (params.focusOrg) {
+        // skip taxonomies
+        } else {
+        const taxonomies = Object.keys( groupWithTypeDetails.sortedByCountGroupedByTaxonomy );
+        taxonomies.forEach( taxonomy => {
+          const annosDetails = groupWithTypeDetails.sortedByCountGroupedByTaxonomy[taxonomy];
+          const taxonomyGroupName = `${groupWithTypeName}-${taxonomy}`;
+          const taxonomyGroup = prepAnnotationsGroup( taxonomyGroupName, annosDetails, groupDetails, searchResponse, params );
+          data.groups.push( taxonomyGroup );
+        });
+      }
 
     })
 
@@ -459,5 +478,287 @@ router.get('/display/:template', async (req, res, next) => {
    }
 });
 
+// get each topAnnotation, lookup it's orgs details from facets, create a display from the numbers
+
+function embellishDataWithOrgContextData( data, allFacets, allFacetsByYear){
+  data.groups.forEach( group => {
+    debug( `embellishDataWithOrgContextData: group.name=${group.name}`);
+    // debug( `embellishDataWithOrgContextData: group=${JSON.stringify(group,null,2)}`);
+    group.byCount.topAnnotations.forEach( topAnnotation => {
+      topAnnotation.annosByTaxonomy.ORGANISATION.forEach( org => {
+        const totArticles = (allFacets.ontologies.organisations.hasOwnProperty(org.name))? allFacets.ontologies.organisations[org.name] : 0;
+        org.totArticles = totArticles;
+
+        const yearCountPairs = [];
+        if (totArticles) {
+          const byYear = allFacetsByYear.ontologiesNamesByYear.organisations[org.name];
+          allFacetsByYear.years.forEach( year => {
+            const count = (byYear.hasOwnProperty(year))? byYear[year] : 0;
+            yearCountPairs.push([year, count]);
+          })
+        }
+        org.yearCountPairs = yearCountPairs;
+        org.yearCountPairsString = JSON.stringify(yearCountPairs);
+      });
+
+      // group={
+      //   routes:searchAndContent   "name": "abouts",
+      //   routes:searchAndContent   "byCount": {
+      //   routes:searchAndContent     "topAnnotations": [
+      //   routes:searchAndContent       {
+      //   routes:searchAndContent         "name": "ORGANISATION:Goldman Sachs Group",
+      //   routes:searchAndContent         "nameBR": "ORGANISATION:Goldman Sachs Group",
+      //   routes:searchAndContent         "nameWithCountsBR": "Goldman Sachs Group (78)",
+      //   routes:searchAndContent         "count": 78,
+      //   routes:searchAndContent         "uuids": [
+      //   routes:searchAndContent           "be844fcc-a948-11e9-b6ee-3cdf3174eb89",
+      // ...
+      //   routes:searchAndContent           "420093be-1426-11e9-a581-4ff78404524e"
+      //   routes:searchAndContent         ],
+      //   routes:searchAndContent         "articles": [
+      //   routes:searchAndContent           {
+      //   routes:searchAndContent             "id": "http://www.ft.com/thing/be844fcc-a948-11e9-b6ee-3cdf3174eb89",
+      //   routes:searchAndContent             "title": "Goldman’s bankers are left waiting on the ‘platform’",
+      //   routes:searchAndContent             "standfirst": "Emphasising technology makes sense but electronic rivals have a lead",
+      //   routes:searchAndContent             "firstPublishedDate": "2019-07-19T06:53:45.000Z",
+      //   routes:searchAndContent             "publishedDate": "2019-07-19T06:53:45.000Z",
+      //   routes:searchAndContent             "prefLabel": "Goldman’s bankers are left waiting on the ‘platform’",
+      //   routes:searchAndContent             "types": [
+      //   routes:searchAndContent               "http://www.ft.com/ontology/content/Article"
+      //   routes:searchAndContent             ],
+      //   routes:searchAndContent             "mergedAnnotations": {
+      //   routes:searchAndContent               "abouts": [
+      //   routes:searchAndContent                 "TOPIC:Investment Banking",
+      //   routes:searchAndContent                 "TOPIC:US banks",
+      //   routes:searchAndContent                 "TOPIC:Financial services",
+      //   routes:searchAndContent                 "ORGANISATION:Goldman Sachs Group"
+      //   routes:searchAndContent               ],
+      //   routes:searchAndContent               "implicitlyAbouts": [
+      //   routes:searchAndContent                 "TOPIC:Banks",
+      //   routes:searchAndContent                 "TOPIC:US & Canadian companies",
+      //   routes:searchAndContent                 "TOPIC:Financials",
+      //   routes:searchAndContent                 "TOPIC:Companies"
+      //   routes:searchAndContent               ],
+      //   routes:searchAndContent               "mentions": [
+      //   routes:searchAndContent                 "ORGANISATION:MarketAxess Holdings Inc",
+      //   routes:searchAndContent                 "LOCATION:US",
+      //   routes:searchAndContent                 "PERSON:Lloyd Blankfein",
+      //   routes:searchAndContent                 "PERSON:Stephen M. Scherr",
+      //   routes:searchAndContent                 "ORGANISATION:Citigroup Inc"
+      //   routes:searchAndContent               ],
+      //   routes:searchAndContent               "classifiedBys": [
+      //   routes:searchAndContent                 "BRAND:The Top Line",
+      //   routes:searchAndContent                 "GENRE:Opinion"
+      //   routes:searchAndContent               ],
+      //   routes:searchAndContent               "implicitlyClassifiedBys": [
+      //   routes:searchAndContent                 "BRAND:Financial Times"
+      //   routes:searchAndContent               ],
+      //   routes:searchAndContent               "genre": "Opinion",
+      //   routes:searchAndContent               "primaryTheme": "ORGANISATION:Goldman Sachs Group"
+      //   routes:searchAndContent             },
+
+      // within the topAnnotation
+      // loop over the articles,
+      //   counting all the correlations between the topAnnotation's named org
+      //   and every other org in abouts (and not mentions?)
+      //   by year and by month.
+      //   Keep track of max/min years and months
+
+      const correlations = {
+        rootOrg : topAnnotation.name.split(':')[1],
+        orgs : {},
+          // byYear  : {}, // [org] = count
+          // byMonth : {}, // [org] = count
+        yearMax : '0',     // e.g. '2019'
+        yearMin : '3000', // e.g. '2010'
+        monthMax : '1900-01-01', // '2019-08'
+        monthMin : '3000-01-01', // '2019-08'
+      }
+
+      topAnnotation.articles.forEach( article => {
+        const yearmd = article.publishedDate.split('T')[0];
+        const yearm  = yearmd.split('-').slice(0,2).join('-');
+        const year   = yearm.split('-')[0];
+
+        if (article.mergedAnnotations && article.mergedAnnotations.abouts) {
+          article.mergedAnnotations.abouts.forEach( about => {
+            const aboutPieces = about.split(':');
+            if (aboutPieces[0] === 'ORGANISATION') {
+              const orgName = aboutPieces[1];
+              if (!correlations.orgs.hasOwnProperty(orgName)) {
+                correlations.orgs[orgName] = {
+                  byYear  : {}, // [orgName] = count
+                  byMonth : {}, // [orgName] = count
+                }
+              }
+              if (!correlations.orgs[orgName].byYear.hasOwnProperty(year)) {
+                correlations.orgs[orgName].byYear[year] = 0;
+              }
+              if (!correlations.orgs[orgName].byMonth.hasOwnProperty(yearm)) {
+                correlations.orgs[orgName].byMonth[yearm] = 0;
+              }
+
+              correlations.orgs[orgName].byYear[year]   += 1;
+              correlations.orgs[orgName].byMonth[yearm] += 1;
+
+              if (year  > correlations.yearMax ) { correlations.yearMax  = year;  }
+              if (year  < correlations.yearMin ) { correlations.yearMin  = year;  }
+              if (yearm > correlations.monthMax) { correlations.monthMax = yearm; }
+              if (yearm < correlations.monthMin) { correlations.monthMin = yearm; }
+            } else {
+              // debug(`embellishDataWithOrgContextData: topAnnotation.articles.forEach: skipping about=${about}`);
+            }
+          })
+        }
+      });
+
+      // Iterate over range of years (and range of months)
+      //  fleshing out an array per org, with an entry for each year (or month).
+      //  Will mean lots of zeros.
+
+      const orgNames = Object.keys( correlations.orgs );
+
+      debug( `embellishDataWithOrgContextData: correlations.orgs names = ${JSON.stringify(orgNames)}`);
+
+      const yearMinInt = parseInt(correlations.yearMin);
+      const yearMaxInt = parseInt(correlations.yearMax);
+      orgNames.forEach( orgName => {
+        correlations.orgs[orgName].yearCountPairs = [];
+        correlations.orgs[orgName].monthCountPairs = [];
+        for(let y=yearMinInt ; y<=yearMaxInt; y++ ){
+          const yCount = (correlations.orgs[orgName].byYear.hasOwnProperty(y))? correlations.orgs[orgName].byYear[y] : 0;
+          correlations.orgs[orgName].yearCountPairs.push([y, yCount]);
+          for ( let m = 1; m <= 12; m++ ) {
+            const mstring = `${m}`.padStart(2,'0');
+            const ymString = `${y}-${mstring}`;
+            if (ymString >= correlations.monthMin && ymString <= correlations.monthMax) {
+              const mCount = (correlations.orgs[orgName].byMonth.hasOwnProperty(ymString))? correlations.orgs[orgName].byMonth[ymString] : 0;
+              correlations.orgs[orgName].monthCountPairs.push([ymString, mCount]);
+            }
+          }
+        }
+      })
+
+      // debug( `embellishDataWithOrgContextData: correlations = ${JSON.stringify(correlations,null,2)}`);
+
+      // now add these to the existing annosByTaxonomy
+
+      topAnnotation.annosByTaxonomy.ORGANISATION.forEach( org => {
+        if (correlations.orgs.hasOwnProperty(org.name)) {
+          org.yearCorrelationCountPairs = correlations.orgs[org.name].yearCountPairs;
+          org.yearCorrelationCountPairsString = JSON.stringify(org.yearCorrelationCountPairs);
+          org.monthCorrelationCountPairs = correlations.orgs[org.name].monthCountPairs;
+          org.monthCorrelationCountPairsString = JSON.stringify(correlations.orgs[org.name].monthCountPairs);
+        }
+        // debug( `embellishDataWithOrgContextData: org=${JSON.stringify(org)}`);
+      });
+
+    })
+  })
+}
+
+function generateDisplayOrgCombinedParamsFromReq( req ){
+  const fulldateRange = searchAndContent.calcFullDateRange();
+  const defaultFocusOrg = 'Goldman Sachs Group';
+  const defaultParams = {
+    maxResults  : 100,
+    maxDepth    : 3,
+    maxDurationMs : 5000,
+    queryString : fulldateRange.queryString,
+    genres      : "News,Opinion",
+    concertinaOverlapThreshold : 0.66,
+    groups      : 'primaryThemes,abouts', // also mentions,aboutsAndMentions
+    ignoreItemList : '',
+    focusOrg    : defaultFocusOrg,
+  }
+  const copyQueryParams = Object.assign(req.query);
+  Object.keys(defaultParams).forEach( param => {
+    if (copyQueryParams.hasOwnProperty(param)
+     && copyQueryParams[param] === "") {
+      delete copyQueryParams[param];
+    }
+  });
+
+  const combinedParams = constructSearchParamsFromRequest( copyQueryParams, defaultParams );
+  combinedParams.constraints = [`organisations:${combinedParams.focusOrg}`];
+
+  return combinedParams;
+}
+
+async function generateAllDataForDisplayOrg( combinedParams ) {
+  const searchResponse = await searchAndContent.correlateDammit( combinedParams );
+  const data = prepDisplayData( searchResponse, combinedParams );
+  // debug(`/displayOrg/:template: data.groups[0]=${JSON.stringify(data.groups[0],null,2)}`);
+
+  const allFacets = await searchAndContent.allFacets();
+  const allFacetsByYear = await searchAndContent.allFacetsByYear();
+  embellishDataWithOrgContextData( data, allFacets, allFacetsByYear );
+
+  // trim unneeded stuff from return ('cos the full Monty seems to be approaching 135M !)
+  delete data.searchResponse;
+
+  data.groups.forEach( group => {
+    group.byCount.topAnnotations.forEach( topAnnotation => {
+      topAnnotation.articles.forEach( article => {
+        const mainImage = article.mainImage;
+        if (mainImage) {
+          article.mainImage = {
+            id           : mainImage.id,
+            thumbnailUrl : mainImage.thumbnailUrl,
+            binaryUrl    : mainImage.binaryUrl,
+          };
+        }
+      });
+    });
+  });
+
+  return {
+    description: 'This data is formatted to supply the page /searchAndContent/displayOrg/org1, rather than being a generic data resource, and is a tad messy',
+    params: combinedParams,
+    data,
+    context : {
+     numArticles        : searchResponse.numArticles,
+     numArticlesInGenres: searchResponse.correlations.numArticlesInGenres,
+     genresString       : searchResponse.correlations.genres.join(','),
+     indexCount         : searchResponse.searchStats.indexCount,
+     numSearches        : searchResponse.searchStats.numSearches,
+   }
+ }
+}
+
+const DISPLAY_ORG_CACHE = {};
+
+async function cachedGenerateAllDataForDisplayOrg( combinedParams ) {
+  const cacheKey = JSON.stringify(combinedParams);
+  let allData;
+  if (DISPLAY_ORG_CACHE.hasOwnProperty(cacheKey)) {
+    debug(`cachedGenerateAllDataForDisplayOrg: cache HIT: cacheKey=${cacheKey}`);
+    allData = DISPLAY_ORG_CACHE[cacheKey];
+  } else {
+    debug(`cachedGenerateAllDataForDisplayOrg: cache MISS: cacheKey=${cacheKey}`);
+    allData = await generateAllDataForDisplayOrg( combinedParams );
+    DISPLAY_ORG_CACHE[cacheKey] = allData;
+  }
+
+  return allData;
+}
+
+router.get('/displayOrg/:template', async (req, res, next) => {
+	 try {
+     const template = req.params.template;
+     const returnRaw = (req.query.raw && req.query.raw === 'true');
+     const combinedParams = generateDisplayOrgCombinedParamsFromReq( req );
+     debug(`/displayOrg/:template : combinedParams=${JSON.stringify(combinedParams)}`);
+
+     const allData = await cachedGenerateAllDataForDisplayOrg( combinedParams );
+     if (returnRaw) {
+       res.json( allData );
+     } else {
+       res.render(`searchAndContentExperiments/${template}`, allData );
+     }
+   } catch( err ){
+     res.json( { error: err.message, });
+   }
+});
 
 module.exports = router;
