@@ -6,3 +6,5 @@ package-lock.json
 *.swp
 keyfile.json
 listIds.js
+*.temp
+*.tmp

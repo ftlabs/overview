@@ -207,6 +207,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
         && article.mainImage.members
         && article.mainImage.members.length > 0 ) {
           article.mainImage.thumbnailUrl = image.formatImageUrl(article.mainImage.members[0], 200);
+          article.mainImage.binaryUrl = article.mainImage.members[0].binaryUrl;
       }
 
       article.yyyy_mm_dd = article.publishedDate.split('T')[0];
@@ -636,7 +637,6 @@ function embellishDataWithOrgContextData( data, allFacets, allFacetsByYear){
             }
           }
         }
-        // also do the same for months
       })
 
       // debug( `embellishDataWithOrgContextData: correlations = ${JSON.stringify(correlations,null,2)}`);
@@ -693,6 +693,24 @@ async function generateAllDataForDisplayOrg( combinedParams ) {
   const allFacets = await searchAndContent.allFacets();
   const allFacetsByYear = await searchAndContent.allFacetsByYear();
   embellishDataWithOrgContextData( data, allFacets, allFacetsByYear );
+
+  // trim unneeded stuff from return ('cos the full Monty seems to be approaching 135M !)
+  delete data.searchResponse;
+
+  data.groups.forEach( group => {
+    group.byCount.topAnnotations.forEach( topAnnotation => {
+      topAnnotation.articles.forEach( article => {
+        const mainImage = article.mainImage;
+        if (mainImage) {
+          article.mainImage = {
+            id           : mainImage.id,
+            thumbnailUrl : mainImage.thumbnailUrl,
+            binaryUrl    : mainImage.binaryUrl,
+          };
+        }
+      });
+    });
+  });
 
   return {
     description: 'This data is formatted to supply the page /searchAndContent/displayOrg/org1, rather than being a generic data resource, and is a tad messy',
