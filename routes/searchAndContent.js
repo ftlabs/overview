@@ -212,7 +212,7 @@ function prepAnnotationsGroup( groupName, annosDetails, groupDetails, searchResp
 
       article.yyyy_mm_dd = article.publishedDate.split('T')[0];
     });
-    debug( `prepAnnotationsGroup: articles[0]=${JSON.stringify(articles[0],null,2)}`);
+    // debug( `prepAnnotationsGroup: articles[0]=${JSON.stringify(articles[0],null,2)}`);
 
     const namesWithCounts = constituentNames
     .map( name => { return {
