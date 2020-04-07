@@ -28,7 +28,6 @@ if (process.env.NODE_ENV === "production") {
   fs.writeFileSync(googleTokenPath, process.env.GOOGLE_CREDS);
 }
 
-const validateRequest = require("./helpers/check-token");
 const articles = require("./routes/articles");
 const twentyfourhrs = require("./routes/twentyfourhrs");
 const facetHistory = require("./routes/facetHistory");
