@@ -13,7 +13,7 @@ You will need to create a .env file and include the mandatory environment variab
 CAPI_KEY= # you can request this via the FT developer portal
 LANTERN_API_KEY= # you can request this via slack.
 TOKEN= # for authorised access without S3O or IP range. This can be set to a noddy value for development.
-PORT= # auto set in Heroku, but needs specifying for development.
+PORT= # Set port to 3001 to allow correct OKTA authentication
 LIST_IDS= # JSON object of list ids for the content list db (found in LastPass)
 IMAGE_SERVICE_URL= # Image service URL
 REPLACE_IMG_URL= # Replace image URL
