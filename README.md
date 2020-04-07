@@ -13,12 +13,17 @@ You will need to create a .env file and include the mandatory environment variab
 CAPI_KEY= # you can request this via the FT developer portal
 LANTERN_API_KEY= # you can request this via slack.
 TOKEN= # for authorised access without OKTA or IP range. This can be set to a noddy value for development.
-PORT= # Set port to 3001 to allow correct OKTA authentication
+PORT= # For local use : Set port to 3001 to allow correct OKTA authentication
 LIST_IDS= # JSON object of list ids for the content list db (found in LastPass)
 IMAGE_SERVICE_URL= # Image service URL
 REPLACE_IMG_URL= # Replace image URL
 FT_LOGO= # FT logo image to be used as a backup for articles with no images.
 GOOGLE_CREDS= # *Production only* contents of keyfile.json.
+OKTA_CLIENT= # Stored in Vault
+OKTA_SECRET= # Stored in Vault
+OKTA_ISSUER= # For local use : https://ft-test.okta.com/oauth2/aus1kd29jg5LHxiFu357
+SESSION_TOKEN= # Stored in the Cyber Okta config (private repo)
+BASE_URL= # For local use : http://localhost:3001
 ```
 
 You will also need a `keyfile.json` with credentials for big query for the list service (found in LastPass). In production this is loaded through an environment variable `GOOGLE_CREDS`.
